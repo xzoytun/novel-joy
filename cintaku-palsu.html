@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cintaku Padamu Itu Palsu - Baca Novel</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --content-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #e50914;
+            --accent-hover: #f6121d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .reader-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--content-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            transition: background-color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #444;
+        }
+
+        .novel-header {
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .novel-header h1 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .novel-header p {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .chapter-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .chapter-content {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #dcdcdc;
+            text-align: justify;
+        }
+
+        .chapter-content p {
+            margin-bottom: 20px;
+        }
+
+        .navigation-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        .nav-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .nav-btn.disabled {
+            background-color: #333;
+            color: #777;
+            pointer-events: none;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reader-container">
+        <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+
+        <div class="novel-header">
+            <h1>Cintaku Padamu Itu Palsu</h1>
+            <p>"I lied to you. But: was it all a lie to myself?"</p>
+        </div>
+
+        <div class="chapter-title">Bab 1: Permainan Sandiwara</div>
+
+        <div class="chapter-content">
+            <p>Hujan gerimis turun membasahi kaca jendela kafe tempat mereka duduk berdua. Suasana remang-remang malam itu seolah mendukung keheningan canggung yang tercipta di antara Reyhan dan Clara.</p>
+            
+            <p>Clara menatap selembar kertas kecil di tangannya. Tulisannya sangat jelas, sebuah instruksi sederhana yang menjadi awal dari kekacauan ini: <em>Just pretend.</em></p>
+            
+            <p>"Kita hanya perlu melanjutkan sandiwara ini sampai kontrak kerja sama perusahaan selesai, Rey," ucap Clara pelan, berusaha menyembunyikan getaran di suaranya.</p>
+            
+            <p>Reyhan menatap tajam ke arah wanita di depannya. Matanya menyiratkan sesuatu yang jauh lebih dalam, sesuatu yang selama ini mati-matian ia sembunyikan di balik senyum sinisnya. Ia tahu betul risikonya. Dari awal, hubungan ini memang dibangun di atas fondasi kepalsuan.</p>
+            
+            <p>"Aku berbohong kepadamu, Clara," suara Reyhan terdengar parau, memecah lamunan wanita itu. "Aku bilang perasaanku ini palsu... tapi, apakah itu semua juga kebohongan pada diriku sendiri?"</p>
+            
+            <p>Clara tertegun. Jantungnya berdegup kencang mendengar pengakuan itu. Batas antara sandiwara dan kenyataan mendadak menjadi kabur.</p>
+        </div>
+
+        <div class="navigation-footer">
+            <a href="#" class="nav-btn disabled">&larr; Bab Sebelumnya</a>
+            <a href="#" class="nav-btn">Bab Berikutnya &rarr;</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Novel Digital. All rights reserved.
+    </footer>
+
+</body>
+</html>
