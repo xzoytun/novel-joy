@@ -58,12 +58,6 @@
             gap: 10px;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
         .logo-area h1 {
             font-size: 1.4rem;
             font-weight: 700;
@@ -73,107 +67,6 @@
         }
 
         .logo-area h1 .accent {
-            color: var(--accent);
-        }
-
-        /* ===== HAMBURGER MENU ===== */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 6px;
-            transition: background var(--transition);
-        }
-
-        .hamburger:hover {
-            background: var(--bg-primary);
-        }
-
-        .hamburger .bar {
-            display: block;
-            width: 26px;
-            height: 3px;
-            background: var(--text-main);
-            border-radius: 2px;
-            transition: all var(--transition);
-            transform-origin: center;
-        }
-
-        .hamburger.active .bar:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-
-        .hamburger.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active .bar:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
-
-        /* ===== MOBILE DROPDOWN NAV ===== */
-        .mobile-nav {
-            display: none;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 12px 20px 16px;
-            flex-direction: column;
-            gap: 4px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .mobile-nav.open {
-            display: flex;
-        }
-
-        .mobile-nav .mobile-tab {
-            padding: 10px 14px;
-            border: none;
-            background: transparent;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-radius: 8px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: inherit;
-            transition: background var(--transition), color var(--transition);
-        }
-
-        .mobile-nav .mobile-tab:hover {
-            background: var(--bg-primary);
-        }
-
-        .mobile-nav .mobile-tab.active {
-            background: rgba(229, 9, 20, 0.06);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .mobile-nav .mobile-tab .tab-icon {
-            font-size: 1rem;
-        }
-
-        .mobile-nav .mobile-tab .count {
-            background: var(--bg-primary);
-            padding: 0 8px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-left: auto;
-        }
-
-        .mobile-nav .mobile-tab.active .count {
-            background: rgba(229, 9, 20, 0.08);
             color: var(--accent);
         }
 
@@ -192,13 +85,13 @@
         /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 40px 20px 28px;
+            padding: 32px 20px 20px;
             max-width: 820px;
             margin: 0 auto;
         }
 
         .hero h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             color: #111;
             letter-spacing: -0.5px;
@@ -212,15 +105,15 @@
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-top: 6px;
+            font-size: 1rem;
+            margin-top: 4px;
         }
 
         /* ===== SEARCH ===== */
         .search-wrapper {
             max-width: 1200px;
-            margin: 4px auto 0;
-            padding: 0 20px 16px;
+            margin: 0 auto;
+            padding: 0 20px 14px;
         }
 
         .search-box {
@@ -253,8 +146,8 @@
             flex: 1;
             border: none;
             background: transparent;
-            padding: 14px 0;
-            font-size: 0.95rem;
+            padding: 12px 0;
+            font-size: 0.93rem;
             font-family: inherit;
             color: var(--text-main);
             outline: none;
@@ -290,83 +183,93 @@
 
         .search-results-hint {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
-            margin-top: 8px;
-            min-height: 1.5em;
+            margin-top: 6px;
+            min-height: 1.4em;
         }
 
-        /* ===== CATEGORY TABS (desktop) ===== */
-        .category-tabs {
+        /* ===== CATEGORY TABS ===== */
+        .category-wrap {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px 6px;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            border-bottom: 2px solid var(--border-color);
-            overflow-x: auto;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
+            padding: 0 20px 12px;
+            position: relative;
         }
 
-        .category-tabs::-webkit-scrollbar {
+        .category-scroll {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 2px 10px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+
+        .category-scroll::-webkit-scrollbar {
             display: none;
         }
 
-        .tab-btn {
-            padding: 10px 20px;
+        .category-scroll .tab-btn {
+            flex: 0 0 auto;
+            padding: 8px 18px;
             border: none;
-            background: transparent;
-            font-size: 0.85rem;
-            font-weight: 600;
+            background: var(--bg-secondary);
+            font-size: 0.82rem;
+            font-weight: 500;
             color: var(--text-muted);
             cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: color var(--transition), border-color var(--transition);
+            border-radius: 30px;
+            transition: all var(--transition);
             white-space: nowrap;
             font-family: inherit;
-            border-radius: 0;
             display: flex;
             align-items: center;
             gap: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            scroll-snap-align: start;
         }
 
-        .tab-btn .tab-icon {
-            font-size: 1rem;
+        .category-scroll .tab-btn .tab-icon {
+            font-size: 0.95rem;
             line-height: 1;
         }
 
-        .tab-btn:hover {
-            color: var(--text-main);
-        }
-
-        .tab-btn.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab-btn .count {
+        .category-scroll .tab-btn .count {
             background: var(--bg-primary);
             padding: 0 8px;
             border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 500;
+            font-size: 0.6rem;
+            font-weight: 600;
             color: var(--text-muted);
-            line-height: 1.6;
-            transition: background var(--transition), color var(--transition);
+            line-height: 1.7;
+            transition: all var(--transition);
         }
 
-        .tab-btn.active .count {
-            background: rgba(229, 9, 20, 0.08);
-            color: var(--accent);
+        .category-scroll .tab-btn:hover {
+            background: var(--bg-primary);
+            border-color: #ccc;
+        }
+
+        .category-scroll .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 14px rgba(229, 9, 20, 0.25);
+        }
+
+        .category-scroll .tab-btn.active .count {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
 
         /* ===== CONTAINER ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 28px 20px 80px;
+            padding: 10px 20px 80px;
             flex: 1;
             width: 100%;
         }
@@ -375,13 +278,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
             gap: 8px;
         }
 
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
             border-left: 4px solid var(--accent);
             padding-left: 12px;
@@ -391,11 +294,11 @@
         .section-title .genre-label {
             font-weight: 400;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
         .result-count {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
         }
 
@@ -403,7 +306,7 @@
         .novel-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 24px;
+            gap: 22px;
         }
 
         .novel-grid.hidden {
@@ -456,7 +359,7 @@
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             color: #1a9c4a;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 600;
             padding: 3px 12px;
             border-radius: 6px;
@@ -474,7 +377,7 @@
             position: absolute;
             bottom: 12px;
             left: 12px;
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             font-weight: 600;
             padding: 3px 12px;
             border-radius: 4px;
@@ -491,7 +394,7 @@
         .genre-tag.fantasy { background: var(--fantasy); }
 
         .novel-info {
-            padding: 16px 18px 18px;
+            padding: 14px 16px 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -499,7 +402,7 @@
         }
 
         .novel-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             margin-bottom: 2px;
             color: #111;
@@ -507,7 +410,7 @@
         }
 
         .novel-author {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             margin-bottom: 6px;
         }
@@ -518,9 +421,9 @@
         }
 
         .novel-desc {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -530,10 +433,10 @@
 
         .novel-stats-mini {
             display: flex;
-            gap: 16px;
-            font-size: 0.72rem;
+            gap: 14px;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .novel-stats-mini .stat-item {
@@ -547,12 +450,12 @@
             width: 100%;
             background: var(--accent);
             color: #fff;
-            padding: 10px;
+            padding: 9px;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             transition: background var(--transition), box-shadow var(--transition);
             border: none;
             cursor: pointer;
@@ -574,30 +477,30 @@
         /* ===== EMPTY STATE ===== */
         .empty-category {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             color: var(--text-muted);
             grid-column: 1 / -1;
         }
 
         .empty-category .empty-icon {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             opacity: 0.5;
         }
 
         .empty-category p {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
         }
 
         /* ===== FOOTER ===== */
         footer {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
-            padding: 28px 20px;
+            padding: 24px 20px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
         footer .footer-brand {
@@ -610,98 +513,118 @@
             header {
                 padding: 10px 16px;
             }
-            .hamburger {
-                display: flex;
-            }
-            .category-tabs {
-                display: none;
-            }
             .logo-area h1 {
-                font-size: 1.15rem;
+                font-size: 1.1rem;
             }
             .hero h2 {
-                font-size: 1.7rem;
+                font-size: 1.6rem;
             }
             .hero {
-                padding: 28px 16px 18px;
+                padding: 24px 16px 14px;
             }
             .container {
-                padding: 18px 14px 50px;
+                padding: 6px 14px 50px;
             }
             .novel-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: 14px;
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 12px;
             }
             .image-wrapper {
-                height: 240px;
+                height: 220px;
             }
             .search-box {
                 max-width: 100%;
-                padding: 0 14px 0 18px;
+                padding: 0 14px 0 16px;
             }
             .search-box input {
-                padding: 12px 0;
-                font-size: 0.9rem;
+                padding: 10px 0;
+                font-size: 0.88rem;
             }
             .search-wrapper {
-                padding: 0 14px 12px;
+                padding: 0 14px 10px;
+            }
+            .category-wrap {
+                padding: 0 14px 8px;
+            }
+            .category-scroll .tab-btn {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+            .category-scroll .tab-btn .tab-icon {
+                font-size: 0.85rem;
             }
             .creator-badge {
-                font-size: 0.65rem;
-                padding: 4px 12px;
+                font-size: 0.62rem;
+                padding: 4px 10px;
+            }
+            .section-title {
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
             .novel-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                gap: 8px;
             }
             .image-wrapper {
-                height: 180px;
+                height: 160px;
             }
             .novel-title {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             .novel-desc {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 -webkit-line-clamp: 2;
             }
             .novel-info {
-                padding: 10px 12px 12px;
+                padding: 8px 10px 10px;
             }
             .btn {
-                font-size: 0.75rem;
-                padding: 7px;
+                font-size: 0.7rem;
+                padding: 6px;
+                border-radius: 6px;
             }
             .status-tag {
-                font-size: 0.55rem;
-                padding: 2px 8px;
-                top: 8px;
-                right: 8px;
-            }
-            .genre-tag {
                 font-size: 0.5rem;
                 padding: 2px 8px;
-                bottom: 8px;
-                left: 8px;
+                top: 6px;
+                right: 6px;
+            }
+            .genre-tag {
+                font-size: 0.45rem;
+                padding: 2px 8px;
+                bottom: 6px;
+                left: 6px;
             }
             .novel-stats-mini {
+                font-size: 0.6rem;
+                gap: 8px;
+            }
+            .novel-author {
                 font-size: 0.65rem;
-                gap: 10px;
             }
-            .section-title {
-                font-size: 1rem;
+            .category-scroll .tab-btn {
+                padding: 5px 12px;
+                font-size: 0.68rem;
             }
-            .mobile-nav .mobile-tab {
-                font-size: 0.85rem;
-                padding: 8px 12px;
+            .category-scroll .tab-btn .tab-icon {
+                font-size: 0.75rem;
             }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-nav {
-                display: none !important;
+            .category-scroll .tab-btn .count {
+                font-size: 0.55rem;
+                padding: 0 6px;
+                line-height: 1.6;
+            }
+            .hero h2 {
+                font-size: 1.3rem;
+            }
+            .hero p {
+                font-size: 0.88rem;
+            }
+            .search-box input {
+                font-size: 0.82rem;
+                padding: 8px 0;
             }
         }
     </style>
@@ -710,40 +633,11 @@
 
     <!-- ===== HEADER ===== -->
     <header>
-        <div class="header-left">
-            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <div class="logo-area">
-                <h1>📖 Story <span class="accent">Novel</span></h1>
-            </div>
+        <div class="logo-area">
+            <h1>📖 Story <span class="accent">Novel</span></h1>
         </div>
         <div class="creator-badge">Created by Mr.Anom</div>
     </header>
-
-    <!-- ===== MOBILE NAV (HAMBURGER DROPDOWN) ===== -->
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-tab active" data-category="all">
-            <span class="tab-icon">📚</span> Semua <span class="count">10</span>
-        </button>
-        <button class="mobile-tab" data-category="romance">
-            <span class="tab-icon">❤️</span> Romantis <span class="count">4</span>
-        </button>
-        <button class="mobile-tab" data-category="horror">
-            <span class="tab-icon">👻</span> Horor <span class="count">2</span>
-        </button>
-        <button class="mobile-tab" data-category="comedy">
-            <span class="tab-icon">😂</span> Komedi <span class="count">2</span>
-        </button>
-        <button class="mobile-tab" data-category="mystery">
-            <span class="tab-icon">🔍</span> Misteri <span class="count">1</span>
-        </button>
-        <button class="mobile-tab" data-category="fantasy">
-            <span class="tab-icon">🐉</span> Fantasi <span class="count">1</span>
-        </button>
-    </div>
 
     <!-- ===== HERO ===== -->
     <section class="hero">
@@ -761,26 +655,34 @@
         <div class="search-results-hint" id="searchHint"></div>
     </div>
 
-    <!-- ===== CATEGORY TABS (desktop) ===== -->
-    <div class="category-tabs" id="categoryTabs">
-        <button class="tab-btn active" data-category="all">
-            <span class="tab-icon">📚</span> Semua <span class="count">10</span>
-        </button>
-        <button class="tab-btn" data-category="romance">
-            <span class="tab-icon">❤️</span> Romantis <span class="count">4</span>
-        </button>
-        <button class="tab-btn" data-category="horror">
-            <span class="tab-icon">👻</span> Horor <span class="count">2</span>
-        </button>
-        <button class="tab-btn" data-category="comedy">
-            <span class="tab-icon">😂</span> Komedi <span class="count">2</span>
-        </button>
-        <button class="tab-btn" data-category="mystery">
-            <span class="tab-icon">🔍</span> Misteri <span class="count">1</span>
-        </button>
-        <button class="tab-btn" data-category="fantasy">
-            <span class="tab-icon">🐉</span> Fantasi <span class="count">1</span>
-        </button>
+    <!-- ===== CATEGORY TABS (Horizontal Scroll) ===== -->
+    <div class="category-wrap">
+        <div class="category-scroll" id="categoryScroll">
+            <button class="tab-btn active" data-category="all">
+                <span class="tab-icon">📚</span> Semua
+                <span class="count">10</span>
+            </button>
+            <button class="tab-btn" data-category="romance">
+                <span class="tab-icon">❤️</span> Romantis
+                <span class="count">4</span>
+            </button>
+            <button class="tab-btn" data-category="horror">
+                <span class="tab-icon">👻</span> Horor
+                <span class="count">2</span>
+            </button>
+            <button class="tab-btn" data-category="comedy">
+                <span class="tab-icon">😂</span> Komedi
+                <span class="count">2</span>
+            </button>
+            <button class="tab-btn" data-category="mystery">
+                <span class="tab-icon">🔍</span> Misteri
+                <span class="count">1</span>
+            </button>
+            <button class="tab-btn" data-category="fantasy">
+                <span class="tab-icon">🐉</span> Fantasi
+                <span class="count">1</span>
+            </button>
+        </div>
     </div>
 
     <!-- ===== MAIN CONTAINER ===== -->
@@ -991,8 +893,8 @@
                 ? novels.filter(n => n.title.toLowerCase().includes(searchTerm.toLowerCase()))
                 : novels;
 
-            // Update count di semua tab (desktop & mobile)
-            document.querySelectorAll('.tab-btn, .mobile-tab').forEach(tab => {
+            // Update count di semua tab
+            document.querySelectorAll('.tab-btn').forEach(tab => {
                 const cat = tab.dataset.category;
                 const count = cat === 'all'
                     ? filtered.length
@@ -1025,21 +927,15 @@
         }
 
         // ================================================================
-        //  TAB SWITCHING (desktop + mobile)
+        //  TAB SWITCHING
         // ================================================================
         let activeCategory = 'all';
 
         function switchCategory(category) {
             activeCategory = category;
-            // Desktop tabs
             document.querySelectorAll('.tab-btn').forEach(tab => {
                 tab.classList.toggle('active', tab.dataset.category === category);
             });
-            // Mobile tabs
-            document.querySelectorAll('.mobile-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.category === category);
-            });
-            // Grids
             document.querySelectorAll('.novel-grid').forEach(grid => {
                 grid.classList.toggle('hidden', grid.dataset.category !== category);
             });
@@ -1071,50 +967,14 @@
         });
 
         // ================================================================
-        //  HAMBURGER TOGGLE
-        // ================================================================
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileNav = document.getElementById('mobileNav');
-
-        hamburgerBtn.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mobileNav.classList.toggle('open');
-        });
-
-        // Tutup mobile nav saat pilih kategori
-        document.querySelectorAll('.mobile-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const category = this.dataset.category;
-                switchCategory(category);
-                renderAll(category, searchInput.value);
-                // Tutup menu
-                hamburgerBtn.classList.remove('active');
-                mobileNav.classList.remove('open');
-                // Scroll ke container
-                document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-
-        // Tutup mobile nav saat klik di luar
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                const isHamburger = hamburgerBtn.contains(e.target);
-                const isNav = mobileNav.contains(e.target);
-                if (!isHamburger && !isNav && mobileNav.classList.contains('open')) {
-                    hamburgerBtn.classList.remove('active');
-                    mobileNav.classList.remove('open');
-                }
-            }
-        });
-
-        // ================================================================
-        //  TAB CLICK (desktop)
+        //  TAB CLICK
         // ================================================================
         document.querySelectorAll('.tab-btn').forEach(tab => {
             tab.addEventListener('click', function() {
                 const category = this.dataset.category;
                 switchCategory(category);
                 renderAll(category, searchInput.value);
+                // Scroll ke container
                 document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
