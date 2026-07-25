@@ -3,160 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cintaku Padamu Itu Palsu - Baca Novel</title>
+    <title>Cintaku Padamu Itu Palsu - Bab 1 | Extrimer Novel</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --content-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --accent-color: #e50914;
-            --accent-hover: #f6121d;
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #16161a;
+            --bg-card: #1e1e24;
+            --text-main: #f1f1f3;
+            --text-muted: #9ba1a6;
+            --accent: #e50914;
+            --accent-hover: #ff1e2a;
+            --border-color: #2a2a35;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.8;
+        }
+
+        /* Navbar Sederhana */
+        header {
+            background-color: rgba(22, 22, 26, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .reader-container {
-            width: 100%;
+        .brand {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .creator-tag {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Container Pembaca */
+        .reader-wrapper {
             max-width: 800px;
-            background-color: var(--content-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-            margin-top: 20px;
-            margin-bottom: 40px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
         }
 
         .back-btn {
-            display: inline-block;
-            background-color: #333;
-            color: #fff;
-            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            padding: 10px 18px;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.9rem;
-            margin-bottom: 25px;
-            transition: background-color 0.2s ease;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            transition: all 0.2s ease;
         }
 
         .back-btn:hover {
-            background-color: #444;
+            border-color: var(--accent);
+            color: #fff;
         }
 
-        .novel-header {
+        .reader-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .novel-meta {
             text-align: center;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 25px;
             margin-bottom: 30px;
         }
 
-        .novel-header h1 {
+        .novel-meta h1 {
             font-size: 2rem;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-weight: 800;
         }
 
-        .novel-header p {
-            color: #aaa;
+        .novel-meta p {
+            color: var(--text-muted);
             font-style: italic;
+            font-size: 1rem;
         }
 
         .chapter-title {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: #fff;
-            margin-bottom: 20px;
-            font-weight: bold;
+            margin-bottom: 25px;
+            font-weight: 700;
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
         }
 
         .chapter-content {
-            line-height: 1.8;
             font-size: 1.05rem;
-            color: #dcdcdc;
+            color: #dcdce0;
             text-align: justify;
         }
 
         .chapter-content p {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .navigation-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
-            border-top: 1px solid #333;
-            padding-top: 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
         }
 
         .nav-btn {
-            background-color: var(--accent-color);
+            background-color: var(--accent);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .nav-btn:hover {
             background-color: var(--accent-hover);
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
         }
 
         .nav-btn.disabled {
-            background-color: #333;
-            color: #777;
+            background-color: #2a2a35;
+            color: #666;
             pointer-events: none;
         }
 
+        /* Footer */
         footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 20px;
             text-align: center;
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer span {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .reader-card {
+                padding: 25px 20px;
+            }
+            .novel-meta h1 {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="reader-container">
+    <header>
+        <a href="index.html" class="brand">📚 Extrimer Novel</a>
+        <div class="creator-tag">Created by Mr.Anom</div>
+    </header>
+
+    <div class="reader-wrapper">
         <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
 
-        <div class="novel-header">
-            <h1>Cintaku Padamu Itu Palsu</h1>
-            <p>"I lied to you. But: was it all a lie to myself?"</p>
-        </div>
+        <div class="reader-card">
+            <div class="novel-meta">
+                <h1>Cintaku Padamu Itu Palsu</h1>
+                <p>"I lied to you. But: was it all a lie to myself?"</p>
+            </div>
 
-        <div class="chapter-title">Bab 1: Permainan Sandiwara</div>
+            <div class="chapter-title">Bab 1: Permainan Sandiwara</div>
 
-        <div class="chapter-content">
-            <p>Hujan gerimis turun membasahi kaca jendela kafe tempat mereka duduk berdua. Suasana remang-remang malam itu seolah mendukung keheningan canggung yang tercipta di antara Reyhan dan Clara.</p>
-            
-            <p>Clara menatap selembar kertas kecil di tangannya. Tulisannya sangat jelas, sebuah instruksi sederhana yang menjadi awal dari kekacauan ini: <em>Just pretend.</em></p>
-            
-            <p>"Kita hanya perlu melanjutkan sandiwara ini sampai kontrak kerja sama perusahaan selesai, Rey," ucap Clara pelan, berusaha menyembunyikan getaran di suaranya.</p>
-            
-            <p>Reyhan menatap tajam ke arah wanita di depannya. Matanya menyiratkan sesuatu yang jauh lebih dalam, sesuatu yang selama ini mati-matian ia sembunyikan di balik senyum sinisnya. Ia tahu betul risikonya. Dari awal, hubungan ini memang dibangun di atas fondasi kepalsuan.</p>
-            
-            <p>"Aku berbohong kepadamu, Clara," suara Reyhan terdengar parau, memecah lamunan wanita itu. "Aku bilang perasaanku ini palsu... tapi, apakah itu semua juga kebohongan pada diriku sendiri?"</p>
-            
-            <p>Clara tertegun. Jantungnya berdegup kencang mendengar pengakuan itu. Batas antara sandiwara dan kenyataan mendadak menjadi kabur.</p>
-        </div>
+            <div class="chapter-content">
+                <p>Hujan gerimis turun membasahi kaca jendela kafe tempat mereka duduk berdua. Suasana remang-remang malam itu seolah mendukung keheningan canggung yang tercipta di antara Reyhan dan Clara.</p>
+                
+                <p>Clara menatap selembar kertas kecil di tangannya. Tulisannya sangat jelas, sebuah instruksi sederhana yang menjadi awal dari kekacauan ini: <em>Just pretend.</em></p>
+                
+                <p>"Kita hanya perlu melanjutkan sandiwara ini sampai kontrak kerja sama perusahaan selesai, Rey," ucap Clara pelan, berusaha menyembunyikan getaran di suaranya.</p>
+                
+                <p>Reyhan menatap tajam ke arah wanita di depannya. Matanya menyiratkan sesuatu yang jauh lebih dalam, sesuatu yang selama ini mati-matian ia sembunyikan di balik senyum sinisnya. Ia tahu betul risikonya. Dari awal, hubungan ini memang dibangun di atas fondasi kepalsuan.</p>
+                
+                <p>"Aku berbohong kepadamu, Clara," suara Reyhan terdengar parau, memecah lamunan wanita itu. "Aku bilang perasaanku ini palsu... tapi, apakah itu semua juga kebohongan pada diriku sendiri?"</p>
+                
+                <p>Clara tertegun. Jantungnya berdegup kencang mendengar pengakuan itu. Batas antara sandiwara dan kenyataan mendadak menjadi kabur.</p>
+            </div>
 
-        <div class="navigation-footer">
-            <a href="#" class="nav-btn disabled">&larr; Bab Sebelumnya</a>
-            <a href="#" class="nav-btn">Bab Berikutnya &rarr;</a>
+            <div class="navigation-footer">
+                <a href="#" class="nav-btn disabled">&larr; Bab Sebelumnya</a>
+                <a href="cintaku-palsu-bab2.html" class="nav-btn">Bab Berikutnya &rarr;</a>
+            </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Novel Digital. All rights reserved.
+        <p>&copy; 2026 <span>Extrimer Novel</span>. All rights reserved. Designed & Created by <span>Mr.Anom</span>.</p>
     </footer>
 
 </body>
