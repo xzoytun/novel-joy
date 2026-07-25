@@ -3,71 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koleksi Novel Pilihan</title>
+    <title>Novel Digital - Koleksi Cerita Eksklusif</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --accent-color: #e50914;
-            --accent-hover: #f6121d;
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #16161a;
+            --bg-card: #1e1e24;
+            --text-main: #f1f1f3;
+            --text-muted: #9ba1a6;
+            --accent: #e50914;
+            --accent-hover: #ff1e2a;
+            --border-color: #2a2a35;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* Header / Navbar */
+        header {
+            background-color: rgba(22, 22, 26, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        header {
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .creator-badge {
+            background: linear-gradient(135deg, #e50914, #ff4757);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            margin-bottom: 40px;
+            padding: 60px 20px 30px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        header h1 {
+        .hero h2 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-weight: 800;
             color: #ffffff;
-            letter-spacing: 1px;
         }
 
-        header p {
-            color: #aaa;
+        .hero p {
+            color: var(--text-muted);
             font-size: 1.1rem;
         }
 
+        /* Main Container & Grid */
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            flex: 1;
             width: 100%;
-            max-width: 1000px;
         }
 
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
+            color: #fff;
+        }
+
+        .novel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Novel Card Styling */
         .novel-card {
-            background-color: var(--card-bg);
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .novel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            border-color: rgba(229, 9, 20, 0.5);
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background-color: #111;
         }
 
         .novel-image {
             width: 100%;
-            height: 380px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .novel-card:hover .novel-image {
+            transform: scale(1.05);
+        }
+
+        .status-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            color: #4cd137;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(76, 209, 55, 0.3);
         }
 
         .novel-info {
@@ -79,96 +166,148 @@
         }
 
         .novel-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: #fff;
+            line-height: 1.4;
         }
 
         .novel-desc {
             font-size: 0.9rem;
-            color: #aaa;
+            color: var(--text-muted);
             margin-bottom: 20px;
-            line-height: 1.4;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
+            display: block;
+            width: 100%;
+            background-color: var(--accent);
             color: white;
-            padding: 10px 20px;
+            padding: 12px;
             text-align: center;
             text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn:hover {
             background-color: var(--accent-hover);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
         }
 
         .btn.disabled {
-            background-color: #444;
-            color: #888;
+            background-color: #2a2a35;
+            color: #666;
             pointer-events: none;
         }
 
+        /* Footer */
         footer {
-            margin-top: 50px;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 20px;
             text-align: center;
-            color: #666;
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header / Navbar -->
     <header>
-        <h1>Perpustakaan Novel Digital</h1>
-        <p>Pilih dan baca kisah cerita favoritmu di sini</p>
+        <div class="logo-area">
+            <h1>📚 Extrimer Novel</h1>
+        </div>
+        <div class="creator-badge">
+            Created by Mr.Anom
+        </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Jelajahi Dunia Cerita Pilihan</h2>
+        <p>Temukan kisah-kisah emosional, misteri, dan drama eksklusif yang siap memukau imajinasi Anda.</p>
+    </section>
+
+    <!-- Main Container -->
     <div class="container">
-        <!-- Novel 1: Cintaku Padamu Itu Palsu -->
-        <div class="novel-card">
-            <img src="https://novel.isdarprem.net/images/ep1.png" alt="Cintaku Padamu Itu Palsu" class="novel-image">
-            <div class="novel-info">
-                <div>
-                    <div class="novel-title">Cintaku Padamu Itu Palsu</div>
-                    <div class="novel-desc">"Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?" Temukan kisah penuh intrik dan drama di sini.</div>
-                </div>
-                <a href="cintaku-palsu.html" class="btn">Baca Cerita</a>
-            </div>
-        </div>
+        <div class="section-title">Daftar Novel Populer</div>
 
-        <!-- Novel 2 (Placeholder untuk cerita lain) -->
-        <div class="novel-card">
-            <img src="https://via.placeholder.com/300x400/2a2a2a/777777?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
-            <div class="novel-info">
-                <div>
-                    <div class="novel-title">Judul Novel Kedua</div>
-                    <div class="novel-desc">Kisah misteri dan romansa lain yang akan segera dirilis untuk menemani waktu santai Anda.</div>
+        <div class="novel-grid">
+            <!-- Novel 1: Cintaku Padamu Itu Palsu -->
+            <div class="novel-card">
+                <div class="image-wrapper">
+                    <img src="https://novel.isdarprem.net/images/ep1.png" alt="Cintaku Padamu Itu Palsu" class="novel-image">
+                    <div class="status-tag">Ongoing</div>
                 </div>
-                <a href="#" class="btn disabled">Segera Hadir</a>
+                <div class="novel-info">
+                    <div>
+                        <div class="novel-title">Cintaku Padamu Itu Palsu</div>
+                        <div class="novel-desc">"Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?" Ikuti kisah rumit penuh intrik sandiwara cinta.</div>
+                    </div>
+                    <a href="cintaku-palsu.html" class="btn">Mulai Membaca</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Novel 3 (Placeholder untuk cerita lain) -->
-        <div class="novel-card">
-            <img src="https://via.placeholder.com/300x400/2a2a2a/777777?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
-            <div class="novel-info">
-                <div>
-                    <div class="novel-title">Judul Novel Ketiga</div>
-                    <div class="novel-desc">Petualangan baru dengan alur cerita yang tak kalah menarik dan penuh kejutan.</div>
+            <!-- Novel 2 (Placeholder) -->
+            <div class="novel-card">
+                <div class="image-wrapper">
+                    <img src="https://via.placeholder.com/300x400/1e1e24/666666?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
+                    <div class="status-tag" style="color: #f39c12; border-color: rgba(243, 156, 18, 0.3);">Soon</div>
                 </div>
-                <a href="#" class="btn disabled">Segera Hadir</a>
+                <div class="novel-info">
+                    <div>
+                        <div class="novel-title">Judul Novel Kedua</div>
+                        <div class="novel-desc">Kisah misteri dan romansa baru yang sedang dipersiapkan khusus untuk pembaca setia.</div>
+                    </div>
+                    <a href="#" class="btn disabled">Segera Hadir</a>
+                </div>
+            </div>
+
+            <!-- Novel 3 (Placeholder) -->
+            <div class="novel-card">
+                <div class="image-wrapper">
+                    <img src="https://via.placeholder.com/300x400/1e1e24/666666?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
+                    <div class="status-tag" style="color: #f39c12; border-color: rgba(243, 156, 18, 0.3);">Soon</div>
+                </div>
+                <div class="novel-info">
+                    <div>
+                        <div class="novel-title">Judul Novel Ketiga</div>
+                        <div class="novel-desc">Petualangan seru dengan alur cerita menegangkan yang akan segera dirilis.</div>
+                    </div>
+                    <a href="#" class="btn disabled">Segera Hadir</a>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        &copy; 2026 Novel Digital. All rights reserved.
+        <p>&copy; 2026 <span>Extrimer Novel</span>. All rights reserved. Designed & Created by <span>Mr.Anom</span>.</p>
     </footer>
 
 </body>
