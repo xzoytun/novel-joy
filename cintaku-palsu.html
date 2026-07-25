@@ -38,15 +38,15 @@
             line-height: 1.6;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER (disamakan dengan index.html) ===== */
         header {
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 14px 32px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -63,7 +63,7 @@
         .logo-area a {
             text-decoration: none;
             color: #111;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.3px;
             display: flex;
@@ -79,7 +79,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             background: var(--bg-primary);
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
             transition: 0.2s;
@@ -96,9 +96,9 @@
         .creator-badge {
             background: linear-gradient(135deg, #e50914, #ff4757);
             color: white;
-            padding: 5px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
             white-space: nowrap;
@@ -108,11 +108,11 @@
         .novel-hero {
             background: linear-gradient(145deg, #ffffff, #f4f4f7);
             border-bottom: 1px solid var(--border-color);
-            padding: 32px 20px 28px;
+            padding: 40px 20px;
         }
 
         .novel-hero-inner {
-            max-width: 1100px;
+            max-width: 1200px; /* disamakan dengan container */
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
@@ -121,7 +121,7 @@
         }
 
         .novel-cover {
-            flex: 0 0 200px;
+            flex: 0 0 220px;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow-md);
@@ -136,7 +136,7 @@
 
         .novel-meta {
             flex: 1;
-            min-width: 240px;
+            min-width: 260px;
         }
 
         .novel-meta .badge-status {
@@ -161,7 +161,7 @@
         }
 
         .novel-title-group h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             line-height: 1.2;
             color: #111;
@@ -222,19 +222,19 @@
             font-weight: 700;
         }
 
-        /* ===== BAB LIST ===== */
+        /* ===== CONTAINER (disamakan dengan index.html) ===== */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 32px 20px 60px;
+            padding: 40px 20px 80px;
             flex: 1;
             width: 100%;
         }
 
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             border-left: 4px solid var(--accent);
             padding-left: 12px;
             color: #111;
@@ -251,6 +251,7 @@
             color: var(--text-muted);
         }
 
+        /* ===== CHAPTER GRID ===== */
         .chapter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -309,7 +310,7 @@
             background: var(--read-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 32px 36px;
+            padding: 32px 40px;
             box-shadow: var(--shadow-sm);
             transition: 0.3s;
         }
@@ -378,7 +379,7 @@
         .reader-nav button {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 8px 20px;
+            padding: 8px 22px;
             border-radius: 8px;
             font-weight: 500;
             font-size: 0.9rem;
@@ -419,14 +420,14 @@
             margin-bottom: 10px;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER (disamakan dengan index.html) ===== */
         footer {
             background-color: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
-            padding: 24px 20px;
+            padding: 30px 20px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         footer span {
@@ -437,7 +438,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             header {
-                padding: 10px 16px;
+                padding: 15px 20px;
             }
             .logo-area a {
                 font-size: 1.2rem;
@@ -452,7 +453,7 @@
                 width: 160px;
             }
             .novel-title-group h1 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             .novel-title-group .en-title {
                 font-size: 0.95rem;
@@ -482,6 +483,9 @@
             }
             .reader-content .first-letter {
                 font-size: 2.4rem;
+            }
+            .container {
+                padding: 24px 16px 60px;
             }
         }
     </style>
