@@ -1,525 +1,175 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Love for You Is Fake</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Novel Pilihan</title>
     <style>
-        /* ─── Reset & Base ─── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #e50914;
+            --accent-hover: #f6121d;
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: #0d0b0a;
-            color: #e6dcd3;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
-            padding: 2rem 1rem;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 1.1rem;
         }
 
         .container {
-            max-width: 820px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             width: 100%;
+            max-width: 1000px;
         }
 
-        /* ─── Header ─── */
-        .header {
-            text-align: center;
-            padding: 2rem 0 1.5rem;
-            border-bottom: 1px solid rgba(230, 220, 211, 0.12);
-            margin-bottom: 2.5rem;
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #f0e6dc 0%, #c4b5a6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .header .subtitle {
-            font-size: 1rem;
-            color: #9a8a7c;
-            margin-top: 0.5rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        .header .episode-badge {
-            display: inline-block;
-            margin-top: 0.75rem;
-            background: rgba(230, 220, 211, 0.07);
-            padding: 0.3rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #b8a89a;
-            letter-spacing: 1px;
-            border: 1px solid rgba(230, 220, 211, 0.06);
-        }
-
-        /* ─── Episode List (index) ─── */
-        .episode-list {
+        .novel-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .episode-link {
+        .novel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.3);
+        }
+
+        .novel-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+
+        .novel-info {
+            padding: 20px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            flex-grow: 1;
             justify-content: space-between;
-            padding: 1.2rem 1.8rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            border: 1px solid rgba(230, 220, 211, 0.06);
-            text-decoration: none;
-            color: #e6dcd3;
-            transition: all 0.25s ease;
         }
 
-        .episode-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(230, 220, 211, 0.15);
-            transform: translateX(4px);
+        .novel-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
         }
 
-        .episode-link .ep-num {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #c4b5a6;
-            min-width: 70px;
+        .novel-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
-        .episode-link .ep-title {
-            font-size: 1.05rem;
-            flex: 1;
-            padding: 0 1rem;
-        }
-
-        .episode-link .ep-arrow {
-            color: #7a6a5c;
-            font-size: 1.2rem;
-            transition: transform 0.2s ease;
-        }
-
-        .episode-link:hover .ep-arrow {
-            transform: translateX(4px);
-            color: #c4b5a6;
-        }
-
-        .episode-link.locked {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .episode-link.locked .ep-arrow::after {
-            content: " 🔒";
-            font-size: 0.8rem;
-        }
-
-        /* ─── Novel Content (episode pages) ─── */
-        .novel-content {
-            background: rgba(255, 255, 255, 0.015);
-            border-radius: 16px;
-            padding: 2.5rem 2.2rem;
-            border: 1px solid rgba(230, 220, 211, 0.06);
-        }
-
-        .novel-content .episode-heading {
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(230, 220, 211, 0.07);
-        }
-
-        .novel-content .episode-heading .num {
-            font-size: 0.85rem;
-            color: #9a8a7c;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        .novel-content .episode-heading h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #f0e6dc;
-            letter-spacing: 0.5px;
-        }
-
-        .novel-content .episode-body {
-            font-size: 1.2rem;
-            line-height: 2;
-            color: #ddd2c7;
-        }
-
-        .novel-content .episode-body p {
-            margin-bottom: 1.6rem;
-        }
-
-        .novel-content .episode-body .dialogue {
-            font-style: italic;
-            color: #c9bdb1;
-            padding-left: 1.5rem;
-            border-left: 3px solid rgba(230, 220, 211, 0.15);
-        }
-
-        .novel-content .episode-body .inner-thought {
-            color: #b8a89a;
-            font-style: italic;
-            font-size: 1.1rem;
-        }
-
-        /* ─── Navigation (episode pages) ─── */
-        .nav-episode {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(230, 220, 211, 0.07);
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-episode a {
-            color: #c4b5a6;
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid rgba(230, 220, 211, 0.08);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-episode a:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(230, 220, 211, 0.15);
-            color: #f0e6dc;
-        }
-
-        .nav-episode a.disabled {
-            opacity: 0.25;
-            pointer-events: none;
-        }
-
-        .nav-episode .back-home {
-            color: #9a8a7c;
-            font-size: 0.85rem;
-            border: none;
-            padding: 0.5rem 0;
-        }
-
-        .nav-episode .back-home:hover {
-            background: transparent;
-            color: #c4b5a6;
-        }
-
-        /* ─── Footer ─── */
-        .footer {
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(230, 220, 211, 0.05);
-            color: #6a5c4e;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .footer a {
-            color: #8a7a6a;
             text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
         }
 
-        .footer a:hover {
-            color: #b8a89a;
+        .btn:hover {
+            background-color: var(--accent-hover);
         }
 
-        /* ─── Responsive ─── */
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .novel-content {
-                padding: 1.5rem 1.2rem;
-            }
-
-            .novel-content .episode-heading h2 {
-                font-size: 1.5rem;
-            }
-
-            .novel-content .episode-body {
-                font-size: 1.05rem;
-            }
-
-            .episode-link {
-                padding: 1rem 1.2rem;
-                flex-wrap: wrap;
-                gap: 0.3rem;
-            }
-
-            .episode-link .ep-title {
-                padding: 0 0.5rem;
-                font-size: 0.95rem;
-            }
-
-            .episode-link .ep-num {
-                min-width: 55px;
-                font-size: 0.95rem;
-            }
-
-            .nav-episode {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.6rem;
-            }
-
-            .nav-episode a {
-                justify-content: center;
-            }
+        .btn.disabled {
+            background-color: #444;
+            color: #888;
+            pointer-events: none;
         }
 
-        @media (max-width: 400px) {
-            .header h1 {
-                font-size: 1.6rem;
-            }
-            .novel-content .episode-body {
-                font-size: 0.95rem;
-            }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1>Perpustakaan Novel Digital</h1>
+        <p>Pilih dan baca kisah cerita favoritmu di sini</p>
+    </header>
+
     <div class="container">
-        <!-- ====== HEADER ====== -->
-        <header class="header">
-            <h1>My Love for You<br />Is Fake</h1>
-            <div class="subtitle">— a novel —</div>
-            <div class="episode-badge" id="episodeBadge">● 5 episodes</div>
-        </header>
-
-        <!-- ====== CONTENT ====== -->
-        <main>
-            <!-- 
-            Halaman index menampilkan daftar episode.
-            Halaman episode menampilkan konten novel + navigasi.
-            Kita gunakan pendekatan "semua dalam satu file" dengan 
-            tampilan berdasarkan parameter URL, agar mudah dikelola.
-            -->
-
-            <div id="app">
-                <!-- akan di-render oleh JS -->
+        <!-- Novel 1: Cintaku Padamu Itu Palsu -->
+        <div class="novel-card">
+            <img src="https://novel.isdarprem.net/images/ep1.png" alt="Cintaku Padamu Itu Palsu" class="novel-image">
+            <div class="novel-info">
+                <div>
+                    <div class="novel-title">Cintaku Padamu Itu Palsu</div>
+                    <div class="novel-desc">"Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?" Temukan kisah penuh intrik dan drama di sini.</div>
+                </div>
+                <a href="cintaku-palsu.html" class="btn">Baca Cerita</a>
             </div>
-        </main>
+        </div>
 
-        <!-- ====== FOOTER ====== -->
-        <footer class="footer">
-            &copy; 2026 &middot; 
-            <a href="#" onclick="navigateTo('index'); return false;">My Love for You Is Fake</a>
-            &middot; all rights reserved
-        </footer>
+        <!-- Novel 2 (Placeholder untuk cerita lain) -->
+        <div class="novel-card">
+            <img src="https://via.placeholder.com/300x400/2a2a2a/777777?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
+            <div class="novel-info">
+                <div>
+                    <div class="novel-title">Judul Novel Kedua</div>
+                    <div class="novel-desc">Kisah misteri dan romansa lain yang akan segera dirilis untuk menemani waktu santai Anda.</div>
+                </div>
+                <a href="#" class="btn disabled">Segera Hadir</a>
+            </div>
+        </div>
+
+        <!-- Novel 3 (Placeholder untuk cerita lain) -->
+        <div class="novel-card">
+            <img src="https://via.placeholder.com/300x400/2a2a2a/777777?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
+            <div class="novel-info">
+                <div>
+                    <div class="novel-title">Judul Novel Ketiga</div>
+                    <div class="novel-desc">Petualangan baru dengan alur cerita yang tak kalah menarik dan penuh kejutan.</div>
+                </div>
+                <a href="#" class="btn disabled">Segera Hadir</a>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // ─── Data ────────────────────────────────────────────────
-        const EPISODES = [{
-            id: 1,
-            title: 'Just Pretend',
-            content: `
-                <p><span class="inner-thought">I lied to you.</span></p>
-                <p>But: was it all a lie to myself?</p>
-                <p class="dialogue">"Just pretend."</p>
-                <p>That's what I told myself every morning when I looked in the mirror. <em>Pretend you don't care. Pretend her smile doesn't make your chest ache. Pretend the world isn't painted in shades of her.</em></p>
-                <p>I've gotten so good at pretending that sometimes even I believe it.</p>
-                <p>But tonight — standing in the rain, watching her walk away — the mask cracks. And for the first time, I'm terrified of what's underneath.</p>
-            `
-        }, {
-            id: 2,
-            title: 'The First Crack',
-            content: `
-                <p>The rain didn't wash away the truth. It only made it heavier.</p>
-                <p>She turned around once. Just once. Her eyes — those eyes I'd memorized in the dark — searched for something in mine. I gave her nothing.</p>
-                <p class="dialogue">"You're really going to let me go?"</p>
-                <p>Her voice was small, like a child asking for a story that never had a happy ending.</p>
-                <p>I wanted to scream. I wanted to fall to my knees and tell her that every word I'd ever said was a lie — except the ones that hurt.</p>
-                <p>Instead, I nodded. And the crack in my chest widened into a canyon.</p>
-            `
-        }, {
-            id: 3,
-            title: 'Echoes in the Dark',
-            content: `
-                <p>I keep replaying the moment. Like a scratched vinyl, skipping back to the same broken note.</p>
-                <p>Her hand in mine. The way she'd trace circles on my palm when she thought I was asleep. The way she'd whisper my name like it was a prayer.</p>
-                <p class="inner-thought">Was any of it real?</p>
-                <p>Or was I just a mirror reflecting back what she wanted to see?</p>
-                <p>I don't know anymore. And that's the cruelest part — not knowing if the love I felt was mine, or just a shadow of hers.</p>
-            `
-        }, {
-            id: 4,
-            title: 'Letters Never Sent',
-            content: `
-                <p>I found the box under my bed. Old letters, crumpled and tear-stained, addressed to her but never mailed.</p>
-                <p>Each one was a confession I was too afraid to speak. Each one was a version of me that didn't exist — braver, softer, less afraid of the fall.</p>
-                <p class="dialogue">"Dear you, I'm writing this because I can't say it out loud. I love you. Not the way I said I did. Not the fake, careful way. I love you like the ocean loves the shore — desperate, endless, destructive."</p>
-                <p>I never sent them. I never will.</p>
-                <p>But reading them now, I realize: the lie wasn't to her. It was to myself. I convinced myself I could walk away. I convinced myself I didn't need her.</p>
-                <p>I was wrong.</p>
-            `
-        }, {
-            id: 5,
-            title: 'The Truth Unravels',
-            content: `
-                <p>So here I am. At the end of the story I never wanted to write.</p>
-                <p>She's gone. The apartment is quiet. The scent of her perfume still clings to the curtains, and I can't bring myself to wash them.</p>
-                <p>I lied to her. I told her I didn't love her. I told her it was all a game.</p>
-                <p>But the truth — the ugly, raw, unbearable truth — is that I loved her more than I've ever loved anything. And I was so terrified of losing her that I pushed her away first.</p>
-                <p class="inner-thought">Was it all a lie to myself?</p>
-                <p>Yes.</p>
-                <p>And now I have to live with that.</p>
-                <p style="margin-top: 2rem; color: #9a8a7c; font-style: italic;">— end —</p>
-            `
-        }];
-
-        // ─── State ────────────────────────────────────────────────
-        let currentView = 'index'; // 'index' | 'episode'
-        let currentEpisodeId = 1;
-
-        const app = document.getElementById('app');
-        const badge = document.getElementById('episodeBadge');
-
-        // ─── Render ──────────────────────────────────────────────
-        function render() {
-            const hash = window.location.hash.slice(1);
-            if (hash.startsWith('ep-')) {
-                const id = parseInt(hash.replace('ep-', ''), 10);
-                if (id >= 1 && id <= EPISODES.length) {
-                    currentView = 'episode';
-                    currentEpisodeId = id;
-                } else {
-                    currentView = 'index';
-                }
-            } else {
-                currentView = 'index';
-            }
-
-            if (currentView === 'index') {
-                renderIndex();
-            } else {
-                renderEpisode(currentEpisodeId);
-            }
-
-            // update badge
-            if (badge) {
-                badge.textContent = `● ${EPISODES.length} episodes`;
-            }
-        }
-
-        function renderIndex() {
-            let html = `
-                <div class="episode-list">
-                    <div style="margin-bottom: 1.2rem; color: #9a8a7c; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(230,220,211,0.05); padding-bottom: 0.8rem;">
-                        ⚡ pilih episode
-                    </div>
-            `;
-            EPISODES.forEach((ep, idx) => {
-                const isLocked = false; // semua terbuka
-                const lockClass = isLocked ? 'locked' : '';
-                html += `
-                    <a href="#ep-${ep.id}" class="episode-link ${lockClass}" onclick="navigateTo('ep-${ep.id}'); return false;">
-                        <span class="ep-num">Ep. ${ep.id}</span>
-                        <span class="ep-title">${ep.title}</span>
-                        <span class="ep-arrow">→</span>
-                    </a>
-                `;
-            });
-            html += `</div>`;
-            app.innerHTML = html;
-        }
-
-        function renderEpisode(id) {
-            const ep = EPISODES.find(e => e.id === id);
-            if (!ep) {
-                renderIndex();
-                return;
-            }
-
-            const prevId = id > 1 ? id - 1 : null;
-            const nextId = id < EPISODES.length ? id + 1 : null;
-
-            let html = `
-                <div class="novel-content">
-                    <div class="episode-heading">
-                        <span class="num">Episode ${ep.id}</span>
-                        <h2>${ep.title}</h2>
-                    </div>
-                    <div class="episode-body">
-                        ${ep.content}
-                    </div>
-                </div>
-
-                <div class="nav-episode">
-                    <a href="${prevId ? '#ep-' + prevId : '#'}" 
-                       class="${!prevId ? 'disabled' : ''}" 
-                       onclick="${prevId ? "navigateTo('ep-'+prevId); return false;" : "return false;"}">
-                        ← Prev
-                    </a>
-
-                    <a href="#" class="back-home" onclick="navigateTo('index'); return false;">
-                        ⚡ daftar episode
-                    </a>
-
-                    <a href="${nextId ? '#ep-' + nextId : '#'}" 
-                       class="${!nextId ? 'disabled' : ''}" 
-                       onclick="${nextId ? "navigateTo('ep-'+nextId); return false;" : "return false;"}">
-                        Next →
-                    </a>
-                </div>
-            `;
-
-            app.innerHTML = html;
-
-            // scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ─── Navigation helper ──────────────────────────────────
-        function navigateTo(target) {
-            if (target === 'index') {
-                window.location.hash = '';
-            } else if (target.startsWith('ep-')) {
-                window.location.hash = target;
-            } else {
-                window.location.hash = 'ep-' + target;
-            }
-            render();
-        }
-
-        // ─── Init ────────────────────────────────────────────────
-        window.addEventListener('hashchange', render);
-        window.addEventListener('load', render);
-
-        // expose navigate for inline onclick
-        window.navigateTo = navigateTo;
-    </script>
+    <footer>
+        &copy; 2026 Novel Digital. All rights reserved.
+    </footer>
 
 </body>
 </html>
