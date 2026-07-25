@@ -5,73 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cintaku Padamu Itu Palsu · Story Novel</title>
     <style>
-        /* ===== RESET & VARIABEL ===== */
+        /* ================================================================
+           RESET & VARIABEL
+           ================================================================ */
         :root {
-            --bg-primary: #f7f7f9;
-            --bg-secondary: #ffffff;
+            --bg-page: #f2f0eb;
+            --bg-header: rgba(255, 252, 248, 0.94);
             --bg-card: #ffffff;
-            --text-main: #1a1a1f;
-            --text-muted: #6b7280;
-            --accent: #e50914;
-            --accent-hover: #c40810;
-            --border-color: #e5e5ea;
-            --read-bg: #faf8f5;
-            --read-text: #2c2c2c;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --radius: 12px;
+            --bg-reader: #fcfaf7;
+            --bg-dialog: #eef4ff;
+            --bg-dialog-alt: #f5f0ff;
+
+            --text-primary: #1e1a17;
+            --text-secondary: #4a4440;
+            --text-muted: #8a8580;
+            --text-dialog: #1a3a7a;
+            --text-dialog-alt: #4a1a7a;
+
+            --accent: #b13e3e;
+            --accent-light: #d96c6c;
+            --accent-glow: rgba(177, 62, 62, 0.12);
+            --border-color: #e6e0d8;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-soft: 0 4px 24px rgba(30, 26, 23, 0.06);
+            --shadow-card: 0 2px 12px rgba(30, 26, 23, 0.05);
+            --shadow-hover: 0 8px 32px rgba(30, 26, 23, 0.10);
+
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            --transition: 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-main);
+            font-family: var(--font-sans);
+            background: var(--bg-page);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            line-height: 1.6;
-            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== HEADER (konsisten dengan index.html) ===== */
+        /* ================================================================
+           HEADER
+           ================================================================ */
         header {
-            background-color: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--bg-header);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 12px 40px;
+            padding: 10px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px 16px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .logo-area a {
             text-decoration: none;
-            color: #111;
-            font-size: 1.4rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: color 0.2s ease;
+            transition: color var(--transition);
         }
 
         .logo-area a:hover {
@@ -79,21 +103,21 @@
         }
 
         .logo-icon {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             flex-shrink: 0;
             stroke: var(--accent);
         }
 
         .back-home {
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 500;
-            background: var(--bg-primary);
-            padding: 7px 16px;
-            border-radius: 20px;
+            background: var(--bg-card);
+            padding: 6px 16px;
+            border-radius: 30px;
             border: 1px solid var(--border-color);
-            transition: 0.2s ease;
-            color: var(--text-muted) !important;
+            transition: var(--transition);
+            color: var(--text-secondary) !important;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -109,25 +133,42 @@
             background: var(--accent);
             color: #fff !important;
             border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
         .creator-badge {
-            background: linear-gradient(135deg, #e50914, #ff4757);
-            color: white;
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 0.78rem;
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 0.72rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 14px rgba(177, 62, 62, 0.30);
             white-space: nowrap;
-            letter-spacing: 0.2px;
         }
 
-        /* ===== NOVEL HERO ===== */
+        /* ================================================================
+           NOVEL HERO
+           ================================================================ */
         .novel-hero {
-            background: linear-gradient(145deg, #ffffff, #f4f4f7);
+            background: linear-gradient(165deg, #f8f5f0 0%, #efebe6 100%);
             border-bottom: 1px solid var(--border-color);
-            padding: 40px 20px;
+            padding: 48px 24px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .novel-hero::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(177, 62, 62, 0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .novel-hero-inner {
@@ -135,17 +176,24 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 32px;
+            gap: 36px;
             align-items: flex-start;
+            position: relative;
+            z-index: 1;
         }
 
         .novel-cover {
-            flex: 0 0 220px;
-            border-radius: var(--radius);
+            flex: 0 0 200px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 40px rgba(30, 26, 23, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             aspect-ratio: 3 / 4;
+            transition: transform var(--transition);
+        }
+
+        .novel-cover:hover {
+            transform: translateY(-4px) scale(1.01);
         }
 
         .novel-cover img {
@@ -160,91 +208,110 @@
             min-width: 260px;
         }
 
-        .novel-meta .badge-status {
+        .badge-status {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #1a9c4a;
+            background: #1e8b4c;
             color: #fff;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 14px;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-            margin-bottom: 10px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            margin-bottom: 12px;
         }
 
         .badge-status .dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #fff;
+            background: #b3f0c0;
             flex-shrink: 0;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(0.85);
+            }
         }
 
         .novel-title-group {
             display: flex;
             flex-wrap: wrap;
             align-items: baseline;
-            gap: 8px 16px;
-            margin-bottom: 4px;
+            gap: 8px 18px;
+            margin-bottom: 2px;
         }
 
         .novel-title-group h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            line-height: 1.2;
-            color: #111;
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
         }
 
         .novel-title-group .en-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: var(--text-muted);
             font-style: italic;
+            letter-spacing: 0.2px;
         }
 
         .novel-meta .sub-line {
             font-size: 1rem;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-bottom: 14px;
             font-weight: 400;
             border-left: 3px solid var(--accent);
-            padding-left: 14px;
+            padding-left: 16px;
+            font-style: italic;
+            opacity: 0.85;
         }
 
         .novel-meta .author {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 14px;
         }
 
         .novel-meta .author span {
-            color: #111;
+            color: var(--text-primary);
             font-weight: 600;
         }
 
         .novel-meta .synopsis {
-            font-size: 0.98rem;
-            color: #2c2c2c;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 16px 20px;
-            border-radius: 10px;
+            font-size: 0.96rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 18px 22px;
+            border-radius: var(--radius-sm);
             border-left: 4px solid var(--accent);
             margin-bottom: 18px;
             line-height: 1.8;
         }
 
         .novel-meta .synopsis strong {
-            color: #111;
+            color: var(--text-primary);
         }
 
         .novel-stats {
             display: flex;
             flex-wrap: wrap;
-            gap: 18px 28px;
-            font-size: 0.88rem;
+            gap: 16px 30px;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
@@ -255,37 +322,40 @@
         }
 
         .novel-stats svg {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             flex-shrink: 0;
+            stroke: var(--text-muted);
         }
 
         .novel-stats strong {
-            color: #111;
+            color: var(--text-primary);
             font-weight: 700;
         }
 
-        /* ===== CONTAINER ===== */
+        /* ================================================================
+           CONTAINER
+           ================================================================ */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 40px 24px 80px;
             flex: 1;
             width: 100%;
         }
 
         .section-title {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             border-left: 4px solid var(--accent);
-            padding-left: 12px;
-            color: #111;
+            padding-left: 14px;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .section-title .title-text {
@@ -294,61 +364,65 @@
             gap: 8px;
         }
 
-        .section-title svg {
+        .section-title .title-text svg {
             width: 18px;
             height: 18px;
-            flex-shrink: 0;
             stroke: var(--accent);
+            flex-shrink: 0;
         }
 
         .section-title .hint {
             font-weight: 400;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
 
-        /* ===== CHAPTER GRID ===== */
+        /* ================================================================
+           CHAPTER GRID
+           ================================================================ */
         .chapter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 36px;
         }
 
         .chapter-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
             cursor: pointer;
-            transition: 0.2s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-card);
             min-width: 0;
+            user-select: none;
         }
 
         .chapter-card:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-hover);
+            background: #fefcf9;
         }
 
         .chapter-card .ch-number {
             font-weight: 700;
             color: var(--accent);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-right: 12px;
-            min-width: 40px;
+            min-width: 36px;
             flex-shrink: 0;
         }
 
         .chapter-card .ch-title {
             font-weight: 500;
             flex: 1;
-            color: #111;
-            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -356,7 +430,7 @@
         }
 
         .chapter-card .ch-date {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             white-space: nowrap;
             flex-shrink: 0;
@@ -365,77 +439,206 @@
 
         .chapter-card.active {
             border-color: var(--accent);
-            background: #fff5f5;
-            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.15);
+            background: #fdf6f3;
+            box-shadow: 0 0 0 2px var(--accent-glow), var(--shadow-card);
         }
 
-        /* ===== READER PANEL ===== */
-        .reader-panel {
-            background: var(--read-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 32px 40px;
-            box-shadow: var(--shadow-sm);
-            transition: 0.3s;
+        .chapter-card .ch-badge-active {
+            display: none;
         }
-
-        .reader-panel .reader-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 14px;
-            margin-bottom: 20px;
-        }
-
-        .reader-panel .reader-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .reader-panel .reader-header .ch-badge {
+        .chapter-card.active .ch-badge-active {
+            display: inline-block;
             background: var(--accent);
             color: #fff;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 14px;
-            border-radius: 20px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 30px;
+            margin-left: 8px;
             letter-spacing: 0.3px;
             flex-shrink: 0;
         }
 
-        .reader-content {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: var(--read-text);
-            max-width: 700px;
-            margin: 0 auto;
+        /* ================================================================
+           READER PANEL — DESAIN UTAMA
+           ================================================================ */
+        .reader-panel {
+            background: var(--bg-reader);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 36px 44px 32px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            position: relative;
         }
 
-        .reader-content p {
+        .reader-panel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            opacity: 0.5;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 14px;
+            margin-bottom: 22px;
+        }
+
+        .reader-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .reader-header .ch-badge {
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.4px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        /* ----- KONTEN BACAAN ----- */
+        .reader-content {
+            font-family: var(--font-serif);
+            font-size: 1.08rem;
+            line-height: 2.05;
+            color: var(--text-primary);
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 4px 0;
+        }
+
+        /* === NARASI (penjelasan) === */
+        .reader-content .narasi {
+            color: var(--text-primary);
+            margin-bottom: 1.3rem;
+            font-weight: 400;
+        }
+
+        /* === DIALOG (percakapan) === */
+        .reader-content .dialog {
+            color: var(--text-dialog);
+            background: var(--bg-dialog);
+            padding: 10px 20px 10px 24px;
+            border-radius: 0 12px 12px 12px;
+            border-left: 3px solid #7a9cdb;
+            margin-bottom: 1.1rem;
+            font-style: normal;
+            font-weight: 450;
+            position: relative;
+            transition: background var(--transition);
+        }
+
+        .reader-content .dialog::before {
+            content: "“";
+            font-size: 2.4rem;
+            font-family: var(--font-serif);
+            color: #7a9cdb;
+            position: absolute;
+            left: 4px;
+            top: -6px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        /* dialog alternatif (untuk karakter lain / variasi) */
+        .reader-content .dialog-alt {
+            color: var(--text-dialog-alt);
+            background: var(--bg-dialog-alt);
+            padding: 10px 20px 10px 24px;
+            border-radius: 12px 0 12px 12px;
+            border-right: 3px solid #b38cdb;
+            margin-bottom: 1.1rem;
+            font-weight: 450;
+            position: relative;
+            text-align: right;
+        }
+
+        .reader-content .dialog-alt::before {
+            content: "“";
+            font-size: 2.4rem;
+            font-family: var(--font-serif);
+            color: #b38cdb;
+            position: absolute;
+            right: 4px;
+            top: -6px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        /* dialog inline di dalam narasi (jarang) */
+        .reader-content .dialog-inline {
+            color: var(--text-dialog);
+            background: var(--bg-dialog);
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 450;
+        }
+
+        /* first letter (drop cap) */
+        .reader-content .first-letter {
+            font-size: 3.6rem;
+            font-weight: 700;
+            float: left;
+            line-height: 0.9;
+            margin-right: 12px;
+            margin-top: 2px;
+            color: var(--accent);
+            font-family: var(--font-serif);
+        }
+
+        /* elemen tambahan: penekanan */
+        .reader-content .highlight {
+            background: linear-gradient(120deg, rgba(177, 62, 62, 0.10) 0%, rgba(177, 62, 62, 0.10) 40%, transparent 80%);
+            padding: 0 4px;
+            font-weight: 500;
+        }
+
+        .reader-content .thought {
+            font-style: italic;
+            color: var(--text-secondary);
+            opacity: 0.85;
+            border-left: 2px solid var(--border-color);
+            padding-left: 16px;
             margin-bottom: 1.2rem;
         }
 
-        .reader-content .first-letter {
-            font-size: 3rem;
-            font-weight: 700;
-            float: left;
-            line-height: 1;
-            margin-right: 10px;
-            margin-top: 4px;
-            color: var(--accent);
-            font-family: 'Georgia', serif;
+        .reader-content .tamat {
+            text-align: center;
+            margin-top: 36px;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 28px;
         }
 
+        /* ----- NAVIGASI BAB ----- */
         .reader-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 28px;
-            padding-top: 18px;
+            margin-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid var(--border-color);
             gap: 12px;
             flex-wrap: wrap;
@@ -444,100 +647,132 @@
         .reader-nav button {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 8px 22px;
-            border-radius: 8px;
+            padding: 8px 24px;
+            border-radius: 30px;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: 0.2s;
-            color: var(--text-main);
+            transition: var(--transition);
+            color: var(--text-primary);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-family: inherit;
+            font-family: var(--font-sans);
+            box-shadow: var(--shadow-card);
         }
 
         .reader-nav button svg {
             width: 15px;
             height: 15px;
             flex-shrink: 0;
+            stroke: currentColor;
         }
 
         .reader-nav button:hover:not(:disabled) {
             background: var(--accent);
             color: #fff;
             border-color: var(--accent);
+            box-shadow: 0 4px 16px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
         .reader-nav button:disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         .reader-nav .chapter-indicator {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.2px;
         }
 
-        /* ===== EMPTY STATE ===== */
+        /* ================================================================
+           EMPTY STATE
+           ================================================================ */
         .empty-chapter {
             text-align: center;
-            padding: 50px 20px;
+            padding: 60px 20px;
             color: var(--text-muted);
         }
 
         .empty-chapter svg {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: block;
-            margin: 0 auto 12px;
-            opacity: 0.4;
+            margin: 0 auto 14px;
+            opacity: 0.3;
+            stroke: var(--text-muted);
         }
 
-        /* ===== FOOTER ===== */
+        .empty-chapter p {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+        }
+
+        /* ================================================================
+           FOOTER
+           ================================================================ */
         footer {
-            background-color: var(--bg-secondary);
+            background: var(--bg-card);
             border-top: 1px solid var(--border-color);
-            padding: 24px 20px;
+            padding: 22px 20px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.82rem;
+            font-size: 0.78rem;
         }
 
         footer span {
-            color: #111;
+            color: var(--text-primary);
             font-weight: 600;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ================================================================
+           RESPONSIVE
+           ================================================================ */
+        @media (max-width: 840px) {
+            .reader-panel {
+                padding: 28px 24px;
+            }
+            .reader-content {
+                font-size: 1.02rem;
+            }
+            .novel-title-group h1 {
+                font-size: 2.1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             header {
-                padding: 10px 16px;
+                padding: 8px 16px;
             }
             .logo-area a {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
             }
             .novel-hero {
-                padding: 28px 16px;
+                padding: 32px 16px 28px;
             }
             .novel-hero-inner {
                 flex-direction: column;
                 align-items: center;
-                gap: 16px;
+                gap: 18px;
                 text-align: center;
             }
             .novel-cover {
-                flex: 0 0 160px;
-                width: 160px;
+                flex: 0 0 150px;
+                width: 150px;
             }
             .novel-title-group {
                 justify-content: center;
             }
             .novel-title-group h1 {
-                font-size: 1.7rem;
+                font-size: 1.8rem;
             }
             .novel-title-group .en-title {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             .novel-meta .sub-line {
                 text-align: left;
@@ -546,13 +781,18 @@
                 justify-content: center;
             }
             .container {
-                padding: 28px 14px 60px;
+                padding: 28px 14px 56px;
             }
             .reader-panel {
                 padding: 20px 16px;
+                border-radius: var(--radius-sm);
             }
             .reader-content {
                 font-size: 0.98rem;
+                line-height: 1.95;
+            }
+            .reader-content .first-letter {
+                font-size: 2.8rem;
             }
             .reader-nav {
                 flex-direction: column;
@@ -560,25 +800,53 @@
             }
             .reader-nav button {
                 justify-content: center;
+                padding: 10px 16px;
+            }
+            .reader-nav .chapter-indicator {
+                text-align: center;
             }
             .chapter-grid {
                 grid-template-columns: 1fr;
             }
+            .reader-content .dialog,
+            .reader-content .dialog-alt {
+                padding: 8px 14px 8px 18px;
+                font-size: 0.96rem;
+            }
+            .reader-content .dialog::before,
+            .reader-content .dialog-alt::before {
+                font-size: 2rem;
+                top: -4px;
+            }
+            .reader-header h2 {
+                font-size: 1.1rem;
+            }
         }
 
         @media (max-width: 480px) {
+            .novel-title-group h1 {
+                font-size: 1.5rem;
+            }
             .novel-meta .synopsis {
                 padding: 12px 14px;
-                font-size: 0.9rem;
+                font-size: 0.88rem;
+            }
+            .reader-content {
+                font-size: 0.94rem;
             }
             .reader-content .first-letter {
                 font-size: 2.4rem;
             }
             .container {
-                padding: 22px 12px 50px;
+                padding: 20px 10px 48px;
             }
-            .novel-title-group h1 {
-                font-size: 1.4rem;
+            .reader-panel {
+                padding: 16px 12px;
+            }
+            .reader-content .dialog,
+            .reader-content .dialog-alt {
+                padding: 6px 12px 6px 16px;
+                font-size: 0.92rem;
             }
         }
     </style>
@@ -687,152 +955,166 @@
 
     <script>
         // ================================================================
-        //  DATA BAB (12 BAB DENGAN KONTEN FIKSI - NAMA ROSAD & IYAM)
+        //  DATA BAB — KONTEN DENGAN KELAS narasi / dialog / dialog-alt
         // ================================================================
         const chapters = [{
             id: 1,
             title: 'Pertemuan di Kafe Senja',
             date: '20 Jul 2026',
             content: `
-                <p><span class="first-letter">K</span>afe itu sunyi ketika Rosad melangkah masuk. Hanya ada dua pelanggan di sudut ruangan, dan satu di antaranya adalah pria yang selama ini ia incar. Iyam—anak tunggal dari keluarga yang telah menghancurkan segalanya. Rosad menarik napas panjang, lalu duduk di meja yang telah dipesan.</p>
-                <p>"Kau pasti Rosad," kata Iyam tanpa menatapnya. Suaranya dingin, seperti es yang mencair perlahan. "Ayah bilang kau akan datang. Katanya kau ingin bekerja padaku."</p>
-                <p>Rosad tersenyum, meskipun hatinya bergetar. "Ya. Aku butuh pekerjaan, dan kudengar kau sedang mencari asisten pribadi."</p>
-                <p>Iyam akhirnya menatapnya. Mata hitam pekat itu menyelidik, seolah-olah ia bisa membaca setiap kebohongan yang tersembunyi di balik senyum Rosad. "Baiklah. Besok kau mulai." Tanpa basa-basi, ia bangkit dan pergi, meninggalkan Rosad dengan segudang rencana dan satu pertanyaan besar: <em>apakah ia sanggup memainkan peran ini sampai akhir?</em></p>
-                <p>Rosad menggenggam gelas kopinya hingga jari-jarinya memutih. <strong>"Cintaku padamu itu palsu, Iyam. Tapi kenapa hatiku berdebar seperti ini?"</strong></p>
+                <p class="narasi"><span class="first-letter">K</span>afe itu sunyi ketika Rosad melangkah masuk. Hanya ada dua pelanggan di sudut ruangan, dan satu di antaranya adalah pria yang selama ini ia incar. Iyam—anak tunggal dari keluarga yang telah menghancurkan segalanya. Rosad menarik napas panjang, lalu duduk di meja yang telah dipesan.</p>
+                <p class="dialog">"Kau pasti Rosad," kata Iyam tanpa menatapnya. Suaranya dingin, seperti es yang mencair perlahan. "Ayah bilang kau akan datang. Katanya kau ingin bekerja padaku."</p>
+                <p class="dialog-alt">"Ya. Aku butuh pekerjaan, dan kudengar kau sedang mencari asisten pribadi."</p>
+                <p class="narasi">Iyam akhirnya menatapnya. Mata hitam pekat itu menyelidik, seolah-olah ia bisa membaca setiap kebohongan yang tersembunyi di balik senyum Rosad.</p>
+                <p class="dialog">"Baiklah. Besok kau mulai."</p>
+                <p class="narasi">Tanpa basa-basi, ia bangkit dan pergi, meninggalkan Rosad dengan segudang rencana dan satu pertanyaan besar: <em>apakah ia sanggup memainkan peran ini sampai akhir?</em></p>
+                <p class="narasi">Rosad menggenggam gelas kopinya hingga jari-jarinya memutih. <span class="dialog-inline">"Cintaku padamu itu palsu, Iyam. Tapi kenapa hatiku berdebar seperti ini?"</span></p>
             `
         }, {
             id: 2,
             title: 'Asisten Pribadi yang Misterius',
             date: '21 Jul 2026',
             content: `
-                <p><span class="first-letter">H</span>ari pertama Rosad sebagai asisten pribadi Iyam berjalan di atas tali tipis. Ia harus berpura-pura tidak mengenal setiap sudut rumah besar itu, padahal ia hafal denahnya sejak kecil. Ayahnya dulu adalah arsitek yang merancang rumah ini, sebelum keluarga Iyam merebutnya dengan cara licik.</p>
-                <p>"Rosad, tolong ambilkan dokumen di ruang kerja atas," perintah Iyam tanpa menoleh. Ia sedang sibuk dengan ponselnya, tampak frustrasi.</p>
-                <p>Rosad mengangguk dan melangkah. Di tangga, ia hampir menabrak seorang wanita tua—pembantu yang dulu pernah membantunya menyembunyikan diri. Wanita itu menatapnya sekilas, lalu melanjutkan pekerjaannya tanpa ekspresi. Rosad lega. <em>Belum waktunya.</em></p>
-                <p>Di ruang kerja, Rosad menemukan lebih dari sekadar dokumen. Di balik tumpukan kertas, ada foto lama—foto ayahnya bersama dengan ayah Iyam, tersenyum seolah mereka sahabat. Rosad menggigit bibir. <strong>"Kau bilang itu bisnis, tapi sebenarnya kau telah membunuh mimpi ayahku."</strong></p>
-                <p>Ia mengambil dokumen yang diminta, lalu kembali ke bawah. Iyam menatapnya dengan tatapan aneh. "Kau tahu di mana letak ruang kerja. Padahal baru pertama kali ke sini."</p>
-                <p>Rosad tersentak, tapi ia cepat pulih. "Ayahku dulu tukang bangunan. Aku terbiasa dengan denah rumah besar."</p>
-                <p>Iyam tidak menjawab, tapi senyum tipis muncul di sudut bibirnya. <em>Ia tahu sesuatu.</em></p>
+                <p class="narasi"><span class="first-letter">H</span>ari pertama Rosad sebagai asisten pribadi Iyam berjalan di atas tali tipis. Ia harus berpura-pura tidak mengenal setiap sudut rumah besar itu, padahal ia hafal denahnya sejak kecil. Ayahnya dulu adalah arsitek yang merancang rumah ini, sebelum keluarga Iyam merebutnya dengan cara licik.</p>
+                <p class="dialog">"Rosad, tolong ambilkan dokumen di ruang kerja atas," perintah Iyam tanpa menoleh. Ia sedang sibuk dengan ponselnya, tampak frustrasi.</p>
+                <p class="narasi">Rosad mengangguk dan melangkah. Di tangga, ia hampir menabrak seorang wanita tua—pembantu yang dulu pernah membantunya menyembunyikan diri. Wanita itu menatapnya sekilas, lalu melanjutkan pekerjaannya tanpa ekspresi. Rosad lega. <em>Belum waktunya.</em></p>
+                <p class="narasi">Di ruang kerja, Rosad menemukan lebih dari sekadar dokumen. Di balik tumpukan kertas, ada foto lama—foto ayahnya bersama dengan ayah Iyam, tersenyum seolah mereka sahabat. Rosad menggigit bibir. <span class="dialog-inline">"Kau bilang itu bisnis, tapi sebenarnya kau telah membunuh mimpi ayahku."</span></p>
+                <p class="narasi">Ia mengambil dokumen yang diminta, lalu kembali ke bawah. Iyam menatapnya dengan tatapan aneh.</p>
+                <p class="dialog">"Kau tahu di mana letak ruang kerja. Padahal baru pertama kali ke sini."</p>
+                <p class="dialog-alt">"Ayahku dulu tukang bangunan. Aku terbiasa dengan denah rumah besar."</p>
+                <p class="narasi">Iyam tidak menjawab, tapi senyum tipis muncul di sudut bibirnya. <em>Ia tahu sesuatu.</em></p>
             `
         }, {
             id: 3,
             title: 'Bayangan Masa Lalu',
             date: '22 Jul 2026',
             content: `
-                <p><span class="first-letter">M</span>alam itu, Rosad tidak bisa tidur. Ia duduk di tepi kamar kecil yang disediakan untuknya, memandangi langit malam yang kelam. Di sini, di rumah yang sama, ia dulu bersembunyi di lemari saat ayahnya bertengkar hebat dengan ayah Iyam. Ia ingat tangisan ibunya, dan suara keras yang menghancurkan segala harapan.</p>
-                <p>"Aku tidak akan biarkan mereka bahagia," bisik Rosad. "Aku akan meruntuhkan semuanya."</p>
-                <p>Namun, pagi harinya, saat ia menyajikan kopi untuk Iyam, pria itu berkata dengan lembut, "Kau terlihat lelah. Tidurlah lebih awal nanti."</p>
-                <p>Rosad terkejut. <em>Kenapa ia peduli?</em> Itu bukan bagian dari rencana. Ia seharusnya membenci Iyam, bukan merasakan hangat di dadanya setiap kali ia tersenyum.</p>
-                <p>"Aku baik-baik saja," jawabnya kaku.</p>
-                <p>Iyam mendekat, terlalu dekat. "Rosad, aku tahu kau menyembunyikan sesuatu. Tapi aku tidak akan memaksa." Ia menepuk pundak Rosad, lalu pergi.</p>
-                <p>Rosad menggigit bibir. <strong>"Kau membuat segalanya jadi sulit, Iyam."</strong></p>
+                <p class="narasi"><span class="first-letter">M</span>alam itu, Rosad tidak bisa tidur. Ia duduk di tepi kamar kecil yang disediakan untuknya, memandangi langit malam yang kelam. Di sini, di rumah yang sama, ia dulu bersembunyi di lemari saat ayahnya bertengkar hebat dengan ayah Iyam. Ia ingat tangisan ibunya, dan suara keras yang menghancurkan segala harapan.</p>
+                <p class="narasi"><span class="dialog-inline">"Aku tidak akan biarkan mereka bahagia,"</span> bisik Rosad. <span class="dialog-inline">"Aku akan meruntuhkan semuanya."</span></p>
+                <p class="narasi">Namun, pagi harinya, saat ia menyajikan kopi untuk Iyam, pria itu berkata dengan lembut,</p>
+                <p class="dialog">"Kau terlihat lelah. Tidurlah lebih awal nanti."</p>
+                <p class="narasi">Rosad terkejut. <em>Kenapa ia peduli?</em> Itu bukan bagian dari rencana. Ia seharusnya membenci Iyam, bukan merasakan hangat di dadanya setiap kali ia tersenyum.</p>
+                <p class="dialog-alt">"Aku baik-baik saja," jawabnya kaku.</p>
+                <p class="dialog">"Rosad, aku tahu kau menyembunyikan sesuatu. Tapi aku tidak akan memaksa."</p>
+                <p class="narasi">Ia menepuk pundak Rosad, lalu pergi. Rosad menggigit bibir. <span class="dialog-inline">"Kau membuat segalanya jadi sulit, Iyam."</span></p>
             `
         }, {
             id: 4,
             title: 'Dendam dan Keraguan',
             date: '23 Jul 2026',
             content: `
-                <p><span class="first-letter">R</span>osad mulai mengumpulkan bukti. Ia menyusup ke kantor pribadi Iyam, menyalin dokumen-dokumen penting, dan merekam percakapan. Tapi semakin ia menggali, semakin ia menemukan sesuatu yang aneh: ayah Iyam ternyata juga korban. Bisnis yang diwarisi Iyam hanyalah sisa-sisa dari konspirasi yang lebih besar.</p>
-                <p>"Ini tidak masuk akal," gumam Rosad. "Ayahku bilang mereka musuh. Tapi… kenapa semua petunjuk justru mengarah ke nama lain?"</p>
-                <p>Ia hampir ketahuan saat Iyam masuk tanpa pemberitahuan. Rosad buru-buru menutup laci, tapi Iyam sudah melihatnya. "Kau mencari sesuatu?" tanyanya dengan tatapan tajam.</p>
-                <p>Rosad tidak bisa menjawab. Ia hanya bisa menatap Iyam, dan untuk pertama kalinya, ia melihat keraguan di mata pria itu. <strong>"Mungkin kau bukan musuhku. Tapi aku tidak bisa berhenti."</strong></p>
-                <p>Iyam mendekat. "Rosad, apa pun yang kau cari, aku akan membantumu. Asal kau jujur padaku."</p>
-                <p>Rosad hampir menangis. <em>Jujur? Bagaimana bisa aku jujur ketika seluruh hidupku adalah kebohongan?</em></p>
+                <p class="narasi"><span class="first-letter">R</span>osad mulai mengumpulkan bukti. Ia menyusup ke kantor pribadi Iyam, menyalin dokumen-dokumen penting, dan merekam percakapan. Tapi semakin ia menggali, semakin ia menemukan sesuatu yang aneh: ayah Iyam ternyata juga korban. Bisnis yang diwarisi Iyam hanyalah sisa-sisa dari konspirasi yang lebih besar.</p>
+                <p class="narasi"><span class="dialog-inline">"Ini tidak masuk akal,"</span> gumam Rosad. <span class="dialog-inline">"Ayahku bilang mereka musuh. Tapi… kenapa semua petunjuk justru mengarah ke nama lain?"</span></p>
+                <p class="narasi">Ia hampir ketahuan saat Iyam masuk tanpa pemberitahuan. Rosad buru-buru menutup laci, tapi Iyam sudah melihatnya.</p>
+                <p class="dialog">"Kau mencari sesuatu?" tanyanya dengan tatapan tajam.</p>
+                <p class="narasi">Rosad tidak bisa menjawab. Ia hanya bisa menatap Iyam, dan untuk pertama kalinya, ia melihat keraguan di mata pria itu. <span class="dialog-inline">"Mungkin kau bukan musuhku. Tapi aku tidak bisa berhenti."</span></p>
+                <p class="dialog">"Rosad, apa pun yang kau cari, aku akan membantumu. Asal kau jujur padaku."</p>
+                <p class="narasi">Rosad hampir menangis. <em>Jujur? Bagaimana bisa aku jujur ketika seluruh hidupku adalah kebohongan?</em></p>
             `
         }, {
             id: 5,
             title: 'Ciuman di Tengah Hujan',
             date: '24 Jul 2026',
             content: `
-                <p><span class="first-letter">H</span>ujan turun deras saat Rosad akan pulang. Iyam menawarkan diri mengantarnya, tapi Rosad menolak dengan alasan yang dibuat-buat. Namun, di luar gerbang, Iyam sudah menunggu dengan payung di tangan.</p>
-                <p>"Kau keras kepala sekali," katanya sambil tersenyum. "Ayo, aku antar."</p>
-                <p>Di dalam mobil, suasana hening. Hanya suara hujan dan napas mereka yang terdengar. Rosad menatap profil Iyam—garis rahang tegas, mata yang teduh. Ia tidak menyangka pria ini bisa begitu lembut.</p>
-                <p>"Rosad," Iyam memecah keheningan. "Aku tidak tahu apa yang kau cari, tapi aku ingin kau tahu: aku tidak pernah bermaksud menyakiti siapa pun. Keluargaku memang penuh rahasia, tapi aku bukan bagian dari konspirasi itu."</p>
-                <p>Rosad menunduk. Air matanya jatuh, bercampur dengan tetesan hujan di kaca. "Aku… aku juga tidak mau menyakitimu, Iyam. Tapi aku sudah terlanjur terperangkap dalam kebohongan."</p>
-                <p>Tanpa sadar, Iyam meraih tangannya. "Kalau begitu, kita cari jalan keluar bersama."</p>
-                <p>Rosad mengangkat wajahnya, dan dalam sekejap, Iyam menciumnya. Lembut, hangat, dan penuh tanya. <strong>"Cintaku padamu itu palsu," bisik Rosad dalam hati. "Tapi kenapa kau membuatku meragukan segalanya?"</strong></p>
+                <p class="narasi"><span class="first-letter">H</span>ujan turun deras saat Rosad akan pulang. Iyam menawarkan diri mengantarnya, tapi Rosad menolak dengan alasan yang dibuat-buat. Namun, di luar gerbang, Iyam sudah menunggu dengan payung di tangan.</p>
+                <p class="dialog">"Kau keras kepala sekali," katanya sambil tersenyum. "Ayo, aku antar."</p>
+                <p class="narasi">Di dalam mobil, suasana hening. Hanya suara hujan dan napas mereka yang terdengar. Rosad menatap profil Iyam—garis rahang tegas, mata yang teduh. Ia tidak menyangka pria ini bisa begitu lembut.</p>
+                <p class="dialog">"Rosad," Iyam memecah keheningan. "Aku tidak tahu apa yang kau cari, tapi aku ingin kau tahu: aku tidak pernah bermaksud menyakiti siapa pun. Keluargaku memang penuh rahasia, tapi aku bukan bagian dari konspirasi itu."</p>
+                <p class="dialog-alt">"Aku… aku juga tidak mau menyakitimu, Iyam. Tapi aku sudah terlanjur terperangkap dalam kebohongan."</p>
+                <p class="narasi">Tanpa sadar, Iyam meraih tangannya.</p>
+                <p class="dialog">"Kalau begitu, kita cari jalan keluar bersama."</p>
+                <p class="narasi">Rosad mengangkat wajahnya, dan dalam sekejap, Iyam menciumnya. Lembut, hangat, dan penuh tanya. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> bisik Rosad dalam hati. <span class="dialog-inline">"Tapi kenapa kau membuatku meragukan segalanya?"</span></p>
             `
         }, {
             id: 6,
             title: 'Pengakuan yang Tertunda',
             date: '25 Jul 2026',
             content: `
-                <p><span class="first-letter">K</span>eesokan harinya, Rosad memutuskan untuk mengungkap semuanya. Ia mengumpulkan semua bukti yang ia temukan, lalu menghadap Iyam di ruang kerjanya. "Aku harus jujur," katanya dengan suara bergetar. "Aku bukan asisten biasa. Aku datang ke sini untuk menghancurkan keluargamu."</p>
-                <p>Iyam tidak terkejut. Ia hanya diam, lalu berkata, "Aku sudah tahu sejak hari pertama."</p>
-                <p>Rosad terpaku. "Kau… tahu?"</p>
-                <p>"Aku punya informasiku sendiri, Rosad. Aku tahu tentang ayahmu, tentang rumah ini, tentang semuanya. Tapi aku juga tahu bahwa kau bukanlah musuh yang sebenarnya." Iyam bangkit dan mendekatinya. "Yang seharusnya kau cari adalah pria yang dulu bekerja dengan ayahmu. Namanya Hendra. Dialah yang mengkhianati ayahmu, bukan ayahku."</p>
-                <p>Rosad jatuh berlutut. Semua dendam yang ia bangun selama bertahun-tahun runtuh seketika. "Aku… aku membenci orang yang salah. Aku hampir menghancurkan satu-satunya orang yang peduli padaku."</p>
-                <p>Iyam memeluknya. "Kita perbaiki ini bersama. Aku akan bantu kamu menemukan Hendra. Janji."</p>
-                <p>Di pelukan Iyam, Rosad menangis untuk pertama kalinya setelah bertahun-tahun. <strong>"Cintaku padamu itu palsu," bisiknya pelan. "Tapi sekarang… aku tidak tahu lagi mana yang nyata."</strong></p>
+                <p class="narasi"><span class="first-letter">K</span>eesokan harinya, Rosad memutuskan untuk mengungkap semuanya. Ia mengumpulkan semua bukti yang ia temukan, lalu menghadap Iyam di ruang kerjanya.</p>
+                <p class="dialog-alt">"Aku harus jujur," katanya dengan suara bergetar. "Aku bukan asisten biasa. Aku datang ke sini untuk menghancurkan keluargamu."</p>
+                <p class="narasi">Iyam tidak terkejut. Ia hanya diam, lalu berkata,</p>
+                <p class="dialog">"Aku sudah tahu sejak hari pertama."</p>
+                <p class="dialog-alt">"Kau… tahu?"</p>
+                <p class="dialog">"Aku punya informasiku sendiri, Rosad. Aku tahu tentang ayahmu, tentang rumah ini, tentang semuanya. Tapi aku juga tahu bahwa kau bukanlah musuh yang sebenarnya."</p>
+                <p class="narasi">Iyam bangkit dan mendekatinya.</p>
+                <p class="dialog">"Yang seharusnya kau cari adalah pria yang dulu bekerja dengan ayahmu. Namanya Hendra. Dialah yang mengkhianati ayahmu, bukan ayahku."</p>
+                <p class="narasi">Rosad jatuh berlutut. Semua dendam yang ia bangun selama bertahun-tahun runtuh seketika.</p>
+                <p class="dialog-alt">"Aku… aku membenci orang yang salah. Aku hampir menghancurkan satu-satunya orang yang peduli padaku."</p>
+                <p class="dialog">"Kita perbaiki ini bersama. Aku akan bantu kamu menemukan Hendra. Janji."</p>
+                <p class="narasi">Di pelukan Iyam, Rosad menangis untuk pertama kalinya setelah bertahun-tahun. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> bisiknya pelan. <span class="dialog-inline">"Tapi sekarang… aku tidak tahu lagi mana yang nyata."</span></p>
             `
         }, {
             id: 7,
             title: 'Mencari Hendra',
             date: '26 Jul 2026',
             content: `
-                <p><span class="first-letter">P</span>encarian Hendra membawa Rosad dan Iyam ke kota kecil di pinggiran. Mereka menyamar sebagai turis, menyusuri gang-gang sempit, dan bertanya pada warga. Namun, Hendra adalah bayangan—selalu ada tapi tak pernah terlihat.</p>
-                <p>"Kita hampir menyerah," keluh Rosad. "Mungkin dia sudah mati."</p>
-                <p>Iyam menggeleng. "Orang seperti Hendra tidak mati begitu saja. Ia pasti bersembunyi."</p>
-                <p>Malam itu, mereka menginap di sebuah penginapan tua. Rosad duduk di teras, memandang bintang. Iyam datang dengan dua cangkir teh hangat. "Kau tidak perlu melakukan ini sendiri," katanya. "Aku di sini."</p>
-                <p>Rosad tersenyum. "Aku tidak pernah punya orang seperti kau dalam hidupku. Terima kasih, Iyam."</p>
-                <p>Mereka berbagi teh, dan untuk pertama kalinya, Rosad merasakan kedamaian. <strong>"Cintaku padamu itu palsu," kenangnya. "Tapi sekarang, aku jatuh cinta padamu. Dan itu bukan kebohongan."</strong></p>
+                <p class="narasi"><span class="first-letter">P</span>encarian Hendra membawa Rosad dan Iyam ke kota kecil di pinggiran. Mereka menyamar sebagai turis, menyusuri gang-gang sempit, dan bertanya pada warga. Namun, Hendra adalah bayangan—selalu ada tapi tak pernah terlihat.</p>
+                <p class="dialog-alt">"Kita hampir menyerah," keluh Rosad. "Mungkin dia sudah mati."</p>
+                <p class="dialog">"Orang seperti Hendra tidak mati begitu saja. Ia pasti bersembunyi."</p>
+                <p class="narasi">Malam itu, mereka menginap di sebuah penginapan tua. Rosad duduk di teras, memandang bintang. Iyam datang dengan dua cangkir teh hangat.</p>
+                <p class="dialog">"Kau tidak perlu melakukan ini sendiri," katanya. "Aku di sini."</p>
+                <p class="dialog-alt">"Aku tidak pernah punya orang seperti kau dalam hidupku. Terima kasih, Iyam."</p>
+                <p class="narasi">Mereka berbagi teh, dan untuk pertama kalinya, Rosad merasakan kedamaian. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> kenangnya. <span class="dialog-inline">"Tapi sekarang, aku jatuh cinta padamu. Dan itu bukan kebohongan."</span></p>
             `
         }, {
             id: 8,
             title: 'Jejak di Ruang Bawah Tanah',
             date: '27 Jul 2026',
             content: `
-                <p><span class="first-letter">T</span>emuan tak terduga membawa mereka ke sebuah ruang bawah tanah di bekas pabrik. Di sana, mereka menemukan buku catatan Hendra—semua pengakuan tertulis dengan jelas. Hendra mengaku memalsukan dokumen untuk menjebak ayah Rosad dan ayah Iyam, sehingga ia bisa mengambil alih perusahaan.</p>
-                <p>"Dia biadab," bisik Rosad dengan tangan gemetar. "Dia menghancurkan dua keluarga hanya untuk uang."</p>
-                <p>Iyam memeluknya erat. "Kita punya bukti sekarang. Kita bisa membersihkan nama ayah kita."</p>
-                <p>Rosad menatap Iyam, mata mereka bertemu. Di ruangan gelap itu, mereka menemukan lebih dari sekedar kebenaran—mereka menemukan satu sama lain. <strong>"Cintaku padamu itu palsu," bisik Rosad. "Tapi kau telah mengubah segalanya."</strong></p>
+                <p class="narasi"><span class="first-letter">T</span>emuan tak terduga membawa mereka ke sebuah ruang bawah tanah di bekas pabrik. Di sana, mereka menemukan buku catatan Hendra—semua pengakuan tertulis dengan jelas. Hendra mengaku memalsukan dokumen untuk menjebak ayah Rosad dan ayah Iyam, sehingga ia bisa mengambil alih perusahaan.</p>
+                <p class="dialog-alt">"Dia biadab," bisik Rosad dengan tangan gemetar. "Dia menghancurkan dua keluarga hanya untuk uang."</p>
+                <p class="dialog">"Kita punya bukti sekarang. Kita bisa membersihkan nama ayah kita."</p>
+                <p class="narasi">Rosad menatap Iyam, mata mereka bertemu. Di ruangan gelap itu, mereka menemukan lebih dari sekedar kebenaran—mereka menemukan satu sama lain. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> bisik Rosad. <span class="dialog-inline">"Tapi kau telah mengubah segalanya."</span></p>
             `
         }, {
             id: 9,
             title: 'Kebenaran Terungkap',
             date: '28 Jul 2026',
             content: `
-                <p><span class="first-letter">K</span>embali ke kota, Rosad dan Iyam menyerahkan semua bukti ke pihak berwenang. Hendra akhirnya ditangkap di bandara saat mencoba melarikan diri. Berita itu menyebar cepat, dan nama baik kedua keluarga perlahan pulih.</p>
-                <p>Rosad berdiri di samping Iyam di depan kantor polisi. "Akhirnya," katanya sambil menghela napas. "Semua selesai."</p>
-                <p>Iyam menggenggam tangannya. "Ini awal yang baru, Rosad. Aku ingin kau tahu, aku mencintaimu. Bukan sebagai asisten, bukan sebagai musuh, tapi sebagai dirimu yang sebenarnya."</p>
-                <p>Rosad menangis—kali ini karena bahagia. "Aku juga mencintaimu, Iyam. Maaf atas semua kebohongan."</p>
-                <p>Iyam mencium dahinya. "Tidak apa-apa. Yang penting sekarang kau jujur."</p>
-                <p>Di bawah sinar matahari sore, mereka berpelukan, dan semua kepahitan masa lalu lenyap. <strong>"Cintaku padamu itu palsu," kenang Rosad. "Tapi sekarang, cinta ini nyata. Dan aku tidak akan pernah melepaskannya."</strong></p>
+                <p class="narasi"><span class="first-letter">K</span>embali ke kota, Rosad dan Iyam menyerahkan semua bukti ke pihak berwenang. Hendra akhirnya ditangkap di bandara saat mencoba melarikan diri. Berita itu menyebar cepat, dan nama baik kedua keluarga perlahan pulih.</p>
+                <p class="narasi">Rosad berdiri di samping Iyam di depan kantor polisi.</p>
+                <p class="dialog-alt">"Akhirnya," katanya sambil menghela napas. "Semua selesai."</p>
+                <p class="dialog">"Ini awal yang baru, Rosad. Aku ingin kau tahu, aku mencintaimu. Bukan sebagai asisten, bukan sebagai musuh, tapi sebagai dirimu yang sebenarnya."</p>
+                <p class="dialog-alt">"Aku juga mencintaimu, Iyam. Maaf atas semua kebohongan."</p>
+                <p class="dialog">"Tidak apa-apa. Yang penting sekarang kau jujur."</p>
+                <p class="narasi">Di bawah sinar matahari sore, mereka berpelukan, dan semua kepahitan masa lalu lenyap. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> kenang Rosad. <span class="dialog-inline">"Tapi sekarang, cinta ini nyata. Dan aku tidak akan pernah melepaskannya."</span></p>
             `
         }, {
             id: 10,
             title: 'Surat untuk Ayah',
             date: '29 Jul 2026',
             content: `
-                <p><span class="first-letter">R</span>osad menulis surat untuk ayahnya yang telah tiada. Ia duduk di taman belakang rumah Iyam, di bawah pohon rindang yang dulu pernah ia lindungi.</p>
-                <p>"Ayah, aku sudah menemukan kebenaran. Semua ini salah paham. Iyam bukan musuh kita. Dia orang yang baik—bahkan lebih baik dari yang kau bayangkan."</p>
-                <p>"Aku tahu kau mungkin kecewa karena aku membalas dendam, tapi aku juga belajar bahwa cinta lebih kuat dari kebencian. Aku mencintai Iyam, Ayah. Dan aku berharap, di mana pun kau berada, kau bisa memberkati kami."</p>
-                <p>Rosad menutup surat dengan air mata. Lalu, di belakangnya, Iyam datang dan duduk di sampingnya. "Kau menulis surat untuk ayahmu?"</p>
-                <p>Rosad mengangguk. "Aku ingin dia tahu bahwa aku bahagia."</p>
-                <p>Iyam memeluknya. "Dia pasti bangga padamu."</p>
-                <p>Mereka duduk bersama, menikmati senja yang damai. <strong>"Cintaku padamu itu palsu," Rosad tersenyum. "Tapi kisah kita adalah kebenaran yang paling indah."</strong></p>
+                <p class="narasi"><span class="first-letter">R</span>osad menulis surat untuk ayahnya yang telah tiada. Ia duduk di taman belakang rumah Iyam, di bawah pohon rindang yang dulu pernah ia lindungi.</p>
+                <p class="narasi">"Ayah, aku sudah menemukan kebenaran. Semua ini salah paham. Iyam bukan musuh kita. Dia orang yang baik—bahkan lebih baik dari yang kau bayangkan."</p>
+                <p class="narasi">"Aku tahu kau mungkin kecewa karena aku membalas dendam, tapi aku juga belajar bahwa cinta lebih kuat dari kebencian. Aku mencintai Iyam, Ayah. Dan aku berharap, di mana pun kau berada, kau bisa memberkati kami."</p>
+                <p class="narasi">Rosad menutup surat dengan air mata. Lalu, di belakangnya, Iyam datang dan duduk di sampingnya.</p>
+                <p class="dialog">"Kau menulis surat untuk ayahmu?"</p>
+                <p class="dialog-alt">"Aku ingin dia tahu bahwa aku bahagia."</p>
+                <p class="dialog">"Dia pasti bangga padamu."</p>
+                <p class="narasi">Mereka duduk bersama, menikmati senja yang damai. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> Rosad tersenyum. <span class="dialog-inline">"Tapi kisah kita adalah kebenaran yang paling indah."</span></p>
             `
         }, {
             id: 11,
             title: 'Cinta yang Tak Terduga',
             date: '30 Jul 2026',
             content: `
-                <p><span class="first-letter">B</span>ulan berlalu. Rosad dan Iyam resmi berpacaran. Hubungan mereka tidak lagi dibayangi oleh kebohongan, tapi masih ada satu hal yang mengganjal—keluarga besar Iyam belum sepenuhnya menerima Rosad.</p>
-                <p>"Mereka masih menganggapmu sebagai pengkhianat," kata Iyam suatu malam. "Tapi aku akan meyakinkan mereka."</p>
-                <p>Rosad tersenyum tipis. "Aku tidak butuh mereka menerimaku. Yang penting kau ada di sisiku."</p>
-                <p>Iyam mengecup keningnya. "Kau wanita paling kuat yang pernah aku kenal."</p>
-                <p>Malam itu, mereka bermalam di balkon, menikmati angin malam. Rosad bersandar di dada Iyam, mendengar detak jantungnya. <strong>"Cintaku padamu itu palsu," bisiknya pelan. "Tapi kau telah membuatku percaya bahwa cinta sejati itu ada."</strong></p>
+                <p class="narasi"><span class="first-letter">B</span>ulan berlalu. Rosad dan Iyam resmi berpacaran. Hubungan mereka tidak lagi dibayangi oleh kebohongan, tapi masih ada satu hal yang mengganjal—keluarga besar Iyam belum sepenuhnya menerima Rosad.</p>
+                <p class="dialog">"Mereka masih menganggapmu sebagai pengkhianat," kata Iyam suatu malam. "Tapi aku akan meyakinkan mereka."</p>
+                <p class="dialog-alt">"Aku tidak butuh mereka menerimaku. Yang penting kau ada di sisiku."</p>
+                <p class="dialog">"Kau wanita paling kuat yang pernah aku kenal."</p>
+                <p class="narasi">Malam itu, mereka bermalam di balkon, menikmati angin malam. Rosad bersandar di dada Iyam, mendengar detak jantungnya. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> bisiknya pelan. <span class="dialog-inline">"Tapi kau telah membuatku percaya bahwa cinta sejati itu ada."</span></p>
             `
         }, {
             id: 12,
             title: 'Akhir yang Baru',
             date: '31 Jul 2026',
             content: `
-                <p><span class="first-letter">H</span>ari pernikahan Rosad dan Iyam digelar sederhana, hanya dihadiri oleh orang-orang terdekat. Rosad mengenakan gaun putih, dan Iyam tampak gagah dalam setelan hitam. Di altar, mereka saling berjanji untuk selalu jujur dan saling menjaga.</p>
-                <p>"Aku berjanji akan mencintaimu dengan tulus, Rosad. Tanpa kebohongan. Tanpa rahasia."</p>
-                <p>Rosad tersenyum, matanya berkaca-kaca. "Aku juga berjanji. Cintaku padamu dulu mungkin palsu, tapi sekarang, untuk selamanya, cintaku padamu adalah satu-satunya kebenaran yang aku miliki."</p>
-                <p>Mereka saling mencium di hadapan para tamu, dan semua orang bersorak. Di belakang, Rosad melihat foto kecil ayahnya yang ia letakkan di antara bunga. Ia berbisik, "Ayah, aku bahagia. Dan semua ini karena cinta yang tak pernah aku duga."</p>
-                <p>Cerita berakhir di pelukan mereka, dengan senyum yang tak pernah pudar. <strong>"Cintaku padamu itu palsu," kenang Rosad. "Tapi sekarang, aku akan mencintaimu selamanya."</strong></p>
-                <p style="text-align:center; margin-top:28px; font-style:italic; color:var(--text-muted);">— TAMAT —</p>
+                <p class="narasi"><span class="first-letter">H</span>ari pernikahan Rosad dan Iyam digelar sederhana, hanya dihadiri oleh orang-orang terdekat. Rosad mengenakan gaun putih, dan Iyam tampak gagah dalam setelan hitam. Di altar, mereka saling berjanji untuk selalu jujur dan saling menjaga.</p>
+                <p class="dialog">"Aku berjanji akan mencintaimu dengan tulus, Rosad. Tanpa kebohongan. Tanpa rahasia."</p>
+                <p class="dialog-alt">"Aku juga berjanji. Cintaku padamu dulu mungkin palsu, tapi sekarang, untuk selamanya, cintaku padamu adalah satu-satunya kebenaran yang aku miliki."</p>
+                <p class="narasi">Mereka saling mencium di hadapan para tamu, dan semua orang bersorak. Di belakang, Rosad melihat foto kecil ayahnya yang ia letakkan di antara bunga. Ia berbisik, <span class="dialog-inline">"Ayah, aku bahagia. Dan semua ini karena cinta yang tak pernah aku duga."</span></p>
+                <p class="narasi">Cerita berakhir di pelukan mereka, dengan senyum yang tak pernah pudar. <span class="dialog-inline">"Cintaku padamu itu palsu,"</span> kenang Rosad. <span class="dialog-inline">"Tapi sekarang, aku akan mencintaimu selamanya."</span></p>
+                <p class="tamat">— TAMAT —</p>
             `
         }];
 
@@ -858,6 +1140,7 @@
                     <span class="ch-number">Bab ${ch.id}</span>
                     <span class="ch-title">${ch.title}</span>
                     <span class="ch-date">${ch.date}</span>
+                    <span class="ch-badge-active">●</span>
                 `;
                 card.addEventListener('click', () => loadChapter(ch.id));
                 grid.appendChild(card);
