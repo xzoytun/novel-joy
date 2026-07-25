@@ -13,22 +13,26 @@
             --text-muted: #6b7280;
             --accent: #e50914;
             --accent-hover: #c40810;
-            --border-color: #e5e5ea;
             --romance: #e84393;
             --horror: #2d3436;
-            --comedy: #fdcb6e;
+            --comedy: #c8960a;
             --mystery: #6c5ce7;
             --fantasy: #00b894;
+            --border-color: #e5e5ea;
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
             --radius: 12px;
-            --transition: 0.3s ease;
+            --transition: 0.2s ease;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -39,6 +43,7 @@
             display: flex;
             flex-direction: column;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* ===== HEADER ===== */
@@ -63,11 +68,19 @@
             font-weight: 700;
             letter-spacing: -0.3px;
             color: #111;
-            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .logo-area h1 .accent {
             color: var(--accent);
+        }
+
+        .logo-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
         }
 
         .creator-badge {
@@ -88,6 +101,7 @@
             padding: 32px 20px 20px;
             max-width: 820px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .hero h2 {
@@ -106,7 +120,7 @@
         .hero p {
             color: var(--text-muted);
             font-size: 1rem;
-            margin-top: 4px;
+            margin-top: 8px;
         }
 
         /* ===== SEARCH ===== */
@@ -114,6 +128,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 14px;
+            width: 100%;
         }
 
         .search-box {
@@ -135,11 +150,12 @@
         }
 
         .search-box .search-icon {
-            font-size: 1rem;
+            width: 16px;
+            height: 16px;
             color: var(--text-muted);
-            line-height: 1;
             opacity: 0.7;
             margin-right: 10px;
+            flex-shrink: 0;
         }
 
         .search-box input {
@@ -185,7 +201,7 @@
             text-align: center;
             font-size: 0.82rem;
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 8px;
             min-height: 1.4em;
         }
 
@@ -195,11 +211,12 @@
             margin: 0 auto;
             padding: 0 20px 12px;
             position: relative;
+            width: 100%;
         }
 
         .category-scroll {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             overflow-x: auto;
             padding: 4px 2px 10px;
             scrollbar-width: none;
@@ -213,10 +230,9 @@
 
         .category-scroll .tab-btn {
             flex: 0 0 auto;
-            padding: 8px 18px;
-            border: none;
+            padding: 9px 18px;
             background: var(--bg-secondary);
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: var(--text-muted);
             cursor: pointer;
@@ -224,27 +240,29 @@
             transition: all var(--transition);
             white-space: nowrap;
             font-family: inherit;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow-sm);
             scroll-snap-align: start;
         }
 
         .category-scroll .tab-btn .tab-icon {
-            font-size: 0.95rem;
-            line-height: 1;
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            stroke: currentColor;
         }
 
         .category-scroll .tab-btn .count {
             background: var(--bg-primary);
-            padding: 0 8px;
+            padding: 1px 8px;
             border-radius: 12px;
-            font-size: 0.6rem;
+            font-size: 0.68rem;
             font-weight: 600;
             color: var(--text-muted);
-            line-height: 1.7;
+            line-height: 1.6;
             transition: all var(--transition);
         }
 
@@ -291,12 +309,6 @@
             color: #111;
         }
 
-        .section-title .genre-label {
-            font-weight: 400;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-        }
-
         .result-count {
             font-size: 0.82rem;
             color: var(--text-muted);
@@ -305,8 +317,9 @@
         /* ===== NOVEL GRID ===== */
         .novel-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 22px;
+            width: 100%;
         }
 
         .novel-grid.hidden {
@@ -323,7 +336,7 @@
             flex-direction: column;
             box-shadow: var(--shadow-sm);
             transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-            cursor: default;
+            min-width: 0;
         }
 
         .novel-card:hover {
@@ -335,7 +348,7 @@
         .image-wrapper {
             position: relative;
             width: 100%;
-            height: 320px;
+            aspect-ratio: 3 / 4;
             overflow: hidden;
             background: #e8e8ec;
         }
@@ -344,6 +357,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
             transition: transform 0.5s ease;
         }
 
@@ -353,15 +367,15 @@
 
         .status-tag {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 10px;
+            right: 10px;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             color: #1a9c4a;
             font-size: 0.62rem;
             font-weight: 600;
-            padding: 3px 12px;
+            padding: 3px 10px;
             border-radius: 6px;
             border: 1px solid rgba(26, 156, 74, 0.25);
             letter-spacing: 0.2px;
@@ -375,11 +389,11 @@
 
         .genre-tag {
             position: absolute;
-            bottom: 12px;
-            left: 12px;
-            font-size: 0.58rem;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.6rem;
             font-weight: 600;
-            padding: 3px 12px;
+            padding: 3px 10px;
             border-radius: 4px;
             color: #fff;
             text-transform: uppercase;
@@ -389,7 +403,7 @@
 
         .genre-tag.romance { background: var(--romance); }
         .genre-tag.horror { background: var(--horror); }
-        .genre-tag.comedy { background: var(--comedy); color: #2d3436; }
+        .genre-tag.comedy { background: var(--comedy); color: #fff; }
         .genre-tag.mystery { background: var(--mystery); }
         .genre-tag.fantasy { background: var(--fantasy); }
 
@@ -399,6 +413,7 @@
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
+            gap: 10px;
         }
 
         .novel-title {
@@ -434,15 +449,20 @@
         .novel-stats-mini {
             display: flex;
             gap: 14px;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
         }
 
         .novel-stats-mini .stat-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
+        }
+
+        .novel-stats-mini .stat-item svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
         }
 
         .btn {
@@ -482,11 +502,12 @@
             grid-column: 1 / -1;
         }
 
-        .empty-category .empty-icon {
-            font-size: 2.6rem;
+        .empty-category svg {
+            width: 40px;
+            height: 40px;
             display: block;
-            margin-bottom: 8px;
-            opacity: 0.5;
+            margin: 0 auto 10px;
+            opacity: 0.4;
         }
 
         .empty-category p {
@@ -517,20 +538,17 @@
                 font-size: 1.1rem;
             }
             .hero h2 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             .hero {
-                padding: 24px 16px 14px;
+                padding: 22px 16px 14px;
             }
             .container {
                 padding: 6px 14px 50px;
             }
             .novel-grid {
-                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
-            }
-            .image-wrapper {
-                height: 220px;
             }
             .search-box {
                 max-width: 100%;
@@ -547,11 +565,8 @@
                 padding: 0 14px 8px;
             }
             .category-scroll .tab-btn {
-                padding: 6px 14px;
-                font-size: 0.75rem;
-            }
-            .category-scroll .tab-btn .tab-icon {
-                font-size: 0.85rem;
+                padding: 7px 14px;
+                font-size: 0.78rem;
             }
             .creator-badge {
                 font-size: 0.62rem;
@@ -564,57 +579,55 @@
 
         @media (max-width: 480px) {
             .novel-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .image-wrapper {
-                height: 160px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
             .novel-title {
                 font-size: 0.85rem;
             }
             .novel-desc {
-                font-size: 0.7rem;
-                -webkit-line-clamp: 2;
+                font-size: 0.72rem;
             }
             .novel-info {
-                padding: 8px 10px 10px;
+                padding: 10px 12px 12px;
+                gap: 8px;
             }
             .btn {
-                font-size: 0.7rem;
-                padding: 6px;
+                font-size: 0.72rem;
+                padding: 7px;
                 border-radius: 6px;
             }
             .status-tag {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
                 padding: 2px 8px;
-                top: 6px;
-                right: 6px;
+                top: 8px;
+                right: 8px;
             }
             .genre-tag {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
                 padding: 2px 8px;
-                bottom: 6px;
-                left: 6px;
+                bottom: 8px;
+                left: 8px;
             }
             .novel-stats-mini {
-                font-size: 0.6rem;
-                gap: 8px;
+                font-size: 0.65rem;
+                gap: 10px;
             }
             .novel-author {
-                font-size: 0.65rem;
-            }
-            .category-scroll .tab-btn {
-                padding: 5px 12px;
                 font-size: 0.68rem;
             }
+            .category-scroll .tab-btn {
+                padding: 6px 12px;
+                font-size: 0.72rem;
+                gap: 5px;
+            }
             .category-scroll .tab-btn .tab-icon {
-                font-size: 0.75rem;
+                width: 13px;
+                height: 13px;
             }
             .category-scroll .tab-btn .count {
-                font-size: 0.55rem;
-                padding: 0 6px;
-                line-height: 1.6;
+                font-size: 0.6rem;
+                padding: 1px 6px;
             }
             .hero h2 {
                 font-size: 1.3rem;
@@ -634,7 +647,10 @@
     <!-- ===== HEADER ===== -->
     <header>
         <div class="logo-area">
-            <h1>📖 Story <span class="accent">Novel</span></h1>
+            <h1>
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Story <span class="accent">Novel</span>
+            </h1>
         </div>
         <div class="creator-badge">Created by Mr.Anom</div>
     </header>
@@ -648,7 +664,7 @@
     <!-- ===== SEARCH ===== -->
     <div class="search-wrapper">
         <div class="search-box">
-            <span class="search-icon">🔍</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="searchInput" placeholder="Cari judul novel..." autocomplete="off">
             <button class="clear-btn" id="clearBtn" aria-label="Hapus pencarian">✕</button>
         </div>
@@ -659,27 +675,33 @@
     <div class="category-wrap">
         <div class="category-scroll" id="categoryScroll">
             <button class="tab-btn active" data-category="all">
-                <span class="tab-icon">📚</span> Semua
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Semua
                 <span class="count">10</span>
             </button>
             <button class="tab-btn" data-category="romance">
-                <span class="tab-icon">❤️</span> Romantis
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                Romantis
                 <span class="count">4</span>
             </button>
             <button class="tab-btn" data-category="horror">
-                <span class="tab-icon">👻</span> Horor
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v10l3-2 2 2 3-2 3 2 2-2 3 2V10a8 8 0 0 0-8-8Z"/></svg>
+                Horor
                 <span class="count">2</span>
             </button>
             <button class="tab-btn" data-category="comedy">
-                <span class="tab-icon">😂</span> Komedi
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+                Komedi
                 <span class="count">2</span>
             </button>
             <button class="tab-btn" data-category="mystery">
-                <span class="tab-icon">🔍</span> Misteri
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                Misteri
                 <span class="count">1</span>
             </button>
             <button class="tab-btn" data-category="fantasy">
-                <span class="tab-icon">🐉</span> Fantasi
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l1.5 4.5L19 9l-4.5 1.5L13 15l-1.5-4.5L7 9l4.5-1.5L13 3Z"/></svg>
+                Fantasi
                 <span class="count">1</span>
             </button>
         </div>
@@ -830,6 +852,15 @@
         }];
 
         // ================================================================
+        //  ICON HELPERS (inline SVG, no emoji)
+        // ================================================================
+        const icons = {
+            book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+            star: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+            empty: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>'
+        };
+
+        // ================================================================
         //  RENDER ENGINE
         // ================================================================
         const categoryMap = {
@@ -849,7 +880,7 @@
             if (novelList.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-category">
-                        <span class="empty-icon">📭</span>
+                        ${icons.empty}
                         <p>${searchTerm ? `Tidak ditemukan novel dengan judul "${searchTerm}"` : 'Belum ada novel di kategori ini. Nantikan update selanjutnya!'}</p>
                     </div>
                 `;
@@ -875,8 +906,8 @@
                             <div class="novel-author">oleh <span>${novel.author}</span></div>
                             <div class="novel-desc">${novel.desc}</div>
                             <div class="novel-stats-mini">
-                                <span class="stat-item">📖 ${novel.reads}</span>
-                                <span class="stat-item">⭐ ${novel.rating}</span>
+                                <span class="stat-item">${icons.book} ${novel.reads}</span>
+                                <span class="stat-item">${icons.star} ${novel.rating}</span>
                             </div>
                         </div>
                         <a href="${novel.link}" class="btn ${novel.link === '#' ? 'disabled' : ''}">
