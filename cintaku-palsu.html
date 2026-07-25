@@ -17,6 +17,9 @@
             --border-color: #e5e5ea;
             --read-bg: #faf8f5;
             --read-text: #2c2c2c;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
         }
 
         * {
@@ -32,7 +35,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         /* ===== HEADER ===== */
@@ -43,12 +46,12 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 16px 40px;
+            padding: 14px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-area {
@@ -60,9 +63,9 @@
         .logo-area a {
             text-decoration: none;
             color: #111;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -76,7 +79,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             background: var(--bg-primary);
-            padding: 6px 14px;
+            padding: 5px 14px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
             transition: 0.2s;
@@ -93,9 +96,9 @@
         .creator-badge {
             background: linear-gradient(135deg, #e50914, #ff4757);
             color: white;
-            padding: 6px 16px;
+            padding: 5px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
             white-space: nowrap;
@@ -103,25 +106,25 @@
 
         /* ===== NOVEL HERO ===== */
         .novel-hero {
-            background: linear-gradient(145deg, #ffffff, #f2f2f5);
+            background: linear-gradient(145deg, #ffffff, #f4f4f7);
             border-bottom: 1px solid var(--border-color);
-            padding: 40px 20px 30px;
+            padding: 32px 20px 28px;
         }
 
         .novel-hero-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
+            gap: 32px;
             align-items: flex-start;
         }
 
         .novel-cover {
-            flex: 0 0 220px;
-            border-radius: 12px;
+            flex: 0 0 200px;
+            border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
         }
 
@@ -140,26 +143,50 @@
             display: inline-block;
             background: #1a9c4a;
             color: #fff;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 14px;
+            padding: 3px 14px;
             border-radius: 20px;
             letter-spacing: 0.3px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .novel-meta h1 {
-            font-size: 2.2rem;
+        .novel-title-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 16px;
+            margin-bottom: 4px;
+        }
+
+        .novel-title-group h1 {
+            font-size: 2rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 8px;
             color: #111;
         }
 
-        .novel-meta .author {
+        .novel-title-group .en-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .novel-meta .sub-line {
             font-size: 1rem;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+        }
+
+        .novel-meta .author {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
         }
 
         .novel-meta .author span {
@@ -168,20 +195,24 @@
         }
 
         .novel-meta .synopsis {
-            font-size: 1rem;
+            font-size: 0.98rem;
             color: #2c2c2c;
             background: rgba(255, 255, 255, 0.7);
             padding: 16px 20px;
             border-radius: 10px;
             border-left: 4px solid var(--accent);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             line-height: 1.8;
+        }
+
+        .novel-meta .synopsis strong {
+            color: #111;
         }
 
         .novel-stats {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px 32px;
             font-size: 0.9rem;
             color: var(--text-muted);
         }
@@ -193,17 +224,17 @@
 
         /* ===== BAB LIST ===== */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 32px 20px 60px;
             flex: 1;
             width: 100%;
         }
 
         .section-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border-left: 4px solid var(--accent);
             padding-left: 12px;
             color: #111;
@@ -211,27 +242,33 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
+        }
+
+        .section-title .hint {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .chapter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
         }
 
         .chapter-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             cursor: pointer;
             transition: 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            box-shadow: var(--shadow-sm);
         }
 
         .chapter-card:hover {
@@ -243,7 +280,7 @@
         .chapter-card .ch-number {
             font-weight: 700;
             color: var(--accent);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-right: 12px;
             min-width: 40px;
         }
@@ -252,26 +289,28 @@
             font-weight: 500;
             flex: 1;
             color: #111;
+            font-size: 0.95rem;
         }
 
         .chapter-card .ch-date {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
+            white-space: nowrap;
         }
 
         .chapter-card.active {
             border-color: var(--accent);
             background: #fff5f5;
+            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.15);
         }
 
         /* ===== READER PANEL ===== */
         .reader-panel {
             background: var(--read-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 40px 44px;
-            margin-top: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            box-shadow: var(--shadow-sm);
             transition: 0.3s;
         }
 
@@ -280,14 +319,14 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
         }
 
         .reader-panel .reader-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #111;
         }
@@ -295,17 +334,18 @@
         .reader-panel .reader-header .ch-badge {
             background: var(--accent);
             color: #fff;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 14px;
+            padding: 3px 14px;
             border-radius: 20px;
+            letter-spacing: 0.3px;
         }
 
         .reader-content {
             font-size: 1.05rem;
             line-height: 2;
             color: var(--read-text);
-            max-width: 720px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -314,7 +354,7 @@
         }
 
         .reader-content .first-letter {
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 700;
             float: left;
             line-height: 1;
@@ -328,8 +368,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 32px;
-            padding-top: 20px;
+            margin-top: 28px;
+            padding-top: 18px;
             border-top: 1px solid var(--border-color);
             gap: 12px;
             flex-wrap: wrap;
@@ -338,7 +378,7 @@
         .reader-nav button {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 10px 22px;
+            padding: 8px 20px;
             border-radius: 8px;
             font-weight: 500;
             font-size: 0.9rem;
@@ -369,23 +409,24 @@
         /* ===== EMPTY STATE ===== */
         .empty-chapter {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             color: var(--text-muted);
         }
+
         .empty-chapter span {
-            font-size: 3rem;
+            font-size: 2.8rem;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         /* ===== FOOTER ===== */
         footer {
             background-color: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
-            padding: 30px 20px;
+            padding: 24px 20px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         footer span {
@@ -396,7 +437,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             header {
-                padding: 12px 16px;
+                padding: 10px 16px;
             }
             .logo-area a {
                 font-size: 1.2rem;
@@ -404,17 +445,20 @@
             .novel-hero-inner {
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 16px;
             }
             .novel-cover {
-                flex: 0 0 180px;
-                width: 180px;
+                flex: 0 0 160px;
+                width: 160px;
             }
-            .novel-meta h1 {
-                font-size: 1.7rem;
+            .novel-title-group h1 {
+                font-size: 1.6rem;
+            }
+            .novel-title-group .en-title {
+                font-size: 0.95rem;
             }
             .reader-panel {
-                padding: 24px 18px;
+                padding: 20px 16px;
             }
             .reader-content {
                 font-size: 0.98rem;
@@ -434,10 +478,10 @@
         @media (max-width: 480px) {
             .novel-meta .synopsis {
                 padding: 12px 14px;
-                font-size: 0.92rem;
+                font-size: 0.9rem;
             }
             .reader-content .first-letter {
-                font-size: 2.6rem;
+                font-size: 2.4rem;
             }
         }
     </style>
@@ -461,17 +505,20 @@
             </div>
             <div class="novel-meta">
                 <div class="badge-status">● Ongoing</div>
-                <h1>Cintaku Padamu Itu Palsu</h1>
+                <div class="novel-title-group">
+                    <h1>Cintaku Padamu Itu Palsu</h1>
+                    <span class="en-title">My Love for You Is Fake</span>
+                </div>
+                <div class="sub-line">“Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?”</div>
                 <div class="author">Penulis: <span>Mr.Anom</span></div>
                 <div class="synopsis">
-                    <strong>“Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?”</strong><br />
-                    Rania menyusup ke dalam kehidupan Arka dengan satu misi: menghancurkan keluarga yang telah merenggut masa kecilnya. Namun, saat cinta mulai tumbuh di antara kebohongan, ia harus memilih antara dendam atau hati. Sebuah kisah rumit penuh intrik, sandiwara, dan pengorbanan yang akan membuatmu bertanya—mana yang benar-benar palsu?
+                    <strong>Rania</strong> menyusup ke dalam kehidupan Arka dengan satu misi: menghancurkan keluarga yang telah merenggut masa kecilnya. Namun, saat cinta mulai tumbuh di antara kebohongan, ia harus memilih antara dendam atau hati. Sebuah kisah rumit penuh intrik, sandiwara, dan pengorbanan yang akan membuatmu bertanya—mana yang benar-benar palsu?
                 </div>
                 <div class="novel-stats">
                     <div><strong>12</strong> Bab</div>
                     <div><strong>24.7k</strong> Pembaca</div>
                     <div><strong>4.8</strong> ★ (1.2k rating)</div>
-                    <div>Terakhir update: <strong>25 Jul 2026</strong></div>
+                    <div>Update: <strong>25 Jul 2026</strong></div>
                 </div>
             </div>
         </div>
@@ -482,11 +529,11 @@
         <!-- Daftar Bab -->
         <div class="section-title">
             <span>📖 Daftar Bab</span>
-            <span style="font-weight:400; font-size:0.85rem; color:var(--text-muted);">Klik bab untuk membaca</span>
+            <span class="hint">Klik bab untuk membaca</span>
         </div>
 
         <div class="chapter-grid" id="chapterGrid">
-            <!-- akan diisi oleh JavaScript -->
+            <!-- diisi JavaScript -->
         </div>
 
         <!-- Reader Panel -->
@@ -496,10 +543,10 @@
                 <span class="ch-badge" id="readerBadge">Bab 1</span>
             </div>
             <div class="reader-content" id="readerContent">
-                <p style="color:var(--text-muted); text-align:center; padding:30px 0;">
-                    <span style="font-size:2.4rem; display:block; margin-bottom:8px;">📖</span>
-                    Klik salah satu bab di atas untuk membaca ceritanya.
-                </p>
+                <div class="empty-chapter">
+                    <span>📖</span>
+                    <p>Klik salah satu bab di atas untuk membaca ceritanya.</p>
+                </div>
             </div>
             <div class="reader-nav">
                 <button id="prevChapter" disabled>← Bab Sebelumnya</button>
@@ -511,163 +558,163 @@
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        <p>&copy; 2026 <span>Story Novel</span>. All rights reserved. Designed &amp; Created by <span>Mr.Anom</span>.</p>
+        <p>&copy; 2026 <span>Story Novel</span> — All rights reserved. Designed &amp; Created by <span>Mr.Anom</span>.</p>
     </footer>
 
     <script>
-        // ============================================================
-        //  DATA BAB (KONTEN FIKSI)
-        // ============================================================
+        // ================================================================
+        //  DATA BAB (12 BAB DENGAN KONTOR FIKSI)
+        // ================================================================
         const chapters = [{
             id: 1,
             title: 'Pertemuan di Kafe Senja',
             date: '20 Jul 2026',
             content: `
-            <p><span class="first-letter">K</span>afe itu sunyi ketika Rania melangkah masuk. Hanya ada dua pelanggan di sudut ruangan, dan satu di antaranya adalah pria yang selama ini ia incar. Arka—anak tunggal dari keluarga yang telah menghancurkan segalanya. Rania menarik napas panjang, lalu duduk di meja yang telah dipesan.</p>
-            <p>“Kau pasti Rania,” kata Arka tanpa menatapnya. Suaranya dingin, seperti es yang mencair perlahan. “Ayah bilang kau akan datang. Katanya kau ingin bekerja padaku.”</p>
-            <p>Rania tersenyum, meskipun hatinya bergetar. “Ya. Aku butuh pekerjaan, dan kudengar kau sedang mencari asisten pribadi.”</p>
-            <p>Arka akhirnya menatapnya. Mata hitam pekat itu menyelidik, seolah-olah ia bisa membaca setiap kebohongan yang tersembunyi di balik senyum Rania. “Baiklah. Besok kau mulai.” Tanpa basa-basi, ia bangkit dan pergi, meninggalkan Rania dengan segudang rencana dan satu pertanyaan besar: <em>apakah ia sanggup memainkan peran ini sampai akhir?</em></p>
-            <p>Rania menggenggam gelas kopinya hingga jari-jarinya memutih. <strong>“Cintaku padamu itu palsu, Arka. Tapi kenapa hatiku berdebar seperti ini?”</strong></p>
+                <p><span class="first-letter">K</span>afe itu sunyi ketika Rania melangkah masuk. Hanya ada dua pelanggan di sudut ruangan, dan satu di antaranya adalah pria yang selama ini ia incar. Arka—anak tunggal dari keluarga yang telah menghancurkan segalanya. Rania menarik napas panjang, lalu duduk di meja yang telah dipesan.</p>
+                <p>“Kau pasti Rania,” kata Arka tanpa menatapnya. Suaranya dingin, seperti es yang mencair perlahan. “Ayah bilang kau akan datang. Katanya kau ingin bekerja padaku.”</p>
+                <p>Rania tersenyum, meskipun hatinya bergetar. “Ya. Aku butuh pekerjaan, dan kudengar kau sedang mencari asisten pribadi.”</p>
+                <p>Arka akhirnya menatapnya. Mata hitam pekat itu menyelidik, seolah-olah ia bisa membaca setiap kebohongan yang tersembunyi di balik senyum Rania. “Baiklah. Besok kau mulai.” Tanpa basa-basi, ia bangkit dan pergi, meninggalkan Rania dengan segudang rencana dan satu pertanyaan besar: <em>apakah ia sanggup memainkan peran ini sampai akhir?</em></p>
+                <p>Rania menggenggam gelas kopinya hingga jari-jarinya memutih. <strong>“Cintaku padamu itu palsu, Arka. Tapi kenapa hatiku berdebar seperti ini?”</strong></p>
             `
         }, {
             id: 2,
             title: 'Asisten Pribadi yang Misterius',
             date: '21 Jul 2026',
             content: `
-            <p><span class="first-letter">H</span>ari pertama Rania sebagai asisten pribadi Arka berjalan di atas tali tipis. Ia harus berpura-pura tidak mengenal setiap sudut rumah besar itu, padahal ia hafal denahnya sejak kecil. Ayahnya dulu adalah arsitek yang merancang rumah ini, sebelum keluarga Arka merebutnya dengan cara licik.</p>
-            <p>“Rania, tolong ambilkan dokumen di ruang kerja atas,” perintah Arka tanpa menoleh. Ia sedang sibuk dengan ponselnya, tampak frustrasi.</p>
-            <p>Rania mengangguk dan melangkah. Di tangga, ia hampir menabrak seorang wanita tua—pembantu yang dulu pernah membantunya menyembunyikan diri. Wanita itu menatapnya sekilas, lalu melanjutkan pekerjaannya tanpa ekspresi. Rania lega. <em>Belum waktunya.</em></p>
-            <p>Di ruang kerja, Rania menemukan lebih dari sekadar dokumen. Di balik tumpukan kertas, ada foto lama—foto ayahnya bersama dengan ayah Arka, tersenyum seolah mereka sahabat. Rania menggigit bibir. <strong>“Kau bilang itu bisnis, tapi sebenarnya kau telah membunuh mimpi ayahku.”</strong></p>
-            <p>Ia mengambil dokumen yang diminta, lalu kembali ke bawah. Arka menatapnya dengan tatapan aneh. “Kau tahu di mana letak ruang kerja. Padahal baru pertama kali ke sini.”</p>
-            <p>Rania tersentak, tapi ia cepat pulih. “Ayahku dulu tukang bangunan. Aku terbiasa dengan denah rumah besar.”</p>
-            <p>Arka tidak menjawab, tapi senyum tipis muncul di sudut bibirnya. <em>Ia tahu sesuatu.</em></p>
+                <p><span class="first-letter">H</span>ari pertama Rania sebagai asisten pribadi Arka berjalan di atas tali tipis. Ia harus berpura-pura tidak mengenal setiap sudut rumah besar itu, padahal ia hafal denahnya sejak kecil. Ayahnya dulu adalah arsitek yang merancang rumah ini, sebelum keluarga Arka merebutnya dengan cara licik.</p>
+                <p>“Rania, tolong ambilkan dokumen di ruang kerja atas,” perintah Arka tanpa menoleh. Ia sedang sibuk dengan ponselnya, tampak frustrasi.</p>
+                <p>Rania mengangguk dan melangkah. Di tangga, ia hampir menabrak seorang wanita tua—pembantu yang dulu pernah membantunya menyembunyikan diri. Wanita itu menatapnya sekilas, lalu melanjutkan pekerjaannya tanpa ekspresi. Rania lega. <em>Belum waktunya.</em></p>
+                <p>Di ruang kerja, Rania menemukan lebih dari sekadar dokumen. Di balik tumpukan kertas, ada foto lama—foto ayahnya bersama dengan ayah Arka, tersenyum seolah mereka sahabat. Rania menggigit bibir. <strong>“Kau bilang itu bisnis, tapi sebenarnya kau telah membunuh mimpi ayahku.”</strong></p>
+                <p>Ia mengambil dokumen yang diminta, lalu kembali ke bawah. Arka menatapnya dengan tatapan aneh. “Kau tahu di mana letak ruang kerja. Padahal baru pertama kali ke sini.”</p>
+                <p>Rania tersentak, tapi ia cepat pulih. “Ayahku dulu tukang bangunan. Aku terbiasa dengan denah rumah besar.”</p>
+                <p>Arka tidak menjawab, tapi senyum tipis muncul di sudut bibirnya. <em>Ia tahu sesuatu.</em></p>
             `
         }, {
             id: 3,
             title: 'Bayangan Masa Lalu',
             date: '22 Jul 2026',
             content: `
-            <p><span class="first-letter">M</span>alam itu, Rania tidak bisa tidur. Ia duduk di tepi kamar kecil yang disediakan untuknya, memandangi langit malam yang kelam. Di sini, di rumah yang sama, ia dulu bersembunyi di lemari saat ayahnya bertengkar hebat dengan ayah Arka. Ia ingat tangisan ibunya, dan suara keras yang menghancurkan segala harapan.</p>
-            <p>“Aku tidak akan biarkan mereka bahagia,” bisik Rania. “Aku akan meruntuhkan semuanya.”</p>
-            <p>Namun, pagi harinya, saat ia menyajikan kopi untuk Arka, pria itu berkata dengan lembut, “Kau terlihat lelah. Tidurlah lebih awal nanti.”</p>
-            <p>Rania terkejut. <em>Kenapa ia peduli?</em> Itu bukan bagian dari rencana. Ia seharusnya membenci Arka, bukan merasakan hangat di dadanya setiap kali ia tersenyum.</p>
-            <p>“Aku baik-baik saja,” jawabnya kaku.</p>
-            <p>Arka mendekat, terlalu dekat. “Rania, aku tahu kau menyembunyikan sesuatu. Tapi aku tidak akan memaksa.” Ia menepuk pundak Rania, lalu pergi.</p>
-            <p>Rania menggigit bibir. <strong>“Kau membuat segalanya jadi sulit, Arka.”</strong></p>
+                <p><span class="first-letter">M</span>alam itu, Rania tidak bisa tidur. Ia duduk di tepi kamar kecil yang disediakan untuknya, memandangi langit malam yang kelam. Di sini, di rumah yang sama, ia dulu bersembunyi di lemari saat ayahnya bertengkar hebat dengan ayah Arka. Ia ingat tangisan ibunya, dan suara keras yang menghancurkan segala harapan.</p>
+                <p>“Aku tidak akan biarkan mereka bahagia,” bisik Rania. “Aku akan meruntuhkan semuanya.”</p>
+                <p>Namun, pagi harinya, saat ia menyajikan kopi untuk Arka, pria itu berkata dengan lembut, “Kau terlihat lelah. Tidurlah lebih awal nanti.”</p>
+                <p>Rania terkejut. <em>Kenapa ia peduli?</em> Itu bukan bagian dari rencana. Ia seharusnya membenci Arka, bukan merasakan hangat di dadanya setiap kali ia tersenyum.</p>
+                <p>“Aku baik-baik saja,” jawabnya kaku.</p>
+                <p>Arka mendekat, terlalu dekat. “Rania, aku tahu kau menyembunyikan sesuatu. Tapi aku tidak akan memaksa.” Ia menepuk pundak Rania, lalu pergi.</p>
+                <p>Rania menggigit bibir. <strong>“Kau membuat segalanya jadi sulit, Arka.”</strong></p>
             `
         }, {
             id: 4,
             title: 'Dendam dan Keraguan',
             date: '23 Jul 2026',
             content: `
-            <p><span class="first-letter">R</span>ania mulai mengumpulkan bukti. Ia menyusup ke kantor pribadi Arka, menyalin dokumen-dokumen penting, dan merekam percakapan. Tapi semakin ia menggali, semakin ia menemukan sesuatu yang aneh: ayah Arka ternyata juga korban. Bisnis yang diwarisi Arka hanyalah sisa-sisa dari konspirasi yang lebih besar.</p>
-            <p>“Ini tidak masuk akal,” gumam Rania. “Ayahku bilang mereka musuh. Tapi… kenapa semua petunjuk justru mengarah ke nama lain?”</p>
-            <p>Ia hampir ketahuan saat Arka masuk tanpa pemberitahuan. Rania buru-buru menutup laci, tapi Arka sudah melihatnya. “Kau mencari sesuatu?” tanyanya dengan tatapan tajam.</p>
-            <p>Rania tidak bisa menjawab. Ia hanya bisa menatap Arka, dan untuk pertama kalinya, ia melihat keraguan di mata pria itu. <strong>“Mungkin kau bukan musuhku. Tapi aku tidak bisa berhenti.”</strong></p>
-            <p>Arka mendekat. “Rania, apa pun yang kau cari, aku akan membantumu. Asal kau jujur padaku.”</p>
-            <p>Rania hampir menangis. <em>Jujur? Bagaimana bisa aku jujur ketika seluruh hidupku adalah kebohongan?</em></p>
+                <p><span class="first-letter">R</span>ania mulai mengumpulkan bukti. Ia menyusup ke kantor pribadi Arka, menyalin dokumen-dokumen penting, dan merekam percakapan. Tapi semakin ia menggali, semakin ia menemukan sesuatu yang aneh: ayah Arka ternyata juga korban. Bisnis yang diwarisi Arka hanyalah sisa-sisa dari konspirasi yang lebih besar.</p>
+                <p>“Ini tidak masuk akal,” gumam Rania. “Ayahku bilang mereka musuh. Tapi… kenapa semua petunjuk justru mengarah ke nama lain?”</p>
+                <p>Ia hampir ketahuan saat Arka masuk tanpa pemberitahuan. Rania buru-buru menutup laci, tapi Arka sudah melihatnya. “Kau mencari sesuatu?” tanyanya dengan tatapan tajam.</p>
+                <p>Rania tidak bisa menjawab. Ia hanya bisa menatap Arka, dan untuk pertama kalinya, ia melihat keraguan di mata pria itu. <strong>“Mungkin kau bukan musuhku. Tapi aku tidak bisa berhenti.”</strong></p>
+                <p>Arka mendekat. “Rania, apa pun yang kau cari, aku akan membantumu. Asal kau jujur padaku.”</p>
+                <p>Rania hampir menangis. <em>Jujur? Bagaimana bisa aku jujur ketika seluruh hidupku adalah kebohongan?</em></p>
             `
         }, {
             id: 5,
             title: 'Ciuman di Tengah Hujan',
             date: '24 Jul 2026',
             content: `
-            <p><span class="first-letter">H</span>ujan turun deras saat Rania akan pulang. Arka menawarkan diri mengantarnya, tapi Rania menolak dengan alasan yang dibuat-buat. Namun, di luar gerbang, Arka sudah menunggu dengan payung di tangan.</p>
-            <p>“Kau keras kepala sekali,” katanya sambil tersenyum. “Ayo, aku antar.”</p>
-            <p>Di dalam mobil, suasana hening. Hanya suara hujan dan napas mereka yang terdengar. Rania menatap profil Arka—garis rahang tegas, mata yang teduh. Ia tidak menyangka pria ini bisa begitu lembut.</p>
-            <p>“Rania,” Arka memecah keheningan. “Aku tidak tahu apa yang kau cari, tapi aku ingin kau tahu: aku tidak pernah bermaksud menyakiti siapa pun. Keluargaku memang penuh rahasia, tapi aku bukan bagian dari konspirasi itu.”</p>
-            <p>Rania menunduk. Air matanya jatuh, bercampur dengan tetesan hujan di kaca. “Aku… aku juga tidak mau menyakitimu, Arka. Tapi aku sudah terlanjur terperangkap dalam kebohongan.”</p>
-            <p>Tanpa sadar, Arka meraih tangannya. “Kalau begitu, kita cari jalan keluar bersama.”</p>
-            <p>Rania mengangkat wajahnya, dan dalam sekejap, Arka menciumnya. Lembut, hangat, dan penuh tanya. <strong>“Cintaku padamu itu palsu,” bisik Rania dalam hati. “Tapi kenapa kau membuatku meragukan segalanya?”</strong></p>
+                <p><span class="first-letter">H</span>ujan turun deras saat Rania akan pulang. Arka menawarkan diri mengantarnya, tapi Rania menolak dengan alasan yang dibuat-buat. Namun, di luar gerbang, Arka sudah menunggu dengan payung di tangan.</p>
+                <p>“Kau keras kepala sekali,” katanya sambil tersenyum. “Ayo, aku antar.”</p>
+                <p>Di dalam mobil, suasana hening. Hanya suara hujan dan napas mereka yang terdengar. Rania menatap profil Arka—garis rahang tegas, mata yang teduh. Ia tidak menyangka pria ini bisa begitu lembut.</p>
+                <p>“Rania,” Arka memecah keheningan. “Aku tidak tahu apa yang kau cari, tapi aku ingin kau tahu: aku tidak pernah bermaksud menyakiti siapa pun. Keluargaku memang penuh rahasia, tapi aku bukan bagian dari konspirasi itu.”</p>
+                <p>Rania menunduk. Air matanya jatuh, bercampur dengan tetesan hujan di kaca. “Aku… aku juga tidak mau menyakitimu, Arka. Tapi aku sudah terlanjur terperangkap dalam kebohongan.”</p>
+                <p>Tanpa sadar, Arka meraih tangannya. “Kalau begitu, kita cari jalan keluar bersama.”</p>
+                <p>Rania mengangkat wajahnya, dan dalam sekejap, Arka menciumnya. Lembut, hangat, dan penuh tanya. <strong>“Cintaku padamu itu palsu,” bisik Rania dalam hati. “Tapi kenapa kau membuatku meragukan segalanya?”</strong></p>
             `
         }, {
             id: 6,
             title: 'Pengakuan yang Tertunda',
             date: '25 Jul 2026',
             content: `
-            <p><span class="first-letter">K</span>eesokan harinya, Rania memutuskan untuk mengungkap semuanya. Ia mengumpulkan semua bukti yang ia temukan, lalu menghadap Arka di ruang kerjanya. “Aku harus jujur,” katanya dengan suara bergetar. “Aku bukan asisten biasa. Aku datang ke sini untuk menghancurkan keluargamu.”</p>
-            <p>Arka tidak terkejut. Ia hanya diam, lalu berkata, “Aku sudah tahu sejak hari pertama.”</p>
-            <p>Rania terpaku. “Kau… tahu?”</p>
-            <p>“Aku punya informasiku sendiri, Rania. Aku tahu tentang ayahmu, tentang rumah ini, tentang semuanya. Tapi aku juga tahu bahwa kau bukanlah musuh yang sebenarnya.” Arka bangkit dan mendekatinya. “Yang seharusnya kau cari adalah pria yang dulu bekerja dengan ayahmu. Namanya Hendra. Dialah yang mengkhianati ayahmu, bukan ayahku.”</p>
-            <p>Rania jatuh berlutut. Semua dendam yang ia bangun selama bertahun-tahun runtuh seketika. “Aku… aku membenci orang yang salah. Aku hampir menghancurkan satu-satunya orang yang peduli padaku.”</p>
-            <p>Arka memeluknya. “Kita perbaiki ini bersama. Aku akan bantu kamu menemukan Hendra. Janji.”</p>
-            <p>Di pelukan Arka, Rania menangis untuk pertama kalinya setelah bertahun-tahun. <strong>“Cintaku padamu itu palsu,” bisiknya pelan. “Tapi sekarang… aku tidak tahu lagi mana yang nyata.”</strong></p>
+                <p><span class="first-letter">K</span>eesokan harinya, Rania memutuskan untuk mengungkap semuanya. Ia mengumpulkan semua bukti yang ia temukan, lalu menghadap Arka di ruang kerjanya. “Aku harus jujur,” katanya dengan suara bergetar. “Aku bukan asisten biasa. Aku datang ke sini untuk menghancurkan keluargamu.”</p>
+                <p>Arka tidak terkejut. Ia hanya diam, lalu berkata, “Aku sudah tahu sejak hari pertama.”</p>
+                <p>Rania terpaku. “Kau… tahu?”</p>
+                <p>“Aku punya informasiku sendiri, Rania. Aku tahu tentang ayahmu, tentang rumah ini, tentang semuanya. Tapi aku juga tahu bahwa kau bukanlah musuh yang sebenarnya.” Arka bangkit dan mendekatinya. “Yang seharusnya kau cari adalah pria yang dulu bekerja dengan ayahmu. Namanya Hendra. Dialah yang mengkhianati ayahmu, bukan ayahku.”</p>
+                <p>Rania jatuh berlutut. Semua dendam yang ia bangun selama bertahun-tahun runtuh seketika. “Aku… aku membenci orang yang salah. Aku hampir menghancurkan satu-satunya orang yang peduli padaku.”</p>
+                <p>Arka memeluknya. “Kita perbaiki ini bersama. Aku akan bantu kamu menemukan Hendra. Janji.”</p>
+                <p>Di pelukan Arka, Rania menangis untuk pertama kalinya setelah bertahun-tahun. <strong>“Cintaku padamu itu palsu,” bisiknya pelan. “Tapi sekarang… aku tidak tahu lagi mana yang nyata.”</strong></p>
             `
         }, {
             id: 7,
             title: 'Mencari Hendra',
             date: '26 Jul 2026',
             content: `
-            <p><span class="first-letter">P</span>encarian Hendra membawa Rania dan Arka ke kota kecil di pinggiran. Mereka menyamar sebagai turis, menyusuri gang-gang sempit, dan bertanya pada warga. Namun, Hendra adalah bayangan—selalu ada tapi tak pernah terlihat.</p>
-            <p>“Kita hampir menyerah,” keluh Rania. “Mungkin dia sudah mati.”</p>
-            <p>Arka menggeleng. “Orang seperti Hendra tidak mati begitu saja. Ia pasti bersembunyi.”</p>
-            <p>Malam itu, mereka menginap di sebuah penginapan tua. Rania duduk di teras, memandang bintang. Arka datang dengan dua cangkir teh hangat. “Kau tidak perlu melakukan ini sendiri,” katanya. “Aku di sini.”</p>
-            <p>Rania tersenyum. “Aku tidak pernah punya orang seperti kau dalam hidupku. Terima kasih, Arka.”</p>
-            <p>Mereka berbagi teh, dan untuk pertama kalinya, Rania merasakan kedamaian. <strong>“Cintaku padamu itu palsu,” kenangnya. “Tapi sekarang, aku jatuh cinta padamu. Dan itu bukan kebohongan.”</strong></p>
+                <p><span class="first-letter">P</span>encarian Hendra membawa Rania dan Arka ke kota kecil di pinggiran. Mereka menyamar sebagai turis, menyusuri gang-gang sempit, dan bertanya pada warga. Namun, Hendra adalah bayangan—selalu ada tapi tak pernah terlihat.</p>
+                <p>“Kita hampir menyerah,” keluh Rania. “Mungkin dia sudah mati.”</p>
+                <p>Arka menggeleng. “Orang seperti Hendra tidak mati begitu saja. Ia pasti bersembunyi.”</p>
+                <p>Malam itu, mereka menginap di sebuah penginapan tua. Rania duduk di teras, memandang bintang. Arka datang dengan dua cangkir teh hangat. “Kau tidak perlu melakukan ini sendiri,” katanya. “Aku di sini.”</p>
+                <p>Rania tersenyum. “Aku tidak pernah punya orang seperti kau dalam hidupku. Terima kasih, Arka.”</p>
+                <p>Mereka berbagi teh, dan untuk pertama kalinya, Rania merasakan kedamaian. <strong>“Cintaku padamu itu palsu,” kenangnya. “Tapi sekarang, aku jatuh cinta padamu. Dan itu bukan kebohongan.”</strong></p>
             `
         }, {
             id: 8,
             title: 'Jejak di Ruang Bawah Tanah',
             date: '27 Jul 2026',
             content: `
-            <p><span class="first-letter">T</span>emuan tak terduga membawa mereka ke sebuah ruang bawah tanah di bekas pabrik. Di sana, mereka menemukan buku catatan Hendra—semua pengakuan tertulis dengan jelas. Hendra mengaku memalsukan dokumen untuk menjebak ayah Rania dan ayah Arka, sehingga ia bisa mengambil alih perusahaan.</p>
-            <p>“Dia biadab,” bisik Rania dengan tangan gemetar. “Dia menghancurkan dua keluarga hanya untuk uang.”</p>
-            <p>Arka memeluknya erat. “Kita punya bukti sekarang. Kita bisa membersihkan nama ayah kita.”</p>
-            <p>Rania menatap Arka, mata mereka bertemu. Di ruangan gelap itu, mereka menemukan lebih dari sekedar kebenaran—mereka menemukan satu sama lain. <strong>“Cintaku padamu itu palsu,” bisik Rania. “Tapi kau telah mengubah segalanya.”</strong></p>
+                <p><span class="first-letter">T</span>emuan tak terduga membawa mereka ke sebuah ruang bawah tanah di bekas pabrik. Di sana, mereka menemukan buku catatan Hendra—semua pengakuan tertulis dengan jelas. Hendra mengaku memalsukan dokumen untuk menjebak ayah Rania dan ayah Arka, sehingga ia bisa mengambil alih perusahaan.</p>
+                <p>“Dia biadab,” bisik Rania dengan tangan gemetar. “Dia menghancurkan dua keluarga hanya untuk uang.”</p>
+                <p>Arka memeluknya erat. “Kita punya bukti sekarang. Kita bisa membersihkan nama ayah kita.”</p>
+                <p>Rania menatap Arka, mata mereka bertemu. Di ruangan gelap itu, mereka menemukan lebih dari sekedar kebenaran—mereka menemukan satu sama lain. <strong>“Cintaku padamu itu palsu,” bisik Rania. “Tapi kau telah mengubah segalanya.”</strong></p>
             `
         }, {
             id: 9,
             title: 'Kebenaran Terungkap',
             date: '28 Jul 2026',
             content: `
-            <p><span class="first-letter">K</span>embali ke kota, Rania dan Arka menyerahkan semua bukti ke pihak berwenang. Hendra akhirnya ditangkap di bandara saat mencoba melarikan diri. Berita itu menyebar cepat, dan nama baik kedua keluarga perlahan pulih.</p>
-            <p>Rania berdiri di samping Arka di depan kantor polisi. “Akhirnya,” katanya sambil menghela napas. “Semua selesai.”</p>
-            <p>Arka menggenggam tangannya. “Ini awal yang baru, Rania. Aku ingin kau tahu, aku mencintaimu. Bukan sebagai asisten, bukan sebagai musuh, tapi sebagai dirimu yang sebenarnya.”</p>
-            <p>Rania menangis—kali ini karena bahagia. “Aku juga mencintaimu, Arka. Maaf atas semua kebohongan.”</p>
-            <p>Arka mencium dahinya. “Tidak apa-apa. Yang penting sekarang kau jujur.”</p>
-            <p>Di bawah sinar matahari sore, mereka berpelukan, dan semua kepahitan masa lalu lenyap. <strong>“Cintaku padamu itu palsu,” kenang Rania. “Tapi sekarang, cinta ini nyata. Dan aku tidak akan pernah melepaskannya.”</strong></p>
+                <p><span class="first-letter">K</span>embali ke kota, Rania dan Arka menyerahkan semua bukti ke pihak berwenang. Hendra akhirnya ditangkap di bandara saat mencoba melarikan diri. Berita itu menyebar cepat, dan nama baik kedua keluarga perlahan pulih.</p>
+                <p>Rania berdiri di samping Arka di depan kantor polisi. “Akhirnya,” katanya sambil menghela napas. “Semua selesai.”</p>
+                <p>Arka menggenggam tangannya. “Ini awal yang baru, Rania. Aku ingin kau tahu, aku mencintaimu. Bukan sebagai asisten, bukan sebagai musuh, tapi sebagai dirimu yang sebenarnya.”</p>
+                <p>Rania menangis—kali ini karena bahagia. “Aku juga mencintaimu, Arka. Maaf atas semua kebohongan.”</p>
+                <p>Arka mencium dahinya. “Tidak apa-apa. Yang penting sekarang kau jujur.”</p>
+                <p>Di bawah sinar matahari sore, mereka berpelukan, dan semua kepahitan masa lalu lenyap. <strong>“Cintaku padamu itu palsu,” kenang Rania. “Tapi sekarang, cinta ini nyata. Dan aku tidak akan pernah melepaskannya.”</strong></p>
             `
         }, {
             id: 10,
-            title: 'Episode Spesial: Surat untuk Ayah',
+            title: 'Surat untuk Ayah',
             date: '29 Jul 2026',
             content: `
-            <p><span class="first-letter">R</span>ania menulis surat untuk ayahnya yang telah tiada. Ia duduk di taman belakang rumah Arka, di bawah pohon rindang yang dulu pernah ia lindungi.</p>
-            <p>“Ayah, aku sudah menemukan kebenaran. Semua ini salah paham. Arka bukan musuh kita. Dia orang yang baik—bahkan lebih baik dari yang kau bayangkan.”</p>
-            <p>“Aku tahu kau mungkin kecewa karena aku membalas dendam, tapi aku juga belajar bahwa cinta lebih kuat dari kebencian. Aku mencintai Arka, Ayah. Dan aku berharap, di mana pun kau berada, kau bisa memberkati kami.”</p>
-            <p>Rania menutup surat dengan air mata. Lalu, di belakangnya, Arka datang dan duduk di sampingnya. “Kau menulis surat untuk ayahmu?”</p>
-            <p>Rania mengangguk. “Aku ingin dia tahu bahwa aku bahagia.”</p>
-            <p>Arka memeluknya. “Dia pasti bangga padamu.”</p>
-            <p>Mereka duduk bersama, menikmati senja yang damai. <strong>“Cintaku padamu itu palsu,” Rania tersenyum. “Tapi kisah kita adalah kebenaran yang paling indah.”</strong></p>
+                <p><span class="first-letter">R</span>ania menulis surat untuk ayahnya yang telah tiada. Ia duduk di taman belakang rumah Arka, di bawah pohon rindang yang dulu pernah ia lindungi.</p>
+                <p>“Ayah, aku sudah menemukan kebenaran. Semua ini salah paham. Arka bukan musuh kita. Dia orang yang baik—bahkan lebih baik dari yang kau bayangkan.”</p>
+                <p>“Aku tahu kau mungkin kecewa karena aku membalas dendam, tapi aku juga belajar bahwa cinta lebih kuat dari kebencian. Aku mencintai Arka, Ayah. Dan aku berharap, di mana pun kau berada, kau bisa memberkati kami.”</p>
+                <p>Rania menutup surat dengan air mata. Lalu, di belakangnya, Arka datang dan duduk di sampingnya. “Kau menulis surat untuk ayahmu?”</p>
+                <p>Rania mengangguk. “Aku ingin dia tahu bahwa aku bahagia.”</p>
+                <p>Arka memeluknya. “Dia pasti bangga padamu.”</p>
+                <p>Mereka duduk bersama, menikmati senja yang damai. <strong>“Cintaku padamu itu palsu,” Rania tersenyum. “Tapi kisah kita adalah kebenaran yang paling indah.”</strong></p>
             `
         }, {
             id: 11,
-            title: 'Bab 11: Cinta yang Tak Terduga',
+            title: 'Cinta yang Tak Terduga',
             date: '30 Jul 2026',
             content: `
-            <p><span class="first-letter">B</span>ulan berlalu. Rania dan Arka resmi berpacaran. Hubungan mereka tidak lagi dibayangi oleh kebohongan, tapi masih ada satu hal yang mengganjal—keluarga besar Arka belum sepenuhnya menerima Rania.</p>
-            <p>“Mereka masih menganggapmu sebagai pengkhianat,” kata Arka suatu malam. “Tapi aku akan meyakinkan mereka.”</p>
-            <p>Rania tersenyum tipis. “Aku tidak butuh mereka menerimaku. Yang penting kau ada di sisiku.”</p>
-            <p>Arka mengecup keningnya. “Kau wanita paling kuat yang pernah aku kenal.”</p>
-            <p>Malam itu, mereka bermalam di balkon, menikmati angin malam. Rania bersandar di dada Arka, mendengar detak jantungnya. <strong>“Cintaku padamu itu palsu,” bisiknya pelan. “Tapi kau telah membuatku percaya bahwa cinta sejati itu ada.”</strong></p>
+                <p><span class="first-letter">B</span>ulan berlalu. Rania dan Arka resmi berpacaran. Hubungan mereka tidak lagi dibayangi oleh kebohongan, tapi masih ada satu hal yang mengganjal—keluarga besar Arka belum sepenuhnya menerima Rania.</p>
+                <p>“Mereka masih menganggapmu sebagai pengkhianat,” kata Arka suatu malam. “Tapi aku akan meyakinkan mereka.”</p>
+                <p>Rania tersenyum tipis. “Aku tidak butuh mereka menerimaku. Yang penting kau ada di sisiku.”</p>
+                <p>Arka mengecup keningnya. “Kau wanita paling kuat yang pernah aku kenal.”</p>
+                <p>Malam itu, mereka bermalam di balkon, menikmati angin malam. Rania bersandar di dada Arka, mendengar detak jantungnya. <strong>“Cintaku padamu itu palsu,” bisiknya pelan. “Tapi kau telah membuatku percaya bahwa cinta sejati itu ada.”</strong></p>
             `
         }, {
             id: 12,
-            title: 'Bab 12: Akhir yang Baru',
+            title: 'Akhir yang Baru',
             date: '31 Jul 2026',
             content: `
-            <p><span class="first-letter">H</span>ari pernikahan Rania dan Arka digelar sederhana, hanya dihadiri oleh orang-orang terdekat. Rania mengenakan gaun putih, dan Arka tampak gagah dalam setelan hitam. Di altar, mereka saling berjanji untuk selalu jujur dan saling menjaga.</p>
-            <p>“Aku berjanji akan mencintaimu dengan tulus, Rania. Tanpa kebohongan. Tanpa rahasia.”</p>
-            <p>Rania tersenyum, matanya berkaca-kaca. “Aku juga berjanji. Cintaku padamu dulu mungkin palsu, tapi sekarang, untuk selamanya, cintaku padamu adalah satu-satunya kebenaran yang aku miliki.”</p>
-            <p>Mereka saling mencium di hadapan para tamu, dan semua orang bersorak. Di belakang, Rania melihat foto kecil ayahnya yang ia letakkan di antara bunga. Ia berbisik, “Ayah, aku bahagia. Dan semua ini karena cinta yang tak pernah aku duga.”</p>
-            <p>Cerita berakhir di pelukan mereka, dengan senyum yang tak pernah pudar. <strong>“Cintaku padamu itu palsu,” kenang Rania. “Tapi sekarang, aku akan mencintaimu selamanya.”</strong></p>
-            <p style="text-align:center; margin-top:32px; font-style:italic; color:var(--text-muted);">— TAMAT —</p>
+                <p><span class="first-letter">H</span>ari pernikahan Rania dan Arka digelar sederhana, hanya dihadiri oleh orang-orang terdekat. Rania mengenakan gaun putih, dan Arka tampak gagah dalam setelan hitam. Di altar, mereka saling berjanji untuk selalu jujur dan saling menjaga.</p>
+                <p>“Aku berjanji akan mencintaimu dengan tulus, Rania. Tanpa kebohongan. Tanpa rahasia.”</p>
+                <p>Rania tersenyum, matanya berkaca-kaca. “Aku juga berjanji. Cintaku padamu dulu mungkin palsu, tapi sekarang, untuk selamanya, cintaku padamu adalah satu-satunya kebenaran yang aku miliki.”</p>
+                <p>Mereka saling mencium di hadapan para tamu, dan semua orang bersorak. Di belakang, Rania melihat foto kecil ayahnya yang ia letakkan di antara bunga. Ia berbisik, “Ayah, aku bahagia. Dan semua ini karena cinta yang tak pernah aku duga.”</p>
+                <p>Cerita berakhir di pelukan mereka, dengan senyum yang tak pernah pudar. <strong>“Cintaku padamu itu palsu,” kenang Rania. “Tapi sekarang, aku akan mencintaimu selamanya.”</strong></p>
+                <p style="text-align:center; margin-top:28px; font-style:italic; color:var(--text-muted);">— TAMAT —</p>
             `
         }];
 
-        // ============================================================
-        //  RENDER BAB & LOGIKA READER
-        // ============================================================
+        // ================================================================
+        //  RENDER & LOGIKA
+        // ================================================================
         const grid = document.getElementById('chapterGrid');
         const readerTitle = document.getElementById('readerTitle');
         const readerBadge = document.getElementById('readerBadge');
@@ -676,9 +723,8 @@
         const nextBtn = document.getElementById('nextChapter');
         const indicator = document.getElementById('chapterIndicator');
 
-        let currentChapterId = 1; // default bab pertama
+        let currentChapterId = 1;
 
-        // ---- render daftar bab ----
         function renderChapterList() {
             grid.innerHTML = '';
             chapters.forEach(ch => {
@@ -694,7 +740,6 @@
             });
         }
 
-        // ---- load chapter ----
         function loadChapter(id) {
             const ch = chapters.find(c => c.id === id);
             if (!ch) return;
@@ -704,19 +749,16 @@
             readerBadge.textContent = `Bab ${ch.id}`;
             readerContent.innerHTML = ch.content;
 
-            // update active class di grid
             document.querySelectorAll('.chapter-card').forEach(card => {
-                card.classList.toggle('active', parseInt(card.querySelector('.ch-number').textContent.replace('Bab ', '')) === id);
+                const num = parseInt(card.querySelector('.ch-number').textContent.replace('Bab ', ''));
+                card.classList.toggle('active', num === id);
             });
 
-            // update navigasi
             updateNavButtons();
             indicator.textContent = `Bab ${ch.id} dari ${chapters.length}`;
-            // scroll ke reader panel
             document.getElementById('readerPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ---- navigasi ----
         function updateNavButtons() {
             const idx = chapters.findIndex(c => c.id === currentChapterId);
             prevBtn.disabled = idx === 0;
@@ -733,21 +775,17 @@
             if (idx < chapters.length - 1) loadChapter(chapters[idx + 1].id);
         }
 
-        // ---- event listeners ----
         prevBtn.addEventListener('click', goPrev);
         nextBtn.addEventListener('click', goNext);
 
-        // ---- keyboard shortcut ----
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') goPrev();
             if (e.key === 'ArrowRight') goNext();
         });
 
-        // ---- init ----
+        // Init
         renderChapterList();
-        // load bab pertama
         loadChapter(1);
     </script>
-
 </body>
 </html>
