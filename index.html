@@ -14,6 +14,11 @@
             --accent: #e50914;
             --accent-hover: #c40810;
             --border-color: #e5e5ea;
+            --romance: #ff6b81;
+            --horror: #2d3436;
+            --comedy: #fdcb6e;
+            --mystery: #6c5ce7;
+            --fantasy: #00b894;
         }
 
         * {
@@ -34,16 +39,18 @@
 
         /* Header / Navbar */
         header {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 20px 40px;
+            padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo-area h1 {
@@ -51,6 +58,11 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #111;
+            cursor: pointer;
+        }
+
+        .logo-area h1 span {
+            color: var(--accent);
         }
 
         .creator-badge {
@@ -66,7 +78,7 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 60px 20px 30px;
+            padding: 50px 20px 30px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -78,36 +90,128 @@
             color: #111;
         }
 
+        .hero h2 span {
+            background: linear-gradient(135deg, var(--accent), #ff6b81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .hero p {
             color: var(--text-muted);
             font-size: 1.1rem;
         }
 
-        /* Main Container & Grid */
+        /* Category Tabs */
+        .category-tabs {
+            max-width: 1200px;
+            margin: 10px auto 0;
+            padding: 0 20px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: 0.25s ease;
+            white-space: nowrap;
+            font-family: inherit;
+            border-radius: 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-btn .count {
+            background: var(--bg-primary);
+            padding: 1px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-left: 4px;
+        }
+
+        .tab-btn.active .count {
+            background: rgba(229, 9, 20, 0.1);
+            color: var(--accent);
+        }
+
+        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 30px 20px 80px;
             flex: 1;
             width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .section-title {
             font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 24px;
             border-left: 4px solid var(--accent);
             padding-left: 12px;
             color: #111;
         }
 
-        .novel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+        .section-title .genre-label {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        /* Novel Card Styling */
+        .view-all {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Novel Grid */
+        .novel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .novel-grid.hidden {
+            display: none;
+        }
+
+        /* Novel Card */
         .novel-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -117,18 +221,19 @@
             flex-direction: column;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
         }
 
         .novel-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: rgba(229, 9, 20, 0.4);
+            border-color: rgba(229, 9, 20, 0.3);
         }
 
         .image-wrapper {
             position: relative;
             width: 100%;
-            height: 380px;
+            height: 340px;
             overflow: hidden;
             background-color: #eee;
         }
@@ -148,18 +253,42 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(4px);
             color: #1a9c4a;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 6px;
             border: 1px solid rgba(26, 156, 74, 0.3);
         }
 
+        .status-tag.completed {
+            color: #6b7280;
+            border-color: rgba(107, 114, 128, 0.3);
+        }
+
+        .genre-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .genre-tag.romance { background: var(--romance); }
+        .genre-tag.horror { background: var(--horror); }
+        .genre-tag.comedy { background: var(--comedy); color: #2d3436; }
+        .genre-tag.mystery { background: var(--mystery); }
+        .genre-tag.fantasy { background: var(--fantasy); }
+
         .novel-info {
-            padding: 20px;
+            padding: 18px 20px 20px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -167,22 +296,45 @@
         }
 
         .novel-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #111;
-            line-height: 1.4;
+            line-height: 1.3;
+        }
+
+        .novel-author {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .novel-author span {
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         .novel-desc {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             line-height: 1.5;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+
+        .novel-stats-mini {
+            display: flex;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .novel-stats-mini i {
+            font-style: normal;
         }
 
         .btn {
@@ -190,13 +342,16 @@
             width: 100%;
             background-color: var(--accent);
             color: white;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn:hover {
@@ -208,6 +363,20 @@
             background-color: #e5e5ea;
             color: #9ca3af;
             pointer-events: none;
+        }
+
+        /* Empty state per kategori */
+        .empty-category {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        .empty-category span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
         }
 
         /* Footer */
@@ -225,91 +394,349 @@
             font-weight: 600;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             header {
-                padding: 15px 20px;
+                padding: 12px 16px;
+            }
+            .logo-area h1 {
+                font-size: 1.2rem;
             }
             .hero h2 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            .hero {
+                padding: 30px 16px 20px;
+            }
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            .container {
+                padding: 20px 16px 60px;
+            }
+            .novel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+            .image-wrapper {
+                height: 260px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .novel-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .image-wrapper {
+                height: 200px;
+            }
+            .novel-title {
+                font-size: 0.95rem;
+            }
+            .novel-desc {
+                font-size: 0.8rem;
+                -webkit-line-clamp: 2;
+            }
+            .novel-info {
+                padding: 12px 14px 14px;
+            }
+            .btn {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+            .status-tag {
+                font-size: 0.6rem;
+                padding: 2px 8px;
+            }
+            .genre-tag {
+                font-size: 0.55rem;
+                padding: 2px 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
+    <!-- Header -->
     <header>
         <div class="logo-area">
-            <h1>📚 Story Novel</h1>
+            <h1>📚 Story <span>Novel</span></h1>
         </div>
-        <div class="creator-badge">
-            Created by Mr.Anom
-        </div>
+        <div class="creator-badge">Created by Mr.Anom</div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <h2>Jelajahi Dunia Cerita Pilihan</h2>
+        <h2>Jelajahi Dunia <span>Cerita Pilihan</span></h2>
         <p>Temukan kisah-kisah emosional, misteri, dan drama eksklusif yang siap memukau imajinasi Anda.</p>
     </section>
 
+    <!-- Category Tabs -->
+    <div class="category-tabs" id="categoryTabs">
+        <button class="tab-btn active" data-category="all">📖 Semua <span class="count">10</span></button>
+        <button class="tab-btn" data-category="romance">❤️ Romantis <span class="count">4</span></button>
+        <button class="tab-btn" data-category="horror">👻 Horor <span class="count">2</span></button>
+        <button class="tab-btn" data-category="comedy">😂 Komedi <span class="count">2</span></button>
+        <button class="tab-btn" data-category="mystery">🔍 Misteri <span class="count">1</span></button>
+        <button class="tab-btn" data-category="fantasy">🐉 Fantasi <span class="count">1</span></button>
+    </div>
+
     <!-- Main Container -->
     <div class="container">
-        <div class="section-title">Daftar Novel Populer</div>
 
-        <div class="novel-grid">
-            <!-- Novel 1: Cintaku Padamu Itu Palsu -->
-            <div class="novel-card">
-                <div class="image-wrapper">
-                    <img src="https://novel.isdarprem.net/images/ep1.png" alt="Cintaku Padamu Itu Palsu" class="novel-image">
-                    <div class="status-tag">Ongoing</div>
-                </div>
-                <div class="novel-info">
-                    <div>
-                        <div class="novel-title">Cintaku Padamu Itu Palsu</div>
-                        <div class="novel-desc">"Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?" Ikuti kisah rumit penuh intrik sandiwara cinta.</div>
-                    </div>
-                    <a href="cintaku-palsu.html" class="btn">Mulai Membaca</a>
-                </div>
-            </div>
-
-            <!-- Novel 2 (Placeholder) -->
-            <div class="novel-card">
-                <div class="image-wrapper">
-                    <img src="https://via.placeholder.com/300x400/f0f0f2/999999?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
-                    <div class="status-tag" style="color: #d97706; border-color: rgba(217, 119, 6, 0.3);">Soon</div>
-                </div>
-                <div class="novel-info">
-                    <div>
-                        <div class="novel-title">Judul Novel Kedua</div>
-                        <div class="novel-desc">Kisah misteri dan romansa baru yang sedang dipersiapkan khusus untuk pembaca setia.</div>
-                    </div>
-                    <a href="#" class="btn disabled">Segera Hadir</a>
-                </div>
-            </div>
-
-            <!-- Novel 3 (Placeholder) -->
-            <div class="novel-card">
-                <div class="image-wrapper">
-                    <img src="https://via.placeholder.com/300x400/f0f0f2/999999?text=Coming+Soon" alt="Segera Hadir" class="novel-image">
-                    <div class="status-tag" style="color: #d97706; border-color: rgba(217, 119, 6, 0.3);">Soon</div>
-                </div>
-                <div class="novel-info">
-                    <div>
-                        <div class="novel-title">Judul Novel Ketiga</div>
-                        <div class="novel-desc">Petualangan seru dengan alur cerita menegangkan yang akan segera dirilis.</div>
-                    </div>
-                    <a href="#" class="btn disabled">Segera Hadir</a>
-                </div>
-            </div>
+        <!-- GRID SEMUA NOVEL -->
+        <div class="novel-grid" data-category="all" id="gridAll">
+            <!-- novel akan diisi JS -->
         </div>
+
+        <!-- GRID ROMANTIS -->
+        <div class="novel-grid hidden" data-category="romance" id="gridRomance"></div>
+
+        <!-- GRID HOROR -->
+        <div class="novel-grid hidden" data-category="horror" id="gridHorror"></div>
+
+        <!-- GRID KOMEDI -->
+        <div class="novel-grid hidden" data-category="comedy" id="gridComedy"></div>
+
+        <!-- GRID MISTERI -->
+        <div class="novel-grid hidden" data-category="mystery" id="gridMystery"></div>
+
+        <!-- GRID FANTASI -->
+        <div class="novel-grid hidden" data-category="fantasy" id="gridFantasy"></div>
+
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 <span>Story Novel</span>. All rights reserved. Designed & Created by <span>Mr.Anom</span>.</p>
+        <p>&copy; 2026 <span>Story Novel</span>. All rights reserved. Designed &amp; Created by <span>Mr.Anom</span>.</p>
     </footer>
+
+    <script>
+        // ================================================================
+        //  DATA NOVEL
+        // ================================================================
+        const novels = [{
+            id: 1,
+            title: 'Cintaku Padamu Itu Palsu',
+            author: 'Mr.Anom',
+            category: 'romance',
+            status: 'Ongoing',
+            desc: '"Aku berbohong kepadamu. Tapi: apakah itu semua sebuah kebohongan pada diriku sendiri?" Ikuti kisah rumit penuh intrik sandiwara cinta.',
+            image: 'https://novel.isdarprem.net/images/ep1.png',
+            reads: '24.7k',
+            rating: '4.8',
+            link: 'cintaku-palsu.html'
+        }, {
+            id: 2,
+            title: 'Cinta Di Ujung Harapan',
+            author: 'Mr.Anom',
+            category: 'romance',
+            status: 'Ongoing',
+            desc: 'Ketika dua hati yang terluka bertemu di tengah badai kehidupan, mampukah mereka menemukan pelangi di ujung harapan?',
+            image: 'https://via.placeholder.com/300x400/ff6b81/ffffff?text=Romance',
+            reads: '18.2k',
+            rating: '4.6',
+            link: '#'
+        }, {
+            id: 3,
+            title: 'Takdir di Antara Kita',
+            author: 'Mr.Anom',
+            category: 'romance',
+            status: 'Completed',
+            desc: 'Takdir mempertemukan mereka di masa lalu, dan kembali mempertemukan di masa kini. Bisakah cinta kedua kalinya lebih indah?',
+            image: 'https://via.placeholder.com/300x400/ff6b81/ffffff?text=Takdir',
+            reads: '32.1k',
+            rating: '4.9',
+            link: '#'
+        }, {
+            id: 4,
+            title: 'Hujan dan Kenangan',
+            author: 'Mr.Anom',
+            category: 'romance',
+            status: 'Ongoing',
+            desc: 'Setiap rintik hujan mengingatkannya pada cinta yang pernah hilang. Tapi mungkin, hujan juga membawa pertemuan baru.',
+            image: 'https://via.placeholder.com/300x400/ff6b81/ffffff?text=Hujan',
+            reads: '9.8k',
+            rating: '4.4',
+            link: '#'
+        }, {
+            id: 5,
+            title: 'Gerbang Neraka',
+            author: 'Mr.Anom',
+            category: 'horror',
+            status: 'Ongoing',
+            desc: 'Sebuah desa terpencil menyimpan rahasia kelam. Siapa pun yang masuk ke dalamnya, tak pernah kembali dengan utuh.',
+            image: 'https://via.placeholder.com/300x400/2d3436/ffffff?text=Horror',
+            reads: '15.3k',
+            rating: '4.7',
+            link: '#'
+        }, {
+            id: 6,
+            title: 'Rumah di Ujung Senja',
+            author: 'Mr.Anom',
+            category: 'horror',
+            status: 'Completed',
+            desc: 'Rumah tua itu berdiri megah di ujung senja. Tapi di dalamnya, ada sesuatu yang lebih menakutkan dari kegelapan.',
+            image: 'https://via.placeholder.com/300x400/2d3436/ffffff?text=Senja',
+            reads: '21.5k',
+            rating: '4.5',
+            link: '#'
+        }, {
+            id: 7,
+            title: 'Bukan Cinta Biasa',
+            author: 'Mr.Anom',
+            category: 'comedy',
+            status: 'Ongoing',
+            desc: 'Cerita cinta yang berawal dari salah kirim pesan. Lucu, konyol, tapi siapa tahu ini jodoh?',
+            image: 'https://via.placeholder.com/300x400/fdcb6e/2d3436?text=Comedy',
+            reads: '12.7k',
+            rating: '4.3',
+            link: '#'
+        }, {
+            id: 8,
+            title: 'Boss Konyol, Aku Cinta',
+            author: 'Mr.Anom',
+            category: 'comedy',
+            status: 'Ongoing',
+            desc: 'Bekerja di bawah atasan yang konyol memang menyebalkan. Tapi kenapa hatiku malah berdegup kencang setiap kali dia tersenyum?',
+            image: 'https://via.placeholder.com/300x400/fdcb6e/2d3436?text=Boss',
+            reads: '8.9k',
+            rating: '4.2',
+            link: '#'
+        }, {
+            id: 9,
+            title: 'Misteri Kotak Musik',
+            author: 'Mr.Anom',
+            category: 'mystery',
+            status: 'Ongoing',
+            desc: 'Sebuah kotak musik antik ditemukan di loteng. Setiap kali diputar, ia membawa pendengarnya ke masa lalu yang kelam.',
+            image: 'https://via.placeholder.com/300x400/6c5ce7/ffffff?text=Mystery',
+            reads: '19.4k',
+            rating: '4.8',
+            link: '#'
+        }, {
+            id: 10,
+            title: 'Naga dan Bintang Senja',
+            author: 'Mr.Anom',
+            category: 'fantasy',
+            status: 'Ongoing',
+            desc: 'Di dunia di mana naga dan manusia hidup berdampingan, seorang gadis biasa menemukan bahwa ia adalah pewaris takhta yang hilang.',
+            image: 'https://via.placeholder.com/300x400/00b894/ffffff?text=Fantasy',
+            reads: '14.6k',
+            rating: '4.6',
+            link: '#'
+        }];
+
+        // ================================================================
+        //  RENDER
+        // ================================================================
+        const categoryMap = {
+            all: 'gridAll',
+            romance: 'gridRomance',
+            horror: 'gridHorror',
+            comedy: 'gridComedy',
+            mystery: 'gridMystery',
+            fantasy: 'gridFantasy'
+        };
+
+        function renderNovel(gridId, novelList) {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            if (novelList.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-category">
+                        <span>📭</span>
+                        <p>Belum ada novel di kategori ini. Nantikan update selanjutnya!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            novelList.forEach(novel => {
+                const card = document.createElement('div');
+                card.className = 'novel-card';
+
+                const statusClass = novel.status === 'Completed' ? 'completed' : '';
+                const genreClass = novel.category;
+
+                card.innerHTML = `
+                    <div class="image-wrapper">
+                        <img src="${novel.image}" alt="${novel.title}" class="novel-image" loading="lazy">
+                        <div class="status-tag ${statusClass}">${novel.status}</div>
+                        <div class="genre-tag ${genreClass}">${novel.category}</div>
+                    </div>
+                    <div class="novel-info">
+                        <div>
+                            <div class="novel-title">${novel.title}</div>
+                            <div class="novel-author">oleh <span>${novel.author}</span></div>
+                            <div class="novel-desc">${novel.desc}</div>
+                            <div class="novel-stats-mini">
+                                <span>📖 ${novel.reads}</span>
+                                <span>⭐ ${novel.rating}</span>
+                            </div>
+                        </div>
+                        <a href="${novel.link}" class="btn ${novel.link === '#' ? 'disabled' : ''}">
+                            ${novel.link === '#' ? 'Segera Hadir' : 'Mulai Membaca'}
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Render semua grid
+        function renderAll() {
+            renderNovel('gridAll', novels);
+            renderNovel('gridRomance', novels.filter(n => n.category === 'romance'));
+            renderNovel('gridHorror', novels.filter(n => n.category === 'horror'));
+            renderNovel('gridComedy', novels.filter(n => n.category === 'comedy'));
+            renderNovel('gridMystery', novels.filter(n => n.category === 'mystery'));
+            renderNovel('gridFantasy', novels.filter(n => n.category === 'fantasy'));
+        }
+
+        // ================================================================
+        //  TAB SWITCHING
+        // ================================================================
+        const tabs = document.querySelectorAll('.tab-btn');
+        const allGrids = document.querySelectorAll('.novel-grid');
+
+        function switchCategory(category) {
+            // Update tab aktif
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.category === category);
+            });
+
+            // Tampilkan grid yang sesuai
+            allGrids.forEach(grid => {
+                const isTarget = grid.dataset.category === category;
+                grid.classList.toggle('hidden', !isTarget);
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const category = this.dataset.category;
+                switchCategory(category);
+                // Scroll ke container
+                document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderAll();
+        // Default: tampilkan 'all'
+        switchCategory('all');
+    </script>
 
 </body>
 </html>
