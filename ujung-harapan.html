@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinta Di Ujung Harapan · Story Novel</title>
+    <style>
+        /* ===== RESET & VARIABEL (SAMA DENGAN CINTAKU PALSU) ===== */
+        :root {
+            --bg-primary: #f7f7f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #1a1a1f;
+            --text-muted: #6b7280;
+            --accent: #e50914;
+            --accent-hover: #c40810;
+            --border-color: #e5e5ea;
+            --read-bg: #faf8f5;
+            --read-text: #2c2c2c;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --bg-dialog: #eef4ff;
+            --bg-dialog-alt: #f5f0ff;
+            --text-dialog: #1a3a7a;
+            --text-dialog-alt: #4a1a7a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-area a {
+            text-decoration: none;
+            color: #111;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .logo-area a:hover {
+            color: var(--accent);
+        }
+
+        .logo-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            stroke: var(--accent);
+        }
+
+        .back-home {
+            font-size: 0.82rem;
+            font-weight: 500;
+            background: var(--bg-primary);
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: 0.2s ease;
+            color: var(--text-muted) !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-home svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .back-home:hover {
+            background: var(--accent);
+            color: #fff !important;
+            border-color: var(--accent);
+        }
+
+        .creator-badge {
+            background: linear-gradient(135deg, #e50914, #ff4757);
+            color: white;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+
+        /* ===== NOVEL HERO ===== */
+        .novel-hero {
+            background: linear-gradient(145deg, #ffffff, #f4f4f7);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px 20px;
+        }
+
+        .novel-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .novel-cover {
+            flex: 0 0 220px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            aspect-ratio: 3 / 4;
+        }
+
+        .novel-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .novel-meta {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #1a9c4a;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge-status .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .novel-title-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 16px;
+            margin-bottom: 4px;
+        }
+
+        .novel-title-group h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #111;
+        }
+
+        .novel-title-group .en-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .novel-meta .sub-line {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            font-weight: 400;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+        }
+
+        .novel-meta .author {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .novel-meta .author span {
+            color: #111;
+            font-weight: 600;
+        }
+
+        .novel-meta .synopsis {
+            font-size: 0.98rem;
+            color: #2c2c2c;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 16px 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 18px;
+            line-height: 1.8;
+        }
+
+        .novel-meta .synopsis strong {
+            color: #111;
+        }
+
+        .novel-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 28px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .novel-stats .stat-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .novel-stats svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .novel-stats strong {
+            color: #111;
+            font-weight: 700;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-title .title-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            stroke: var(--accent);
+        }
+
+        .section-title .hint {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== CHAPTER GRID ===== */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .chapter-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            min-width: 0;
+        }
+
+        .chapter-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .chapter-card .ch-number {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-right: 12px;
+            min-width: 40px;
+            flex-shrink: 0;
+        }
+
+        .chapter-card .ch-title {
+            font-weight: 500;
+            flex: 1;
+            color: #111;
+            font-size: 0.95rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .chapter-card .ch-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .chapter-card.active {
+            border-color: var(--accent);
+            background: #fff5f5;
+            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.15);
+        }
+
+        /* ===== READER PANEL ===== */
+        .reader-panel {
+            background: var(--read-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 32px 40px;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .reader-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .reader-header .ch-badge {
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        .reader-content {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1.08rem;
+            line-height: 2.05;
+            color: var(--read-text);
+            max-width: 740px;
+            margin: 0 auto;
+        }
+
+        .reader-content .narasi {
+            color: var(--text-primary);
+            margin-bottom: 1.3rem;
+        }
+
+        .reader-content .dialog {
+            color: var(--text-dialog);
+            background: var(--bg-dialog);
+            padding: 10px 20px 10px 24px;
+            border-radius: 0 12px 12px 12px;
+            border-left: 3px solid #7a9cdb;
+            margin-bottom: 1.1rem;
+            font-style: normal;
+            font-weight: 450;
+            position: relative;
+        }
+
+        .reader-content .dialog::before {
+            content: "“";
+            font-size: 2.4rem;
+            font-family: 'Georgia', serif;
+            color: #7a9cdb;
+            position: absolute;
+            left: 4px;
+            top: -6px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .reader-content .dialog-alt {
+            color: var(--text-dialog-alt);
+            background: var(--bg-dialog-alt);
+            padding: 10px 20px 10px 24px;
+            border-radius: 12px 0 12px 12px;
+            border-right: 3px solid #b38cdb;
+            margin-bottom: 1.1rem;
+            font-weight: 450;
+            position: relative;
+            text-align: right;
+        }
+
+        .reader-content .dialog-alt::before {
+            content: "“";
+            font-size: 2.4rem;
+            font-family: 'Georgia', serif;
+            color: #b38cdb;
+            position: absolute;
+            right: 4px;
+            top: -6px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .reader-content .dialog-inline {
+            color: var(--text-dialog);
+            background: var(--bg-dialog);
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 450;
+        }
+
+        .reader-content .first-letter {
+            font-size: 3.6rem;
+            font-weight: 700;
+            float: left;
+            line-height: 0.9;
+            margin-right: 12px;
+            margin-top: 2px;
+            color: var(--accent);
+            font-family: 'Georgia', serif;
+        }
+
+        .reader-content .tamat {
+            text-align: center;
+            margin-top: 36px;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 28px;
+        }
+
+        .reader-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .reader-nav button {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 8px 22px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .reader-nav button svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .reader-nav button:hover:not(:disabled) {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .reader-nav button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .reader-nav .chapter-indicator {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-chapter {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-chapter svg {
+            width: 40px;
+            height: 40px;
+            display: block;
+            margin: 0 auto 12px;
+            opacity: 0.4;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 24px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        footer span {
+            color: #111;
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 16px;
+            }
+            .logo-area a {
+                font-size: 1.1rem;
+            }
+            .novel-hero {
+                padding: 28px 16px;
+            }
+            .novel-hero-inner {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                text-align: center;
+            }
+            .novel-cover {
+                flex: 0 0 160px;
+                width: 160px;
+            }
+            .novel-title-group {
+                justify-content: center;
+            }
+            .novel-title-group h1 {
+                font-size: 1.7rem;
+            }
+            .novel-title-group .en-title {
+                font-size: 0.9rem;
+            }
+            .novel-meta .sub-line {
+                text-align: left;
+            }
+            .novel-stats {
+                justify-content: center;
+            }
+            .container {
+                padding: 28px 14px 60px;
+            }
+            .reader-panel {
+                padding: 20px 16px;
+            }
+            .reader-content {
+                font-size: 0.98rem;
+            }
+            .reader-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .reader-nav button {
+                justify-content: center;
+            }
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .novel-meta .synopsis {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+            .reader-content .first-letter {
+                font-size: 2.4rem;
+            }
+            .container {
+                padding: 22px 12px 50px;
+            }
+            .novel-title-group h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="logo-area">
+            <a href="index.html">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Story Novel
+            </a>
+            <a href="index.html" class="back-home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                Kembali
+            </a>
+        </div>
+        <div class="creator-badge">Created by Mr.Anom</div>
+    </header>
+
+    <!-- ===== NOVEL HERO ===== -->
+    <section class="novel-hero">
+        <div class="novel-hero-inner">
+            <div class="novel-cover">
+                <img src="https://novel.isdarprem.net/images/story2.jpg" alt="Cinta Di Ujung Harapan" />
+            </div>
+            <div class="novel-meta">
+                <div class="badge-status"><span class="dot"></span> Ongoing</div>
+                <div class="novel-title-group">
+                    <h1>Cinta Di Ujung Harapan</h1>
+                    <span class="en-title">Love at the Edge of Hope</span>
+                </div>
+                <div class="sub-line">"Ketika dua hati yang terluka bertemu di tengah badai, mampukah mereka menemukan pelangi?"</div>
+                <div class="author">Penulis: <span>Mr.Anom</span></div>
+                <div class="synopsis">
+                    <strong>Rara</strong> kehilangan segalanya dalam kecelakaan yang merenggut keluarganya. <strong>Dimas</strong>, seorang pemuda dengan masa lalu kelam, mencoba menebus dosa dengan membantu orang lain. Pertemuan mereka di panti asuhan menjadi awal dari perjalanan emosional yang penuh liku—di mana cinta dan harapan menjadi satu-satunya penerang di tengah gelapnya kehidupan.
+                </div>
+                <div class="novel-stats">
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        <strong>12</strong>&nbsp;Bab
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <strong>18.2k</strong>&nbsp;Pembaca
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <strong>4.6</strong>&nbsp;(1.8k rating)
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        Update:&nbsp;<strong>25 Jul 2026</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTAINER ===== -->
+    <div class="container">
+        <!-- Daftar Bab -->
+        <div class="section-title">
+            <span class="title-text">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Daftar Bab
+            </span>
+            <span class="hint">Klik bab untuk membaca</span>
+        </div>
+
+        <div class="chapter-grid" id="chapterGrid">
+            <!-- diisi JavaScript -->
+        </div>
+
+        <!-- Reader Panel -->
+        <div class="reader-panel" id="readerPanel">
+            <div class="reader-header">
+                <h2 id="readerTitle">Pilih Bab untuk Mulai Membaca</h2>
+                <span class="ch-badge" id="readerBadge">Bab 1</span>
+            </div>
+            <div class="reader-content" id="readerContent">
+                <div class="empty-chapter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <p>Klik salah satu bab di atas untuk membaca ceritanya.</p>
+                </div>
+            </div>
+            <div class="reader-nav">
+                <button id="prevChapter" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Bab Sebelumnya
+                </button>
+                <span class="chapter-indicator" id="chapterIndicator">—</span>
+                <button id="nextChapter">
+                    Bab Selanjutnya
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; 2026 <span>Story Novel</span> — All rights reserved. Designed &amp; Created by <span>Mr.Anom</span>.</p>
+    </footer>
+
+    <script>
+        // ================================================================
+        //  DATA BAB (12 BAB) — CINTA DI UJUNG HARAPAN
+        // ================================================================
+        const chapters = [{
+            id: 1,
+            title: 'Pertemuan di Panti Asuhan',
+            date: '20 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">R</span>ara menggenggam erat tas kecilnya, satu-satunya harta yang tersisa setelah kecelakaan itu. Ia melangkah masuk ke panti asuhan "Pelangi Harapan" dengan perasaan hampa. Di sana, ia bertemu dengan Dimas, seorang relawan yang sedang mengajari anak-anak menggambar.</p>
+                <p class="dialog">"Kau pasti Rara," kata Dimas sambil tersenyum hangat. "Bu Maria sudah bilang kau akan datang."</p>
+                <p class="dialog-alt">"Iya. Aku tidak tahu harus ke mana lagi setelah... semuanya."</p>
+                <p class="narasi">Dimas menatapnya dengan mata yang penuh pengertian. Ia tahu betul bagaimana rasanya kehilangan segalanya. Namun, ia tidak mengatakan apa pun, hanya menepuk pundak Rara.</p>
+                <p class="dialog">"Di sini, kau bisa memulai lagi. Kami semua akan membantumu."</p>
+                <p class="narasi">Rara menunduk, air mata menggenang. <span class="dialog-inline">"Terima kasih, Dimas."</span></p>
+            `
+        }, {
+            id: 2,
+            title: 'Bayangan Masa Lalu',
+            date: '21 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">M</span>alam pertama di panti, Rara tidak bisa tidur. Ia terbaring di kamar sempit, memandangi langit-langit yang retak. Kenangan tentang keluarganya terus menghantuinya—tawa ayahnya, masakan ibunya, dan senyum adik bungsunya yang selalu ceria.</p>
+                <p class="narasi"><span class="dialog-inline">"Seharusnya aku yang pergi, bukan mereka,"</span> bisiknya pelan.</p>
+                <p class="narasi">Pintu kamar terbuka perlahan. Dimas masuk dengan dua cangkir susu hangat.</p>
+                <p class="dialog">"Aku tahu malam pertama selalu sulit. Aku juga pernah mengalaminya."</p>
+                <p class="dialog-alt">"Kau... kehilangan seseorang?"</p>
+                <p class="dialog">"Aku kehilangan ibuku saat aku masih kecil. Ayahku... dia tidak pernah benar-benar pulih. Tapi aku belajar bahwa kesedihan tidak harus menjadi akhir segalanya."</p>
+                <p class="narasi">Rara menerima cangkir itu, dan untuk pertama kalinya, ia merasa ada secercah harapan. <span class="dialog-inline">"Terima kasih, Dimas."</span></p>
+            `
+        }, {
+            id: 3,
+            title: 'Lukisan dan Harapan',
+            date: '22 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">D</span>imas mengajak Rara ke ruang seni panti. Di sana, anak-anak sedang asyik melukis dengan warna-warna cerah. Dimas memberikan kuas kepada Rara.</p>
+                <p class="dialog">"Coba lukis apa yang kau rasakan. Kau tidak perlu menjadi pelukis profesional, yang penting kau menuangkannya."</p>
+                <p class="narasi">Rara ragu, tapi akhirnya mulai mencoret-coret kanvas. Ia melukis langit malam yang gelap dengan bintang-bintang kecil yang berkelap-kelip. Tanpa sadar, ia tersenyum.</p>
+                <p class="dialog-alt">"Ini... ini seperti harapan yang masih tersisa," katanya lirih.</p>
+                <p class="dialog">"Kau lihat? Kau masih punya harapan."</p>
+                <p class="narasi">Mereka berdua terdiam, menikmati senja yang masuk melalui jendela. <span class="dialog-inline">"Mungkin... mungkin aku bisa mulai lagi,"</span> pikir Rara.</p>
+            `
+        }, {
+            id: 4,
+            title: 'Rahasia Dimas',
+            date: '23 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">S</span>uatu hari, Rara menemukan Dimas sedang duduk sendirian di taman belakang, menatap sebuah foto usang. Ia mendekati dengan hati-hati.</p>
+                <p class="dialog-alt">"Kau baik-baik saja, Dimas?"</p>
+                <p class="dialog">"Ini ibuku. Aku masih menyimpannya, meskipun sudah bertahun-tahun."</p>
+                <p class="narasi">Rara duduk di sampingnya. Ia tidak mengatakan apa pun, hanya menemani. Diam-diam, ia menyadari bahwa Dimas juga menyimpan luka yang dalam.</p>
+                <p class="dialog">"Aku dulu berjanji pada ibuku bahwa aku akan membantu orang-orang yang membutuhkan. Itu sebabnya aku di sini."</p>
+                <p class="dialog-alt">"Kau orang yang baik, Dimas. Ibumu pasti bangga padamu."</p>
+                <p class="narasi">Dimas menatapnya, dan untuk pertama kalinya, Rara melihat senyum tulus di wajahnya. <span class="dialog-inline">"Terima kasih, Rara."</span></p>
+            `
+        }, {
+            id: 5,
+            title: 'Pelukan di Tengah Hujan',
+            date: '24 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">H</span>ujan deras mengguyur kota saat Rara dan Dimas sedang dalam perjalanan pulang dari pasar. Mereka berlindung di bawah atap kecil sebuah toko.</p>
+                <p class="dialog">"Kau kedinginan," kata Dimas, lalu melepas jaketnya dan menyelimuti Rara.</p>
+                <p class="dialog-alt">"Tapi kau juga akan kedinginan."</p>
+                <p class="dialog">"Aku terbiasa."</p>
+                <p class="narasi">Rara menatap Dimas dengan mata berbinar. Tanpa sadar, ia menggenggam tangannya. Dimas terkejut, tapi kemudian membalas genggaman itu.</p>
+                <p class="dialog">"Rara, aku... aku senang kau ada di sini."</p>
+                <p class="dialog-alt">"Aku juga."</p>
+                <p class="narasi">Di tengah hujan yang deras, mereka saling berpelukan. <span class="dialog-inline">"Mungkin ini awal dari sesuatu yang indah,"</span> bisik Rara dalam hati.</p>
+            `
+        }, {
+            id: 6,
+            title: 'Pengakuan dari Hati',
+            date: '25 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">M</span>alam itu, Dimas mengajak Rara berjalan-jalan di taman dekat panti. Bulan bersinar terang, dan angin berembus lembut.</p>
+                <p class="dialog">"Rara, aku harus jujur padamu. Aku tidak hanya datang ke sini untuk menjadi relawan. Aku juga mencari seseorang..."</p>
+                <p class="dialog-alt">"Siapa?"</p>
+                <p class="dialog">"Aku dulu memiliki seorang adik perempuan. Dia hilang saat kecelakaan yang sama yang merenggut orang tuamu. Aku... aku pikir dia mungkin ada di sini."</p>
+                <p class="narasi">Rara terhenyak. Ia tidak pernah tahu bahwa Dimas memiliki hubungan dengan tragedinya.</p>
+                <p class="dialog-alt">"Kau... kau mencari adikmu?"</p>
+                <p class="dialog">"Ya. Dan aku menemukanmu. Rara, adikku bernama Rara."</p>
+                <p class="narasi">Dunia Rara bergetar. <span class="dialog-inline">"Aku... aku tidak tahu. Aku tidak pernah tahu aku memiliki kakak."</span></p>
+                <p class="dialog">"Aku juga baru tahu setelah melihat foto lamamu. Kau persis seperti ibumu."</p>
+                <p class="narasi">Mereka berpelukan erat, menangis bersama. <span class="dialog-inline">"Akhirnya... aku menemukanmu,"</span> bisik Dimas.</p>
+            `
+        }, {
+            id: 7,
+            title: 'Menerima Kebenaran',
+            date: '26 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">R</span>ara masih tercengang dengan pengakuan Dimas. Ia duduk di kamarnya, memandangi foto-foto lamanya, mencari-cari jejak Dimas yang selama ini tidak ia sadari.</p>
+                <p class="dialog">"Aku tidak percaya. Selama ini aku hidup sendirian, padahal aku punya kakak."</p>
+                <p class="narasi">Dimas masuk dengan hati-hati. Ia duduk di samping Rara.</p>
+                <p class="dialog">"Aku tidak bermaksud menyembunyikan ini darimu. Aku hanya ingin memastikan bahwa kau benar-benar adikku sebelum mengatakan semuanya."</p>
+                <p class="dialog-alt">"Aku... aku butuh waktu untuk mencerna ini."</p>
+                <p class="dialog">"Aku mengerti. Aku akan menunggu."</p>
+                <p class="narasi">Rara menatap Dimas, dan di matanya, ia melihat ketulusan. <span class="dialog-inline">"Terima kasih, Kak."</span></p>
+            `
+        }, {
+            id: 8,
+            title: 'Jejak Orang Tua',
+            date: '27 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">D</span>imas dan Rara memutuskan untuk mencari tahu lebih banyak tentang masa lalu mereka. Mereka pergi ke rumah lama orang tua mereka, yang kini terbengkalai.</p>
+                <p class="dialog">"Ini rumah tempat kita dibesarkan," kata Dimas sambil membuka pintu berderit.</p>
+                <p class="dialog-alt">"Aku hampir tidak ingat. Aku masih kecil saat kami pindah."</p>
+                <p class="narasi">Mereka menemukan album foto tua, buku harian ibu mereka, dan berbagai kenangan yang membawa air mata.</p>
+                <p class="dialog">"Ibu selalu ingin kita bersatu. Dan sekarang, kita berdua di sini."</p>
+                <p class="dialog-alt">"Mungkin inilah yang disebut takdir, Kak."</p>
+                <p class="narasi">Mereka berpelukan di tengah debu dan kenangan. <span class="dialog-inline">"Kita tidak akan pernah terpisah lagi,"</span> janji Dimas.</p>
+            `
+        }, {
+            id: 9,
+            title: 'Cinta yang Tumbuh',
+            date: '28 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">W</span>aktu berlalu, dan hubungan antara Dimas dan Rara semakin erat. Tidak hanya sebagai kakak-adik, tetapi juga sebagai sahabat dan saling mengisi kekosongan satu sama lain.</p>
+                <p class="dialog">"Aku tidak pernah membayangkan akan menemukan keluargaku di sini," kata Rara sambil tersenyum.</p>
+                <p class="dialog-alt">"Aku juga. Tapi aku bersyukur."</p>
+                <p class="narasi">Dimas menatapnya dengan penuh kasih. Ada perasaan yang lebih dalam dari sekadar ikatan darah.</p>
+                <p class="dialog">"Rara, aku... aku mencintaimu. Bukan sebagai kakak, tapi sebagai seseorang yang ingin melindungimu selamanya."</p>
+                <p class="dialog-alt">"Aku juga, Kak. Tapi... apakah ini benar?"</p>
+                <p class="dialog">"Cinta tidak selalu harus sesuai dengan aturan. Yang penting kita bahagia."</p>
+                <p class="narasi">Rara menangis bahagia. <span class="dialog-inline">"Aku setuju."</span></p>
+            `
+        }, {
+            id: 10,
+            title: 'Surat untuk Ibu',
+            date: '29 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">M</span>alam itu, Rara menulis surat untuk ibunya yang telah tiada. Ia duduk di meja kayu tua, ditemani Dimas yang juga menulis surat serupa.</p>
+                <p class="dialog">"Ibu, aku sudah menemukan kakakku. Kami bersama sekarang, dan aku bahagia. Aku berjanji akan menjaga dia seperti yang kau ajarkan."</p>
+                <p class="dialog-alt">"Ibu, aku telah menemukan adikku. Kami tidak akan pernah terpisah lagi. Terima kasih telah menjaganya selama ini."</p>
+                <p class="narasi">Mereka menaruh surat di bawah bunga favorit ibu mereka.</p>
+                <p class="dialog">"Aku yakin Ibu tersenyum melihat kita sekarang," kata Dimas.</p>
+                <p class="dialog-alt">"Aku juga."</p>
+                <p class="narasi">Mereka berpegangan tangan, merasakan kehangatan keluarga yang akhirnya mereka temukan. <span class="dialog-inline">"Selamanya."</span></p>
+            `
+        }, {
+            id: 11,
+            title: 'Masa Depan yang Cerah',
+            date: '30 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">D</span>imas dan Rara memutuskan untuk membuka usaha kecil-kecilan, sebuah kafe yang juga menjadi tempat komunitas bagi anak-anak panti. Mereka ingin memberi kembali kepada orang-orang yang telah membantu mereka.</p>
+                <p class="dialog">"Ini mimpi kita," kata Rara sambil mengecat dinding kafe.</p>
+                <p class="dialog-alt">"Mimpi yang menjadi nyata."</p>
+                <p class="narasi">Anak-anak panti datang membantu, dan suasana dipenuhi tawa. Dimas dan Rara saling bertatapan, penuh harapan.</p>
+                <p class="dialog">"Kita telah melewati segalanya, dan sekarang kita ada di sini."</p>
+                <p class="dialog-alt">"Bersama."</p>
+                <p class="narasi">Cahaya matahari menyinari kafe kecil itu, menerangi masa depan yang cerah. <span class="dialog-inline">"Cinta dan harapan, itulah yang kita punya."</span></p>
+            `
+        }, {
+            id: 12,
+            title: 'Selamanya di Ujung Harapan',
+            date: '31 Jul 2026',
+            content: `
+                <p class="narasi"><span class="first-letter">H</span>ari pernikahan Dimas dan Rara digelar sederhana di halaman panti, dikelilingi oleh anak-anak yang mereka sayangi. Rara mengenakan gaun putih, Dimas tampak gagah dalam setelan hitam.</p>
+                <p class="dialog">"Aku berjanji akan selalu mencintaimu, melindungimu, dan menjadikanmu bahagia."</p>
+                <p class="dialog-alt">"Aku juga berjanji. Kita telah melewati badai, dan kita akan menikmati pelangi selamanya."</p>
+                <p class="narasi">Mereka saling mencium, dan semua orang bersorak. Di belakang, mereka melihat foto ibu mereka yang diletakkan di antara bunga.</p>
+                <p class="narasi">Rara berbisik, <span class="dialog-inline">"Ibu, kami bahagia. Terima kasih telah mempertemukan kami."</span></p>
+                <p class="narasi">Cerita ini berakhir dengan pelukan, tawa, dan harapan yang tak pernah padam. <span class="dialog-inline">"Cinta di ujung harapan, dan kami menemukannya."</span></p>
+                <p class="tamat">— TAMAT —</p>
+            `
+        }];
+
+        // ================================================================
+        //  RENDER & LOGIKA (SAMA SEPERTI HALAMAN PERTAMA)
+        // ================================================================
+        const grid = document.getElementById('chapterGrid');
+        const readerTitle = document.getElementById('readerTitle');
+        const readerBadge = document.getElementById('readerBadge');
+        const readerContent = document.getElementById('readerContent');
+        const prevBtn = document.getElementById('prevChapter');
+        const nextBtn = document.getElementById('nextChapter');
+        const indicator = document.getElementById('chapterIndicator');
+
+        let currentChapterId = 1;
+
+        function renderChapterList() {
+            grid.innerHTML = '';
+            chapters.forEach(ch => {
+                const card = document.createElement('div');
+                card.className = 'chapter-card' + (ch.id === currentChapterId ? ' active' : '');
+                card.innerHTML = `
+                    <span class="ch-number">Bab ${ch.id}</span>
+                    <span class="ch-title">${ch.title}</span>
+                    <span class="ch-date">${ch.date}</span>
+                `;
+                card.addEventListener('click', () => loadChapter(ch.id));
+                grid.appendChild(card);
+            });
+        }
+
+        function loadChapter(id) {
+            const ch = chapters.find(c => c.id === id);
+            if (!ch) return;
+
+            currentChapterId = id;
+            readerTitle.textContent = `Bab ${ch.id} — ${ch.title}`;
+            readerBadge.textContent = `Bab ${ch.id}`;
+            readerContent.innerHTML = ch.content;
+
+            document.querySelectorAll('.chapter-card').forEach(card => {
+                const num = parseInt(card.querySelector('.ch-number').textContent.replace('Bab ', ''));
+                card.classList.toggle('active', num === id);
+            });
+
+            updateNavButtons();
+            indicator.textContent = `Bab ${ch.id} dari ${chapters.length}`;
+            document.getElementById('readerPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function updateNavButtons() {
+            const idx = chapters.findIndex(c => c.id === currentChapterId);
+            prevBtn.disabled = idx === 0;
+            nextBtn.disabled = idx === chapters.length - 1;
+        }
+
+        function goPrev() {
+            const idx = chapters.findIndex(c => c.id === currentChapterId);
+            if (idx > 0) loadChapter(chapters[idx - 1].id);
+        }
+
+        function goNext() {
+            const idx = chapters.findIndex(c => c.id === currentChapterId);
+            if (idx < chapters.length - 1) loadChapter(chapters[idx + 1].id);
+        }
+
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') goPrev();
+            if (e.key === 'ArrowRight') goNext();
+        });
+
+        // Init
+        renderChapterList();
+        loadChapter(1);
+    </script>
+</body>
+</html>
