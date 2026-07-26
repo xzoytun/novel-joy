@@ -3,23 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cintaku Padamu Itu Palsu - Bab 3 | Extrimer Novel</title>
+    <title>Cintaku Padamu Itu Palsu - Bab 3 - Story Novel</title>
     <style>
         :root {
-            --bg-primary: #0a0a0c;
-            --bg-secondary: #16161a;
-            --bg-card: #1e1e24;
-            --text-main: #f1f1f3;
-            --text-muted: #9ba1a6;
-            --accent: #e50914;
-            --accent-hover: #ff1e2a;
-            --border-color: #2a2a35;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-light: rgba(99, 102, 241, 0.1);
+            
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -30,204 +41,294 @@
             display: flex;
             flex-direction: column;
             line-height: 1.8;
+            overflow-x: hidden;
         }
 
+        /* ===== HEADER ===== */
         header {
-            background-color: rgba(22, 22, 26, 0.85);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
-            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .brand {
-            color: #fff;
-            font-weight: 700;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-area a {
             text-decoration: none;
-            font-size: 1.2rem;
+            color: var(--text-main);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color var(--transition);
         }
 
-        .creator-tag {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        .logo-area a:hover {
+            color: var(--accent);
         }
 
-        .reader-wrapper {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            flex: 1;
-            width: 100%;
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            stroke: var(--accent);
         }
 
         .back-btn {
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            padding: 10px 18px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-            margin-bottom: 30px;
-            transition: all 0.2s ease;
+            gap: 6px;
         }
 
         .back-btn:hover {
-            border-color: var(--accent);
+            background: var(--accent);
             color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
         }
 
-        .reader-card {
-            background-color: var(--bg-card);
+        /* ===== READER CONTAINER ===== */
+        .reader-container {
+            max-width: 780px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .novel-header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .novel-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .novel-meta {
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 25px;
-            margin-bottom: 30px;
-        }
-
-        .novel-meta h1 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
-
-        .novel-meta p {
+            font-size: 0.9rem;
             color: var(--text-muted);
-            font-style: italic;
-            font-size: 1rem;
+            font-weight: 500;
         }
 
-        .chapter-title {
+        .novel-meta span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== CHAPTER CONTENT ===== */
+        .chapter-content h2 {
             font-size: 1.35rem;
-            color: #fff;
-            margin-bottom: 25px;
             font-weight: 700;
-            border-left: 4px solid var(--accent);
-            padding-left: 12px;
-        }
-
-        .chapter-content {
-            font-size: 1.05rem;
-            color: #dcdce0;
-            text-align: justify;
+            color: var(--text-main);
+            margin-top: 24px;
+            margin-bottom: 16px;
         }
 
         .chapter-content p {
-            margin-bottom: 22px;
+            font-size: 1.05rem;
+            color: #334155;
+            margin-bottom: 20px;
+            text-align: justify;
         }
 
-        .navigation-footer {
+        .chapter-content em {
+            display: block;
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            margin: 24px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-style: italic;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .chapter-navigation {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 30px;
+            align-items: center;
+            gap: 12px;
         }
 
         .nav-btn {
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
 
         .nav-btn:hover {
-            background-color: var(--accent-hover);
-            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+            background: var(--accent-hover);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+            transform: translateY(-1px);
         }
 
         .nav-btn.disabled {
-            background-color: #2a2a35;
-            color: #666;
+            background: #f1f5f9;
+            color: #94a3b8;
             pointer-events: none;
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
+        /* ===== FOOTER ===== */
         footer {
-            background-color: var(--bg-secondary);
+            background: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
-            padding: 30px 20px;
+            padding: 28px 20px;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: auto;
         }
 
-        footer span {
-            color: #fff;
+        footer .footer-brand {
+            color: var(--text-main);
             font-weight: 600;
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .reader-card {
-                padding: 25px 20px;
+            header {
+                padding: 12px 20px;
             }
-            .novel-meta h1 {
-                font-size: 1.6rem;
+            .reader-container {
+                margin: 20px 12px;
+                padding: 24px 18px;
+                border-radius: 12px;
+            }
+            .novel-header h1 {
+                font-size: 1.5rem;
+            }
+            .chapter-content p {
+                font-size: 0.98rem;
+            }
+            .chapter-navigation {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header>
-        <a href="index.html" class="brand">📚 Extrimer Novel</a>
-        <div class="creator-tag">Created by Mr.Anom</div>
+        <div class="logo-area">
+            <a href="index.html">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Story <span style="color:var(--accent);">Novel</span>
+            </a>
+        </div>
+        <a href="index.html" class="back-btn">
+            <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Kembali ke Beranda
+        </a>
     </header>
 
-    <div class="reader-wrapper">
-        <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+    <!-- ===== KHUSUS KONTEN BAB 3 ===== -->
+    <main class="reader-container">
+        <div class="novel-header">
+            <h1>Cintaku Padamu Itu Palsu</h1>
+            <div class="novel-meta">Oleh <span>Mr.Anom</span></div>
+        </div>
 
-        <div class="reader-card">
-            <div class="novel-meta">
-                <h1>Cintaku Padamu Itu Palsu</h1>
-                <p>"I lied to you. But: was it all a lie to myself?"</p>
-            </div>
+        <div class="chapter-content">
+            <h2>Bab 3: Titik Balik yang Menyesakkan</h2>
+            
+            <p>Matahari pagi menyusup melalui celah-celah tirai jendela, memantulkan bayangan garis-garis cahaya di lantai kamar Arka. Malam tadi nyaris dilewatinya tanpa memejamkan mata. Keputusan besar harus segera diambil, sebab batas waktu yang diberikan oleh ayahnya semakin mendekati tenggat akhir.</p>
+            
+            <p>Pagi ini, sebuah pesan singkat masuk ke ponselnya. Dari Kirana.</p>
+            
+            <em>"Arka, apa kamu sibuk? Bisa kita ketemuan di taman kota jam sepuluh nanti? Ada hal penting yang ingin aku bicarakan sama kamu."</em>
+            
+            <p>Jantung Arka berdegup lebih kencang dari biasanya. Ada rasa cemas yang merayap di dalam dadanya. Apakah Kirana sudah mengetahui rencana busuk di balik kedekatan mereka selama ini? Apakah penyamarannya telah terbongkar?</p>
+            
+            <p>Pukul sepuluh tepat, Arka melangkah memasuki area taman kota yang dipenuhi deretan pohon rindang dan tawa riang anak-anak. Dari kejauhan, ia melihat sosok Kirana berdiri di dekat air mancur mengenakan mantel krem pastel. Gadis itu tampak gelisah, sesekali meremas tali tas di bahunya.</p>
+            
+            <p>Begitu melihat Arka mendekat, raut wajah Kirana langsung berubah lega, meski ada guratan kesedihan yang tak bisa disembunyikannya.</p>
+            
+            <p>"Arka, kamu datang," sambut Kirana dengan senyuman tipis yang terasa dipaksakan.</p>
+            
+            <p>"Ada apa, Kirana? Kamu terdengar sangat serius di telepon tadi," tanya Arka hati-hati, mencoba menyembunyikan getaran di suaranya.</p>
+            
+            <p>Kirana menarik napas panjang, lalu mengeluarkan sebuah amplop cokelat tebal dari dalam tasnya dan menyerahkannya kepada Arka. "Aku tahu semuanya, Arka."</p>
+            
+            <p>Dunia seolah berhenti berputar bagi Arka. Lembaran amplop di tangannya mendadak terasa begitu berat. Kalimat itu menghujam jantungnya tanpa ampun.</p>
+            
+            <p>"Kamu tahu... tentang keluargaku?" suara Arka tercekat di tenggorokan.</p>
+            
+            <p>Kirana menatap mata Arka lekat-lekat, menyembunyikan air mata yang hampir tumpah di pelupuk matanya. "Aku tahu siapa kamu sebenarnya, dan apa tujuan keluargamu mendekatiku. Tapi yang paling menyakitkan bagiku bukan itu..." Kirana berhenti sejenak, menelan ludah dengan susah payah. "...melainkan kenyataan bahwa selama ini, cinta yang kamu tunjukkan kepadaku ternyata hanyalah sebuah kepalsuan."</p>
+            
+            <p>Mendengar pengakuan itu, pertahanan Arka runtuh seketika. Rencana, dendam, dan ambisi yang selama ini ia bangun hancur lebur tak bersisa, digantikan oleh rasa bersalah yang teramat dalam. Ia menyadari, kehilangan Kirana jauh lebih menakutkan daripada kegagalan membalaskan dendam masa lalu.</p>
 
-            <div class="chapter-title">Bab 3: Topeng yang Retak</div>
-
-            <div class="chapter-content">
-                <p>Malam semakin larut, namun deru kendaraan di luar kafe seakan tak mampu meredam ketegangan di meja sudut ruangan itu. Clara mengalihkan pandangannya ke arah cangkir kopi yang kini telah mendingin, menghindari tatapan intens dari Reyhan.</p>
-                
-                <p>"Jika dokumen perjanjian ini selesai bulan depan, kita bisa mengakhiri semua sandiwara ini dengan bersih, Rey," ujar Clara mencoba meyakinkan diri sendiri, seolah sedang membaca sebuah mantra pelindung.</p>
-                
-                <p>Reyhan menghela napas panjang. Ia menarik kursinya sedikit mendekat, membuat jarak di antara mereka semakin tipis. "Selesai? Apakah semudah itu melupakan apa yang kita bangun selama beberapa bulan terakhir ini, Clara? Bahkan jika di atas kertas hubungan ini palsu, air mata yang kau tumpahkan minggu lalu di apartemenku... apakah itu juga sandiwara?"</p>
-                
-                <p>Degup jantung Clara mendadak bergemuruh hebat. Pertanyaan itu menohok tepat di titik pertahanannya yang paling rapuh. Minggu itu, saat ia hampir kehilangan arah karena tekanan keluarga, Reyhanlah orang pertama yang datang menenangkannya tanpa ada kamera ataupun kontrak bisnis di dekat mereka.</p>
-                
-                <p>Topeng dingin yang selama ini dikenakan Clara perlahan mulai retak. Ia mengepalkan kedua tangannya di atas meja, mencoba menahan emosi yang bergemuruh di dadanya.</p>
-                
-                <p>"Jangan membuat semuanya menjadi rumit, Rey," suara Clara tercekat di tenggorokan. "Kita terikat oleh kebohongan."</p>
-                
-                <p>"Mungkin," balas Reyhan pelan dengan senyuman tipis penuh kepastian. "Tapi biarlah kebohongan ini menjadi satu-satunya hal nyata yang kupertahankan."</p>
-            </div>
-
-            <div class="navigation-footer">
-                <a href="cintaku-palsu-bab2.html" class="nav-btn">&larr; Bab Sebelumnya</a>
-                <a href="#" class="nav-btn disabled">Bab Berikutnya &rarr; (Segera)</a>
+            <!-- TOMBOL NAVIGASI BAB -->
+            <div class="chapter-navigation">
+                <a href="cintaku-palsu-bab2.html" class="nav-btn">
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Bab Sebelumnya (Bab 2)
+                </a>
+                <a href="cintaku-palsu-bab4.html" class="nav-btn">
+                    Bab Selanjutnya (Segera)
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
             </div>
         </div>
-    </div>
+    </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer>
-        <p>&copy; 2026 <span>Extrimer Novel</span>. All rights reserved. Designed & Created by <span>Mr.Anom</span>.</p>
+        <p>&copy; 2026 <span class="footer-brand">Story Novel</span> — All rights reserved. Designed &amp; Created by <span class="footer-brand">Mr.Anom</span>.</p>
     </footer>
 
 </body>
