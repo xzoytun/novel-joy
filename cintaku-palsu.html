@@ -178,13 +178,44 @@
             font-weight: 500;
         }
 
-        .chapter-footer {
+        /* ===== NAVIGATION BUTTONS ===== */
+        .chapter-navigation {
             margin-top: 40px;
             padding-top: 25px;
             border-top: 1px solid var(--border-color);
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            pointer-events: none;
+            box-shadow: none;
+            border: 1px solid var(--border-color);
         }
 
         /* ===== FOOTER ===== */
@@ -218,6 +249,13 @@
             }
             .chapter-content p {
                 font-size: 0.98rem;
+            }
+            .chapter-navigation {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -274,8 +312,16 @@
             
             <p>Dan di bawah lampu kafe yang mulai meredup, malam itu menjadi saksi bisu dari sebuah kisah rumit penuh intrik sandiwara cinta—di mana kebohongan terbesar bukanlah apa yang Arka ucapkan kepada Kirana, melainkan kebohongan yang ia katakan pada hatinya sendiri setiap kali ia memandangi mata gadis itu.</p>
 
-            <div class="chapter-footer">
-                (Bersambung ke Bab 2)
+            <!-- TOMBOL NAVIGASI BAB -->
+            <div class="chapter-navigation">
+                <a href="#" class="nav-btn disabled">
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Bab Sebelumnya
+                </a>
+                <a href="cintaku-palsu-bab2.html" class="nav-btn">
+                    Bab Selanjutnya (Bab 2)
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
             </div>
         </div>
     </main>
