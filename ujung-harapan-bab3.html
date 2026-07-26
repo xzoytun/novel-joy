@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinta Di Ujung Harapan - Bab 3 - Story Novel</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-light: rgba(99, 102, 241, 0.1);
+            
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-area a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color var(--transition);
+        }
+
+        .logo-area a:hover {
+            color: var(--accent);
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            stroke: var(--accent);
+        }
+
+        .back-btn {
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+
+        /* ===== READER CONTAINER ===== */
+        .reader-container {
+            max-width: 780px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .novel-header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .novel-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .novel-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .novel-meta span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== CHAPTER CONTENT ===== */
+        .chapter-content h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .chapter-content p {
+            font-size: 1.05rem;
+            color: #334155;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .chapter-content em {
+            display: block;
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            margin: 24px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-style: italic;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .chapter-navigation {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.home-link {
+            background: var(--text-main);
+        }
+
+        .nav-btn.home-link:hover {
+            background: #334155;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 28px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        footer .footer-brand {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+            }
+            .reader-container {
+                margin: 20px 12px;
+                padding: 24px 18px;
+                border-radius: 12px;
+            }
+            .novel-header h1 {
+                font-size: 1.5rem;
+            }
+            .chapter-content p {
+                font-size: 0.98rem;
+            }
+            .chapter-navigation {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="logo-area">
+            <a href="index.html">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Story <span style="color:var(--accent);">Novel</span>
+            </a>
+        </div>
+        <a href="index.html" class="back-btn">
+            <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Kembali ke Beranda
+        </a>
+    </header>
+
+    <!-- ===== READER CONTAINER ===== -->
+    <main class="reader-container">
+        <div class="novel-header">
+            <h1>Cinta Di Ujung Harapan</h1>
+            <div class="novel-meta">Oleh <span>Mr.Anom</span></div>
+        </div>
+
+        <div class="chapter-content">
+            <h2>Bab 3: Jejak Langkah Baru</h2>
+            
+            <p>Hari-hari berikutnya membawa perubahan kecil yang berarti bagi Rian dan Nadia. Pertemuan tak terduga di halte tempo hari berlanjut menjadi kebiasaan baru. Mereka sering menghabiskan waktu sore bersama di sebuah kafe kecil di sudut kota, berbagi cerita tentang impian yang sempat tertunda dan luka masa lalu yang perlahan-lahan mulai disembuhkan oleh waktu.</p>
+            
+            <p>Sore itu, Nadia membuka buku sketsanya di atas meja kafe, memperlihatkan gambar sesosok pria yang tengah termenung di bawah payung kelabu. Rian tertegun melihat goresan tangan gadis itu yang begitu hidup dan penuh emosi.</p>
+            
+            <p>"Kamu punya bakat luar biasa, Nadia. Kenapa tidak mencoba memamerkannya ke galeri seni?" tanya Rian dengan mata terpukau.</p>
+            
+            <p>Nadia tersenyum tipis sambil menutup buku sketsanya perlahan. "Dulu aku sempat bermimpi ke arah sana, Rian. Tapi badai kehidupan membuatku takut untuk kembali berharap terlalu tinggi."</p>
+            
+            <em>Harapan terkadang terasa begitu rapuh, namun di tangan orang yang tepat, ia bisa menjadi jangkar terkuat untuk bertahan.</em>
+            
+            <p>Rian menatap mata Nadia lekat-lekat, menyalurkan keteguhan lewat suaranya. "Jangan takut untuk bermimpi lagi. Kita bisa berjalan bersama, saling menguatkan di setiap ujung harapan yang tersisa."</p>
+            
+            <p>Senyuman hangat terukir di wajah Nadia, mengisyaratkan bahwa badai masa lalu kini telah berganti dengan keyakinan baru. Bersama-sama, mereka melangkah mantap menyongsong hari esok yang jauh lebih cerah.</p>
+
+            <!-- TOMBOL NAVIGASI BAB -->
+            <div class="chapter-navigation">
+                <a href="ujung-harapan-bab2.html" class="nav-btn">
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Bab Sebelumnya (Bab 2)
+                </a>
+                <a href="index.html" class="nav-btn home-link">
+                    Kembali ke Beranda
+                    <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; 2026 <span class="footer-brand">Story Novel</span> — All rights reserved. Designed &amp; Created by <span class="footer-brand">Mr.Anom</span>.</p>
+    </footer>
+
+</body>
+</html>
