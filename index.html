@@ -80,21 +80,11 @@
   }
 
   .dice-icon{
-    width:14px; height:14px;
-    background:var(--clay);
-    border-radius:3px;
-    position:relative;
+    width:16px; height:16px;
     flex-shrink:0;
   }
-  .dice-icon::before, .dice-icon::after{
-    content:"";
-    position:absolute;
-    width:2.5px; height:2.5px;
-    background:var(--paper);
-    border-radius:50%;
-  }
-  .dice-icon::before{ top:2.5px; left:2.5px; }
-  .dice-icon::after{ bottom:2.5px; right:2.5px; }
+  .dice-icon rect{ fill:var(--clay); }
+  .dice-icon circle{ fill:var(--paper); }
 
   h1{
     font-family:'Fredoka', sans-serif;
@@ -317,7 +307,14 @@
 <div class="app">
   <div class="hero">
     <div class="badge">
-      <span class="dice-icon"></span>
+      <svg class="dice-icon" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <circle cx="8" cy="8" r="1.8"/>
+        <circle cx="16" cy="8" r="1.8"/>
+        <circle cx="12" cy="12" r="1.8"/>
+        <circle cx="8" cy="16" r="1.8"/>
+        <circle cx="16" cy="16" r="1.8"/>
+      </svg>
       Papan Klasik, Rasa Baru
     </div>
     <h1>Ular <span class="accent">&</span> Tangga</h1>
