@@ -1,419 +1,734 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ular Tangga - Classic Arcade</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ular Tangga — Bermain</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-        body {
-            background: #4a1515; /* Nuansa klasik merah kecoklatan ala game arcade */
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            overflow-x: hidden;
-        }
+  :root{
+    --cream:#FBF3E3;
+    --wood:#8B4A2B;
+    --wood-dark:#5E2F17;
+    --clay:#D9622B;
+    --moss:#4C7A5A;
+    --gold:#E8B23B;
+    --ink:#2B1B12;
+    --paper:#FFFDF8;
+    --blue:#5B7FB5;
+    --tile-a:#F3E4C8;
+    --tile-b:#EAD6AE;
+  }
 
-        /* Container Utama dengan Tata Letak ala Game Klasik */
-        .game-layout {
-            position: relative;
-            width: 100%;
-            max-width: 650px;
-            aspect-ratio: 4 / 3;
-            background: url('https://i.ibb.co.com/84jX2R3/snakes-ladders-board.jpg') center/cover no-repeat; /* Contoh background papan klasik */
-            background-color: #8b0000;
-            border: 6px solid #d4af37; /* Bingkai emas klasik */
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  *{box-sizing:border-box; margin:0; padding:0;}
 
-        /* Area Kotak Grid Transparan di atas Gambar Papan */
-        .board-grid {
-            position: absolute;
-            width: 62%; /* Sesuaikan ukuran kotak grid dengan gambar papan di tengah */
-            aspect-ratio: 1 / 1;
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(10, 1fr);
-        }
+  body{
+    min-height:100vh;
+    font-family:'Space Grotesk', sans-serif;
+    background:
+      radial-gradient(circle at 15% 5%, rgba(232,178,59,0.15), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(76,122,90,0.15), transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    padding:16px;
+    padding-bottom:100px;
+  }
 
-        .cell {
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            font-size: 8px;
-            font-weight: 700;
-            color: rgba(0, 0, 0, 0.4); /* Angka tipis transparan di atas gambar */
-            padding: 1px;
-            position: relative;
-        }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+  }
 
-        /* Layer Pion */
-        .tokens-container {
-            position: absolute;
-            width: 62%;
-            aspect-ratio: 1 / 1;
-            pointer-events: none;
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-template-rows: repeat(10, 1fr);
-            z-index: 10;
-        }
+  /* Top bar */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
 
-        .token {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            position: absolute;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
+  .back-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--paper);
+    border:2px solid var(--wood);
+    border-radius:12px;
+    padding:8px 12px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--wood-dark);
+    text-decoration:none;
+    box-shadow:0 3px 0 var(--wood);
+    cursor:pointer;
+  }
+  .back-btn svg{ width:14px; height:14px; }
 
-        /* Warna Pion sesuai 4 sudut */
-        .p1 { background: #0056b3; } /* Player 1 (Kiri Bawah) - Biru */
-        .p2 { background: #d32f2f; } /* Player 2 (Kiri Atas) - Merah */
-        .p3 { background: #fbc02d; } /* Player 3 (Kanan Atas) - Kuning */
-        .p4 { background: #388e3c; } /* Player 4 (Kanan Bawah) - Hijau */
+  h1.title{
+    font-family:'Fredoka', sans-serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--wood-dark);
+  }
 
-        /* Panel Pemain di 4 Sudut Luar Papan */
-        .player-panel {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 6px 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            border: 2px solid #d4af37;
-            color: #333;
-            width: 125px;
-        }
+  .restart-btn{
+    background:var(--clay);
+    border:2px solid var(--clay);
+    border-radius:12px;
+    padding:8px 10px;
+    box-shadow:0 3px 0 #A6431A;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .restart-btn svg{ width:16px; height:16px; stroke:#fff; }
 
-        .p-box-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-        }
+  /* Players strip */
+  .players-strip{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin-bottom:14px;
+    padding-bottom:4px;
+  }
+  .player-chip{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--paper);
+    border:2px solid #E4D6C0;
+    border-radius:14px;
+    padding:8px 12px 8px 8px;
+    transition:all 0.2s ease;
+  }
+  .player-chip.active{
+    border-color:var(--gold);
+    background:#FFF7E0;
+    box-shadow:0 3px 0 var(--gold);
+    transform:translateY(-2px);
+  }
+  .player-chip .dot{
+    width:22px; height:22px;
+    border-radius:50%;
+    flex-shrink:0;
+    box-shadow:inset 0 -2px 0 rgba(0,0,0,0.15);
+  }
+  .player-chip.p1 .dot{ background:var(--clay); }
+  .player-chip.p2 .dot{ background:var(--moss); }
+  .player-chip.p3 .dot{ background:var(--gold); }
+  .player-chip.p4 .dot{ background:var(--blue); }
+  .player-chip .info{ line-height:1.15; }
+  .player-chip .name{ font-size:12px; font-weight:700; white-space:nowrap; max-width:80px; overflow:hidden; text-overflow:ellipsis; }
+  .player-chip .pos{ font-size:10px; color:#9A8770; font-weight:600; }
 
-        .panel-p1 { bottom: 15px; left: 15px; }
-        .panel-p2 { top: 15px; left: 15px; }
-        .panel-p3 { top: 15px; right: 15px; }
-        .panel-p4 { bottom: 15px; right: 15px; }
+  /* Board */
+  .board-frame{
+    background:var(--paper);
+    border:2px solid var(--wood);
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94,47,23,0.3);
+    position:relative;
+  }
 
-        .player-info h4 {
-            font-size: 11px;
-            font-weight: 700;
-            line-height: 1.1;
-        }
+  .board{
+    display:grid;
+    grid-template-columns:repeat(10, 1fr);
+    grid-template-rows:repeat(10, 1fr);
+    gap:2px;
+    aspect-ratio:1/1;
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    background:var(--wood);
+  }
 
-        .player-info p {
-            font-size: 10px;
-            color: #666;
-        }
+  .tile{
+    background:var(--tile-a);
+    position:relative;
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-end;
+    padding:3px 4px;
+  }
+  .tile.alt{ background:var(--tile-b); }
+  .tile .tnum{
+    font-size:9px;
+    font-weight:700;
+    color:#B3946B;
+    font-family:'Space Grotesk', sans-serif;
+  }
+  .tile.finish{
+    background:var(--moss);
+  }
+  .tile.finish .tnum{ color:#D7E8DB; }
+  .tile.start-tile{ background:#D9E4CF; }
 
-        /* Tombol Dadu Melayang / Kontrol Tengah Bawah */
-        .control-bar {
-            margin-top: 15px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
+  .tile.snake-head{ box-shadow:inset 0 0 0 2px rgba(217,98,43,0.5); }
+  .tile.ladder-bottom{ box-shadow:inset 0 0 0 2px rgba(76,122,90,0.5); }
 
-        .dice-btn {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(253, 160, 133, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
+  svg.overlay{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:2;
+  }
 
-        .dice-btn:hover { transform: scale(1.05); }
-        .dice-btn:disabled { background: #555; color: #aaa; cursor: not-allowed; transform: none; }
+  .pawns-layer{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:5;
+  }
 
-        .turn-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffd700;
-        }
+  .pawn-token{
+    position:absolute;
+    width:9%;
+    height:9%;
+    border-radius:50%;
+    box-shadow:inset 0 -2px 0 rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.35);
+    transition:left 0.35s ease, top 0.35s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .pawn-token::after{
+    content:"";
+    width:35%; height:35%;
+    background:rgba(255,255,255,0.5);
+    border-radius:50%;
+  }
+  .pawn-token.p1{ background:var(--clay); }
+  .pawn-token.p2{ background:var(--moss); }
+  .pawn-token.p3{ background:var(--gold); }
+  .pawn-token.p4{ background:var(--blue); }
 
-        .back-menu {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            z-index: 20;
-        }
+  /* Legend */
+  .legend{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    margin-top:12px;
+    font-size:11px;
+    font-weight:600;
+    color:#8A7660;
+  }
+  .legend span{ display:flex; align-items:center; gap:5px; }
+  .legend .sw{ width:14px; height:3px; border-radius:2px; }
+  .legend .sw.snake{ background:var(--clay); }
+  .legend .sw.ladder{ background:var(--moss); }
 
-        /* Modal Menang */
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s;
-        }
-        .modal.show { opacity: 1; pointer-events: auto; }
-        .modal-content {
-            background: #2a2d43; padding: 30px; border-radius: 20px; text-align: center;
-            width: 85%; max-width: 320px; border: 2px solid #d4af37; color: white;
-        }
-        .modal-btn {
-            background: #2ed573; color: white; border: none; padding: 10px; width: 100%;
-            border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 15px;
-        }
-    </style>
+  /* Bottom control bar */
+  .control-bar{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:var(--paper);
+    border-top:2px solid var(--wood);
+    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    z-index:20;
+    box-shadow:0 -6px 20px rgba(94,47,23,0.15);
+  }
+
+  .turn-info{
+    text-align:right;
+    line-height:1.2;
+  }
+  .turn-info .lbl{ font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#9A8770; font-weight:600; }
+  .turn-info .val{ font-family:'Fredoka', sans-serif; font-size:17px; font-weight:600; color:var(--wood-dark); }
+
+  .dice-btn{
+    width:64px; height:64px;
+    background:var(--paper);
+    border:3px solid var(--wood-dark);
+    border-radius:16px;
+    box-shadow:0 5px 0 var(--wood-dark);
+    cursor:pointer;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(3,1fr);
+    padding:10px;
+    gap:2px;
+    transition:transform 0.1s ease, box-shadow 0.1s ease;
+    flex-shrink:0;
+  }
+  .dice-btn:active{
+    transform:translateY(3px);
+    box-shadow:0 2px 0 var(--wood-dark);
+  }
+  .dice-btn.rolling{
+    animation:shake 0.12s infinite;
+  }
+  .dice-btn:disabled{
+    opacity:0.5;
+    cursor:default;
+    animation:none;
+  }
+  @keyframes shake{
+    0%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-8deg); }
+    75%{ transform:rotate(8deg); }
+    100%{ transform:rotate(0deg); }
+  }
+
+  .pip{
+    width:100%; height:100%;
+    border-radius:50%;
+    background:transparent;
+  }
+  .pip.on{ background:var(--clay); }
+
+  /* Toast / message */
+  .toast{
+    position:fixed;
+    top:16px; left:50%;
+    transform:translate(-50%, -140%);
+    background:var(--wood-dark);
+    color:var(--cream);
+    padding:10px 20px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:600;
+    z-index:50;
+    transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    white-space:nowrap;
+    box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  }
+  .toast.show{ transform:translate(-50%, 0); }
+
+  /* Win overlay */
+  .win-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(43,27,18,0.72);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.3s ease;
+    padding:20px;
+  }
+  .win-overlay.show{ opacity:1; pointer-events:auto; }
+
+  .win-card{
+    background:var(--paper);
+    border-radius:24px;
+    padding:36px 28px;
+    text-align:center;
+    max-width:340px;
+    width:100%;
+    border:2px solid var(--wood);
+    transform:scale(0.85);
+    transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .win-overlay.show .win-card{ transform:scale(1); }
+
+  .win-crown{ font-size:52px; margin-bottom:8px; }
+  .win-card h2{
+    font-family:'Fredoka', sans-serif;
+    font-size:26px;
+    color:var(--wood-dark);
+    margin-bottom:6px;
+  }
+  .win-card p{ font-size:14px; color:#8A7660; margin-bottom:22px; font-weight:500; }
+
+  .win-actions{ display:flex; gap:10px; }
+  .win-actions button, .win-actions a{
+    flex:1;
+    padding:13px;
+    border-radius:14px;
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .win-again{
+    background:var(--moss);
+    border:none;
+    color:#fff;
+    box-shadow:0 4px 0 #345740;
+  }
+  .win-home{
+    background:var(--cream);
+    border:2px solid var(--wood);
+    color:var(--wood-dark);
+  }
+</style>
 </head>
 <body>
 
-    <button class="back-menu" onclick="location.href='index.html'"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+<div class="wrap">
+  <div class="topbar">
+    <a href="index.html" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Menu
+    </a>
+    <h1 class="title">Ular &amp; Tangga</h1>
+    <button class="restart-btn" id="restartBtn" title="Ulangi permainan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+    </button>
+  </div>
 
-    <!-- Layout Utama Game dengan Desain Kotak Klasik -->
-    <div class="game-layout">
-        
-        <!-- Panel Pemain 2 (Kiri Atas) -->
-        <div class="player-panel panel-p2" id="panel-1">
-            <div class="p-box-icon" style="background: #d32f2f;"><i class="fa-solid fa-user"></i></div>
-            <div class="player-info">
-                <h4 id="name-1">Player 2</h4>
-                <p id="pos-1">Pos: 1</p>
-            </div>
-        </div>
+  <div class="players-strip" id="playersStrip"></div>
 
-        <!-- Panel Pemain 3 (Kanan Atas) -->
-        <div class="player-panel panel-p3" id="panel-2">
-            <div class="p-box-icon" style="background: #fbc02d;"><i class="fa-solid fa-user"></i></div>
-            <div class="player-info">
-                <h4 id="name-2">Player 3</h4>
-                <p id="pos-2">Pos: 1</p>
-            </div>
-        </div>
-
-        <!-- Papan Grid Angka 1-100 Transparan di atas Gambar -->
-        <div class="board-grid" id="board"></div>
-        <div class="tokens-container" id="tokensContainer"></div>
-
-        <!-- Panel Pemain 1 (Kiri Bawah) -->
-        <div class="player-panel panel-p1" id="panel-0">
-            <div class="p-box-icon" style="background: #0056b3;"><i class="fa-solid fa-user"></i></div>
-            <div class="player-info">
-                <h4 id="name-0">Player 1</h4>
-                <p id="pos-0">Pos: 1</p>
-            </div>
-        </div>
-
-        <!-- Panel Pemain 4 (Kanan Bawah) -->
-        <div class="player-panel panel-p4" id="panel-3">
-            <div class="p-box-icon" style="background: #388e3c;"><i class="fa-solid fa-user"></i></div>
-            <div class="player-info">
-                <h4 id="name-3">Player 4</h4>
-                <p id="pos-3">Pos: 1</p>
-            </div>
-        </div>
-
+  <div class="board-frame">
+    <div class="board" id="board"></div>
+    <div class="legend">
+      <span><span class="sw ladder"></span> Tangga naik</span>
+      <span><span class="sw snake"></span> Ular turun</span>
     </div>
+  </div>
+</div>
 
-    <!-- Control Bar Bawah -->
-    <div class="control-bar">
-        <div class="turn-text" id="turnIndicator">Giliran: Player 1</div>
-        <button class="dice-btn" id="rollBtn" onclick="rollDice()"><i class="fa-solid fa-dice"></i> Lempar Dadu</button>
+<div class="toast" id="toast"></div>
+
+<div class="control-bar">
+  <button class="dice-btn" id="diceBtn">
+    <div class="pip" id="p0"></div><div class="pip" id="p1"></div><div class="pip" id="p2"></div>
+    <div class="pip" id="p3"></div><div class="pip" id="p4"></div><div class="pip" id="p5"></div>
+    <div class="pip" id="p6"></div><div class="pip" id="p7"></div><div class="pip" id="p8"></div>
+  </button>
+  <div class="turn-info">
+    <div class="lbl">Giliran</div>
+    <div class="val" id="turnName">—</div>
+  </div>
+</div>
+
+<div class="win-overlay" id="winOverlay">
+  <div class="win-card">
+    <div class="win-crown">🏆</div>
+    <h2 id="winName">Pemenang!</h2>
+    <p>Sampai duluan di kotak 100</p>
+    <div class="win-actions">
+      <button class="win-again" id="playAgainBtn">Main Lagi</button>
+      <a class="win-home" href="index.html">Menu</a>
     </div>
+  </div>
+</div>
 
-    <!-- Modal Menang -->
-    <div class="modal" id="winModal">
-        <div class="modal-content">
-            <i class="fa-solid fa-trophy" style="font-size: 45px; color: #ffd700; margin-bottom: 10px;"></i>
-            <h2 id="winnerTitle" style="font-size: 20px;">Player 1 Menang!</h2>
-            <button class="modal-btn" onclick="location.reload()">Main Lagi</button>
-        </div>
-    </div>
+<script>
+  // ---------- Setup from URL ----------
+  const params = new URLSearchParams(window.location.search);
+  const playerCount = Math.min(4, Math.max(2, parseInt(params.get('players')) || 2));
+  const colors = ['p1','p2','p3','p4'];
+  const players = [];
+  for(let i=0;i<playerCount;i++){
+    players.push({
+      name: params.get('p'+(i+1)) || `Pemain ${i+1}`,
+      pos: 0,
+      color: colors[i]
+    });
+  }
 
-    <script>
-        const totalPlayers = parseInt(localStorage.getItem('snake_ladder_players')) || 4;
+  // ---------- Snakes & Ladders map ----------
+  // key = start (higher), value = end (lower) for snakes
+  const snakes = { 98:78, 95:56, 87:24, 62:19, 54:34, 17:7 };
+  // key = start (lower), value = end (higher) for ladders
+  const ladders = { 4:25, 13:46, 33:49, 42:63, 50:69, 71:92, 80:99 };
 
-        // Titik Ular & Tangga Standar Papan 100
-        const snakesAndLadders = {
-            4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91, // Tangga
-            17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 99: 78 // Ular
-        };
+  // ---------- Build board (visual, snake-path numbering 1-100 bottom to top) ----------
+  const boardEl = document.getElementById('board');
+  // grid positions: row 0 = top (numbers 91-100), row 9 = bottom (1-10)
+  // boustrophedon (zig-zag) numbering like real ular tangga board
+  const cellNumberToGrid = {}; // number -> {row, col} in 10x10 grid (row0 = top)
+  for(let rowFromBottom=0; rowFromBottom<10; rowFromBottom++){
+    const rowNumbers = [];
+    const base = rowFromBottom*10;
+    for(let c=0;c<10;c++) rowNumbers.push(base + c + 1);
+    if(rowFromBottom % 2 === 1) rowNumbers.reverse(); // zig-zag
+    const gridRow = 9 - rowFromBottom; // row0 at top visually
+    rowNumbers.forEach((num, colIdx)=>{
+      cellNumberToGrid[num] = { row: gridRow, col: colIdx };
+    });
+  }
 
-        const playerNames = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
-        let players = [];
+  // Render tiles in DOM order (row major, row0 top)
+  const gridToNumber = {};
+  Object.entries(cellNumberToGrid).forEach(([num,pos])=>{
+    gridToNumber[`${pos.row}-${pos.col}`] = parseInt(num);
+  });
 
-        for(let i = 0; i < 4; i++) {
-            players.push({ id: i, pos: 1 });
-            // Sembunyikan panel jika jumlah pemain tidak dipilih (misal cuma main 2 orang)
-            if(i >= totalPlayers) {
-                document.getElementById(`panel-${i}`).style.display = 'none';
-            }
-        }
+  for(let r=0;r<10;r++){
+    for(let c=0;c<10;c++){
+      const num = gridToNumber[`${r}-${c}`];
+      const tile = document.createElement('div');
+      tile.className = 'tile' + ((Math.floor(num/1)+r+c)%2===0 ? '' : ' alt');
+      if(num === 100) tile.classList.add('finish');
+      if(num === 1) tile.classList.add('start-tile');
+      if(snakes[num]) tile.classList.add('snake-head');
+      if(ladders[num]) tile.classList.add('ladder-bottom');
+      tile.dataset.num = num;
+      tile.innerHTML = `<span class="tnum">${num}</span>`;
+      boardEl.appendChild(tile);
+    }
+  }
 
-        let currentTurn = 0;
-        let isRolling = false;
+  // SVG overlay for snakes & ladders lines
+  const svgNS = "http://www.w3.org/2000/svg";
+  const overlay = document.createElementNS(svgNS,"svg");
+  overlay.setAttribute("class","overlay");
+  overlay.setAttribute("viewBox","0 0 100 100");
+  overlay.setAttribute("preserveAspectRatio","none");
+  boardEl.appendChild(overlay);
 
-        function createBoard() {
-            const board = document.getElementById('board');
-            let cells = [];
+  function centerOf(num){
+    const pos = cellNumberToGrid[num];
+    return { x: pos.col*10 + 5, y: pos.row*10 + 5 };
+  }
 
-            for (let row = 9; row >= 0; row--) {
-                let rowCells = [];
-                for (let col = 0; col < 10; col++) {
-                    let cellNum = (row % 2 === 1) ? (row * 10 + (10 - col)) : (row * 10 + (col + 1));
-                    rowCells.push(cellNum);
-                }
-                cells.push(...rowCells);
-            }
+  function drawCurve(fromNum, toNum, color, isLadder){
+    const a = centerOf(fromNum);
+    const b = centerOf(toNum);
+    const midX = (a.x+b.x)/2 + (isLadder? 6 : -6) * (Math.random()>0.5?1:-1);
+    const midY = (a.y+b.y)/2;
+    const path = document.createElementNS(svgNS,"path");
+    path.setAttribute("d", `M ${a.x} ${a.y} Q ${midX} ${midY} ${b.x} ${b.y}`);
+    path.setAttribute("stroke", color);
+    path.setAttribute("stroke-width", "1.4");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke-linecap","round");
+    path.setAttribute("opacity","0.75");
+    if(!isLadder) path.setAttribute("stroke-dasharray","2.2,1.6");
+    overlay.appendChild(path);
 
-            cells.forEach(num => {
-                const cellDiv = document.createElement('div');
-                cellDiv.className = 'cell';
-                cellDiv.id = `cell-${num}`;
-                cellDiv.innerHTML = `<span>${num}</span>`;
-                board.appendChild(cellDiv);
-            });
+    // small circle marker at end
+    const circ = document.createElementNS(svgNS,"circle");
+    circ.setAttribute("cx", b.x); circ.setAttribute("cy", b.y);
+    circ.setAttribute("r", 2);
+    circ.setAttribute("fill", color);
+    circ.setAttribute("opacity","0.85");
+    overlay.appendChild(circ);
+  }
 
-            updateTokens();
-        }
+  Object.entries(snakes).forEach(([from,to])=> drawCurve(parseInt(from), to, "#D9622B", false));
+  Object.entries(ladders).forEach(([from,to])=> drawCurve(parseInt(from), to, "#4C7A5A", true));
 
-        function getGridCoordinates(pos) {
-            let p = pos - 1;
-            let row = Math.floor(p / 10);
-            let col = p % 10;
-            if (row % 2 === 1) col = 9 - col;
-            return { row: (9 - row) + 1, col: col + 1 };
-        }
+  // ---------- Pawns layer ----------
+  const pawnsLayer = document.createElement('div');
+  pawnsLayer.className = 'pawns-layer';
+  boardEl.appendChild(pawnsLayer);
 
-        function updateTokens() {
-            const container = document.getElementById('tokensContainer');
-            container.innerHTML = '';
+  const pawnEls = players.map((p, i)=>{
+    const el = document.createElement('div');
+    el.className = `pawn-token ${p.color}`;
+    pawnsLayer.appendChild(el);
+    return el;
+  });
 
-            players.forEach((player, index) => {
-                if (player.id >= totalPlayers) return;
-                const coords = getGridCoordinates(player.pos);
-                const token = document.createElement('div');
-                token.className = `token p${player.id + 1}`;
-                
-                let offsetX = (index % 2) * 6;
-                let offsetY = Math.floor(index / 2) * 6;
+  function pawnOffset(playerIdx, totalOnTile){
+    // small offset so multiple pawns on same tile don't fully overlap
+    const offsets = [
+      [0,0], [22,0], [0,22], [22,22]
+    ];
+    return offsets[playerIdx % 4];
+  }
 
-                token.style.gridRow = coords.row;
-                token.style.gridColumn = coords.col;
-                token.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  function updatePawnPositions(){
+    // group players by position to offset them
+    const byPos = {};
+    players.forEach((p, i)=>{
+      byPos[p.pos] = byPos[p.pos] || [];
+      byPos[p.pos].push(i);
+    });
 
-                container.appendChild(token);
-            });
-        }
+    players.forEach((p, i)=>{
+      const num = p.pos === 0 ? 1 : p.pos; // show at tile 1 before starting
+      const pos = centerOf(num);
+      const group = byPos[p.pos];
+      const slot = group.indexOf(i);
+      const [ox, oy] = pawnOffset(slot, group.length);
+      const baseXPercent = pos.x - 5 + (ox/100)*3;
+      const baseYPercent = pos.y - 5 + (oy/100)*3;
+      pawnEls[i].style.left = `calc(${baseXPercent}% + 2px)`;
+      pawnEls[i].style.top = `calc(${baseYPercent}% + 2px)`;
+      pawnEls[i].style.opacity = p.pos === 0 ? '0.55' : '1';
+    });
+  }
 
-        function updateUI() {
-            for(let i = 0; i < totalPlayers; i++) {
-                document.getElementById(`pos-${i}`).innerText = `Pos: ${players[i].pos}`;
-            }
-            document.getElementById('turnIndicator').innerText = `Giliran: ${playerNames[players[currentTurn].id]}`;
-        }
+  // ---------- Players strip UI ----------
+  const stripEl = document.getElementById('playersStrip');
+  function renderStrip(){
+    stripEl.innerHTML = '';
+    players.forEach((p, i)=>{
+      const chip = document.createElement('div');
+      chip.className = `player-chip ${p.color}` + (i===currentIdx ? ' active' : '');
+      chip.innerHTML = `<div class="dot"></div><div class="info"><div class="name">${escapeHtml(p.name)}</div><div class="pos">Kotak ${p.pos}</div></div>`;
+      stripEl.appendChild(chip);
+    });
+  }
 
-        function rollDice() {
-            if (isRolling) return;
-            isRolling = true;
-            document.getElementById('rollBtn').disabled = true;
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
 
-            let count = 0;
-            let rollInterval = setInterval(() => {
-                let tempVal = Math.floor(Math.random() * 6) + 1;
-                document.getElementById('turnIndicator').innerText = `Dadu: ${tempVal}...`;
-                count++;
-                if(count > 8) {
-                    clearInterval(rollInterval);
-                    let diceVal = Math.floor(Math.random() * 6) + 1;
-                    movePlayer(diceVal);
-                }
-            }, 60);
-        }
+  // ---------- Game state ----------
+  let currentIdx = 0;
+  let isAnimating = false;
+  let gameOver = false;
 
-        function movePlayer(steps) {
-            let cp = players[currentTurn];
-            let targetPos = cp.pos + steps;
+  const diceBtn = document.getElementById('diceBtn');
+  const turnNameEl = document.getElementById('turnName');
+  const toastEl = document.getElementById('toast');
+  const winOverlay = document.getElementById('winOverlay');
+  const winName = document.getElementById('winName');
 
-            if (targetPos > 100) {
-                nextTurn();
-                return;
-            }
+  const pipPatterns = {
+    1:[4],
+    2:[0,8],
+    3:[0,4,8],
+    4:[0,2,6,8],
+    5:[0,2,4,6,8],
+    6:[0,2,3,5,6,8]
+  };
+  const pips = [0,1,2,3,4,5,6,7,8].map(i=>document.getElementById('p'+i));
 
-            cp.pos = targetPos;
-            updateTokens();
-            updateUI();
+  function showDiceFace(n){
+    pips.forEach(p=>p.classList.remove('on'));
+    pipPatterns[n].forEach(idx=> pips[idx].classList.add('on'));
+  }
 
-            setTimeout(() => {
-                if (snakesAndLadders[cp.pos]) {
-                    cp.pos = snakesAndLadders[cp.pos];
-                    setTimeout(() => {
-                        updateTokens();
-                        updateUI();
-                        checkWin(cp);
-                    }, 300);
-                } else {
-                    checkWin(cp);
-                }
-            }, 400);
-        }
+  function showToast(msg, duration=1600){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=> toastEl.classList.remove('show'), duration);
+  }
 
-        function checkWin(cp) {
-            if (cp.pos === 100) {
-                document.getElementById('winnerTitle').innerText = `${playerNames[cp.id]} Menang!`;
-                document.getElementById('winModal').classList.add('show');
-            } else {
-                nextTurn();
-            }
-        }
+  function updateTurnUI(){
+    turnNameEl.textContent = players[currentIdx].name;
+    renderStrip();
+  }
 
-        function nextTurn() {
-            currentTurn = (currentTurn + 1) % totalPlayers;
-            isRolling = false;
-            document.getElementById('rollBtn').disabled = false;
-            updateUI();
-        }
+  function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
 
-        createBoard();
-        updateUI();
-    </script>
+  async function rollDice(){
+    if(isAnimating || gameOver) return;
+    isAnimating = true;
+    diceBtn.disabled = true;
+    diceBtn.classList.add('rolling');
+
+    // shake animation with random faces
+    const shakeFrames = 10;
+    for(let i=0;i<shakeFrames;i++){
+      showDiceFace(1 + Math.floor(Math.random()*6));
+      await sleep(60);
+    }
+    diceBtn.classList.remove('rolling');
+
+    const roll = 1 + Math.floor(Math.random()*6);
+    showDiceFace(roll);
+
+    await sleep(200);
+    await movePlayer(currentIdx, roll);
+
+    isAnimating = false;
+    if(!gameOver){
+      diceBtn.disabled = false;
+    }
+  }
+
+  async function movePlayer(idx, steps){
+    const p = players[idx];
+    let target = p.pos + steps;
+
+    if(target > 100){
+      showToast(`${p.name} butuh angka pas untuk ke 100!`);
+      updateTurnUI();
+      await sleep(900);
+      nextTurn();
+      return;
+    }
+
+    // step-by-step animate along the path
+    const start = p.pos === 0 ? 0 : p.pos;
+    for(let s = start+1; s <= target; s++){
+      p.pos = s;
+      updatePawnPositions();
+      renderStrip();
+      await sleep(140);
+    }
+
+    // check ladder or snake
+    await sleep(150);
+    if(ladders[target]){
+      const dest = ladders[target];
+      showToast(`🪜 ${p.name} naik tangga ke ${dest}!`);
+      await sleep(500);
+      p.pos = dest;
+      updatePawnPositions();
+      renderStrip();
+    } else if(snakes[target]){
+      const dest = snakes[target];
+      showToast(`🐍 ${p.name} digigit ular, turun ke ${dest}!`);
+      await sleep(500);
+      p.pos = dest;
+      updatePawnPositions();
+      renderStrip();
+    }
+
+    await sleep(300);
+
+    if(p.pos === 100){
+      endGame(p);
+      return;
+    }
+
+    nextTurn();
+  }
+
+  function nextTurn(){
+    currentIdx = (currentIdx + 1) % players.length;
+    updateTurnUI();
+  }
+
+  function endGame(winner){
+    gameOver = true;
+    diceBtn.disabled = true;
+    winName.textContent = `${winner.name} Menang! 🎉`;
+    winOverlay.classList.add('show');
+  }
+
+  diceBtn.addEventListener('click', rollDice);
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>{
+    if(confirm('Ulangi permainan dari awal?')) resetGame();
+  });
+  document.getElementById('playAgainBtn').addEventListener('click', resetGame);
+
+  function resetGame(){
+    players.forEach(p=> p.pos = 0);
+    currentIdx = 0;
+    gameOver = false;
+    isAnimating = false;
+    diceBtn.disabled = false;
+    winOverlay.classList.remove('show');
+    showDiceFace(1);
+    updatePawnPositions();
+    updateTurnUI();
+  }
+
+  // ---------- Init ----------
+  showDiceFace(1);
+  updatePawnPositions();
+  updateTurnUI();
+</script>
+
 </body>
 </html>
