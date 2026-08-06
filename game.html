@@ -232,34 +232,70 @@
     border-top:2px solid var(--wood);
     padding:14px 16px calc(14px + env(safe-area-inset-bottom));
     display:flex;
+    flex-direction:column;
     align-items:center;
-    justify-content:center;
-    gap:20px;
+    gap:10px;
     z-index:20;
     box-shadow:0 -6px 20px rgba(94,47,23,0.15);
   }
 
   .turn-info{
-    text-align:right;
-    line-height:1.2;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--cream);
+    border:2px solid #E4D6C0;
+    border-radius:999px;
+    padding:6px 16px 6px 8px;
   }
-  .turn-info .lbl{ font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:#9A8770; font-weight:600; }
-  .turn-info .val{ font-family:'Fredoka', sans-serif; font-size:17px; font-weight:600; color:var(--wood-dark); }
+  .turn-info .turn-dot{
+    width:18px; height:18px;
+    border-radius:50%;
+    flex-shrink:0;
+    box-shadow:inset 0 -2px 0 rgba(0,0,0,0.15);
+  }
+  .turn-info .turn-dot.p1{ background:var(--clay); }
+  .turn-info .turn-dot.p2{ background:var(--moss); }
+  .turn-info .turn-dot.p3{ background:var(--gold); }
+  .turn-info .turn-dot.p4{ background:var(--blue); }
+  .turn-info .lbl{ font-size:9px; text-transform:uppercase; letter-spacing:0.05em; color:#9A8770; font-weight:600; line-height:1; }
+  .turn-info .val{ font-family:'Fredoka', sans-serif; font-size:15px; font-weight:600; color:var(--wood-dark); line-height:1.3; }
 
   .dice-btn{
-    width:64px; height:64px;
-    background:var(--paper);
+    width:100%;
+    max-width:340px;
+    height:64px;
+    background:linear-gradient(180deg, #FFFFFF, var(--cream));
     border:3px solid var(--wood-dark);
-    border-radius:16px;
+    border-radius:18px;
     box-shadow:0 5px 0 var(--wood-dark);
     cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:0 20px;
+    transition:transform 0.1s ease, box-shadow 0.1s ease;
+    flex-shrink:0;
+  }
+  .dice-btn .dice-face{
+    width:38px; height:38px;
+    background:var(--clay);
+    border-radius:9px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     grid-template-rows:repeat(3,1fr);
-    padding:10px;
+    padding:6px;
     gap:2px;
-    transition:transform 0.1s ease, box-shadow 0.1s ease;
     flex-shrink:0;
+    box-shadow:inset 0 -2px 0 rgba(0,0,0,0.15);
+  }
+  .dice-btn .dice-label{
+    font-family:'Fredoka', sans-serif;
+    font-size:17px;
+    font-weight:600;
+    color:var(--wood-dark);
+    letter-spacing:0.01em;
   }
   .dice-btn:active{
     transform:translateY(3px);
@@ -268,8 +304,9 @@
   .dice-btn.rolling{
     animation:shake 0.12s infinite;
   }
+  .dice-btn.rolling .dice-label{ opacity:0.6; }
   .dice-btn:disabled{
-    opacity:0.5;
+    opacity:0.55;
     cursor:default;
     animation:none;
   }
@@ -285,7 +322,7 @@
     border-radius:50%;
     background:transparent;
   }
-  .pip.on{ background:var(--clay); }
+  .pip.on{ background:var(--paper); }
 
   /* Toast / message */
   .toast{
@@ -398,15 +435,21 @@
 <div class="toast" id="toast"></div>
 
 <div class="control-bar">
-  <button class="dice-btn" id="diceBtn">
-    <div class="pip" id="p0"></div><div class="pip" id="p1"></div><div class="pip" id="p2"></div>
-    <div class="pip" id="p3"></div><div class="pip" id="p4"></div><div class="pip" id="p5"></div>
-    <div class="pip" id="p6"></div><div class="pip" id="p7"></div><div class="pip" id="p8"></div>
-  </button>
   <div class="turn-info">
-    <div class="lbl">Giliran</div>
-    <div class="val" id="turnName">—</div>
+    <div class="turn-dot" id="turnDot"></div>
+    <div>
+      <div class="lbl">Giliran</div>
+      <div class="val" id="turnName">—</div>
+    </div>
   </div>
+  <button class="dice-btn" id="diceBtn">
+    <div class="dice-face" id="diceFace">
+      <div class="pip" id="p0"></div><div class="pip" id="p1"></div><div class="pip" id="p2"></div>
+      <div class="pip" id="p3"></div><div class="pip" id="p4"></div><div class="pip" id="p5"></div>
+      <div class="pip" id="p6"></div><div class="pip" id="p7"></div><div class="pip" id="p8"></div>
+    </div>
+    <span class="dice-label">Lempar Dadu</span>
+  </button>
 </div>
 
 <div class="win-overlay" id="winOverlay">
@@ -491,32 +534,131 @@
     return { x: pos.col*10 + 5, y: pos.row*10 + 5 };
   }
 
-  function drawCurve(fromNum, toNum, color, isLadder){
+  function drawLadder(fromNum, toNum){
+    // fromNum = bottom of ladder, toNum = top of ladder
     const a = centerOf(fromNum);
     const b = centerOf(toNum);
-    const midX = (a.x+b.x)/2 + (isLadder? 6 : -6) * (Math.random()>0.5?1:-1);
-    const midY = (a.y+b.y)/2;
-    const path = document.createElementNS(svgNS,"path");
-    path.setAttribute("d", `M ${a.x} ${a.y} Q ${midX} ${midY} ${b.x} ${b.y}`);
-    path.setAttribute("stroke", color);
-    path.setAttribute("stroke-width", "1.4");
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke-linecap","round");
-    path.setAttribute("opacity","0.75");
-    if(!isLadder) path.setAttribute("stroke-dasharray","2.2,1.6");
-    overlay.appendChild(path);
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const len = Math.sqrt(dx*dx + dy*dy);
+    const ux = dx/len, uy = dy/len; // unit vector along ladder
+    const px = -uy, py = ux; // perpendicular unit vector
+    const railGap = 2.6; // distance between the two rails
 
-    // small circle marker at end
-    const circ = document.createElementNS(svgNS,"circle");
-    circ.setAttribute("cx", b.x); circ.setAttribute("cy", b.y);
-    circ.setAttribute("r", 2);
-    circ.setAttribute("fill", color);
-    circ.setAttribute("opacity","0.85");
-    overlay.appendChild(circ);
+    const g = document.createElementNS(svgNS,"g");
+    g.setAttribute("opacity","0.92");
+
+    // two rails
+    [-1, 1].forEach(side=>{
+      const x1 = a.x + px*railGap*side;
+      const y1 = a.y + py*railGap*side;
+      const x2 = b.x + px*railGap*side;
+      const y2 = b.y + py*railGap*side;
+      const rail = document.createElementNS(svgNS,"line");
+      rail.setAttribute("x1", x1); rail.setAttribute("y1", y1);
+      rail.setAttribute("x2", x2); rail.setAttribute("y2", y2);
+      rail.setAttribute("stroke", "#3E6449");
+      rail.setAttribute("stroke-width", "1.3");
+      rail.setAttribute("stroke-linecap","round");
+      g.appendChild(rail);
+    });
+
+    // rungs (anak tangga)
+    const rungCount = Math.max(3, Math.round(len/9));
+    for(let i=1;i<rungCount;i++){
+      const t = i/rungCount;
+      const cx = a.x + dx*t;
+      const cy = a.y + dy*t;
+      const x1 = cx + px*railGap;
+      const y1 = cy + py*railGap;
+      const x2 = cx - px*railGap;
+      const y2 = cy - py*railGap;
+      const rung = document.createElementNS(svgNS,"line");
+      rung.setAttribute("x1", x1); rung.setAttribute("y1", y1);
+      rung.setAttribute("x2", x2); rung.setAttribute("y2", y2);
+      rung.setAttribute("stroke", "#4C7A5A");
+      rung.setAttribute("stroke-width", "1.1");
+      rung.setAttribute("stroke-linecap","round");
+      g.appendChild(rung);
+    }
+
+    overlay.appendChild(g);
   }
 
-  Object.entries(snakes).forEach(([from,to])=> drawCurve(parseInt(from), to, "#D9622B", false));
-  Object.entries(ladders).forEach(([from,to])=> drawCurve(parseInt(from), to, "#4C7A5A", true));
+  function drawSnake(fromNum, toNum){
+    // fromNum = head (higher number), toNum = tail (lower number, destination)
+    const a = centerOf(fromNum); // head
+    const b = centerOf(toNum);   // tail
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const len = Math.sqrt(dx*dx + dy*dy);
+    const ux = dx/len, uy = dy/len;
+    const px = -uy, py = ux;
+
+    // build a wavy path from head to tail using several waypoints
+    const segments = Math.max(4, Math.round(len/10));
+    const amp = 4.5;
+    let d = `M ${a.x} ${a.y}`;
+    const pts = [{x:a.x,y:a.y}];
+    for(let i=1;i<=segments;i++){
+      const t = i/segments;
+      const bx = a.x + dx*t;
+      const by = a.y + dy*t;
+      const wave = Math.sin(t*Math.PI*2.4) * amp * (1 - t*0.3);
+      pts.push({ x:bx + px*wave, y:by + py*wave });
+    }
+    for(let i=1;i<pts.length-1;i++){
+      const midx=(pts[i].x+pts[i+1].x)/2, midy=(pts[i].y+pts[i+1].y)/2;
+      d += ` Q ${pts[i].x} ${pts[i].y} ${midx} ${midy}`;
+    }
+    d += ` T ${pts[pts.length-1].x} ${pts[pts.length-1].y}`;
+
+    const g = document.createElementNS(svgNS,"g");
+    g.setAttribute("opacity","0.92");
+
+    const body = document.createElementNS(svgNS,"path");
+    body.setAttribute("d", d);
+    body.setAttribute("stroke", "#D9622B");
+    body.setAttribute("stroke-width", "2.1");
+    body.setAttribute("fill", "none");
+    body.setAttribute("stroke-linecap","round");
+    g.appendChild(body);
+
+    // subtle darker belly stripe
+    const stripe = document.createElementNS(svgNS,"path");
+    stripe.setAttribute("d", d);
+    stripe.setAttribute("stroke", "#B84A1C");
+    stripe.setAttribute("stroke-width", "0.6");
+    stripe.setAttribute("fill", "none");
+    stripe.setAttribute("stroke-dasharray","1.2,2.4");
+    stripe.setAttribute("stroke-linecap","round");
+    g.appendChild(stripe);
+
+    // head (triangle-ish dot with eyes) at 'a'
+    const head = document.createElementNS(svgNS,"circle");
+    head.setAttribute("cx", a.x); head.setAttribute("cy", a.y);
+    head.setAttribute("r", 2.6);
+    head.setAttribute("fill", "#D9622B");
+    g.appendChild(head);
+    [-0.9, 0.9].forEach(off=>{
+      const eye = document.createElementNS(svgNS,"circle");
+      eye.setAttribute("cx", a.x + px*off*0.9);
+      eye.setAttribute("cy", a.y + py*off*0.9);
+      eye.setAttribute("r", 0.5);
+      eye.setAttribute("fill", "#2B1B12");
+      g.appendChild(eye);
+    });
+
+    // tail tip marker
+    const tail = document.createElementNS(svgNS,"circle");
+    tail.setAttribute("cx", b.x); tail.setAttribute("cy", b.y);
+    tail.setAttribute("r", 1.4);
+    tail.setAttribute("fill", "#B84A1C");
+    g.appendChild(tail);
+
+    overlay.appendChild(g);
+  }
+
+  Object.entries(snakes).forEach(([from,to])=> drawSnake(parseInt(from), to));
+  Object.entries(ladders).forEach(([from,to])=> drawLadder(parseInt(from), to));
 
   // ---------- Pawns layer ----------
   const pawnsLayer = document.createElement('div');
@@ -585,6 +727,7 @@
 
   const diceBtn = document.getElementById('diceBtn');
   const turnNameEl = document.getElementById('turnName');
+  const turnDotEl = document.getElementById('turnDot');
   const toastEl = document.getElementById('toast');
   const winOverlay = document.getElementById('winOverlay');
   const winName = document.getElementById('winName');
@@ -613,6 +756,7 @@
 
   function updateTurnUI(){
     turnNameEl.textContent = players[currentIdx].name;
+    turnDotEl.className = 'turn-dot ' + players[currentIdx].color;
     renderStrip();
   }
 
