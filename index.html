@@ -1,126 +1,172 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ular Tangga</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ular Tangga Seru - Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
+
         body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(145deg, #2b5a3a, #1d3e2a);
-            padding: 20px;
+            overflow: hidden;
+            color: #fff;
         }
-        .menu-card {
-            background: #f8f0e3;
-            padding: 40px 50px;
-            border-radius: 60px 60px 60px 60px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            border-radius: 24px;
             text-align: center;
-            max-width: 500px;
-            width: 100%;
-            border: 8px solid #d4a373;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 420px;
+            animation: fadeIn 0.8s ease-in-out;
         }
-        h1 {
-            font-size: 3em;
-            color: #3c6e47;
-            letter-spacing: 2px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-logo {
+            font-size: 64px;
+            color: #ffd700;
             margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .subtitle {
-            font-size: 1.2em;
-            color: #5a3e2b;
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 30px;
-            font-weight: 500;
         }
-        .player-select {
-            margin: 25px 0;
-        }
-        .player-select label {
-            font-size: 1.2em;
+
+        .menu-label {
+            font-size: 14px;
             font-weight: 600;
-            color: #3c2a1f;
-            display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            text-align: left;
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .player-select select {
-            padding: 12px 20px;
-            font-size: 1.2em;
-            border-radius: 30px;
-            border: 2px solid #b08968;
-            background: white;
-            width: 80%;
-            cursor: pointer;
-            outline: none;
-            transition: 0.2s;
+
+        .player-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
         }
-        .player-select select:focus {
-            border-color: #6b8c5c;
-            box-shadow: 0 0 0 3px rgba(107, 140, 92, 0.3);
-        }
-        .btn-start {
-            background: #d4a373;
+
+        .player-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid transparent;
+            padding: 14px;
+            border-radius: 14px;
             color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.6em;
-            font-weight: bold;
-            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-            box-shadow: 0 6px 0 #8b6b4b;
-            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .btn-start:hover {
+
+        .player-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #8b6b4b;
-            background: #c4956a;
         }
-        .btn-start:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #8b6b4b;
+
+        .player-btn.active {
+            background: #ffc107;
+            color: #333;
+            border-color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
         }
-        .footer {
-            margin-top: 25px;
-            color: #7a5f47;
-            font-size: 0.9em;
+
+        .start-btn {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(253, 160, 133, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        @media (max-width: 500px) {
-            .menu-card { padding: 30px 20px; }
-            h1 { font-size: 2.4em; }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(253, 160, 133, 0.6);
+        }
+
+        .start-btn:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="menu-card">
-        <h1>🐍 Ular Tangga 🎲</h1>
-        <p class="subtitle">Selamat datang di permainan klasik!</p>
-        <div class="player-select">
-            <label for="playerCount">Pilih jumlah pemain :</label>
-            <select id="playerCount">
-                <option value="2">2 Pemain</option>
-                <option value="3">3 Pemain</option>
-                <option value="4">4 Pemain</option>
-            </select>
+
+    <div class="container">
+        <div class="game-logo">
+            <i class="fa-solid fa-chess-board"></i>
         </div>
-        <button class="btn-start" id="startBtn">Mulai Permainan</button>
-        <div class="footer">🎯 Siapkan dadu dan nikmati serunya!</div>
+        <h1>ULAR TANGGA</h1>
+        <p>Pilih jumlah pemain dan mulai petualanganmu!</p>
+
+        <div class="menu-label">Pilih Jumlah Pemain</div>
+        <div class="player-options">
+            <button class="player-btn" onclick="setPlayers(2)"><i class="fa-solid fa-user-group"></i> 2 Pemain</button>
+            <button class="player-btn" onclick="setPlayers(3)"><i class="fa-solid fa-users"></i> 3 Pemain</button>
+            <button class="player-btn active" onclick="setPlayers(4)"><i class="fa-solid fa-users-rectangle"></i> 4 Pemain</button>
+        </div>
+
+        <button class="start-btn" onclick="startGame()">Mulai Main <i class="fa-solid fa-play"></i></button>
     </div>
 
     <script>
-        document.getElementById('startBtn').addEventListener('click', function() {
-            const count = document.getElementById('playerCount').value;
-            window.location.href = `game.html?players=${count}`;
-        });
+        let selectedPlayers = 4;
+
+        function setPlayers(num) {
+            selectedPlayers = num;
+            document.querySelectorAll('.player-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function startGame() {
+            localStorage.setItem('snake_ladder_players', selectedPlayers);
+            window.location.href = 'game.html';
+        }
     </script>
 </body>
 </html>
