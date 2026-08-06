@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ular Tangga - Game Arena</title>
+    <title>Ular Tangga - Classic Arcade</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,348 +15,282 @@
         }
 
         body {
-            background: #1a1c29;
+            background: #4a1515; /* Nuansa klasik merah kecoklatan ala game arcade */
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
+            padding: 10px;
+            overflow-x: hidden;
         }
 
-        .header {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .turn-indicator {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Main Game Wrapper */
-        .game-container {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Board Styling */
-        .board-wrapper {
+        /* Container Utama dengan Tata Letak ala Game Klasik */
+        .game-layout {
             position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;
-            background: #2a2d43;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
-            border: 4px solid #3b3f5c;
+            max-width: 650px;
+            aspect-ratio: 4 / 3;
+            background: url('https://i.ibb.co.com/84jX2R3/snakes-ladders-board.jpg') center/cover no-repeat; /* Contoh background papan klasik */
+            background-color: #8b0000;
+            border: 6px solid #d4af37; /* Bingkai emas klasik */
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .board {
+        /* Area Kotak Grid Transparan di atas Gambar Papan */
+        .board-grid {
+            position: absolute;
+            width: 62%; /* Sesuaikan ukuran kotak grid dengan gambar papan di tengah */
+            aspect-ratio: 1 / 1;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
-            width: 100%;
-            height: 100%;
         }
 
         .cell {
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
-            padding: 2px 4px;
-            font-size: 10px;
+            font-size: 8px;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(0, 0, 0, 0.4); /* Angka tipis transparan di atas gambar */
+            padding: 1px;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .cell:nth-child(odd) { background: rgba(255, 255, 255, 0.02); }
-        .cell:nth-child(even) { background: rgba(255, 255, 255, 0.06); }
-
-        /* Tokens / Pion */
+        /* Layer Pion */
         .tokens-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 62%;
+            aspect-ratio: 1 / 1;
             pointer-events: none;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(10, 1fr);
+            z-index: 10;
         }
 
         .token {
-            width: 18px;
-            height: 18px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             border: 2px solid #fff;
             position: absolute;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        .p1 { background: #ff4757; }
-        .p2 { background: #2ed573; }
-        .p3 { background: #ffa502; }
-        .p4 { background: #3742fa; }
+        /* Warna Pion sesuai 4 sudut */
+        .p1 { background: #0056b3; } /* Player 1 (Kiri Bawah) - Biru */
+        .p2 { background: #d32f2f; } /* Player 2 (Kiri Atas) - Merah */
+        .p3 { background: #fbc02d; } /* Player 3 (Kanan Atas) - Kuning */
+        .p4 { background: #388e3c; } /* Player 4 (Kanan Bawah) - Hijau */
 
-        /* Control Panel */
-        .control-panel {
-            background: #2a2d43;
-            padding: 20px;
-            border-radius: 16px;
+        /* Panel Pemain di 4 Sudut Luar Papan */
+        .player-panel {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 10px;
+            border-radius: 8px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-        .player-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .player-color-box {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-        }
-
-        .player-details h3 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .player-details p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .dice-area {
-            display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid #d4af37;
+            color: #333;
+            width: 125px;
+        }
+
+        .p-box-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .panel-p1 { bottom: 15px; left: 15px; }
+        .panel-p2 { top: 15px; left: 15px; }
+        .panel-p3 { top: 15px; right: 15px; }
+        .panel-p4 { bottom: 15px; right: 15px; }
+
+        .player-info h4 {
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .player-info p {
+            font-size: 10px;
+            color: #666;
+        }
+
+        /* Tombol Dadu Melayang / Kontrol Tengah Bawah */
+        .control-bar {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .dice-btn {
-            background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
-            color: white;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
             border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 4px 15px rgba(253, 160, 133, 0.4);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: 0.2s;
         }
 
-        .dice-btn:hover {
-            transform: scale(1.05);
-        }
+        .dice-btn:hover { transform: scale(1.05); }
+        .dice-btn:disabled { background: #555; color: #aaa; cursor: not-allowed; transform: none; }
 
-        .dice-btn:active {
-            transform: scale(0.95);
-        }
-
-        .dice-btn:disabled {
-            background: #57606f;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .dice-display {
-            font-size: 13px;
-            color: #ffd700;
+        .turn-text {
+            font-size: 14px;
             font-weight: 600;
+            color: #ffd700;
         }
 
-        /* Modal Pemenang */
+        .back-menu {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 20;
+        }
+
+        /* Modal Menang */
         .modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s;
         }
-
-        .modal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
+        .modal.show { opacity: 1; pointer-events: auto; }
         .modal-content {
-            background: #2a2d43;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 85%;
-            max-width: 350px;
-            border: 2px solid rgba(255,255,255,0.1);
-            transform: scale(0.8);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #2a2d43; padding: 30px; border-radius: 20px; text-align: center;
+            width: 85%; max-width: 320px; border: 2px solid #d4af37; color: white;
         }
-
-        .modal.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-content i {
-            font-size: 50px;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-
-        .modal-content h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .modal-content p {
-            font-size: 14px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 20px;
-        }
-
         .modal-btn {
-            background: #2ed573;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 15px;
+            background: #2ed573; color: white; border: none; padding: 10px; width: 100%;
+            border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <button class="back-btn" onclick="location.href='index.html'"><i class="fa-solid fa-arrow-left"></i> Menu</button>
-        <div class="turn-indicator" id="turnIndicator">Giliran: Pemain 1</div>
+    <button class="back-menu" onclick="location.href='index.html'"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+
+    <!-- Layout Utama Game dengan Desain Kotak Klasik -->
+    <div class="game-layout">
+        
+        <!-- Panel Pemain 2 (Kiri Atas) -->
+        <div class="player-panel panel-p2" id="panel-1">
+            <div class="p-box-icon" style="background: #d32f2f;"><i class="fa-solid fa-user"></i></div>
+            <div class="player-info">
+                <h4 id="name-1">Player 2</h4>
+                <p id="pos-1">Pos: 1</p>
+            </div>
+        </div>
+
+        <!-- Panel Pemain 3 (Kanan Atas) -->
+        <div class="player-panel panel-p3" id="panel-2">
+            <div class="p-box-icon" style="background: #fbc02d;"><i class="fa-solid fa-user"></i></div>
+            <div class="player-info">
+                <h4 id="name-2">Player 3</h4>
+                <p id="pos-2">Pos: 1</p>
+            </div>
+        </div>
+
+        <!-- Papan Grid Angka 1-100 Transparan di atas Gambar -->
+        <div class="board-grid" id="board"></div>
+        <div class="tokens-container" id="tokensContainer"></div>
+
+        <!-- Panel Pemain 1 (Kiri Bawah) -->
+        <div class="player-panel panel-p1" id="panel-0">
+            <div class="p-box-icon" style="background: #0056b3;"><i class="fa-solid fa-user"></i></div>
+            <div class="player-info">
+                <h4 id="name-0">Player 1</h4>
+                <p id="pos-0">Pos: 1</p>
+            </div>
+        </div>
+
+        <!-- Panel Pemain 4 (Kanan Bawah) -->
+        <div class="player-panel panel-p4" id="panel-3">
+            <div class="p-box-icon" style="background: #388e3c;"><i class="fa-solid fa-user"></i></div>
+            <div class="player-info">
+                <h4 id="name-3">Player 4</h4>
+                <p id="pos-3">Pos: 1</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="game-container">
-        <!-- Papan Ular Tangga -->
-        <div class="board-wrapper">
-            <div class="board" id="board"></div>
-            <!-- Layer Pion -->
-            <div class="tokens-container" id="tokensContainer"></div>
-        </div>
-
-        <!-- Panel Kontrol & Dadu -->
-        <div class="control-panel">
-            <div class="player-info">
-                <div class="player-color-box" id="playerColorBox" style="background: #ff4757;"></div>
-                <div class="player-details">
-                    <h3 id="playerName">Pemain 1</h3>
-                    <p id="playerPos">Posisi: 1</p>
-                </div>
-            </div>
-            <div class="dice-area">
-                <button class="dice-btn" id="rollBtn" onclick="rollDice()"><i class="fa-solid fa-dice"></i> Lempar</button>
-                <div class="dice-display" id="diceResult">Dadu: -</div>
-            </div>
-        </div>
+    <!-- Control Bar Bawah -->
+    <div class="control-bar">
+        <div class="turn-text" id="turnIndicator">Giliran: Player 1</div>
+        <button class="dice-btn" id="rollBtn" onclick="rollDice()"><i class="fa-solid fa-dice"></i> Lempar Dadu</button>
     </div>
 
     <!-- Modal Menang -->
     <div class="modal" id="winModal">
         <div class="modal-content">
-            <i class="fa-solid fa-trophy"></i>
-            <h2 id="winnerTitle">Pemain 1 Menang!</h2>
-            <p>Selamat telah mencapai kotak 100 terlebih dahulu!</p>
+            <i class="fa-solid fa-trophy" style="font-size: 45px; color: #ffd700; margin-bottom: 10px;"></i>
+            <h2 id="winnerTitle" style="font-size: 20px;">Player 1 Menang!</h2>
             <button class="modal-btn" onclick="location.reload()">Main Lagi</button>
         </div>
     </div>
 
     <script>
         const totalPlayers = parseInt(localStorage.getItem('snake_ladder_players')) || 4;
-        
-        // Konfigurasi Tangga & Ular
+
+        // Titik Ular & Tangga Standar Papan 100
         const snakesAndLadders = {
-            // Tangga (Naik)
-            4: 14,
-            9: 31,
-            20: 38,
-            28: 84,
-            40: 59,
-            51: 67,
-            63: 81,
-            71: 91,
-            
-            // Ular (Turun)
-            17: 7,
-            54: 34,
-            62: 19,
-            64: 60,
-            87: 24,
-            93: 73,
-            95: 75,
-            99: 78
+            4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91, // Tangga
+            17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 99: 78 // Ular
         };
 
-        const playerColors = ['#ff4757', '#2ed573', '#ffa502', '#3742fa'];
-        const playerNames = ['Pemain 1', 'Pemain 2', 'Pemain 3', 'Pemain 4'];
-
+        const playerNames = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
         let players = [];
-        for(let i = 0; i < totalPlayers; i++) {
+
+        for(let i = 0; i < 4; i++) {
             players.push({ id: i, pos: 1 });
+            // Sembunyikan panel jika jumlah pemain tidak dipilih (misal cuma main 2 orang)
+            if(i >= totalPlayers) {
+                document.getElementById(`panel-${i}`).style.display = 'none';
+            }
         }
 
         let currentTurn = 0;
         let isRolling = false;
 
-        // Generate Papan 10x10 gaya zig-zag
         function createBoard() {
             const board = document.getElementById('board');
             let cells = [];
@@ -364,12 +298,7 @@
             for (let row = 9; row >= 0; row--) {
                 let rowCells = [];
                 for (let col = 0; col < 10; col++) {
-                    let cellNum;
-                    if (row % 2 === 1) {
-                        cellNum = row * 10 + (10 - col);
-                    } else {
-                        cellNum = row * 10 + (col + 1);
-                    }
+                    let cellNum = (row % 2 === 1) ? (row * 10 + (10 - col)) : (row * 10 + (col + 1));
                     rowCells.push(cellNum);
                 }
                 cells.push(...rowCells);
@@ -380,32 +309,18 @@
                 cellDiv.className = 'cell';
                 cellDiv.id = `cell-${num}`;
                 cellDiv.innerHTML = `<span>${num}</span>`;
-                
-                // Tambahkan tanda visual kecil jika ada ular/tangga
-                if(snakesAndLadders[num]) {
-                    if(snakesAndLadders[num] > num) {
-                        cellDiv.style.color = '#2ed573'; // Tangga
-                    } else {
-                        cellDiv.style.color = '#ff4757'; // Ular
-                    }
-                }
-
                 board.appendChild(cellDiv);
             });
 
             updateTokens();
         }
 
-        // Posisi kordinat grid untuk pion
         function getGridCoordinates(pos) {
             let p = pos - 1;
             let row = Math.floor(p / 10);
             let col = p % 10;
-            if (row % 2 === 1) {
-                col = 9 - col;
-            }
-            let actualRow = 9 - row;
-            return { row: actualRow + 1, col: col + 1 };
+            if (row % 2 === 1) col = 9 - col;
+            return { row: (9 - row) + 1, col: col + 1 };
         }
 
         function updateTokens() {
@@ -413,13 +328,13 @@
             container.innerHTML = '';
 
             players.forEach((player, index) => {
+                if (player.id >= totalPlayers) return;
                 const coords = getGridCoordinates(player.pos);
                 const token = document.createElement('div');
                 token.className = `token p${player.id + 1}`;
                 
-                // Sedikit offset agar kalau di kotak yang sama tidak bertumpuk pas
-                let offsetX = (index % 2) * 8;
-                let offsetY = Math.floor(index / 2) * 8;
+                let offsetX = (index % 2) * 6;
+                let offsetY = Math.floor(index / 2) * 6;
 
                 token.style.gridRow = coords.row;
                 token.style.gridColumn = coords.col;
@@ -430,11 +345,10 @@
         }
 
         function updateUI() {
-            const cp = players[currentTurn];
-            document.getElementById('turnIndicator').innerText = `Giliran: ${playerNames[cp.id]}`;
-            document.getElementById('playerName').innerText = playerNames[cp.id];
-            document.getElementById('playerColorBox').style.background = playerColors[cp.id];
-            document.getElementById('playerPos').innerText = `Posisi: ${cp.pos}`;
+            for(let i = 0; i < totalPlayers; i++) {
+                document.getElementById(`pos-${i}`).innerText = `Pos: ${players[i].pos}`;
+            }
+            document.getElementById('turnIndicator').innerText = `Giliran: ${playerNames[players[currentTurn].id]}`;
         }
 
         function rollDice() {
@@ -442,18 +356,17 @@
             isRolling = true;
             document.getElementById('rollBtn').disabled = true;
 
-            let rollAnimation = setInterval(() => {
-                let tempRoll = Math.floor(Math.random() * 6) + 1;
-                document.getElementById('diceResult').innerText = `Dadu: ${tempRoll}`;
-            }, 80);
-
-            setTimeout(() => {
-                clearInterval(rollAnimation);
-                let diceVal = Math.floor(Math.random() * 6) + 1;
-                document.getElementById('diceResult').innerText = `Dadu: ${diceVal}`;
-                
-                movePlayer(diceVal);
-            }, 600);
+            let count = 0;
+            let rollInterval = setInterval(() => {
+                let tempVal = Math.floor(Math.random() * 6) + 1;
+                document.getElementById('turnIndicator').innerText = `Dadu: ${tempVal}...`;
+                count++;
+                if(count > 8) {
+                    clearInterval(rollInterval);
+                    let diceVal = Math.floor(Math.random() * 6) + 1;
+                    movePlayer(diceVal);
+                }
+            }, 60);
         }
 
         function movePlayer(steps) {
@@ -461,7 +374,6 @@
             let targetPos = cp.pos + steps;
 
             if (targetPos > 100) {
-                // Jika melewati 100, tidak bergerak
                 nextTurn();
                 return;
             }
@@ -471,11 +383,8 @@
             updateUI();
 
             setTimeout(() => {
-                // Cek Ular atau Tangga
                 if (snakesAndLadders[cp.pos]) {
-                    let oldPos = cp.pos;
                     cp.pos = snakesAndLadders[cp.pos];
-                    
                     setTimeout(() => {
                         updateTokens();
                         updateUI();
@@ -503,7 +412,6 @@
             updateUI();
         }
 
-        // Inisialisasi awal
         createBoard();
         updateUI();
     </script>
