@@ -1,517 +1,836 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ular Tangga</title>
-<style>
-  :root{
-    --cream:#FFF8EC;
-    --ink:#2B2118;
-    --teal:#1B7A72;
-    --gold:#E8A63A;
-    --coral:#E85D4E;
-    --leaf:#4E9A51;
-    --p1:#E85D4E;
-    --p2:#2E6FB0;
-    --p3:#4E9A51;
-    --p4:#9B59B6;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(circle at 15% 10%, #FFE8B8 0%, transparent 45%),
-      radial-gradient(circle at 85% 90%, #C7E8D8 0%, transparent 45%),
-      var(--cream);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    color:var(--ink);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:18px 12px 40px;
-  }
-  h1{
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight:900;
-    font-size:1.7rem;
-    letter-spacing:0.5px;
-    margin:6px 0 2px;
-    color:var(--teal);
-    text-shadow: 2px 2px 0 var(--gold);
-  }
-  .subtitle{
-    font-size:0.8rem;
-    color:#8a7a63;
-    margin-bottom:14px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-  }
-  #board{
-    display:grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    width:min(94vw, 480px);
-    height:min(94vw, 480px);
-    border:6px solid var(--teal);
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow: 0 10px 25px rgba(43,33,24,0.25);
-    position:relative;
-    background:#fff;
-  }
-  .cell{
-    position:relative;
-    display:flex;
-    align-items:flex-start;
-    justify-content:flex-start;
-    font-size:0.55rem;
-    font-weight:700;
-    color:#00000055;
-    padding:2px 3px;
-    border:1px solid #00000008;
-  }
-  .cell.light{ background:#FFF3D6; }
-  .cell.dark{ background:#FDE3C3; }
-  .cell.snake-start{ background:#F7C6C0; }
-  .cell.ladder-start{ background:#CDEBD6; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ular Tangga 4 Pemain</title>
+    <style>
+        /* ── reset & base ── */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 10%, #fcefd0 0%, transparent 50%),
+                radial-gradient(circle at 80% 90%, #d4eee0 0%, transparent 50%),
+                #fcf5e8;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 14px 12px 30px;
+            color: #2b2118;
+        }
 
-  svg#overlay{
-    position:absolute;
-    top:0;left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-  }
+        /* ── header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 6px;
+            width: 100%;
+            max-width: 560px;
+        }
+        .header h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            color: #1b7a72;
+            text-shadow: 2px 2px 0 #e8a63a;
+            margin: 0;
+        }
+        .header .sub {
+            font-size: 0.7rem;
+            color: #8a7a63;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: -2px;
+        }
 
-  .token{
-    position:absolute;
-    width:7.5%;
-    height:7.5%;
-    border-radius:50%;
-    border:2px solid white;
-    box-shadow:0 2px 4px rgba(0,0,0,0.4);
-    transition: left 0.5s ease, top 0.5s ease;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:0.55rem;
-    font-weight: bold;
-    color: white;
-    z-index:5;
-  }
-  .token.p1{ background:var(--p1); }
-  .token.p2{ background:var(--p2); }
-  .token.p3{ background:var(--p3); }
-  .token.p4{ background:var(--p4); }
+        /* ── game wrapper ── */
+        .game-wrap {
+            position: relative;
+            width: min(92vw, 520px);
+            aspect-ratio: 1/1;
+            margin-top: 6px;
+        }
 
-  #panel{
-    margin-top:18px;
-    width:min(94vw, 480px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-  }
+        /* ── board ── */
+        #board {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            border: 6px solid #1b7a72;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(43, 33, 24, 0.28);
+            z-index: 2;
+        }
+        .cell {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.22);
+            padding: 1px 2px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            user-select: none;
+        }
+        .cell.light {
+            background: #fff3d6;
+        }
+        .cell.dark {
+            background: #fde3c3;
+        }
+        .cell.snake-start {
+            background: #f7c6c0;
+        }
+        .cell.ladder-start {
+            background: #cdebd6;
+        }
 
-  #turnLabel{
-    font-weight:700;
-    font-size:1rem;
-    padding:8px 18px;
-    border-radius:999px;
-    color:white;
-    transition:background 0.3s;
-  }
+        /* ── overlay (ular & tangga) ── */
+        svg#overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
 
-  #diceArea{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:16px;
-    width: 100%;
-  }
+        /* ── token ── */
+        .token {
+            position: absolute;
+            width: 7.2%;
+            height: 7.2%;
+            border-radius: 50%;
+            border: 2.5px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+            transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                top 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            font-weight: 800;
+            color: white;
+            z-index: 10;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+        .token.p1 {
+            background: #e85d4e;
+        }
+        .token.p2 {
+            background: #2e6fb0;
+        }
+        .token.p3 {
+            background: #4e9a51;
+        }
+        .token.p4 {
+            background: #9b59b6;
+        }
 
-  #dice{
-    width:64px;
-    height:64px;
-    background:white;
-    border:3px solid var(--ink);
-    border-radius:14px;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(3,1fr);
-    padding:8px;
-    box-shadow:0 4px 0 #00000030;
-    flex-shrink: 0;
-  }
-  .dot{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    background:transparent;
-  }
-  .dot.on{ background: var(--ink); }
+        /* ── roll buttons (4 corners) ── */
+        .roll-btn {
+            position: absolute;
+            z-index: 20;
+            width: 20%;
+            aspect-ratio: 1/1;
+            border: none;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2), 0 8px 18px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s, box-shadow 0.1s, opacity 0.25s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            background: #888;
+            touch-action: manipulation;
+        }
+        .roll-btn .label {
+            font-size: 0.65em;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        .roll-btn .icon {
+            font-size: 1.4em;
+            line-height: 1;
+        }
 
-  #rollBtn{
-    background:var(--gold);
-    border:none;
-    color:var(--ink);
-    font-weight:800;
-    font-size:1rem;
-    padding:14px 26px;
-    border-radius:12px;
-    cursor:pointer;
-    box-shadow:0 4px 0 #b9821f;
-    transition:transform 0.08s;
-    flex-grow: 1;
-  }
-  #rollBtn:active{ transform:translateY(3px); box-shadow:0 1px 0 #b9821f; }
-  #rollBtn:disabled{ opacity:0.5; cursor:not-allowed; }
+        .roll-btn.p1 {
+            background: #e85d4e;
+            top: -7%;
+            left: -7%;
+        }
+        .roll-btn.p2 {
+            background: #2e6fb0;
+            top: -7%;
+            right: -7%;
+        }
+        .roll-btn.p3 {
+            background: #4e9a51;
+            bottom: -7%;
+            left: -7%;
+        }
+        .roll-btn.p4 {
+            background: #9b59b6;
+            bottom: -7%;
+            right: -7%;
+        }
 
-  #message{
-    min-height:22px;
-    font-size:0.85rem;
-    font-weight:600;
-    color:var(--coral);
-    text-align:center;
-  }
+        .roll-btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        .roll-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: scale(0.96);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        .roll-btn.active-turn {
+            animation: pulse-glow 1.2s ease-in-out infinite;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6), 0 4px 0 rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes pulse-glow {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5), 0 4px 0 rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.25);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2), 0 4px 0 rgba(0, 0, 0, 0.2), 0 8px 30px rgba(0, 0, 0, 0.35);
+            }
+        }
 
-  #resetBtn{
-    background:none;
-    border:2px solid var(--teal);
-    color:var(--teal);
-    font-weight:700;
-    padding:8px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:0.8rem;
-  }
+        /* ── dice & panel ── */
+        .panel {
+            width: min(92vw, 520px);
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
 
-  .legend{
-    display:flex;
-    gap:14px;
-    font-size:0.72rem;
-    color:#8a7a63;
-    margin-top:4px;
-  }
-  .legend span{ display:flex; align-items:center; gap:4px; }
-  .swatch{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+        .turn-indicator {
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 6px 22px;
+            border-radius: 999px;
+            color: white;
+            transition: background 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+            letter-spacing: 0.5px;
+        }
 
-  #winOverlay{
-    position:fixed;
-    inset:0;
-    background:rgba(43,33,24,0.65);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:50;
-  }
-  #winCard{
-    background:var(--cream);
-    padding:30px 34px;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 12px 30px rgba(0,0,0,0.4);
-  }
-  #winCard h2{ color:var(--teal); margin:0 0 8px; font-family:Georgia,serif; }
-  #winCard button{
-    margin-top:14px;
-    background:var(--teal);
-    color:white;
-    border:none;
-    padding:10px 22px;
-    border-radius:10px;
-    font-weight:700;
-    cursor:pointer;
-  }
-</style>
+        .dice-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        #dice {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 3px solid #2b2118;
+            border-radius: 14px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 8px;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+        .dot {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: transparent;
+            transition: background 0.1s;
+        }
+        .dot.on {
+            background: #2b2118;
+        }
+
+        .dice-info {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8a7a63;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        #message {
+            min-height: 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 8px;
+        }
+        #message.good {
+            color: #4e9a51;
+        }
+        #message.bad {
+            color: #e85d4e;
+        }
+        #message.neutral {
+            color: #8a7a63;
+        }
+
+        .actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #resetBtn {
+            background: none;
+            border: 2.5px solid #1b7a72;
+            color: #1b7a72;
+            font-weight: 700;
+            padding: 8px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        #resetBtn:hover {
+            background: #1b7a72;
+            color: white;
+        }
+
+        .legend {
+            display: flex;
+            gap: 18px;
+            font-size: 0.65rem;
+            color: #8a7a63;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .legend span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .swatch.snake {
+            background: #f7c6c0;
+        }
+        .swatch.ladder {
+            background: #cdebd6;
+        }
+
+        /* ── win overlay ── */
+        #winOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(43, 33, 24, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        #winCard {
+            background: #fcf5e8;
+            padding: 32px 38px;
+            border-radius: 22px;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+        }
+        #winCard h2 {
+            color: #1b7a72;
+            margin: 0 0 6px;
+            font-family: Georgia, serif;
+            font-size: 1.8rem;
+        }
+        #winCard p {
+            color: #5a4a3a;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+        #winCard button {
+            background: #1b7a72;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        #winCard button:active {
+            transform: scale(0.94);
+        }
+
+        /* ── responsive tweaks ── */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .roll-btn {
+                width: 18%;
+                font-size: clamp(0.5rem, 2vw, 0.8rem);
+                border-width: 2px;
+            }
+            .roll-btn .icon {
+                font-size: 1.1em;
+            }
+            .roll-btn.p1 {
+                top: -5%;
+                left: -5%;
+            }
+            .roll-btn.p2 {
+                top: -5%;
+                right: -5%;
+            }
+            .roll-btn.p3 {
+                bottom: -5%;
+                left: -5%;
+            }
+            .roll-btn.p4 {
+                bottom: -5%;
+                right: -5%;
+            }
+            .cell {
+                font-size: 0.4rem;
+                padding: 1px;
+            }
+            #dice {
+                width: 48px;
+                height: 48px;
+                padding: 5px;
+            }
+            .turn-indicator {
+                font-size: 0.85rem;
+                padding: 4px 16px;
+            }
+            #winCard h2 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (max-width: 380px) {
+            .roll-btn {
+                width: 16%;
+            }
+            .roll-btn .label {
+                font-size: 0.5em;
+            }
+            .roll-btn .icon {
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h1>🐍 Ular Tangga 🪜</h1>
-<div class="subtitle">Game Papan Klasik (4 Pemain)</div>
-
-<div id="board">
-  <svg id="overlay" viewBox="0 0 400 400" preserveAspectRatio="none"></svg>
-</div>
-
-<div id="panel">
-  <div id="turnLabel">Giliran Pemain 1</div>
-  <div id="diceArea">
-    <div id="dice">
-      <div class="dot" data-i="0"></div><div class="dot" data-i="1"></div><div class="dot" data-i="2"></div>
-      <div class="dot" data-i="3"></div><div class="dot" data-i="4"></div><div class="dot" data-i="5"></div>
-      <div class="dot" data-i="6"></div><div class="dot" data-i="7"></div><div class="dot" data-i="8"></div>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🐍 Ular Tangga 🪜</h1>
+        <div class="sub">Game Papan Klasik · 4 Pemain</div>
     </div>
-    <button id="rollBtn">🎲 Lempar Dadu</button>
-  </div>
-  <div id="message"></div>
-  <div class="legend">
-    <span><span class="swatch" style="background:#F7C6C0"></span> Ekor Ular</span>
-    <span><span class="swatch" style="background:#CDEBD6"></span> Kaki Tangga</span>
-  </div>
-  <button id="resetBtn">Mulai Ulang</button>
-</div>
 
-<div id="winOverlay">
-  <div id="winCard">
-    <h2 id="winText">Pemain 1 Menang! 🎉</h2>
-    <button onclick="resetGame()">Main Lagi</button>
-  </div>
-</div>
+    <!-- GAME WRAPPER -->
+    <div class="game-wrap">
+        <!-- BOARD -->
+        <div id="board">
+            <svg id="overlay" viewBox="0 0 400 400" preserveAspectRatio="none"></svg>
+        </div>
 
-<script>
-const snakes = {
-  98: 78, 95: 75, 92: 51, 87: 36, 62: 19, 54: 34, 17: 7
-};
-const ladders = {
-  4: 25, 13: 46, 33: 49, 42: 63, 50: 69, 57: 76, 71: 90, 80: 99
-};
+        <!-- 4 ROLL BUTTONS at corners -->
+        <button class="roll-btn p1" id="rollP1" data-player="p1">
+            <span class="icon">🎲</span>
+            <span class="label">P1</span>
+        </button>
+        <button class="roll-btn p2" id="rollP2" data-player="p2">
+            <span class="icon">🎲</span>
+            <span class="label">P2</span>
+        </button>
+        <button class="roll-btn p3" id="rollP3" data-player="p3">
+            <span class="icon">🎲</span>
+            <span class="label">P3</span>
+        </button>
+        <button class="roll-btn p4" id="rollP4" data-player="p4">
+            <span class="icon">🎲</span>
+            <span class="label">P4</span>
+        </button>
+    </div>
 
-const boardEl = document.getElementById('board');
-const overlay = document.getElementById('overlay');
-const turnLabel = document.getElementById('turnLabel');
-const rollBtn = document.getElementById('rollBtn');
-const message = document.getElementById('message');
-const diceEl = document.getElementById('dice');
-const dots = diceEl.querySelectorAll('.dot');
-const winOverlay = document.getElementById('winOverlay');
-const winText = document.getElementById('winText');
+    <!-- PANEL -->
+    <div class="panel">
+        <div class="turn-indicator" id="turnLabel">Giliran Pemain 1</div>
 
-const diceFaces = {
-  1: [4],
-  2: [0,8],
-  3: [0,4,8],
-  4: [0,2,6,8],
-  5: [0,2,4,6,8],
-  6: [0,2,3,5,6,8]
-};
+        <div class="dice-row">
+            <div id="dice">
+                <div class="dot" data-i="0"></div>
+                <div class="dot" data-i="1"></div>
+                <div class="dot" data-i="2"></div>
+                <div class="dot" data-i="3"></div>
+                <div class="dot" data-i="4"></div>
+                <div class="dot" data-i="5"></div>
+                <div class="dot" data-i="6"></div>
+                <div class="dot" data-i="7"></div>
+                <div class="dot" data-i="8"></div>
+            </div>
+            <div class="dice-info" id="diceInfo">🎲 ?</div>
+        </div>
 
-const players = ['p1', 'p2', 'p3', 'p4'];
-let positions = { p1: 0, p2: 0, p3: 0, p4: 0 };
-let currentPlayerIndex = 0;
-let isRolling = false;
-let tokens = {};
+        <div id="message" class="neutral">Klik tombol pemain yang gilirannya</div>
 
-function cellNumberAt(row, col) {
-  const rowFromBottom = 9 - row;
-  let base = rowFromBottom * 10;
-  if (rowFromBottom % 2 === 0) {
-    return base + col + 1;
-  } else {
-    return base + (9 - col) + 1;
-  }
-}
+        <div class="actions">
+            <button id="resetBtn">⟳ Mulai Ulang</button>
+        </div>
 
-function buildBoard() {
-  boardEl.querySelectorAll('.cell').forEach(c => c.remove());
-  for (let row = 0; row < 10; row++) {
-    for (let col = 0; col < 10; col++) {
-      const num = cellNumberAt(row, col);
-      const cell = document.createElement('div');
-      cell.className = 'cell ' + (((row+col) % 2 === 0) ? 'light' : 'dark');
-      if (snakes[num]) cell.classList.add('snake-start');
-      if (ladders[num]) cell.classList.add('ladder-start');
-      cell.textContent = num;
-      cell.style.gridRowStart = row + 1;
-      cell.style.gridColumnStart = col + 1;
-      cell.dataset.num = num;
-      boardEl.appendChild(cell);
-    }
-  }
-  boardEl.appendChild(overlay);
-  drawConnections();
-  createTokens();
-}
+        <div class="legend">
+            <span><span class="swatch snake"></span> Ekor Ular</span>
+            <span><span class="swatch ladder"></span> Kaki Tangga</span>
+        </div>
+    </div>
 
-function cellCenter(num) {
-  let n = num - 1;
-  const rowFromBottom = Math.floor(n / 10);
-  let col = n % 10;
-  if (rowFromBottom % 2 !== 0) col = 9 - col;
-  const row = 9 - rowFromBottom;
-  const cellSize = 400 / 10;
-  const x = col * cellSize + cellSize/2;
-  const y = row * cellSize + cellSize/2;
-  return {x, y};
-}
+    <!-- WIN OVERLAY -->
+    <div id="winOverlay">
+        <div id="winCard">
+            <h2 id="winText">🏆 Pemain 1 Menang!</h2>
+            <p>Selamat! 🎉</p>
+            <button onclick="resetGame()">Main Lagi</button>
+        </div>
+    </div>
 
-function drawConnections() {
-  overlay.innerHTML = '';
-  for (const [start, end] of Object.entries(ladders)) {
-    const s = cellCenter(Number(start));
-    const e = cellCenter(Number(end));
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', s.x); line.setAttribute('y1', s.y);
-    line.setAttribute('x2', e.x); line.setAttribute('y2', e.y);
-    line.setAttribute('stroke', '#4E9A51');
-    line.setAttribute('stroke-width', '5');
-    line.setAttribute('stroke-linecap', 'round');
-    line.setAttribute('opacity', '0.75');
-    overlay.appendChild(line);
-  }
-  for (const [start, end] of Object.entries(snakes)) {
-    const s = cellCenter(Number(start));
-    const e = cellCenter(Number(end));
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const midX = (s.x + e.x) / 2 + (s.x > e.x ? 20 : -20);
-    const midY = (s.y + e.y) / 2;
-    path.setAttribute('d', `M ${s.x} ${s.y} Q ${midX} ${midY} ${e.x} ${e.y}`);
-    path.setAttribute('stroke', '#E85D4E');
-    path.setAttribute('stroke-width', '5');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('opacity', '0.75');
-    overlay.appendChild(path);
-  }
-}
+    <script>
+        // ─── DATA ──────────────────────────────────────────────
+        const snakes = { 98: 78, 95: 75, 92: 51, 87: 36, 62: 19, 54: 34, 17: 7 };
+        const ladders = { 4: 25, 13: 46, 33: 49, 42: 63, 50: 69, 57: 76, 71: 90, 80: 99 };
+        const players = ['p1', 'p2', 'p3', 'p4'];
+        const playerNames = { p1: 'Pemain 1', p2: 'Pemain 2', p3: 'Pemain 3', p4: 'Pemain 4' };
+        const diceFaces = {
+            1: [4],
+            2: [0, 8],
+            3: [0, 4, 8],
+            4: [0, 2, 6, 8],
+            5: [0, 2, 4, 6, 8],
+            6: [0, 2, 3, 5, 6, 8]
+        };
 
-function createTokens() {
-  Object.values(tokens).forEach(t => t.forEach(token => token.remove()));
-  tokens = {};
-  players.forEach((p, idx) => {
-    const t = document.createElement('div');
-    t.className = 'token ' + p;
-    t.textContent = idx + 1;
-    boardEl.appendChild(t);
-    tokens[p] = t;
-    placeToken(p, 0);
-  });
-}
+        // ─── STATE ─────────────────────────────────────────────
+        let positions = { p1: 0, p2: 0, p3: 0, p4: 0 };
+        let currentIdx = 0;
+        let isRolling = false;
+        let tokens = {};
+        let currentDiceValue = 1;
+        let gameOver = false;
 
-function placeToken(player, num) {
-  const t = tokens[player];
-  const offsets = {
-    p1: {x: -6, y: -6},
-    p2: {x: 6, y: -6},
-    p3: {x: -6, y: 6},
-    p4: {x: 6, y: 6}
-  };
-  
-  if (num === 0) {
-    const c = cellCenter(1);
-    t.style.left = `calc(${(c.x/400)*100}% + ${offsets[player].x}px - 3.75%)`;
-    t.style.top = `calc(${(c.y/400)*100}% + ${offsets[player].y}px - 3.75%)`;
-    return;
-  }
-  const c = cellCenter(num);
-  t.style.left = `calc(${(c.x/400)*100}% + ${offsets[player].x}px - 3.75%)`;
-  t.style.top = `calc(${(c.y/400)*100}% + ${offsets[player].y}px - 3.75%)`;
-}
+        // ─── DOM refs ──────────────────────────────────────────
+        const boardEl = document.getElementById('board');
+        const overlay = document.getElementById('overlay');
+        const turnLabel = document.getElementById('turnLabel');
+        const message = document.getElementById('message');
+        const diceEl = document.getElementById('dice');
+        const dots = diceEl.querySelectorAll('.dot');
+        const diceInfo = document.getElementById('diceInfo');
+        const winOverlay = document.getElementById('winOverlay');
+        const winText = document.getElementById('winText');
 
-function updateDiceFace(value) {
-  dots.forEach(d => d.classList.remove('on'));
-  diceFaces[value].forEach(i => dots[i].classList.add('on'));
-}
+        const rollBtns = {
+            p1: document.getElementById('rollP1'),
+            p2: document.getElementById('rollP2'),
+            p3: document.getElementById('rollP3'),
+            p4: document.getElementById('rollP4')
+        };
 
-function setMessage(msg, isGood) {
-  message.textContent = msg;
-  message.style.color = isGood ? '#4E9A51' : '#E85D4E';
-}
+        // ─── BOARD HELPERS ─────────────────────────────────────
+        function cellNumberAt(row, col) {
+            const rowFromBottom = 9 - row;
+            let base = rowFromBottom * 10;
+            if (rowFromBottom % 2 === 0) return base + col + 1;
+            return base + (9 - col) + 1;
+        }
 
-function updateTurnLabel() {
-  const pNum = currentPlayerIndex + 1;
-  turnLabel.textContent = `Giliran Pemain ${pNum}`;
-  turnLabel.style.background = `var(--p${pNum})`;
-}
+        function cellCenter(num) {
+            const n = num - 1;
+            const rowFromBottom = Math.floor(n / 10);
+            let col = n % 10;
+            if (rowFromBottom % 2 !== 0) col = 9 - col;
+            const row = 9 - rowFromBottom;
+            const size = 400 / 10;
+            return { x: col * size + size / 2, y: row * size + size / 2 };
+        }
 
-function rollDice() {
-  if (isRolling) return;
-  isRolling = true;
-  rollBtn.disabled = true;
-  setMessage('', true);
+        // ─── BUILD BOARD ──────────────────────────────────────
+        function buildBoard() {
+            boardEl.querySelectorAll('.cell').forEach(el => el.remove());
+            for (let row = 0; row < 10; row++) {
+                for (let col = 0; col < 10; col++) {
+                    const num = cellNumberAt(row, col);
+                    const cell = document.createElement('div');
+                    cell.className = 'cell ' + (((row + col) % 2 === 0) ? 'light' : 'dark');
+                    if (snakes[num]) cell.classList.add('snake-start');
+                    if (ladders[num]) cell.classList.add('ladder-start');
+                    cell.textContent = num;
+                    cell.style.gridRowStart = row + 1;
+                    cell.style.gridColumnStart = col + 1;
+                    cell.dataset.num = num;
+                    boardEl.appendChild(cell);
+                }
+            }
+            boardEl.appendChild(overlay);
+            drawConnections();
+            createTokens();
+        }
 
-  let rolls = 0;
-  const rollInterval = setInterval(() => {
-    const temp = Math.floor(Math.random() * 6) + 1;
-    updateDiceFace(temp);
-    rolls++;
-    if (rolls > 8) {
-      clearInterval(rollInterval);
-      const finalValue = Math.floor(Math.random() * 6) + 1;
-      updateDiceFace(finalValue);
-      handleMove(finalValue);
-    }
-  }, 80);
-}
+        function drawConnections() {
+            overlay.innerHTML = '';
+            const ns = 'http://www.w3.org/2000/svg';
 
-function handleMove(diceValue) {
-  const player = players[currentPlayerIndex];
-  let newPos = positions[player] + diceValue;
-  const pNum = currentPlayerIndex + 1;
+            for (const [start, end] of Object.entries(ladders)) {
+                const s = cellCenter(Number(start));
+                const e = cellCenter(Number(end));
+                const line = document.createElementNS(ns, 'line');
+                line.setAttribute('x1', s.x);
+                line.setAttribute('y1', s.y);
+                line.setAttribute('x2', e.x);
+                line.setAttribute('y2', e.y);
+                line.setAttribute('stroke', '#4E9A51');
+                line.setAttribute('stroke-width', '5');
+                line.setAttribute('stroke-linecap', 'round');
+                line.setAttribute('opacity', '0.7');
+                overlay.appendChild(line);
+            }
 
-  if (newPos > 100) {
-    setMessage(`Dadu ${diceValue} — kelebihan! Tetap di petak ${positions[player]}.`, false);
-    endTurn();
-    return;
-  }
+            for (const [start, end] of Object.entries(snakes)) {
+                const s = cellCenter(Number(start));
+                const e = cellCenter(Number(end));
+                const path = document.createElementNS(ns, 'path');
+                const midX = (s.x + e.x) / 2 + (s.x > e.x ? 22 : -22);
+                const midY = (s.y + e.y) / 2;
+                path.setAttribute('d', `M ${s.x} ${s.y} Q ${midX} ${midY} ${e.x} ${e.y}`);
+                path.setAttribute('stroke', '#E85D4E');
+                path.setAttribute('stroke-width', '5');
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke-linecap', 'round');
+                path.setAttribute('opacity', '0.7');
+                overlay.appendChild(path);
+            }
+        }
 
-  positions[player] = newPos;
-  placeToken(player, newPos);
+        // ─── TOKENS ────────────────────────────────────────────
+        function createTokens() {
+            Object.values(tokens).forEach(t => t.remove());
+            tokens = {};
+            players.forEach((p, idx) => {
+                const t = document.createElement('div');
+                t.className = 'token ' + p;
+                t.textContent = idx + 1;
+                boardEl.appendChild(t);
+                tokens[p] = t;
+                placeToken(p, 0);
+            });
+        }
 
-  setTimeout(() => {
-    if (newPos === 100) {
-      showWin(player);
-      return;
-    }
+        function placeToken(player, num) {
+            const t = tokens[player];
+            if (!t) return;
+            const offsets = {
+                p1: { x: -6, y: -6 },
+                p2: { x: 6, y: -6 },
+                p3: { x: -6, y: 6 },
+                p4: { x: 6, y: 6 }
+            };
+            const off = offsets[player] || { x: 0, y: 0 };
+            let pos = num;
+            if (num === 0) pos = 1;
+            const c = cellCenter(pos);
+            const pctX = (c.x / 400) * 100;
+            const pctY = (c.y / 400) * 100;
+            const size = 7.2;
+            t.style.left = `calc(${pctX}% + ${off.x}px - ${size/2}%)`;
+            t.style.top = `calc(${pctY}% + ${off.y}px - ${size/2}%)`;
+        }
 
-    if (snakes[newPos]) {
-      const dest = snakes[newPos];
-      setMessage(`Kena ular! Turun dari ${newPos} ke ${dest} 🐍`, false);
-      setTimeout(() => {
-        positions[player] = dest;
-        placeToken(player, dest);
-        endTurn();
-      }, 600);
-    } else if (ladders[newPos]) {
-      const dest = ladders[newPos];
-      setMessage(`Naik tangga! Dari ${newPos} ke ${dest} 🪜`, true);
-      setTimeout(() => {
-        positions[player] = dest;
-        placeToken(player, dest);
-        endTurn();
-      }, 600);
-    } else {
-      setMessage(`Pemain ${pNum} maju ke petak ${newPos}.`, true);
-      endTurn();
-    }
-  }, 550);
-}
+        // ─── DICE UI ───────────────────────────────────────────
+        function updateDiceFace(value) {
+            currentDiceValue = value;
+            dots.forEach(d => d.classList.remove('on'));
+            if (diceFaces[value]) {
+                diceFaces[value].forEach(i => dots[i].classList.add('on'));
+            }
+            diceInfo.textContent = `🎲 ${value}`;
+        }
 
-function endTurn() {
-  isRolling = false;
-  rollBtn.disabled = false;
-  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-  updateTurnLabel();
-}
+        function setMessage(text, type) {
+            message.textContent = text;
+            message.className = type || 'neutral';
+        }
 
-function showWin(player) {
-  const pNum = player.replace('p', '');
-  winText.textContent = `Pemain ${pNum} Menang! 🎉`;
-  winOverlay.style.display = 'flex';
-  rollBtn.disabled = true;
-}
+        function updateTurnLabel() {
+            const p = players[currentIdx];
+            const num = currentIdx + 1;
+            turnLabel.textContent = `Giliran ${playerNames[p]}`;
+            turnLabel.style.background = `var(--p${num})`;
+        }
 
-function resetGame() {
-  positions = { p1: 0, p2: 0, p3: 0, p4: 0 };
-  currentPlayerIndex = 0;
-  isRolling = false;
-  rollBtn.disabled = false;
-  updateTurnLabel();
-  setMessage('', true);
-  updateDiceFace(1);
-  winOverlay.style.display = 'none';
-  createTokens();
-}
+        function updateButtons() {
+            const active = players[currentIdx];
+            for (const p of players) {
+                const btn = rollBtns[p];
+                if (!btn) continue;
+                const isActive = (p === active && !isRolling && !gameOver);
+                btn.disabled = !isActive;
+                btn.classList.toggle('active-turn', isActive);
+            }
+        }
 
-rollBtn.addEventListener('click', rollDice);
-document.getElementById('resetBtn').addEventListener('click', resetGame);
+        // ─── GAME LOGIC ────────────────────────────────────────
+        function rollDice(player) {
+            if (isRolling || gameOver) return;
+            if (player !== players[currentIdx]) {
+                setMessage(`Bukan giliran ${playerNames[player]}!`, 'bad');
+                return;
+            }
+            isRolling = true;
+            updateButtons();
 
-buildBoard();
-updateTurnLabel();
-updateDiceFace(1);
-</script>
+            let count = 0;
+            const interval = setInterval(() => {
+                const temp = Math.floor(Math.random() * 6) + 1;
+                updateDiceFace(temp);
+                count++;
+                if (count > 8) {
+                    clearInterval(interval);
+                    const finalVal = Math.floor(Math.random() * 6) + 1;
+                    updateDiceFace(finalVal);
+                    executeMove(player, finalVal);
+                }
+            }, 75);
+        }
 
+        function executeMove(player, diceVal) {
+            const idx = players.indexOf(player);
+            const pNum = idx + 1;
+            let newPos = positions[player] + diceVal;
+
+            if (newPos > 100) {
+                setMessage(`Dadu ${diceVal} — kelebihan! Tetap di petak ${positions[player]}.`, 'bad');
+                endTurn();
+                return;
+            }
+
+            positions[player] = newPos;
+            placeToken(player, newPos);
+
+            setTimeout(() => {
+                if (newPos === 100) {
+                    showWin(player);
+                    return;
+                }
+
+                if (snakes[newPos]) {
+                    const dest = snakes[newPos];
+                    setMessage(`🐍 Kena ular! Turun dari ${newPos} ke ${dest}`, 'bad');
+                    setTimeout(() => {
+                        positions[player] = dest;
+                        placeToken(player, dest);
+                        endTurn();
+                    }, 600);
+                } else if (ladders[newPos]) {
+                    const dest = ladders[newPos];
+                    setMessage(`🪜 Naik tangga! Dari ${newPos} ke ${dest}`, 'good');
+                    setTimeout(() => {
+                        positions[player] = dest;
+                        placeToken(player, dest);
+                        endTurn();
+                    }, 600);
+                } else {
+                    setMessage(`Pemain ${pNum} maju ke petak ${newPos}.`, 'good');
+                    endTurn();
+                }
+            }, 500);
+        }
+
+        function endTurn() {
+            isRolling = false;
+            currentIdx = (currentIdx + 1) % players.length;
+            updateTurnLabel();
+            updateButtons();
+            // if next player is at 100? game would have ended already
+            // check if any player is at 100 (safety)
+            for (const p of players) {
+                if (positions[p] === 100) {
+                    showWin(p);
+                    return;
+                }
+            }
+            setMessage(`Giliran ${playerNames[players[currentIdx]]}`, 'neutral');
+        }
+
+        function showWin(player) {
+            gameOver = true;
+            const pNum = players.indexOf(player) + 1;
+            winText.textContent = `🏆 ${playerNames[player]} Menang!`;
+            winOverlay.style.display = 'flex';
+            isRolling = false;
+            updateButtons();
+            setMessage(`🎉 ${playerNames[player]} menang!`, 'good');
+        }
+
+        function resetGame() {
+            positions = { p1: 0, p2: 0, p3: 0, p4: 0 };
+            currentIdx = 0;
+            isRolling = false;
+            gameOver = false;
+            winOverlay.style.display = 'none';
+            updateTurnLabel();
+            updateDiceFace(1);
+            setMessage('Permainan dimulai ulang!', 'neutral');
+            createTokens();
+            updateButtons();
+        }
+
+        // ─── EVENTS ────────────────────────────────────────────
+        for (const p of players) {
+            const btn = rollBtns[p];
+            if (btn) {
+                btn.addEventListener('click', () => rollDice(p));
+            }
+        }
+
+        document.getElementById('resetBtn').addEventListener('click', resetGame);
+
+        // ─── INIT ──────────────────────────────────────────────
+        buildBoard();
+        updateTurnLabel();
+        updateDiceFace(1);
+        updateButtons();
+        setMessage('Klik tombol 🎲 pemain yang gilirannya', 'neutral');
+    </script>
 </body>
 </html>
