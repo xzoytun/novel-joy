@@ -1,172 +1,410 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ular Tangga Seru - Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ular Tangga</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: #fff;
-        }
+  :root{
+    --cream:#FBF3E3;
+    --wood:#8B4A2B;
+    --wood-dark:#5E2F17;
+    --clay:#D9622B;
+    --moss:#4C7A5A;
+    --gold:#E8B23B;
+    --ink:#2B1B12;
+    --paper:#FFFDF8;
+  }
 
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 30px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 420px;
-            animation: fadeIn 0.8s ease-in-out;
-        }
+  *{box-sizing:border-box; margin:0; padding:0;}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  body{
+    min-height:100vh;
+    font-family:'Space Grotesk', sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(232,178,59,0.18), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(76,122,90,0.18), transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    overflow-x:hidden;
+    position:relative;
+  }
 
-        .game-logo {
-            font-size: 64px;
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+  /* Decorative dice/board pattern in background */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(139,74,43,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,74,43,0.05) 1px, transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;
+    z-index:0;
+  }
 
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
+  .app{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:420px;
+  }
 
-        p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-        }
+  /* Header / hero */
+  .hero{
+    text-align:center;
+    margin-bottom:28px;
+  }
 
-        .menu-label {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: left;
-            color: #ffd700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+  .hero .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--paper);
+    border:2px solid var(--wood);
+    border-radius:999px;
+    padding:6px 16px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--wood-dark);
+    box-shadow:0 3px 0 var(--wood);
+    margin-bottom:18px;
+  }
 
-        .player-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
-        }
+  .dice-icon{
+    width:14px; height:14px;
+    background:var(--clay);
+    border-radius:3px;
+    position:relative;
+    flex-shrink:0;
+  }
+  .dice-icon::before, .dice-icon::after{
+    content:"";
+    position:absolute;
+    width:2.5px; height:2.5px;
+    background:var(--paper);
+    border-radius:50%;
+  }
+  .dice-icon::before{ top:2.5px; left:2.5px; }
+  .dice-icon::after{ bottom:2.5px; right:2.5px; }
 
-        .player-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid transparent;
-            padding: 14px;
-            border-radius: 14px;
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+  h1{
+    font-family:'Fredoka', sans-serif;
+    font-size:clamp(38px, 10vw, 52px);
+    font-weight:700;
+    line-height:0.95;
+    color:var(--wood-dark);
+    letter-spacing:-0.01em;
+  }
 
-        .player-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
+  h1 .accent{
+    color:var(--clay);
+    position:relative;
+    display:inline-block;
+  }
 
-        .player-btn.active {
-            background: #ffc107;
-            color: #333;
-            border-color: #fff;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
-        }
+  .hero p{
+    margin-top:10px;
+    font-size:15px;
+    color:#6B5544;
+    font-weight:500;
+  }
 
-        .start-btn {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #fff;
-            border: none;
-            width: 100%;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(253, 160, 133, 0.4);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+  /* Ladder/snake decorative strip */
+  .strip{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin:20px 0 28px;
+  }
+  .strip span{
+    width:28px; height:6px;
+    border-radius:3px;
+    background:var(--gold);
+  }
+  .strip span:nth-child(2){ background:var(--clay); }
+  .strip span:nth-child(3){ background:var(--moss); }
+  .strip span:nth-child(4){ background:var(--wood); }
+  .strip span:nth-child(5){ background:var(--clay); }
 
-        .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(253, 160, 133, 0.6);
-        }
+  /* Card */
+  .card{
+    background:var(--paper);
+    border:2px solid var(--wood);
+    border-radius:24px;
+    padding:26px 22px;
+    box-shadow:0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94,47,23,0.35);
+  }
 
-        .start-btn:active {
-            transform: translateY(0);
-        }
-    </style>
+  .section-label{
+    font-family:'Fredoka', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--wood-dark);
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-label .num{
+    width:20px; height:20px;
+    background:var(--wood-dark);
+    color:var(--cream);
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+  }
+
+  /* Player count selector */
+  .player-select{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:24px;
+  }
+
+  .player-select button{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    font-size:22px;
+    padding:14px 0 10px;
+    border-radius:14px;
+    border:2px solid #E4D6C0;
+    background:var(--cream);
+    color:var(--wood-dark);
+    cursor:pointer;
+    transition:all 0.15s ease;
+    position:relative;
+  }
+  .player-select button span.label{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:#9A8770;
+    margin-top:2px;
+  }
+  .player-select button:hover{
+    border-color:var(--clay);
+    transform:translateY(-2px);
+  }
+  .player-select button.active{
+    background:var(--clay);
+    border-color:var(--clay);
+    color:#fff;
+    box-shadow:0 4px 0 #A6431A;
+    transform:translateY(-2px);
+  }
+  .player-select button.active span.label{ color:rgba(255,255,255,0.8); }
+
+  /* Name inputs */
+  .name-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:26px;
+  }
+
+  .name-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--cream);
+    border:2px solid #E4D6C0;
+    border-radius:14px;
+    padding:8px 8px 8px 6px;
+    transition:border-color 0.15s ease;
+  }
+  .name-row:focus-within{
+    border-color:var(--clay);
+  }
+
+  .pawn{
+    width:34px; height:34px;
+    border-radius:50%;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.2);
+    position:relative;
+  }
+  .pawn::after{
+    content:"";
+    width:10px; height:10px;
+    background:rgba(255,255,255,0.55);
+    border-radius:50%;
+    position:absolute;
+    top:6px; left:8px;
+  }
+  .pawn.p1{ background:var(--clay); }
+  .pawn.p2{ background:var(--moss); }
+  .pawn.p3{ background:var(--gold); }
+  .pawn.p4{ background:#5B7FB5; }
+
+  .name-row input{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    padding:8px 4px;
+    outline:none;
+  }
+  .name-row input::placeholder{
+    color:#B3A18B;
+    font-weight:500;
+  }
+
+  /* Start button */
+  .start-btn{
+    width:100%;
+    font-family:'Fredoka', sans-serif;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    color:#fff;
+    background:var(--moss);
+    border:none;
+    border-radius:16px;
+    padding:16px;
+    cursor:pointer;
+    box-shadow:0 5px 0 #345740;
+    transition:transform 0.1s ease, box-shadow 0.1s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  .start-btn:active{
+    transform:translateY(3px);
+    box-shadow:0 2px 0 #345740;
+  }
+  .start-btn svg{ width:18px; height:18px; }
+
+  .footer-note{
+    text-align:center;
+    margin-top:18px;
+    font-size:12px;
+    color:#9A8770;
+    font-weight:500;
+  }
+
+  @media (max-width:380px){
+    .card{ padding:20px 16px; }
+    .player-select button{ font-size:19px; padding:12px 0 8px; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="game-logo">
-            <i class="fa-solid fa-chess-board"></i>
-        </div>
-        <h1>ULAR TANGGA</h1>
-        <p>Pilih jumlah pemain dan mulai petualanganmu!</p>
+<div class="app">
+  <div class="hero">
+    <div class="badge">
+      <span class="dice-icon"></span>
+      Papan Klasik, Rasa Baru
+    </div>
+    <h1>Ular <span class="accent">&</span> Tangga</h1>
+    <p>Naik tangga, hindari ular, jadi yang pertama sampai!</p>
+  </div>
 
-        <div class="menu-label">Pilih Jumlah Pemain</div>
-        <div class="player-options">
-            <button class="player-btn" onclick="setPlayers(2)"><i class="fa-solid fa-user-group"></i> 2 Pemain</button>
-            <button class="player-btn" onclick="setPlayers(3)"><i class="fa-solid fa-users"></i> 3 Pemain</button>
-            <button class="player-btn active" onclick="setPlayers(4)"><i class="fa-solid fa-users-rectangle"></i> 4 Pemain</button>
-        </div>
+  <div class="strip">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 
-        <button class="start-btn" onclick="startGame()">Mulai Main <i class="fa-solid fa-play"></i></button>
+  <div class="card">
+    <div class="section-label"><span class="num">1</span> Jumlah Pemain</div>
+    <div class="player-select" id="playerSelect">
+      <button data-count="2" class="active">2<span class="label">Pemain</span></button>
+      <button data-count="3">3<span class="label">Pemain</span></button>
+      <button data-count="4">4<span class="label">Pemain</span></button>
     </div>
 
-    <script>
-        let selectedPlayers = 4;
+    <div class="section-label"><span class="num">2</span> Nama Pemain</div>
+    <div class="name-list" id="nameList">
+      <div class="name-row">
+        <div class="pawn p1"></div>
+        <input type="text" maxlength="12" placeholder="Pemain 1" data-idx="0">
+      </div>
+      <div class="name-row">
+        <div class="pawn p2"></div>
+        <input type="text" maxlength="12" placeholder="Pemain 2" data-idx="1">
+      </div>
+      <div class="name-row" data-optional="3">
+        <div class="pawn p3"></div>
+        <input type="text" maxlength="12" placeholder="Pemain 3" data-idx="2">
+      </div>
+      <div class="name-row" data-optional="4">
+        <div class="pawn p4"></div>
+        <input type="text" maxlength="12" placeholder="Pemain 4" data-idx="3">
+      </div>
+    </div>
 
-        function setPlayers(num) {
-            selectedPlayers = num;
-            document.querySelectorAll('.player-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-        }
+    <button class="start-btn" id="startBtn">
+      Mulai Bermain
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
 
-        function startGame() {
-            localStorage.setItem('snake_ladder_players', selectedPlayers);
-            window.location.href = 'game.html';
-        }
-    </script>
+  <p class="footer-note">Lempar dadu &middot; Kejar puncak &middot; Rayakan kemenangan</p>
+</div>
+
+<script>
+  const playerSelect = document.getElementById('playerSelect');
+  const nameList = document.getElementById('nameList');
+  const startBtn = document.getElementById('startBtn');
+  let playerCount = 2;
+
+  function updateVisibility(){
+    document.querySelectorAll('.name-row[data-optional]').forEach(row=>{
+      const n = parseInt(row.dataset.optional, 10);
+      row.style.display = n <= playerCount ? 'flex' : 'none';
+    });
+  }
+
+  playerSelect.addEventListener('click', (e)=>{
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    playerSelect.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playerCount = parseInt(btn.dataset.count, 10);
+    updateVisibility();
+  });
+
+  startBtn.addEventListener('click', ()=>{
+    const inputs = nameList.querySelectorAll('input');
+    const names = [];
+    inputs.forEach((inp, i)=>{
+      if(i < playerCount){
+        names.push(inp.value.trim() || `Pemain ${i+1}`);
+      }
+    });
+
+    const params = new URLSearchParams();
+    params.set('players', playerCount);
+    names.forEach((n, i)=> params.set('p'+(i+1), n));
+
+    window.location.href = `game.html?${params.toString()}`;
+  });
+
+  updateVisibility();
+</script>
+
 </body>
 </html>
