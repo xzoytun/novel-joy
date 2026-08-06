@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bermain Ular Tangga</title>
+    <title>Ular Tangga Pelangi</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: 'Segoe UI', 'Comic Sans MS', cursive, sans-serif;
         }
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a3c2a, #2b5a3a);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: grad 10s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
+        @keyframes grad {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         .game-wrapper {
-            background: rgba(255, 248, 235, 0.95);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
             padding: 30px 35px;
-            border-radius: 64px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px #d4a373 inset;
+            border-radius: 72px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 3px #fff inset;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 28px;
-            max-width: 1150px;
+            max-width: 1200px;
             width: 100%;
         }
         .board-area {
@@ -41,28 +48,29 @@
             height: auto;
             aspect-ratio: 1 / 1;
             background: #f0e4d3;
-            border-radius: 36px;
-            box-shadow: 0 8px 0 #b08968, 0 12px 30px rgba(0,0,0,0.3);
+            border-radius: 40px;
+            box-shadow: 0 12px 0 #b08968, 0 16px 40px rgba(0,0,0,0.25);
             display: block;
             image-rendering: crisp-edges;
         }
         .side-panel {
-            flex: 0 0 260px;
+            flex: 0 0 270px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             min-width: 210px;
         }
         .panel-box {
-            background: #e8dccc;
+            background: rgba(255, 245, 235, 0.8);
             padding: 18px 20px;
-            border-radius: 32px;
-            border: 2px solid #c4b09a;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);
+            border-radius: 36px;
+            border: 2px solid #f093fb;
+            box-shadow: 0 4px 0 #d06cd0;
+            backdrop-filter: blur(4px);
         }
         .panel-box h3 {
             font-size: 1.1rem;
-            color: #3c2a1f;
+            color: #2d1f14;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -78,55 +86,56 @@
             justify-content: space-between;
             padding: 6px 0;
             border-bottom: 1px dashed #b89f88;
-            font-weight: 500;
+            font-weight: 600;
             color: #2d1f14;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         .player-list li:last-child { border-bottom: none; }
         .p-color {
             display: inline-block;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             margin-right: 10px;
             vertical-align: middle;
-            border: 2px solid #5a3e2b;
+            border: 2px solid #333;
         }
         .badge-turn {
-            background: #d4a373;
+            background: #f093fb;
             color: white;
-            padding: 0 12px;
-            border-radius: 30px;
+            padding: 0 14px;
+            border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         #turnIndicator {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #2d1f14;
             padding: 4px 0;
         }
-        /* Dadu CSS Keren */
         .dice-container {
-            background: #e8dccc;
+            background: rgba(255, 245, 235, 0.8);
             padding: 18px 20px 20px;
-            border-radius: 32px;
-            border: 2px solid #c4b09a;
+            border-radius: 36px;
+            border: 2px solid #f093fb;
+            box-shadow: 0 4px 0 #d06cd0;
             text-align: center;
+            backdrop-filter: blur(4px);
         }
         .dice {
             width: 80px;
             height: 80px;
             background: white;
-            border-radius: 18px;
+            border-radius: 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             padding: 14px;
             margin: 0 auto 12px;
-            box-shadow: 0 6px 0 #a0846a, 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 0 #b08968, 0 8px 20px rgba(0,0,0,0.15);
             transition: 0.15s;
         }
         .dot {
@@ -142,65 +151,63 @@
         }
         .dot.visible { display: block; }
         .btn-roll {
-            background: #2d6a4f;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
             color: white;
             border: none;
             padding: 14px 20px;
             font-size: 1.2rem;
             font-weight: 700;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 6px 0 #1a3c2a;
+            box-shadow: 0 6px 0 #a8325a;
             width: 100%;
             letter-spacing: 1px;
         }
         .btn-roll:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 9px 0 #1a3c2a;
-            background: #1f563b;
+            box-shadow: 0 9px 0 #a8325a;
         }
         .btn-roll:active:not(:disabled) {
             transform: translateY(3px);
-            box-shadow: 0 3px 0 #1a3c2a;
+            box-shadow: 0 3px 0 #a8325a;
         }
         .btn-roll:disabled {
             opacity: 0.5;
             transform: translateY(3px);
-            box-shadow: 0 3px 0 #1a3c2a;
+            box-shadow: 0 3px 0 #a8325a;
             pointer-events: none;
         }
         .btn-home {
-            background: #b08968;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: white;
             border: none;
             padding: 12px;
             font-size: 1rem;
-            font-weight: 600;
-            border-radius: 50px;
+            font-weight: 700;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 4px 0 #7a5f47;
+            box-shadow: 0 4px 0 #1f7a9e;
             width: 100%;
             margin-top: 4px;
         }
         .btn-home:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 0 #7a5f47;
-            background: #9d7a5e;
+            box-shadow: 0 6px 0 #1f7a9e;
         }
         .btn-home:active {
             transform: translateY(3px);
-            box-shadow: 0 1px 0 #7a5f47;
+            box-shadow: 0 1px 0 #1f7a9e;
         }
         .winner-box {
-            background: #f7d44a;
+            background: linear-gradient(135deg, #f7d44a, #f5a623);
             padding: 12px 16px;
             border-radius: 40px;
             font-weight: 700;
             text-align: center;
             color: #2d1f14;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             border: 2px solid #b68b2e;
             box-shadow: 0 4px 0 #8b691f;
             display: none;
@@ -280,7 +287,21 @@
     const winnerBox = document.getElementById('winnerBox');
     const homeBtn = document.getElementById('homeBtn');
 
-    // --- Mapping dadu (posisi titik di grid 3x3) ---
+    // --- Warna pelangi untuk kotak (berdasarkan indeks baris) ---
+    const rainbowColors = [
+        '#FF6B6B', // merah
+        '#FF9F43', // jingga
+        '#FECA57', // kuning
+        '#48DBFB', // biru muda
+        '#0ABDE3', // biru
+        '#A29BFE', // ungu
+        '#FD79A8', // pink
+        '#00B894', // hijau toska
+        '#FDCB6E', // emas
+        '#E17055'  // terakota
+    ];
+
+    // --- Mapping dadu ---
     const diceMap = {
         1: [4],
         2: [2, 6],
@@ -306,44 +327,54 @@
         const origRow = Math.floor((num - 1) / 10);
         let col = (num - 1) % 10;
         if (origRow % 2 === 1) col = 9 - col;
-        const row = 9 - origRow; // 0 = atas, 9 = bawah
+        const row = 9 - origRow;
         return { row, col };
     }
 
-    // --- Gambar papan ---
+    // --- Gambar papan pelangi ---
     function drawBoard() {
         const size = 600;
         const cell = size / 10;
         ctx.clearRect(0, 0, size, size);
 
-        // Latar
+        // Latar gradien
         const grad = ctx.createLinearGradient(0, 0, size, size);
-        grad.addColorStop(0, '#f7efe2');
-        grad.addColorStop(1, '#e8dccc');
+        grad.addColorStop(0, '#fff5e6');
+        grad.addColorStop(1, '#fce4d6');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, size, size);
 
-        // Grid & angka
+        // Gambar kotak dengan warna pelangi bergantian per baris
         for (let i = 1; i <= 100; i++) {
             const { row, col } = getRowCol(i);
             const x = col * cell;
             const y = row * cell;
-            // warna sel bergantian
-            ctx.fillStyle = ( (row + col) % 2 === 0 ) ? '#faf0e6' : '#dccbb8';
+
+            // Warna berdasarkan baris (dari bawah = indeks 0)
+            const rowIndex = 9 - row; // 0 = bawah, 9 = atas
+            const color = rainbowColors[rowIndex % rainbowColors.length];
+            // Buat variasi sel dalam baris (lebih terang/gelap)
+            const brightness = (col % 2 === 0) ? 0.9 : 1.1;
+            ctx.fillStyle = color;
             ctx.fillRect(x, y, cell, cell);
-            ctx.strokeStyle = '#b08968';
-            ctx.lineWidth = 1.5;
+
+            // Border putih tipis
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
             ctx.strokeRect(x, y, cell, cell);
 
-            // Angka
-            ctx.fillStyle = '#3c2a1f';
-            ctx.font = 'bold 15px "Segoe UI", sans-serif';
+            // Angka dengan bayangan
+            ctx.shadowColor = 'rgba(0,0,0,0.2)';
+            ctx.shadowBlur = 6;
+            ctx.fillStyle = '#1f1f1f';
+            ctx.font = 'bold 18px "Segoe UI", "Comic Sans MS", cursive, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(i, x + cell/2, y + cell/2);
+            ctx.fillText(i, x + cell/2, y + cell/2 + 1);
+            ctx.shadowBlur = 0;
         }
 
-        // Gambar ular & tangga
+        // Gambar ular & tangga dengan gaya kartun
         snakeLadders.forEach(sl => {
             const from = sl.from;
             const to = sl.to;
@@ -356,49 +387,56 @@
 
             const isLadder = from < to;
             ctx.save();
-            ctx.shadowColor = 'rgba(0,0,0,0.25)';
+            ctx.shadowColor = 'rgba(0,0,0,0.2)';
             ctx.shadowBlur = 8;
+            ctx.lineCap = 'round';
 
             if (isLadder) {
-                // Tangga hijau dengan anak tangga
-                ctx.strokeStyle = '#2d6a4f';
-                ctx.lineWidth = 5;
+                // Tangga warna emas
+                ctx.strokeStyle = '#f1c40f';
+                ctx.lineWidth = 8;
                 ctx.beginPath();
                 ctx.moveTo(fx, fy);
                 ctx.lineTo(tx, ty);
                 ctx.stroke();
-                // anak tangga
-                ctx.shadowBlur = 0;
-                ctx.strokeStyle = '#409f6b';
-                ctx.lineWidth = 3;
-                for (let step = 0.2; step < 1; step += 0.2) {
+                // Anak tangga
+                ctx.shadowBlur = 4;
+                ctx.strokeStyle = '#d4a017';
+                ctx.lineWidth = 4;
+                for (let step = 0.15; step < 1; step += 0.2) {
                     const lx = fx + (tx - fx) * step;
                     const ly = fy + (ty - fy) * step;
                     const angle = Math.atan2(ty - fy, tx - fx);
-                    const perpX = -Math.sin(angle) * 12;
-                    const perpY = Math.cos(angle) * 12;
+                    const perpX = -Math.sin(angle) * 14;
+                    const perpY = Math.cos(angle) * 14;
                     ctx.beginPath();
                     ctx.moveTo(lx - perpX, ly - perpY);
                     ctx.lineTo(lx + perpX, ly + perpY);
                     ctx.stroke();
                 }
+                // Emoji tangga di ujung
+                ctx.shadowBlur = 0;
+                ctx.font = '28px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🪜', tx - 4, ty - 4);
             } else {
-                // Ular merah dengan kepala
-                ctx.strokeStyle = '#c0392b';
-                ctx.lineWidth = 6;
-                ctx.lineCap = 'round';
+                // Ular warna hijau dengan kepala
+                ctx.shadowBlur = 10;
+                ctx.strokeStyle = '#2ecc71';
+                ctx.lineWidth = 10;
                 ctx.beginPath();
                 ctx.moveTo(fx, fy);
                 ctx.lineTo(tx, ty);
                 ctx.stroke();
-                // kepala ular (lingkaran di ujung)
+                // Kepala ular
                 ctx.shadowBlur = 0;
-                ctx.fillStyle = '#c0392b';
+                ctx.fillStyle = '#27ae60';
                 ctx.beginPath();
-                ctx.arc(tx, ty, 9, 0, 2 * Math.PI);
+                ctx.arc(tx, ty, 14, 0, 2 * Math.PI);
                 ctx.fill();
                 ctx.fillStyle = 'white';
-                ctx.font = 'bold 12px sans-serif';
+                ctx.font = '22px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText('🐍', tx - 2, ty - 1);
@@ -406,30 +444,30 @@
             ctx.restore();
         });
 
-        // Gambar token pemain
+        // Gambar token pemain (dengan efek 3D)
         positions.forEach((pos, idx) => {
             if (pos < 1 || pos > 100) return;
             const { row, col } = getRowCol(pos);
             const cx = col * cell + cell/2;
             const cy = row * cell + cell/2;
-            const radius = 14;
+            const radius = 16;
             const color = colors[idx % colors.length];
 
             // Glow
-            const grad2 = ctx.createRadialGradient(cx-4, cy-4, 2, cx, cy, radius+6);
-            grad2.addColorStop(0, 'rgba(255,255,255,0.6)');
+            const grad2 = ctx.createRadialGradient(cx-4, cy-4, 2, cx, cy, radius+8);
+            grad2.addColorStop(0, 'rgba(255,255,255,0.7)');
             grad2.addColorStop(1, 'rgba(255,255,255,0)');
-            ctx.shadowBlur = 20;
+            ctx.shadowBlur = 25;
             ctx.shadowColor = color;
             ctx.beginPath();
-            ctx.arc(cx, cy, radius+4, 0, 2*Math.PI);
+            ctx.arc(cx, cy, radius+5, 0, 2*Math.PI);
             ctx.fillStyle = grad2;
             ctx.fill();
 
-            // Lingkaran utama 3D
-            ctx.shadowBlur = 10;
+            // Lingkaran utama
+            ctx.shadowBlur = 12;
             ctx.shadowColor = 'rgba(0,0,0,0.3)';
-            const grad3 = ctx.createRadialGradient(cx-5, cy-5, 3, cx, cy, radius);
+            const grad3 = ctx.createRadialGradient(cx-5, cy-5, 4, cx, cy, radius);
             grad3.addColorStop(0, '#ffffff');
             grad3.addColorStop(0.3, color);
             grad3.addColorStop(1, '#1a1a1a');
@@ -439,16 +477,16 @@
             ctx.fill();
             ctx.shadowBlur = 0;
             ctx.strokeStyle = 'white';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 2.5;
             ctx.stroke();
 
             // Inisial
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 13px sans-serif';
+            ctx.font = 'bold 14px sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.shadowColor = 'rgba(0,0,0,0.5)';
-            ctx.shadowBlur = 4;
+            ctx.shadowBlur = 6;
             ctx.fillText(idx + 1, cx, cy + 1);
             ctx.shadowBlur = 0;
         });
@@ -456,7 +494,6 @@
 
     // --- Update UI ---
     function updateUI() {
-        // Daftar pemain
         let html = '';
         for (let i = 0; i < numPlayers; i++) {
             const active = (i === currentPlayer && !gameOver);
@@ -467,7 +504,6 @@
             </li>`;
         }
         playerListEl.innerHTML = html;
-
         turnIndicator.textContent = gameOver ? '🏁 Selesai!' : `${colorNames[currentPlayer % colorNames.length]} (${positions[currentPlayer]})`;
         rollBtn.disabled = gameOver || isRolling;
 
@@ -538,7 +574,7 @@
         updateUI();
         setTimeout(() => {
             nextTurn();
-        }, 480);
+        }, 500);
     }
 
     // --- Init ---
