@@ -3,500 +3,190 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ular Tangga</title>
+    <title>♚ Catur</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-        :root {
-            --cream: #FBF3E3;
-            --wood: #8B4A2B;
-            --wood-dark: #5E2F17;
-            --clay: #D9622B;
-            --moss: #4C7A5A;
-            --gold: #E8B23B;
-            --ink: #2B1B12;
-            --paper: #FFFDF8;
-        }
-
+        /* ── Reset & Font ── */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
 
         body {
             min-height: 100vh;
-            font-family: 'Space Grotesk', sans-serif;
-            background:
-                radial-gradient(circle at 15% 10%, rgba(232, 178, 59, 0.18), transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(76, 122, 90, 0.18), transparent 45%),
-                var(--cream);
-            color: var(--ink);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
-            overflow-x: hidden;
-            position: relative;
+            background: radial-gradient(ellipse at 30% 20%, #1a1a2e, #0f0f1a);
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+            margin: 0;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(139, 74, 43, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 74, 43, 0.05) 1px, transparent 1px);
-            background-size: 48px 48px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .app {
-            position: relative;
-            z-index: 1;
+        .landing {
+            max-width: 700px;
             width: 100%;
-            max-width: 420px;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
             text-align: center;
-            margin-bottom: 28px;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 215, 140, 0.15);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            transition: 0.3s;
         }
 
-        .hero .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--paper);
-            border: 2px solid var(--wood);
-            border-radius: 999px;
-            padding: 6px 16px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--wood-dark);
-            box-shadow: 0 3px 0 var(--wood);
-            margin-bottom: 18px;
+        .landing:hover {
+            border-color: rgba(255, 215, 140, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
         }
 
-        .dice-icon {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-        }
-        .dice-icon rect {
-            fill: var(--clay);
-        }
-        .dice-icon circle {
-            fill: var(--paper);
+        .logo {
+            font-size: 72px;
+            line-height: 1;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 8px 20px rgba(255, 215, 140, 0.2));
         }
 
         h1 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: clamp(38px, 10vw, 52px);
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
             font-weight: 700;
-            line-height: 0.95;
-            color: var(--wood-dark);
-            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #f6e5d0, #d4a373);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
-        h1 .accent {
-            color: var(--clay);
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero p {
-            margin-top: 10px;
-            font-size: 15px;
-            color: #6B5544;
-            font-weight: 500;
-        }
-
-        /* ===== STRIP ===== */
-        .strip {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin: 20px 0 28px;
-        }
-        .strip span {
-            width: 28px;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--gold);
-        }
-        .strip span:nth-child(2) {
-            background: var(--clay);
-        }
-        .strip span:nth-child(3) {
-            background: var(--moss);
-        }
-        .strip span:nth-child(4) {
-            background: var(--wood);
-        }
-        .strip span:nth-child(5) {
-            background: var(--clay);
-        }
-
-        /* ===== CARD ===== */
-        .card {
-            background: var(--paper);
-            border: 2px solid var(--wood);
-            border-radius: 24px;
-            padding: 26px 22px;
-            box-shadow: 0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94, 47, 23, 0.35);
-        }
-
-        .section-label {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
+        .subtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--wood-dark);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .section-label .num {
-            width: 20px;
-            height: 20px;
-            background: var(--wood-dark);
-            color: var(--cream);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-        }
-
-        /* ===== PLAYER COUNT ===== */
-        .player-select {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
             margin-bottom: 24px;
         }
 
-        .player-select button {
-            font-family: 'Fredoka', sans-serif;
-            font-weight: 600;
-            font-size: 22px;
-            padding: 14px 0 10px;
-            border-radius: 14px;
-            border: 2px solid #E4D6C0;
-            background: var(--cream);
-            color: var(--wood-dark);
-            cursor: pointer;
-            transition: all 0.15s ease;
-            position: relative;
-        }
-        .player-select button span.label {
-            display: block;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #9A8770;
-            margin-top: 2px;
-        }
-        .player-select button:hover {
-            border-color: var(--clay);
-            transform: translateY(-2px);
-        }
-        .player-select button.active {
-            background: var(--clay);
-            border-color: var(--clay);
-            color: #fff;
-            box-shadow: 0 4px 0 #A6431A;
-            transform: translateY(-2px);
-        }
-        .player-select button.active span.label {
-            color: rgba(255, 255, 255, 0.8);
+        .desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 450px;
+            margin: 0 auto 36px;
+            font-weight: 400;
         }
 
-        /* ===== NAME LIST ===== */
-        .name-list {
+        .features {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 26px;
-        }
-
-        .name-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--cream);
-            border: 2px solid #E4D6C0;
-            border-radius: 14px;
-            padding: 8px 8px 8px 6px;
-            transition: border-color 0.15s ease;
-        }
-        .name-row:focus-within {
-            border-color: var(--clay);
-        }
-
-        /* ---- PAWN SVG wrapper ---- */
-        .pawn {
-            width: 36px;
-            height: 36px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            position: relative;
-        }
-        .pawn svg {
-            width: 34px;
-            height: 34px;
-            display: block;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-            transition: transform 0.2s ease;
-        }
-        .name-row:hover .pawn svg {
-            transform: scale(1.04);
+            gap: 28px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
-        /* ---- Pawn colors ---- */
-        .pawn.p1 {
-            color: var(--clay);
-        }
-        .pawn.p2 {
-            color: var(--moss);
-        }
-        .pawn.p3 {
-            color: var(--gold);
-        }
-        .pawn.p4 {
-            color: #5B7FB5;
+        .features span {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ---- Inputs ---- */
-        .name-row input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--ink);
-            padding: 8px 4px;
-            outline: none;
-        }
-        .name-row input::placeholder {
-            color: #B3A18B;
-            font-weight: 500;
+        .features span::before {
+            content: "✦";
+            color: #d4a373;
+            font-size: 12px;
         }
 
-        /* ===== START BUTTON ===== */
-        .start-btn {
-            width: 100%;
-            font-family: 'Fredoka', sans-serif;
+        .btn-start {
+            display: inline-block;
+            padding: 18px 60px;
             font-size: 18px;
             font-weight: 600;
-            letter-spacing: 0.02em;
-            color: #fff;
-            background: var(--moss);
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #f6e5d0, #d4a373);
             border: none;
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 5px 0 #345740;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .start-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #345740;
-        }
-        .start-btn svg {
-            width: 18px;
-            height: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 30px rgba(212, 163, 115, 0.25);
         }
 
-        .footer-note {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 12px;
-            color: #9A8770;
-            font-weight: 500;
+        .btn-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 40px rgba(212, 163, 115, 0.4);
         }
 
-        @media (max-width: 380px) {
-            .card {
-                padding: 20px 16px;
+        .btn-start:active {
+            transform: scale(0.97);
+        }
+
+        .footer {
+            margin-top: 36px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .landing {
+                padding: 36px 24px;
+                border-radius: 32px;
             }
-            .player-select button {
-                font-size: 19px;
-                padding: 12px 0 8px;
+            h1 {
+                font-size: 38px;
             }
-            .pawn {
-                width: 30px;
-                height: 30px;
+            .logo {
+                font-size: 52px;
             }
-            .pawn svg {
-                width: 28px;
-                height: 28px;
+            .btn-start {
+                padding: 16px 44px;
+                font-size: 16px;
+                width: 100%;
+            }
+            .features {
+                gap: 12px;
+            }
+            .features span {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            .desc {
+                font-size: 14px;
+                padding: 0 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="app">
-        <!-- ===== HERO ===== -->
-        <div class="hero">
-            <div class="badge">
-                <svg class="dice-icon" viewBox="0 0 24 24">
-                    <rect x="2" y="2" width="20" height="20" rx="5" />
-                    <circle cx="8" cy="8" r="1.8" />
-                    <circle cx="16" cy="8" r="1.8" />
-                    <circle cx="12" cy="12" r="1.8" />
-                    <circle cx="8" cy="16" r="1.8" />
-                    <circle cx="16" cy="16" r="1.8" />
-                </svg>
-                Papan Klasik, Rasa Baru
-            </div>
-            <h1>Ular <span class="accent">&</span> Tangga</h1>
-            <p>Naik tangga, hindari ular, jadi yang pertama sampai!</p>
+    <div class="landing">
+        <div class="logo">♚</div>
+        <h1>Catur</h1>
+        <p class="subtitle">Classic Chess</p>
+        <p class="desc">
+            Tantang diri Anda dalam permainan strategi abadi.<br />
+            Mainkan melawan teman di layar yang sama.
+        </p>
+        <div class="features">
+            <span>2 Pemain</span>
+            <span>Aturan Lengkap</span>
+            <span>Anti-kesalahan</span>
         </div>
-
-        <div class="strip">
-            <span></span><span></span><span></span><span></span><span></span>
-        </div>
-
-        <!-- ===== CARD ===== -->
-        <div class="card">
-            <div class="section-label"><span class="num">1</span> Jumlah Pemain</div>
-            <div class="player-select" id="playerSelect">
-                <button data-count="2" class="active">2<span class="label">Pemain</span></button>
-                <button data-count="3">3<span class="label">Pemain</span></button>
-                <button data-count="4">4<span class="label">Pemain</span></button>
-            </div>
-
-            <div class="section-label"><span class="num">2</span> Nama Pemain</div>
-            <div class="name-list" id="nameList">
-                <!-- Player 1 -->
-                <div class="name-row">
-                    <div class="pawn p1">
-                        <svg viewBox="0 0 48 48" fill="currentColor">
-                            <ellipse cx="24" cy="42.5" rx="12" ry="2.5" fill="rgba(0,0,0,0.10)" />
-                            <path d="M19 13 L29 13 C31.5 13, 33 17, 33 23 L33 34 C33 38, 30 40.5, 26.5 40.5 L21.5 40.5 C18 40.5, 15 38, 15 34 L15 23 C15 17, 16.5 13, 19 13 Z" />
-                            <path d="M19 16 L21 16 L21 39 L19 39 Z" fill="rgba(255,255,255,0.14)" />
-                            <circle cx="24" cy="7" r="7" />
-                            <ellipse cx="21" cy="5" rx="2.8" ry="2.2" fill="rgba(255,255,255,0.30)" />
-                            <circle cx="19.5" cy="3.5" r="1.2" fill="rgba(255,255,255,0.18)" />
-                        </svg>
-                    </div>
-                    <input type="text" maxlength="12" placeholder="Pemain 1" data-idx="0" />
-                </div>
-
-                <!-- Player 2 -->
-                <div class="name-row">
-                    <div class="pawn p2">
-                        <svg viewBox="0 0 48 48" fill="currentColor">
-                            <ellipse cx="24" cy="42.5" rx="12" ry="2.5" fill="rgba(0,0,0,0.10)" />
-                            <path d="M19 13 L29 13 C31.5 13, 33 17, 33 23 L33 34 C33 38, 30 40.5, 26.5 40.5 L21.5 40.5 C18 40.5, 15 38, 15 34 L15 23 C15 17, 16.5 13, 19 13 Z" />
-                            <path d="M19 16 L21 16 L21 39 L19 39 Z" fill="rgba(255,255,255,0.14)" />
-                            <circle cx="24" cy="7" r="7" />
-                            <ellipse cx="21" cy="5" rx="2.8" ry="2.2" fill="rgba(255,255,255,0.30)" />
-                            <circle cx="19.5" cy="3.5" r="1.2" fill="rgba(255,255,255,0.18)" />
-                        </svg>
-                    </div>
-                    <input type="text" maxlength="12" placeholder="Pemain 2" data-idx="1" />
-                </div>
-
-                <!-- Player 3 (optional) -->
-                <div class="name-row" data-optional="3">
-                    <div class="pawn p3">
-                        <svg viewBox="0 0 48 48" fill="currentColor">
-                            <ellipse cx="24" cy="42.5" rx="12" ry="2.5" fill="rgba(0,0,0,0.10)" />
-                            <path d="M19 13 L29 13 C31.5 13, 33 17, 33 23 L33 34 C33 38, 30 40.5, 26.5 40.5 L21.5 40.5 C18 40.5, 15 38, 15 34 L15 23 C15 17, 16.5 13, 19 13 Z" />
-                            <path d="M19 16 L21 16 L21 39 L19 39 Z" fill="rgba(255,255,255,0.14)" />
-                            <circle cx="24" cy="7" r="7" />
-                            <ellipse cx="21" cy="5" rx="2.8" ry="2.2" fill="rgba(255,255,255,0.30)" />
-                            <circle cx="19.5" cy="3.5" r="1.2" fill="rgba(255,255,255,0.18)" />
-                        </svg>
-                    </div>
-                    <input type="text" maxlength="12" placeholder="Pemain 3" data-idx="2" />
-                </div>
-
-                <!-- Player 4 (optional) -->
-                <div class="name-row" data-optional="4">
-                    <div class="pawn p4">
-                        <svg viewBox="0 0 48 48" fill="currentColor">
-                            <ellipse cx="24" cy="42.5" rx="12" ry="2.5" fill="rgba(0,0,0,0.10)" />
-                            <path d="M19 13 L29 13 C31.5 13, 33 17, 33 23 L33 34 C33 38, 30 40.5, 26.5 40.5 L21.5 40.5 C18 40.5, 15 38, 15 34 L15 23 C15 17, 16.5 13, 19 13 Z" />
-                            <path d="M19 16 L21 16 L21 39 L19 39 Z" fill="rgba(255,255,255,0.14)" />
-                            <circle cx="24" cy="7" r="7" />
-                            <ellipse cx="21" cy="5" rx="2.8" ry="2.2" fill="rgba(255,255,255,0.30)" />
-                            <circle cx="19.5" cy="3.5" r="1.2" fill="rgba(255,255,255,0.18)" />
-                        </svg>
-                    </div>
-                    <input type="text" maxlength="12" placeholder="Pemain 4" data-idx="3" />
-                </div>
-            </div>
-
-            <button class="start-btn" id="startBtn">
-                Mulai Bermain
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-            </button>
-        </div>
-
-        <p class="footer-note">Lempar dadu &middot; Kejar puncak &middot; Rayakan kemenangan</p>
+        <a href="game.html" class="btn-start">Mulai Bermain</a>
+        <p class="footer">— 2026 —</p>
     </div>
-
-    <script>
-        const playerSelect = document.getElementById('playerSelect');
-        const nameList = document.getElementById('nameList');
-        const startBtn = document.getElementById('startBtn');
-        let playerCount = 2;
-
-        function updateVisibility() {
-            document.querySelectorAll('.name-row[data-optional]').forEach(row => {
-                const n = parseInt(row.dataset.optional, 10);
-                row.style.display = n <= playerCount ? 'flex' : 'none';
-            });
-        }
-
-        playerSelect.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            playerSelect.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            playerCount = parseInt(btn.dataset.count, 10);
-            updateVisibility();
-        });
-
-        startBtn.addEventListener('click', () => {
-            const inputs = nameList.querySelectorAll('input');
-            const names = [];
-            inputs.forEach((inp, i) => {
-                if (i < playerCount) {
-                    names.push(inp.value.trim() || `Pemain ${i + 1}`);
-                }
-            });
-
-            const params = new URLSearchParams();
-            params.set('players', playerCount);
-            names.forEach((n, i) => params.set('p' + (i + 1), n));
-
-            window.location.href = `game.html?${params.toString()}`;
-        });
-
-        updateVisibility();
-    </script>
 
 </body>
 </html>
