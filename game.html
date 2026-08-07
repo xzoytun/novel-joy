@@ -1,1030 +1,192 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ular Tangga — Bermain</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>♚ Catur</title>
+    <style>
+        /* ── Reset & Font ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  :root {
-    --cream: #FBF3E3;
-    --wood: #8B4A2B;
-    --wood-dark: #5E2F17;
-    --clay: #D9622B;
-    --moss: #4C7A5A;
-    --gold: #E8B23B;
-    --ink: #2B1B12;
-    --paper: #FFFDF8;
-    --blue: #5B7FB5;
-    --tile-a: #F3E4C8;
-    --tile-b: #EAD6AE;
-  }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at 30% 20%, #1a1a2e, #0f0f1a);
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
 
-  body {
-    min-height: 100vh;
-    font-family: 'Space Grotesk', sans-serif;
-    background:
-      radial-gradient(circle at 15% 5%, rgba(232, 178, 59, 0.15), transparent 40%),
-      radial-gradient(circle at 90% 90%, rgba(76, 122, 90, 0.15), transparent 45%),
-      var(--cream);
-    color: var(--ink);
-    padding: 16px;
-    padding-bottom: 80px;
-  }
+        .landing {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 215, 140, 0.15);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            transition: 0.3s;
+        }
 
-  .wrap {
-    max-width: 480px;
-    margin: 0 auto;
-  }
+        .landing:hover {
+            border-color: rgba(255, 215, 140, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+        }
 
-  /* Top bar */
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
+        .logo {
+            font-size: 72px;
+            line-height: 1;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 8px 20px rgba(255, 215, 140, 0.2));
+        }
 
-  .back-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--paper);
-    border: 2px solid var(--wood);
-    border-radius: 12px;
-    padding: 8px 12px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--wood-dark);
-    text-decoration: none;
-    box-shadow: 0 3px 0 var(--wood);
-    cursor: pointer;
-  }
-  .back-btn svg { width: 14px; height: 14px; }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f6e5d0, #d4a373);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
 
-  h1.title {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--wood-dark);
-  }
+        .subtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
 
-  .restart-btn {
-    background: var(--clay);
-    border: 2px solid var(--clay);
-    border-radius: 12px;
-    padding: 8px 10px;
-    box-shadow: 0 3px 0 #A6431A;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .restart-btn svg { width: 16px; height: 16px; stroke: #fff; }
+        .desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 450px;
+            margin: 0 auto 36px;
+            font-weight: 400;
+        }
 
-  /* Players strip */
-  .players-strip {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-bottom: 14px;
-    padding-bottom: 4px;
-  }
-  .player-chip {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--paper);
-    border: 2px solid #E4D6C0;
-    border-radius: 14px;
-    padding: 8px 12px 8px 8px;
-    transition: all 0.2s ease;
-  }
-  .player-chip.active {
-    border-color: var(--gold);
-    background: #FFF7E0;
-    box-shadow: 0 3px 0 var(--gold);
-    transform: translateY(-2px);
-  }
-  .player-chip .dot {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
-  }
-  .player-chip.p1 .dot { background: var(--clay); }
-  .player-chip.p2 .dot { background: var(--moss); }
-  .player-chip.p3 .dot { background: var(--gold); }
-  .player-chip.p4 .dot { background: var(--blue); }
-  .player-chip .info { line-height: 1.15; }
-  .player-chip .name { font-size: 12px; font-weight: 700; white-space: nowrap; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
-  .player-chip .pos { font-size: 10px; color: #9A8770; font-weight: 600; }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
 
-  /* Board wrapper with dice buttons around */
-  .board-wrapper {
-    position: relative;
-    background: var(--paper);
-    border: 2px solid var(--wood);
-    border-radius: 20px;
-    padding: 10px;
-    /* extra top/bottom margin so the dice buttons that sit above/below
-       the board never overlap the players-strip or the legend */
-    margin: 46px 0 46px 0;
-    box-shadow: 0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94,47,23,0.3);
-  }
+        .features span {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-  .board {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    gap: 2px;
-    aspect-ratio: 1/1;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--wood);
-  }
+        .features span::before {
+            content: "✦";
+            color: #d4a373;
+            font-size: 12px;
+        }
 
-  .tile {
-    background: var(--tile-a);
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 3px 4px;
-  }
-  .tile.alt { background: var(--tile-b); }
-  .tile .tnum {
-    font-size: 9px;
-    font-weight: 700;
-    color: #B3946B;
-    font-family: 'Space Grotesk', sans-serif;
-  }
-  .tile.finish { background: var(--moss); }
-  .tile.finish .tnum { color: #D7E8DB; }
-  .tile.start-tile { background: #D9E4CF; }
-  .tile.snake-head { box-shadow: inset 0 0 0 2px rgba(217,98,43,0.5); }
-  .tile.ladder-bottom { box-shadow: inset 0 0 0 2px rgba(76,122,90,0.5); }
+        .btn-start {
+            display: inline-block;
+            padding: 18px 60px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #f6e5d0, #d4a373);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 30px rgba(212, 163, 115, 0.25);
+        }
 
-  svg.overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-  }
+        .btn-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 40px rgba(212, 163, 115, 0.4);
+        }
 
-  .pawns-layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 5;
-  }
+        .btn-start:active {
+            transform: scale(0.97);
+        }
 
-  /* ===== PAWN TOKEN ===== */
-  .pawn-token {
-    position: absolute;
-    width: 8%;
-    height: 8%;
-    transition: left 0.35s ease, top 0.35s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
-  }
-  .pawn-token svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    transition: transform 0.2s ease;
-  }
-  .pawn-token:hover svg { transform: scale(1.08); }
-  .pawn-token.p1 { color: var(--clay); }
-  .pawn-token.p2 { color: var(--moss); }
-  .pawn-token.p3 { color: var(--gold); }
-  .pawn-token.p4 { color: var(--blue); }
+        .footer {
+            margin-top: 36px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
 
-  /* ===== DICE BUTTONS around board ===== */
-  .dice-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: #fff;
-    border: 2px solid #D0C4B0;
-    border-radius: 10px;
-    padding: 4px 8px 4px 4px;
-    box-shadow: 0 2px 0 #B8A892;
-    cursor: pointer;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, background 0.15s ease;
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 600;
-    font-size: 10px;
-    color: var(--wood-dark);
-    position: absolute;
-    z-index: 10;
-  }
-  .dice-btn .dice-face {
-    width: 22px;
-    height: 22px;
-    background: var(--clay);
-    border-radius: 5px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
-    padding: 3px;
-    gap: 1.5px;
-    flex-shrink: 0;
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
-  }
-  .dice-btn .dice-label {
-    font-size: 9px;
-    white-space: nowrap;
-    line-height: 1.1;
-  }
-  .dice-btn .dice-label small {
-    display: block;
-    font-weight: 400;
-    font-size: 7px;
-    color: #9A8770;
-    font-family: 'Space Grotesk', sans-serif;
-  }
-
-  /* Warna sesuai pemain */
-  .dice-btn.p1 { border-color: var(--clay); box-shadow: 0 2px 0 #B84A1C; }
-  .dice-btn.p2 { border-color: var(--moss); box-shadow: 0 2px 0 #345740; }
-  .dice-btn.p3 { border-color: var(--gold); box-shadow: 0 2px 0 #C99A1E; }
-  .dice-btn.p4 { border-color: var(--blue); box-shadow: 0 2px 0 #3E5F8C; }
-
-  .dice-btn.active-turn {
-    background: #FFF7E0;
-    border-width: 2.5px;
-    transform: scale(1.08);
-    box-shadow: 0 3px 0 var(--gold);
-    z-index: 11;
-  }
-  .dice-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: 0 1px 0 #B8A892 !important;
-  }
-  /* Only shrink the transform on disabled buttons; rolling animation
-     (which also uses transform) is applied separately below and must
-     win for the button that is actually rolling. */
-  .dice-btn:disabled:not(.rolling) { transform: none !important; }
-  .dice-btn:disabled .dice-face { filter: grayscale(0.5); }
-  .dice-btn:not(:disabled):active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #B8A892 !important;
-  }
-
-  /* IMPORTANT FIX:
-     Previously `.rolling` was added to EVERY dice button whenever any
-     player rolled, so all four buttons shook at once. Now the shake
-     animation is scoped with :not() so it can only ever be applied to
-     the single button that actually has the .rolling class — and we
-     only ever add that class to the active player's button in JS. */
-  .dice-btn.rolling {
-    animation: shake 0.12s infinite;
-  }
-  .dice-btn.rolling .dice-label { opacity: 0.6; }
-
-  @keyframes shake {
-    0%   { transform: rotate(0deg); }
-    25%  { transform: rotate(-6deg); }
-    75%  { transform: rotate(6deg); }
-    100% { transform: rotate(0deg); }
-  }
-
-  .pip {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: transparent;
-  }
-  .pip.on { background: var(--paper); }
-
-  /* Posisi tombol di sekitar papan — digeser lebih jauh dari tepi
-     board dan diberi jarak yang konsisten supaya tidak nabrak
-     players-strip di atas atau legend di bawah. */
-  .dice-btn.pos-bottom-left {
-    bottom: -46px;
-    left: 6px;
-  }
-  .dice-btn.pos-bottom-right {
-    bottom: -46px;
-    right: 6px;
-  }
-  .dice-btn.pos-top-left {
-    top: -46px;
-    left: 6px;
-  }
-  .dice-btn.pos-top-right {
-    top: -46px;
-    right: 6px;
-  }
-
-  /* Legend di bawah papan */
-  .legend {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    margin-top: 8px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #8A7660;
-  }
-  .legend span { display: flex; align-items: center; gap: 5px; }
-  .legend .sw { width: 14px; height: 3px; border-radius: 2px; }
-  .legend .sw.snake { background: var(--clay); }
-  .legend .sw.ladder { background: var(--moss); }
-
-  /* Control bar bawah (info giliran saja) */
-  .control-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--paper);
-    border-top: 2px solid var(--wood);
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    z-index: 20;
-    box-shadow: 0 -6px 20px rgba(94,47,23,0.15);
-  }
-
-  .turn-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--cream);
-    border: 2px solid #E4D6C0;
-    border-radius: 999px;
-    padding: 6px 16px 6px 8px;
-    flex-shrink: 0;
-  }
-  .turn-info .turn-dot {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
-  }
-  .turn-info .turn-dot.p1 { background: var(--clay); }
-  .turn-info .turn-dot.p2 { background: var(--moss); }
-  .turn-info .turn-dot.p3 { background: var(--gold); }
-  .turn-info .turn-dot.p4 { background: var(--blue); }
-  .turn-info .lbl { font-size: 8px; text-transform: uppercase; letter-spacing: 0.05em; color: #9A8770; font-weight: 600; line-height: 1; }
-  .turn-info .val { font-family: 'Fredoka', sans-serif; font-size: 14px; font-weight: 600; color: var(--wood-dark); line-height: 1.3; }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translate(-50%, -140%);
-    background: var(--wood-dark);
-    color: var(--cream);
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 50;
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    white-space: nowrap;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-  }
-  .toast.show { transform: translate(-50%, 0); }
-
-  /* Win overlay */
-  .win-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(43,27,18,0.72);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    padding: 20px;
-  }
-  .win-overlay.show { opacity: 1; pointer-events: auto; }
-
-  .win-card {
-    background: var(--paper);
-    border-radius: 24px;
-    padding: 36px 28px;
-    text-align: center;
-    max-width: 340px;
-    width: 100%;
-    border: 2px solid var(--wood);
-    transform: scale(0.85);
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-  }
-  .win-overlay.show .win-card { transform: scale(1); }
-
-  .win-crown { font-size: 52px; margin-bottom: 8px; }
-  .win-card h2 { font-family: 'Fredoka', sans-serif; font-size: 26px; color: var(--wood-dark); margin-bottom: 6px; }
-  .win-card p { font-size: 14px; color: #8A7660; margin-bottom: 22px; font-weight: 500; }
-
-  .win-actions { display: flex; gap: 10px; }
-  .win-actions button, .win-actions a {
-    flex: 1;
-    padding: 13px;
-    border-radius: 14px;
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .win-again { background: var(--moss); border: none; color: #fff; box-shadow: 0 4px 0 #345740; }
-  .win-home { background: var(--cream); border: 2px solid var(--wood); color: var(--wood-dark); }
-
-  @media (max-width: 400px) {
-    .dice-btn { padding: 3px 6px 3px 3px; font-size: 8px; }
-    .dice-btn .dice-face { width: 18px; height: 18px; padding: 2px; gap: 1px; }
-    .dice-btn .dice-label small { font-size: 6px; }
-    .board-wrapper { margin: 42px 0 42px 0; }
-    .dice-btn.pos-bottom-left { bottom: -42px; left: 3px; }
-    .dice-btn.pos-bottom-right { bottom: -42px; right: 3px; }
-    .dice-btn.pos-top-left { top: -42px; left: 3px; }
-    .dice-btn.pos-top-right { top: -42px; right: 3px; }
-    .pawn-token { width: 7%; height: 7%; }
-  }
-</style>
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .landing {
+                padding: 36px 24px;
+                border-radius: 32px;
+            }
+            h1 {
+                font-size: 38px;
+            }
+            .logo {
+                font-size: 52px;
+            }
+            .btn-start {
+                padding: 16px 44px;
+                font-size: 16px;
+                width: 100%;
+            }
+            .features {
+                gap: 12px;
+            }
+            .features span {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            .desc {
+                font-size: 14px;
+                padding: 0 8px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="topbar">
-    <a href="index.html" class="back-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      Menu
-    </a>
-    <h1 class="title">Ular &amp; Tangga</h1>
-    <button class="restart-btn" id="restartBtn" title="Ulangi permainan">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-    </button>
-  </div>
-
-  <div class="players-strip" id="playersStrip"></div>
-
-  <div class="board-wrapper">
-    <div class="board" id="board"></div>
-    <!-- Tombol dadu akan ditempatkan oleh JS dengan posisi absolute -->
-  </div>
-
-  <div class="legend">
-    <span><span class="sw ladder"></span> Tangga naik</span>
-    <span><span class="sw snake"></span> Ular turun</span>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<div class="control-bar">
-  <div class="turn-info">
-    <div class="turn-dot" id="turnDot"></div>
-    <div>
-      <div class="lbl">Giliran</div>
-      <div class="val" id="turnName">—</div>
+    <div class="landing">
+        <div class="logo">♚</div>
+        <h1>Catur</h1>
+        <p class="subtitle">Classic Chess</p>
+        <p class="desc">
+            Tantang diri Anda dalam permainan strategi abadi.<br />
+            Mainkan melawan teman di layar yang sama.
+        </p>
+        <div class="features">
+            <span>2 Pemain</span>
+            <span>Aturan Lengkap</span>
+            <span>Anti-kesalahan</span>
+        </div>
+        <a href="game.html" class="btn-start">Mulai Bermain</a>
+        <p class="footer">— 2026 —</p>
     </div>
-  </div>
-</div>
-
-<div class="win-overlay" id="winOverlay">
-  <div class="win-card">
-    <div class="win-crown">🏆</div>
-    <h2 id="winName">Pemenang!</h2>
-    <p>Sampai duluan di kotak 100</p>
-    <div class="win-actions">
-      <button class="win-again" id="playAgainBtn">Main Lagi</button>
-      <a class="win-home" href="index.html">Menu</a>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ---------- Setup from URL ----------
-  const params = new URLSearchParams(window.location.search);
-  const playerCount = Math.min(4, Math.max(2, parseInt(params.get('players')) || 2));
-  const colorClasses = ['p1', 'p2', 'p3', 'p4'];
-  const playerColors = ['#D9622B', '#4C7A5A', '#E8B23B', '#5B7FB5'];
-  const players = [];
-  for (let i = 0; i < playerCount; i++) {
-    players.push({
-      name: params.get('p' + (i + 1)) || `Pemain ${i + 1}`,
-      pos: 0,
-      color: colorClasses[i],
-      colorHex: playerColors[i]
-    });
-  }
-
-  // ---------- Snakes & Ladders ----------
-  const snakes = { 98:78, 95:56, 87:24, 62:19, 54:34, 17:7 };
-  const ladders = { 4:25, 13:46, 33:49, 42:63, 50:69, 71:92, 80:99 };
-
-  // ---------- Build board ----------
-  const boardEl = document.getElementById('board');
-  const cellNumberToGrid = {};
-  for (let rowFromBottom = 0; rowFromBottom < 10; rowFromBottom++) {
-    const rowNumbers = [];
-    const base = rowFromBottom * 10;
-    for (let c = 0; c < 10; c++) rowNumbers.push(base + c + 1);
-    if (rowFromBottom % 2 === 1) rowNumbers.reverse();
-    const gridRow = 9 - rowFromBottom;
-    rowNumbers.forEach((num, colIdx) => {
-      cellNumberToGrid[num] = { row: gridRow, col: colIdx };
-    });
-  }
-
-  const gridToNumber = {};
-  Object.entries(cellNumberToGrid).forEach(([num, pos]) => {
-    gridToNumber[`${pos.row}-${pos.col}`] = parseInt(num);
-  });
-
-  for (let r = 0; r < 10; r++) {
-    for (let c = 0; c < 10; c++) {
-      const num = gridToNumber[`${r}-${c}`];
-      const tile = document.createElement('div');
-      tile.className = 'tile' + ((Math.floor(num/1) + r + c) % 2 === 0 ? '' : ' alt');
-      if (num === 100) tile.classList.add('finish');
-      if (num === 1) tile.classList.add('start-tile');
-      if (snakes[num]) tile.classList.add('snake-head');
-      if (ladders[num]) tile.classList.add('ladder-bottom');
-      tile.dataset.num = num;
-      tile.innerHTML = `<span class="tnum">${num}</span>`;
-      boardEl.appendChild(tile);
-    }
-  }
-
-  // SVG overlay
-  const svgNS = "http://www.w3.org/2000/svg";
-  const overlay = document.createElementNS(svgNS, "svg");
-  overlay.setAttribute("class", "overlay");
-  overlay.setAttribute("viewBox", "0 0 100 100");
-  overlay.setAttribute("preserveAspectRatio", "none");
-  boardEl.appendChild(overlay);
-
-  function centerOf(num) {
-    const pos = cellNumberToGrid[num];
-    return { x: pos.col * 10 + 5, y: pos.row * 10 + 5 };
-  }
-
-  function drawLadder(fromNum, toNum) {
-    const a = centerOf(fromNum);
-    const b = centerOf(toNum);
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const len = Math.sqrt(dx*dx + dy*dy);
-    const ux = dx/len, uy = dy/len;
-    const px = -uy, py = ux;
-    const railGap = 2.6;
-    const g = document.createElementNS(svgNS, "g");
-    g.setAttribute("opacity", "0.92");
-    [-1,1].forEach(side => {
-      const x1 = a.x + px*railGap*side;
-      const y1 = a.y + py*railGap*side;
-      const x2 = b.x + px*railGap*side;
-      const y2 = b.y + py*railGap*side;
-      const rail = document.createElementNS(svgNS, "line");
-      rail.setAttribute("x1", x1); rail.setAttribute("y1", y1);
-      rail.setAttribute("x2", x2); rail.setAttribute("y2", y2);
-      rail.setAttribute("stroke", "#3E6449");
-      rail.setAttribute("stroke-width", "1.3");
-      rail.setAttribute("stroke-linecap", "round");
-      g.appendChild(rail);
-    });
-    const rungCount = Math.max(3, Math.round(len/9));
-    for (let i = 1; i < rungCount; i++) {
-      const t = i/rungCount;
-      const cx = a.x + dx*t;
-      const cy = a.y + dy*t;
-      const x1 = cx + px*railGap;
-      const y1 = cy + py*railGap;
-      const x2 = cx - px*railGap;
-      const y2 = cy - py*railGap;
-      const rung = document.createElementNS(svgNS, "line");
-      rung.setAttribute("x1", x1); rung.setAttribute("y1", y1);
-      rung.setAttribute("x2", x2); rung.setAttribute("y2", y2);
-      rung.setAttribute("stroke", "#4C7A5A");
-      rung.setAttribute("stroke-width", "1.1");
-      rung.setAttribute("stroke-linecap", "round");
-      g.appendChild(rung);
-    }
-    overlay.appendChild(g);
-  }
-
-  function drawSnake(fromNum, toNum) {
-    const a = centerOf(fromNum);
-    const b = centerOf(toNum);
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const len = Math.sqrt(dx*dx + dy*dy);
-    const ux = dx/len, uy = dy/len;
-    const px = -uy, py = ux;
-    const segments = Math.max(4, Math.round(len/10));
-    const amp = 4.5;
-    let d = `M ${a.x} ${a.y}`;
-    const pts = [{x:a.x, y:a.y}];
-    for (let i=1; i<=segments; i++) {
-      const t = i/segments;
-      const bx = a.x + dx*t;
-      const by = a.y + dy*t;
-      const wave = Math.sin(t*Math.PI*2.4) * amp * (1 - t*0.3);
-      pts.push({ x: bx + px*wave, y: by + py*wave });
-    }
-    for (let i=1; i<pts.length-1; i++) {
-      const midx = (pts[i].x + pts[i+1].x)/2, midy = (pts[i].y + pts[i+1].y)/2;
-      d += ` Q ${pts[i].x} ${pts[i].y} ${midx} ${midy}`;
-    }
-    d += ` T ${pts[pts.length-1].x} ${pts[pts.length-1].y}`;
-    const g = document.createElementNS(svgNS, "g");
-    g.setAttribute("opacity", "0.92");
-    const body = document.createElementNS(svgNS, "path");
-    body.setAttribute("d", d);
-    body.setAttribute("stroke", "#D9622B");
-    body.setAttribute("stroke-width", "2.1");
-    body.setAttribute("fill", "none");
-    body.setAttribute("stroke-linecap", "round");
-    g.appendChild(body);
-    const stripe = document.createElementNS(svgNS, "path");
-    stripe.setAttribute("d", d);
-    stripe.setAttribute("stroke", "#B84A1C");
-    stripe.setAttribute("stroke-width", "0.6");
-    stripe.setAttribute("fill", "none");
-    stripe.setAttribute("stroke-dasharray", "1.2,2.4");
-    stripe.setAttribute("stroke-linecap", "round");
-    g.appendChild(stripe);
-    const head = document.createElementNS(svgNS, "circle");
-    head.setAttribute("cx", a.x); head.setAttribute("cy", a.y);
-    head.setAttribute("r", 2.6);
-    head.setAttribute("fill", "#D9622B");
-    g.appendChild(head);
-    [-0.9,0.9].forEach(off => {
-      const eye = document.createElementNS(svgNS, "circle");
-      eye.setAttribute("cx", a.x + px*off*0.9);
-      eye.setAttribute("cy", a.y + py*off*0.9);
-      eye.setAttribute("r", 0.5);
-      eye.setAttribute("fill", "#2B1B12");
-      g.appendChild(eye);
-    });
-    const tail = document.createElementNS(svgNS, "circle");
-    tail.setAttribute("cx", b.x); tail.setAttribute("cy", b.y);
-    tail.setAttribute("r", 1.4);
-    tail.setAttribute("fill", "#B84A1C");
-    g.appendChild(tail);
-    overlay.appendChild(g);
-  }
-
-  Object.entries(snakes).forEach(([from,to]) => drawSnake(parseInt(from), to));
-  Object.entries(ladders).forEach(([from,to]) => drawLadder(parseInt(from), to));
-
-  // ---------- Pawns layer ----------
-  const pawnsLayer = document.createElement('div');
-  pawnsLayer.className = 'pawns-layer';
-  boardEl.appendChild(pawnsLayer);
-
-  const pawnSvgTemplate = `
-    <ellipse cx="24" cy="42.5" rx="12" ry="2.5" fill="rgba(0,0,0,0.10)"/>
-    <path d="M19 13 L29 13 C31.5 13, 33 17, 33 23 L33 34 C33 38, 30 40.5, 26.5 40.5 L21.5 40.5 C18 40.5, 15 38, 15 34 L15 23 C15 17, 16.5 13, 19 13 Z" fill="currentColor"/>
-    <path d="M19 16 L21 16 L21 39 L19 39 Z" fill="rgba(255,255,255,0.14)"/>
-    <circle cx="24" cy="7" r="7" fill="currentColor"/>
-    <ellipse cx="21" cy="5" rx="2.8" ry="2.2" fill="rgba(255,255,255,0.30)"/>
-    <circle cx="19.5" cy="3.5" r="1.2" fill="rgba(255,255,255,0.18)"/>
-  `;
-
-  const pawnEls = players.map((p, i) => {
-    const el = document.createElement('div');
-    el.className = `pawn-token ${p.color}`;
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox", "0 0 48 48");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
-    svg.style.display = "block";
-    svg.innerHTML = pawnSvgTemplate;
-    el.appendChild(svg);
-    pawnsLayer.appendChild(el);
-    return el;
-  });
-
-  function pawnOffset(playerIdx, totalOnTile) {
-    const offsets = [[0,0], [22,0], [0,22], [22,22]];
-    return offsets[playerIdx % 4];
-  }
-
-  function updatePawnPositions() {
-    const byPos = {};
-    players.forEach((p, i) => {
-      byPos[p.pos] = byPos[p.pos] || [];
-      byPos[p.pos].push(i);
-    });
-    players.forEach((p, i) => {
-      const num = p.pos === 0 ? 1 : p.pos;
-      const pos = centerOf(num);
-      const group = byPos[p.pos];
-      const slot = group.indexOf(i);
-      const [ox, oy] = pawnOffset(slot, group.length);
-      const baseXPercent = pos.x - 5 + (ox/100)*3;
-      const baseYPercent = pos.y - 5 + (oy/100)*3;
-      pawnEls[i].style.left = `calc(${baseXPercent}% + 2px)`;
-      pawnEls[i].style.top = `calc(${baseYPercent}% + 2px)`;
-      pawnEls[i].style.opacity = p.pos === 0 ? '0.55' : '1';
-    });
-  }
-
-  // ---------- Players strip ----------
-  const stripEl = document.getElementById('playersStrip');
-  function renderStrip() {
-    stripEl.innerHTML = '';
-    players.forEach((p, i) => {
-      const chip = document.createElement('div');
-      chip.className = `player-chip ${p.color}` + (i === currentIdx ? ' active' : '');
-      chip.innerHTML = `<div class="dot"></div><div class="info"><div class="name">${escapeHtml(p.name)}</div><div class="pos">Kotak ${p.pos}</div></div>`;
-      stripEl.appendChild(chip);
-    });
-  }
-
-  function escapeHtml(str) {
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
-
-  // ---------- Game state ----------
-  let currentIdx = 0;
-  let isAnimating = false;
-  let gameOver = false;
-
-  const toastEl = document.getElementById('toast');
-  const winOverlay = document.getElementById('winOverlay');
-  const winName = document.getElementById('winName');
-
-  // ---------- Buat tombol dadu di sekitar papan ----------
-  const boardWrapper = document.querySelector('.board-wrapper');
-  const allPips = []; // allPips[buttonOrderIdx] -> pip elements for that button
-  const diceBtns = [];
-
-  const pipPatterns = {
-    1: [4],
-    2: [0,8],
-    3: [0,4,8],
-    4: [0,2,6,8],
-    5: [0,2,4,6,8],
-    6: [0,2,3,5,6,8]
-  };
-
-  // Posisi tombol: [indeks pemain, class posisi]
-  const positions = [
-    { idx: 0, posClass: 'pos-bottom-left' },   // Pemain 1 di bawah kiri (dekat kotak 1)
-    { idx: 1, posClass: 'pos-bottom-right' },  // Pemain 2 di bawah kanan (dekat kotak 10)
-    { idx: 2, posClass: 'pos-top-left' },      // Pemain 3 di atas kiri (dekat kotak 91)
-    { idx: 3, posClass: 'pos-top-right' }      // Pemain 4 di atas kanan (dekat kotak 100)
-  ];
-
-  // Only create buttons for players that actually exist in this game
-  const activePositions = positions.filter(pos => pos.idx < players.length);
-
-  activePositions.forEach(posDef => {
-    const pIdx = posDef.idx;
-    const btn = document.createElement('button');
-    btn.className = `dice-btn ${players[pIdx].color} ${posDef.posClass}`;
-    btn.dataset.playerIdx = pIdx;
-    btn.disabled = true;
-
-    const face = document.createElement('div');
-    face.className = 'dice-face';
-    const pips = [];
-    for (let p = 0; p < 9; p++) {
-      const pip = document.createElement('div');
-      pip.className = 'pip';
-      face.appendChild(pip);
-      pips.push(pip);
-    }
-    allPips.push(pips);
-
-    const label = document.createElement('span');
-    label.className = 'dice-label';
-    const name = players[pIdx].name;
-    label.innerHTML = `${escapeHtml(name)}<small>Lempar</small>`;
-
-    btn.appendChild(face);
-    btn.appendChild(label);
-    boardWrapper.appendChild(btn);
-    diceBtns.push(btn);
-  });
-
-  // Fungsi untuk menampilkan dadu HANYA pada tombol milik pemain tertentu.
-  // (BUG FIX: sebelumnya fungsi ini menulis ke SEMUA tombol dadu sekaligus,
-  // jadi angka & animasi dadu pemain lain ikut berubah walau bukan gilirannya.)
-  function showDiceFace(btnIdx, n) {
-    const pips = allPips[btnIdx];
-    if (!pips) return;
-    pips.forEach(p => p.classList.remove('on'));
-    if (pipPatterns[n]) {
-      pipPatterns[n].forEach(idx => pips[idx].classList.add('on'));
-    }
-  }
-
-  function showDiceFaceForPlayer(playerIdx, n) {
-    const btnIdx = diceBtns.findIndex(b => parseInt(b.dataset.playerIdx) === playerIdx);
-    if (btnIdx !== -1) showDiceFace(btnIdx, n);
-  }
-
-  // Update enable/disable tombol berdasarkan giliran
-  function updateDiceButtons() {
-    diceBtns.forEach((btn) => {
-      const playerIdx = parseInt(btn.dataset.playerIdx);
-      if (gameOver) {
-        btn.disabled = true;
-        btn.classList.remove('active-turn');
-        return;
-      }
-      const isActive = (playerIdx === currentIdx);
-      btn.disabled = !isActive;
-      btn.classList.toggle('active-turn', isActive);
-    });
-  }
-
-  function setDiceButtonsEnabled(enabled) {
-    diceBtns.forEach(btn => {
-      if (!enabled) {
-        btn.disabled = true;
-        btn.classList.remove('active-turn');
-      }
-    });
-    if (enabled) updateDiceButtons();
-  }
-
-  // BUG FIX: hanya menambahkan/menghapus class "rolling" pada SATU tombol
-  // milik pemain yang sedang melempar, bukan pada semua tombol dadu.
-  function setDiceButtonRolling(playerIdx, rolling) {
-    const btn = diceBtns.find(b => parseInt(b.dataset.playerIdx) === playerIdx);
-    if (!btn) return;
-    btn.classList.toggle('rolling', rolling);
-  }
-
-  // ---------- Toast ----------
-  function showToast(msg, duration = 1600) {
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(() => toastEl.classList.remove('show'), duration);
-  }
-
-  // ---------- Turn UI ----------
-  const turnNameEl = document.getElementById('turnName');
-  const turnDotEl = document.getElementById('turnDot');
-
-  function updateTurnUI() {
-    turnNameEl.textContent = players[currentIdx].name;
-    turnDotEl.className = 'turn-dot ' + players[currentIdx].color;
-    renderStrip();
-    updateDiceButtons();
-  }
-
-  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-  // ---------- Roll dice ----------
-  async function rollDice(playerIdx) {
-    if (isAnimating || gameOver) return;
-    if (playerIdx !== currentIdx) return;
-
-    isAnimating = true;
-    setDiceButtonsEnabled(false);
-    setDiceButtonRolling(playerIdx, true);
-
-    const shakeFrames = 10;
-    for (let i = 0; i < shakeFrames; i++) {
-      showDiceFaceForPlayer(playerIdx, 1 + Math.floor(Math.random() * 6));
-      await sleep(60);
-    }
-    setDiceButtonRolling(playerIdx, false);
-
-    const roll = 1 + Math.floor(Math.random() * 6);
-    showDiceFaceForPlayer(playerIdx, roll);
-
-    await sleep(200);
-    await movePlayer(playerIdx, roll);
-
-    isAnimating = false;
-    if (!gameOver) {
-      setDiceButtonsEnabled(true);
-    }
-  }
-
-  async function movePlayer(idx, steps) {
-    const p = players[idx];
-    let target = p.pos + steps;
-
-    if (target > 100) {
-      showToast(`${p.name} butuh angka pas untuk ke 100!`);
-      updateTurnUI();
-      await sleep(900);
-      nextTurn();
-      return;
-    }
-
-    const start = p.pos === 0 ? 0 : p.pos;
-    for (let s = start + 1; s <= target; s++) {
-      p.pos = s;
-      updatePawnPositions();
-      renderStrip();
-      await sleep(140);
-    }
-
-    await sleep(150);
-    if (ladders[target]) {
-      const dest = ladders[target];
-      showToast(`🪜 ${p.name} naik tangga ke ${dest}!`);
-      await sleep(500);
-      p.pos = dest;
-      updatePawnPositions();
-      renderStrip();
-    } else if (snakes[target]) {
-      const dest = snakes[target];
-      showToast(`🐍 ${p.name} digigit ular, turun ke ${dest}!`);
-      await sleep(500);
-      p.pos = dest;
-      updatePawnPositions();
-      renderStrip();
-    }
-
-    await sleep(300);
-
-    if (p.pos === 100) {
-      endGame(p);
-      return;
-    }
-
-    nextTurn();
-  }
-
-  function nextTurn() {
-    currentIdx = (currentIdx + 1) % players.length;
-    updateTurnUI();
-  }
-
-  function endGame(winner) {
-    gameOver = true;
-    setDiceButtonsEnabled(false);
-    winName.textContent = `${winner.name} Menang! 🎉`;
-    winOverlay.classList.add('show');
-  }
-
-  // Event listener untuk setiap tombol
-  diceBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const playerIdx = parseInt(btn.dataset.playerIdx);
-      rollDice(playerIdx);
-    });
-  });
-
-  // Restart & reset
-  document.getElementById('restartBtn').addEventListener('click', () => {
-    if (confirm('Ulangi permainan dari awal?')) resetGame();
-  });
-  document.getElementById('playAgainBtn').addEventListener('click', resetGame);
-
-  function resetGame() {
-    players.forEach(p => p.pos = 0);
-    currentIdx = 0;
-    gameOver = false;
-    isAnimating = false;
-    winOverlay.classList.remove('show');
-    diceBtns.forEach((btn, i) => {
-      const playerIdx = parseInt(btn.dataset.playerIdx);
-      showDiceFaceForPlayer(playerIdx, 1);
-    });
-    updatePawnPositions();
-    updateTurnUI();
-    setDiceButtonsEnabled(true);
-  }
-
-  // ---------- Init ----------
-  diceBtns.forEach((btn) => {
-    const playerIdx = parseInt(btn.dataset.playerIdx);
-    showDiceFaceForPlayer(playerIdx, 1);
-  });
-  updatePawnPositions();
-  updateTurnUI();
-  setDiceButtonsEnabled(true);
-</script>
 
 </body>
 </html>
