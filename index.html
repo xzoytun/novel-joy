@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
             --ivory: #EDE7D9;
@@ -35,9 +35,11 @@
             justify-content: center;
             background: var(--board-dark-2);
             font-family: 'Inter', sans-serif;
-            padding: 24px;
+            padding: 10px;
+            margin: 0;
+            color: var(--ivory);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         /* Faint chessboard texture across the whole viewport */
@@ -57,7 +59,7 @@
             content: "";
             position: fixed;
             inset: 0;
-            background: radial-gradient(ellipse 900px 700px at 50% 8%, rgba(185,135,61,0.10), transparent 65%);
+            background: radial-gradient(ellipse 900px 700px at 50% 0%, rgba(185,135,61,0.09), transparent 65%);
             pointer-events: none;
         }
 
@@ -67,7 +69,7 @@
             position: relative;
             text-align: center;
             padding: 56px 40px 44px;
-            background: linear-gradient(180deg, rgba(58,46,36,0.55), rgba(32,27,23,0.75));
+            background: linear-gradient(180deg, rgba(58,46,36,0.5), rgba(32,27,23,0.7));
             border-radius: 4px;
             border: 1px solid var(--line);
             box-shadow:
@@ -217,9 +219,17 @@
             letter-spacing: 2px;
         }
 
+        @media (max-width: 640px) {
+            body {
+                padding: 6px;
+                align-items: center;
+            }
+        }
+
         @media (max-width: 520px) {
             .card {
                 padding: 44px 26px 34px;
+                margin-top: 12px;
             }
             h1 {
                 font-size: 40px;
@@ -230,6 +240,17 @@
             .desc {
                 font-size: 14.5px;
             }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(237,231,217,0.15);
+            border-radius: 4px;
         }
     </style>
 </head>
