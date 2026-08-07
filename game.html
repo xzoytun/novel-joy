@@ -139,22 +139,25 @@
         .turn-indicator {
             display: flex;
             align-items: center;
-            gap: 11px;
+            gap: 10px;
             background: rgba(237,231,217,0.03);
-            padding: 8px 18px 8px 14px;
+            padding: 0 18px 0 14px;
+            height: 38px;
             border-radius: 3px;
             border: 1px solid var(--line);
             font-size: 13.5px;
             font-weight: 500;
+            line-height: 1;
         }
 
         .turn-dot {
-            width: 14px;
-            height: 14px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
             border: 1.5px solid rgba(237,231,217,0.25);
             transition: 0.3s;
             flex-shrink: 0;
+            display: block;
         }
 
         .turn-dot.white {
@@ -171,10 +174,14 @@
         .turn-label {
             color: var(--ivory-dim);
             letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
         }
         .turn-label strong {
             color: var(--ivory);
             font-weight: 600;
+            margin-left: 4px;
         }
 
         .sound-toggle {
@@ -191,6 +198,7 @@
             color: var(--ivory-dim);
             transition: 0.2s ease;
             user-select: none;
+            flex-shrink: 0;
         }
         .sound-toggle:hover {
             background: rgba(237,231,217,0.08);
@@ -199,6 +207,69 @@
         .sound-toggle.muted {
             color: var(--red-check);
             border-color: rgba(209,106,92,0.35);
+        }
+
+        /* ── Captured pieces tray ── */
+        .captured-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+            min-height: 30px;
+        }
+
+        .captured-tray {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1px;
+            flex: 1;
+            min-height: 26px;
+        }
+
+        .captured-tray.black-tray {
+            justify-content: flex-start;
+        }
+        .captured-tray.white-tray {
+            justify-content: flex-end;
+        }
+
+        .captured-piece {
+            font-size: 19px;
+            line-height: 1;
+            width: 19px;
+            text-align: center;
+            opacity: 0.92;
+            animation: pop-in 0.18s ease-out forwards;
+        }
+
+        .captured-piece.white-piece {
+            color: #fdfaf3;
+            -webkit-text-stroke: 0.4px #8a6a3d;
+            text-stroke: 0.4px #8a6a3d;
+            paint-order: stroke fill;
+        }
+        .captured-piece.black-piece {
+            color: #4a4038;
+            -webkit-text-stroke: 0.4px #17130f;
+            text-stroke: 0.4px #17130f;
+            paint-order: stroke fill;
+        }
+
+        .material-diff {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--gold-bright);
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: rgba(228,179,104,0.08);
+            border: 1px solid rgba(228,179,104,0.15);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .material-diff:empty {
+            display: none;
         }
 
         /* ── Board ── */
@@ -428,12 +499,17 @@
                 font-size: 26px;
             }
             .turn-indicator {
-                font-size: 15px;
-                padding: 9px 18px 9px 14px;
+                font-size: 14px;
+                padding: 0 16px 0 12px;
+                height: 40px;
             }
             .turn-dot {
-                width: 16px;
-                height: 16px;
+                width: 12px;
+                height: 12px;
+            }
+            .sound-toggle {
+                width: 40px;
+                height: 40px;
             }
             .board-container {
                 padding: 4px;
@@ -444,6 +520,13 @@
             .cell .piece.white-piece {
                 -webkit-text-stroke: 0.6px #8a6a3d;
                 text-stroke: 0.6px #8a6a3d;
+            }
+            .captured-piece {
+                font-size: 21px;
+                width: 21px;
+            }
+            .material-diff {
+                font-size: 12px;
             }
             .status-msg {
                 font-size: 15px;
@@ -472,12 +555,17 @@
                 font-size: 21px;
             }
             .turn-indicator {
-                font-size: 13.5px;
-                padding: 8px 14px;
+                font-size: 12.5px;
+                padding: 0 12px;
+                height: 38px;
             }
             .turn-dot {
-                width: 14px;
-                height: 14px;
+                width: 11px;
+                height: 11px;
+            }
+            .captured-piece {
+                font-size: 18px;
+                width: 18px;
             }
             .status-msg {
                 font-size: 13.5px;
@@ -511,15 +599,27 @@
             <div class="header-controls">
                 <div class="turn-indicator" id="turnIndicator">
                     <span class="turn-dot white" id="turnDot"></span>
-                    <span class="turn-label">Giliran: <strong id="turnLabel">Putih</strong></span>
+                    <span class="turn-label">Giliran:<strong id="turnLabel">Putih</strong></span>
                 </div>
                 <div class="sound-toggle" id="soundToggle" title="Nyalakan/matikan suara">🔊</div>
             </div>
         </div>
 
+        <!-- Captured pieces (bidak yang dimakan Putih, ditampilkan di atas) -->
+        <div class="captured-row">
+            <div class="captured-tray black-tray" id="capturedByWhite"></div>
+            <div class="material-diff" id="materialDiffTop"></div>
+        </div>
+
         <!-- Board -->
         <div class="board-container">
             <div class="board" id="board"></div>
+        </div>
+
+        <!-- Captured pieces (bidak yang dimakan Hitam, ditampilkan di bawah) -->
+        <div class="captured-row" style="margin-top: 10px; margin-bottom: 0;">
+            <div class="captured-tray white-tray" id="capturedByBlack"></div>
+            <div class="material-diff" id="materialDiffBottom"></div>
         </div>
 
         <!-- Status & Kontrol -->
@@ -665,6 +765,13 @@
             black: { king: '♚', queen: '♛', rook: '♜', bishop: '♝', knight: '♞', pawn: '♟' }
         };
 
+        const PIECE_VALUE = {
+            pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0
+        };
+
+        // Urutan tampilan di tray: bidak bernilai tinggi lebih dulu
+        const DISPLAY_ORDER = ['queen', 'rook', 'bishop', 'knight', 'pawn'];
+
         // ── State ──
         let board = [];
         let currentTurn = COLORS.WHITE;
@@ -679,6 +786,8 @@
             black: { kingSide: true, queenSide: true }
         };
         let moveCount = 0;
+        let capturedByWhite = []; // bidak hitam yang dimakan putih
+        let capturedByBlack = []; // bidak putih yang dimakan hitam
 
         // DOM refs
         const boardEl = document.getElementById('board');
@@ -686,6 +795,10 @@
         const turnLabel = document.getElementById('turnLabel');
         const statusMsg = document.getElementById('statusMsg');
         const soundToggle = document.getElementById('soundToggle');
+        const capturedByWhiteEl = document.getElementById('capturedByWhite');
+        const capturedByBlackEl = document.getElementById('capturedByBlack');
+        const materialDiffTopEl = document.getElementById('materialDiffTop');
+        const materialDiffBottomEl = document.getElementById('materialDiffBottom');
 
         // ── Sound toggle ──
         soundToggle.addEventListener('click', () => {
@@ -733,8 +846,43 @@
                 black: { kingSide: true, queenSide: true }
             };
             moveCount = 0;
+            capturedByWhite = [];
+            capturedByBlack = [];
             render();
             updateStatus('Putih memulai permainan', '');
+        }
+
+        // ── Captured tray rendering ──
+        function renderCapturedTray(container, pieces, colorClass) {
+            container.innerHTML = '';
+            const sorted = [...pieces].sort(
+                (a, b) => DISPLAY_ORDER.indexOf(a) - DISPLAY_ORDER.indexOf(b)
+            );
+            for (const type of sorted) {
+                const span = document.createElement('span');
+                span.className = `captured-piece ${colorClass}`;
+                span.textContent = UNICODE[colorClass === 'white-piece' ? 'white' : 'black'][type];
+                container.appendChild(span);
+            }
+        }
+
+        function renderCapturedTrays() {
+            // Bidak hitam yang dimakan putih → ditampilkan di atas papan
+            renderCapturedTray(capturedByWhiteEl, capturedByWhite, 'black-piece');
+            // Bidak putih yang dimakan hitam → ditampilkan di bawah papan
+            renderCapturedTray(capturedByBlackEl, capturedByBlack, 'white-piece');
+
+            const whiteMaterial = capturedByWhite.reduce((s, t) => s + PIECE_VALUE[t], 0);
+            const blackMaterial = capturedByBlack.reduce((s, t) => s + PIECE_VALUE[t], 0);
+            const diff = whiteMaterial - blackMaterial;
+
+            materialDiffTopEl.textContent = '';
+            materialDiffBottomEl.textContent = '';
+            if (diff > 0) {
+                materialDiffTopEl.textContent = `+${diff}`;
+            } else if (diff < 0) {
+                materialDiffBottomEl.textContent = `+${Math.abs(diff)}`;
+            }
         }
 
         // ── Rendering ──
@@ -776,7 +924,12 @@
             // Update turn indicator
             const isWhite = currentTurn === COLORS.WHITE;
             turnDot.className = `turn-dot ${isWhite ? 'white' : 'black'}`;
-            turnLabel.textContent = isWhite ? 'Putih' : 'Hitam';
+            turnLabel.querySelector('strong') ? null : null;
+            const strongEl = turnLabel.querySelector('strong');
+            if (strongEl) strongEl.textContent = isWhite ? 'Putih' : 'Hitam';
+
+            // Captured pieces trays
+            renderCapturedTrays();
 
             // Status
             if (gameOver) {
@@ -869,9 +1022,26 @@
             board[toRow][toCol] = piece;
             board[fromRow][fromCol] = null;
 
+            // Track captured piece for tray
+            if (captured) {
+                if (piece.color === COLORS.WHITE) {
+                    capturedByWhite.push(captured.type);
+                } else {
+                    capturedByBlack.push(captured.type);
+                }
+            }
+
             // En passant capture
             if (isEnPassant) {
                 const epRow = piece.color === COLORS.WHITE ? toRow + 1 : toRow - 1;
+                const epPiece = board[epRow][toCol];
+                if (epPiece) {
+                    if (piece.color === COLORS.WHITE) {
+                        capturedByWhite.push(epPiece.type);
+                    } else {
+                        capturedByBlack.push(epPiece.type);
+                    }
+                }
                 board[epRow][toCol] = null;
                 moveData.enPassantCaptured = { row: epRow, col: toCol };
             }
