@@ -36,7 +36,7 @@
       var(--cream);
     color: var(--ink);
     padding: 16px;
-    padding-bottom: 140px;
+    padding-bottom: 160px;
   }
 
   .wrap {
@@ -129,34 +129,13 @@
     flex-shrink: 0;
     box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
   }
-  .player-chip.p1 .dot {
-    background: var(--clay);
-  }
-  .player-chip.p2 .dot {
-    background: var(--moss);
-  }
-  .player-chip.p3 .dot {
-    background: var(--gold);
-  }
-  .player-chip.p4 .dot {
-    background: var(--blue);
-  }
-  .player-chip .info {
-    line-height: 1.15;
-  }
-  .player-chip .name {
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-    max-width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .player-chip .pos {
-    font-size: 10px;
-    color: #9A8770;
-    font-weight: 600;
-  }
+  .player-chip.p1 .dot { background: var(--clay); }
+  .player-chip.p2 .dot { background: var(--moss); }
+  .player-chip.p3 .dot { background: var(--gold); }
+  .player-chip.p4 .dot { background: var(--blue); }
+  .player-chip .info { line-height: 1.15; }
+  .player-chip .name { font-size: 12px; font-weight: 700; white-space: nowrap; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
+  .player-chip .pos { font-size: 10px; color: #9A8770; font-weight: 600; }
 
   /* Board */
   .board-frame {
@@ -188,31 +167,19 @@
     justify-content: flex-end;
     padding: 3px 4px;
   }
-  .tile.alt {
-    background: var(--tile-b);
-  }
+  .tile.alt { background: var(--tile-b); }
   .tile .tnum {
     font-size: 9px;
     font-weight: 700;
     color: #B3946B;
     font-family: 'Space Grotesk', sans-serif;
   }
-  .tile.finish {
-    background: var(--moss);
-  }
-  .tile.finish .tnum {
-    color: #D7E8DB;
-  }
-  .tile.start-tile {
-    background: #D9E4CF;
-  }
+  .tile.finish { background: var(--moss); }
+  .tile.finish .tnum { color: #D7E8DB; }
+  .tile.start-tile { background: #D9E4CF; }
 
-  .tile.snake-head {
-    box-shadow: inset 0 0 0 2px rgba(217, 98, 43, 0.5);
-  }
-  .tile.ladder-bottom {
-    box-shadow: inset 0 0 0 2px rgba(76, 122, 90, 0.5);
-  }
+  .tile.snake-head { box-shadow: inset 0 0 0 2px rgba(217, 98, 43, 0.5); }
+  .tile.ladder-bottom { box-shadow: inset 0 0 0 2px rgba(76, 122, 90, 0.5); }
 
   svg.overlay {
     position: absolute;
@@ -247,22 +214,12 @@
     display: block;
     transition: transform 0.2s ease;
   }
-  .pawn-token:hover svg {
-    transform: scale(1.08);
-  }
+  .pawn-token:hover svg { transform: scale(1.08); }
 
-  .pawn-token.p1 {
-    color: var(--clay);
-  }
-  .pawn-token.p2 {
-    color: var(--moss);
-  }
-  .pawn-token.p3 {
-    color: var(--gold);
-  }
-  .pawn-token.p4 {
-    color: var(--blue);
-  }
+  .pawn-token.p1 { color: var(--clay); }
+  .pawn-token.p2 { color: var(--moss); }
+  .pawn-token.p3 { color: var(--gold); }
+  .pawn-token.p4 { color: var(--blue); }
 
   /* Legend */
   .legend {
@@ -274,24 +231,12 @@
     font-weight: 600;
     color: #8A7660;
   }
-  .legend span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .legend .sw {
-    width: 14px;
-    height: 3px;
-    border-radius: 2px;
-  }
-  .legend .sw.snake {
-    background: var(--clay);
-  }
-  .legend .sw.ladder {
-    background: var(--moss);
-  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .legend .sw { width: 14px; height: 3px; border-radius: 2px; }
+  .legend .sw.snake { background: var(--clay); }
+  .legend .sw.ladder { background: var(--moss); }
 
-  /* ===== CONTROL BAR (4 dadu 2x2) ===== */
+  /* ===== CONTROL BAR ===== */
   .control-bar {
     position: fixed;
     bottom: 0;
@@ -318,39 +263,17 @@
     padding: 6px 16px 6px 8px;
   }
   .turn-info .turn-dot {
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     border-radius: 50%;
     flex-shrink: 0;
     box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
   }
-  .turn-info .turn-dot.p1 {
-    background: var(--clay);
-  }
-  .turn-info .turn-dot.p2 {
-    background: var(--moss);
-  }
-  .turn-info .turn-dot.p3 {
-    background: var(--gold);
-  }
-  .turn-info .turn-dot.p4 {
-    background: var(--blue);
-  }
-  .turn-info .lbl {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #9A8770;
-    font-weight: 600;
-    line-height: 1;
-  }
-  .turn-info .val {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--wood-dark);
-    line-height: 1.3;
-  }
+  .turn-info .turn-dot.p1 { background: var(--clay); }
+  .turn-info .turn-dot.p2 { background: var(--moss); }
+  .turn-info .turn-dot.p3 { background: var(--gold); }
+  .turn-info .turn-dot.p4 { background: var(--blue); }
+  .turn-info .lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: #9A8770; font-weight: 600; line-height: 1; }
+  .turn-info .val { font-family: 'Fredoka', sans-serif; font-size: 15px; font-weight: 600; color: var(--wood-dark); line-height: 1.3; }
 
   /* Grid 2x2 untuk 4 tombol dadu */
   .dice-grid {
@@ -358,7 +281,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     width: 100%;
-    max-width: 340px;
+    max-width: 360px;
   }
 
   .dice-btn {
@@ -366,50 +289,81 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: linear-gradient(180deg, #FFFFFF, var(--cream));
-    border: 2px solid var(--wood-dark);
+    background: #fff;
+    border: 2px solid #D0C4B0;
     border-radius: 14px;
-    box-shadow: 0 3px 0 var(--wood-dark);
+    padding: 6px 4px;
+    box-shadow: 0 3px 0 #B8A892;
     cursor: pointer;
-    padding: 8px 4px;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transition: all 0.15s ease;
     font-family: 'Fredoka', sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--wood-dark);
+    position: relative;
   }
   .dice-btn .dice-face {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: var(--clay);
-    border-radius: 7px;
+    border-radius: 6px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    padding: 5px;
+    padding: 4px;
     gap: 2px;
     flex-shrink: 0;
     box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
   }
   .dice-btn .dice-label {
-    font-size: 13px;
+    font-size: 12px;
     white-space: nowrap;
+    line-height: 1.2;
+    text-align: left;
   }
-  .dice-btn:active {
+  .dice-btn .dice-label small {
+    display: block;
+    font-weight: 400;
+    font-size: 9px;
+    color: #9A8770;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Warna tombol sesuai pemain (hanya border dan shadow) */
+  .dice-btn.p1 { border-color: var(--clay); box-shadow: 0 3px 0 #B84A1C; }
+  .dice-btn.p2 { border-color: var(--moss); box-shadow: 0 3px 0 #345740; }
+  .dice-btn.p3 { border-color: var(--gold); box-shadow: 0 3px 0 #C99A1E; }
+  .dice-btn.p4 { border-color: var(--blue); box-shadow: 0 3px 0 #3E5F8C; }
+
+  /* Tombol aktif (giliran) diberi highlight */
+  .dice-btn.active-turn {
+    background: #FFF7E0;
+    border-width: 3px;
+    transform: scale(1.02);
+    box-shadow: 0 4px 0 var(--gold);
+  }
+
+  .dice-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 2px 0 #B8A892 !important;
+  }
+  .dice-btn:disabled .dice-face {
+    filter: grayscale(0.5);
+  }
+
+  .dice-btn:not(:disabled):active {
     transform: translateY(3px);
-    box-shadow: 0 1px 0 var(--wood-dark);
+    box-shadow: 0 1px 0 #B8A892 !important;
   }
+
   .dice-btn.rolling {
     animation: shake 0.12s infinite;
   }
-  .dice-btn.rolling .dice-label {
-    opacity: 0.6;
-  }
-  .dice-btn:disabled {
-    opacity: 0.55;
-    cursor: default;
-    animation: none;
-  }
+  .dice-btn.rolling .dice-label { opacity: 0.6; }
+  .dice-btn.rolling:disabled { animation: shake 0.12s infinite; opacity: 0.7; }
+
   @keyframes shake {
     0%   { transform: rotate(0deg); }
     25%  { transform: rotate(-6deg); }
@@ -423,9 +377,7 @@
     border-radius: 50%;
     background: transparent;
   }
-  .pip.on {
-    background: var(--paper);
-  }
+  .pip.on { background: var(--paper); }
 
   /* Toast */
   .toast {
@@ -444,9 +396,7 @@
     white-space: nowrap;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   }
-  .toast.show {
-    transform: translate(-50%, 0);
-  }
+  .toast.show { transform: translate(-50%, 0); }
 
   /* Win overlay */
   .win-overlay {
@@ -462,10 +412,7 @@
     transition: opacity 0.3s ease;
     padding: 20px;
   }
-  .win-overlay.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .win-overlay.show { opacity: 1; pointer-events: auto; }
 
   .win-card {
     background: var(--paper);
@@ -478,33 +425,14 @@
     transform: scale(0.85);
     transition: transform 0.3s cubic-bezier(.34, 1.56, .64, 1);
   }
-  .win-overlay.show .win-card {
-    transform: scale(1);
-  }
+  .win-overlay.show .win-card { transform: scale(1); }
 
-  .win-crown {
-    font-size: 52px;
-    margin-bottom: 8px;
-  }
-  .win-card h2 {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 26px;
-    color: var(--wood-dark);
-    margin-bottom: 6px;
-  }
-  .win-card p {
-    font-size: 14px;
-    color: #8A7660;
-    margin-bottom: 22px;
-    font-weight: 500;
-  }
+  .win-crown { font-size: 52px; margin-bottom: 8px; }
+  .win-card h2 { font-family: 'Fredoka', sans-serif; font-size: 26px; color: var(--wood-dark); margin-bottom: 6px; }
+  .win-card p { font-size: 14px; color: #8A7660; margin-bottom: 22px; font-weight: 500; }
 
-  .win-actions {
-    display: flex;
-    gap: 10px;
-  }
-  .win-actions button,
-  .win-actions a {
+  .win-actions { display: flex; gap: 10px; }
+  .win-actions button, .win-actions a {
     flex: 1;
     padding: 13px;
     border-radius: 14px;
@@ -517,32 +445,14 @@
     align-items: center;
     justify-content: center;
   }
-  .win-again {
-    background: var(--moss);
-    border: none;
-    color: #fff;
-    box-shadow: 0 4px 0 #345740;
-  }
-  .win-home {
-    background: var(--cream);
-    border: 2px solid var(--wood);
-    color: var(--wood-dark);
-  }
+  .win-again { background: var(--moss); border: none; color: #fff; box-shadow: 0 4px 0 #345740; }
+  .win-home { background: var(--cream); border: 2px solid var(--wood); color: var(--wood-dark); }
 
-  /* Responsive kecil */
   @media (max-width: 400px) {
-    .dice-btn .dice-face {
-      width: 26px;
-      height: 26px;
-      padding: 4px;
-    }
-    .dice-btn .dice-label {
-      font-size: 11px;
-    }
-    .pawn-token {
-      width: 7%;
-      height: 7%;
-    }
+    .dice-btn .dice-face { width: 24px; height: 24px; padding: 3px; }
+    .dice-btn .dice-label { font-size: 10px; }
+    .dice-btn .dice-label small { font-size: 8px; }
+    .pawn-token { width: 7%; height: 7%; }
   }
 </style>
 </head>
@@ -602,13 +512,15 @@
     // ---------- Setup from URL ----------
     const params = new URLSearchParams(window.location.search);
     const playerCount = Math.min(4, Math.max(2, parseInt(params.get('players')) || 2));
-    const colors = ['p1', 'p2', 'p3', 'p4'];
+    const colorClasses = ['p1', 'p2', 'p3', 'p4'];
+    const playerColors = ['#D9622B', '#4C7A5A', '#E8B23B', '#5B7FB5'];
     const players = [];
     for (let i = 0; i < playerCount; i++) {
       players.push({
         name: params.get('p' + (i + 1)) || `Pemain ${i + 1}`,
         pos: 0,
-        color: colors[i]
+        color: colorClasses[i],
+        colorHex: playerColors[i]
       });
     }
 
@@ -666,13 +578,10 @@
     function drawLadder(fromNum, toNum) {
       const a = centerOf(fromNum);
       const b = centerOf(toNum);
-      const dx = b.x - a.x,
-        dy = b.y - a.y;
+      const dx = b.x - a.x, dy = b.y - a.y;
       const len = Math.sqrt(dx * dx + dy * dy);
-      const ux = dx / len,
-        uy = dy / len;
-      const px = -uy,
-        py = ux;
+      const ux = dx / len, uy = dy / len;
+      const px = -uy, py = ux;
       const railGap = 2.6;
       const g = document.createElementNS(svgNS, "g");
       g.setAttribute("opacity", "0.92");
@@ -682,10 +591,8 @@
         const x2 = b.x + px * railGap * side;
         const y2 = b.y + py * railGap * side;
         const rail = document.createElementNS(svgNS, "line");
-        rail.setAttribute("x1", x1);
-        rail.setAttribute("y1", y1);
-        rail.setAttribute("x2", x2);
-        rail.setAttribute("y2", y2);
+        rail.setAttribute("x1", x1); rail.setAttribute("y1", y1);
+        rail.setAttribute("x2", x2); rail.setAttribute("y2", y2);
         rail.setAttribute("stroke", "#3E6449");
         rail.setAttribute("stroke-width", "1.3");
         rail.setAttribute("stroke-linecap", "round");
@@ -701,10 +608,8 @@
         const x2 = cx - px * railGap;
         const y2 = cy - py * railGap;
         const rung = document.createElementNS(svgNS, "line");
-        rung.setAttribute("x1", x1);
-        rung.setAttribute("y1", y1);
-        rung.setAttribute("x2", x2);
-        rung.setAttribute("y2", y2);
+        rung.setAttribute("x1", x1); rung.setAttribute("y1", y1);
+        rung.setAttribute("x2", x2); rung.setAttribute("y2", y2);
         rung.setAttribute("stroke", "#4C7A5A");
         rung.setAttribute("stroke-width", "1.1");
         rung.setAttribute("stroke-linecap", "round");
@@ -716,13 +621,10 @@
     function drawSnake(fromNum, toNum) {
       const a = centerOf(fromNum);
       const b = centerOf(toNum);
-      const dx = b.x - a.x,
-        dy = b.y - a.y;
+      const dx = b.x - a.x, dy = b.y - a.y;
       const len = Math.sqrt(dx * dx + dy * dy);
-      const ux = dx / len,
-        uy = dy / len;
-      const px = -uy,
-        py = ux;
+      const ux = dx / len, uy = dy / len;
+      const px = -uy, py = ux;
       const segments = Math.max(4, Math.round(len / 10));
       const amp = 4.5;
       let d = `M ${a.x} ${a.y}`;
@@ -735,8 +637,7 @@
         pts.push({ x: bx + px * wave, y: by + py * wave });
       }
       for (let i = 1; i < pts.length - 1; i++) {
-        const midx = (pts[i].x + pts[i + 1].x) / 2,
-          midy = (pts[i].y + pts[i + 1].y) / 2;
+        const midx = (pts[i].x + pts[i + 1].x) / 2, midy = (pts[i].y + pts[i + 1].y) / 2;
         d += ` Q ${pts[i].x} ${pts[i].y} ${midx} ${midy}`;
       }
       d += ` T ${pts[pts.length - 1].x} ${pts[pts.length - 1].y}`;
@@ -758,8 +659,7 @@
       stripe.setAttribute("stroke-linecap", "round");
       g.appendChild(stripe);
       const head = document.createElementNS(svgNS, "circle");
-      head.setAttribute("cx", a.x);
-      head.setAttribute("cy", a.y);
+      head.setAttribute("cx", a.x); head.setAttribute("cy", a.y);
       head.setAttribute("r", 2.6);
       head.setAttribute("fill", "#D9622B");
       g.appendChild(head);
@@ -772,8 +672,7 @@
         g.appendChild(eye);
       });
       const tail = document.createElementNS(svgNS, "circle");
-      tail.setAttribute("cx", b.x);
-      tail.setAttribute("cy", b.y);
+      tail.setAttribute("cx", b.x); tail.setAttribute("cy", b.y);
       tail.setAttribute("r", 1.4);
       tail.setAttribute("fill", "#B84A1C");
       g.appendChild(tail);
@@ -812,12 +711,7 @@
     });
 
     function pawnOffset(playerIdx, totalOnTile) {
-      const offsets = [
-        [0, 0],
-        [22, 0],
-        [0, 22],
-        [22, 22]
-      ];
+      const offsets = [[0,0], [22,0], [0,22], [22,22]];
       return offsets[playerIdx % 4];
     }
 
@@ -833,8 +727,8 @@
         const group = byPos[p.pos];
         const slot = group.indexOf(i);
         const [ox, oy] = pawnOffset(slot, group.length);
-        const baseXPercent = pos.x - 5 + (ox / 100) * 3;
-        const baseYPercent = pos.y - 5 + (oy / 100) * 3;
+        const baseXPercent = pos.x - 5 + (ox/100)*3;
+        const baseYPercent = pos.y - 5 + (oy/100)*3;
         pawnEls[i].style.left = `calc(${baseXPercent}% + 2px)`;
         pawnEls[i].style.top = `calc(${baseYPercent}% + 2px)`;
         pawnEls[i].style.opacity = p.pos === 0 ? '0.55' : '1';
@@ -843,7 +737,6 @@
 
     // ---------- Players strip ----------
     const stripEl = document.getElementById('playersStrip');
-
     function renderStrip() {
       stripEl.innerHTML = '';
       players.forEach((p, i) => {
@@ -869,36 +762,12 @@
     const winOverlay = document.getElementById('winOverlay');
     const winName = document.getElementById('winName');
 
+    // ---------- Buat 4 tombol dadu (masing-masing untuk pemain) ----------
     const diceGrid = document.getElementById('diceGrid');
     const diceBtns = [];
     const diceFaces = [];
+    const allPips = [];
 
-    // Buat 4 tombol dadu
-    for (let i = 0; i < 4; i++) {
-      const btn = document.createElement('button');
-      btn.className = 'dice-btn';
-      btn.dataset.idx = i;
-      const face = document.createElement('div');
-      face.className = 'dice-face';
-      face.id = `diceFace${i}`;
-      // 9 pip
-      for (let p = 0; p < 9; p++) {
-        const pip = document.createElement('div');
-        pip.className = 'pip';
-        pip.id = `d${i}p${p}`;
-        face.appendChild(pip);
-      }
-      const label = document.createElement('span');
-      label.className = 'dice-label';
-      label.textContent = 'Lempar';
-      btn.appendChild(face);
-      btn.appendChild(label);
-      diceGrid.appendChild(btn);
-      diceBtns.push(btn);
-      diceFaces.push(face);
-    }
-
-    // Pip patterns
     const pipPatterns = {
       1: [4],
       2: [0, 8],
@@ -908,26 +777,73 @@
       6: [0, 2, 3, 5, 6, 8]
     };
 
-    // Kumpulkan semua pip elements dari keempat dadu
-    const allPips = [];
+    // Buat 4 tombol
     for (let i = 0; i < 4; i++) {
+      const btn = document.createElement('button');
+      btn.className = `dice-btn ${players[i]?.color || 'p1'}`;
+      btn.dataset.playerIdx = i;
+      btn.disabled = true; // akan diaktifkan sesuai giliran
+
+      const face = document.createElement('div');
+      face.className = 'dice-face';
+      // 9 pip
       const pips = [];
       for (let p = 0; p < 9; p++) {
-        pips.push(document.getElementById(`d${i}p${p}`));
+        const pip = document.createElement('div');
+        pip.className = 'pip';
+        face.appendChild(pip);
+        pips.push(pip);
       }
       allPips.push(pips);
+
+      const label = document.createElement('span');
+      label.className = 'dice-label';
+      label.innerHTML = `${players[i]?.name || 'Pemain'}<small>Lempar</small>`;
+
+      btn.appendChild(face);
+      btn.appendChild(label);
+      diceGrid.appendChild(btn);
+
+      diceBtns.push(btn);
+      diceFaces.push(face);
     }
 
+    // Fungsi untuk menampilkan dadu di semua tombol
     function showDiceFace(n) {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < allPips.length; i++) {
         const pips = allPips[i];
         pips.forEach(p => p.classList.remove('on'));
-        pipPatterns[n].forEach(idx => pips[idx].classList.add('on'));
+        if (pipPatterns[n]) {
+          pipPatterns[n].forEach(idx => pips[idx].classList.add('on'));
+        }
       }
     }
 
+    // Fungsi untuk mengupdate status enable/disable tombol berdasarkan giliran
+    function updateDiceButtons() {
+      diceBtns.forEach((btn, idx) => {
+        if (gameOver) {
+          btn.disabled = true;
+          btn.classList.remove('active-turn');
+          return;
+        }
+        const isActive = (idx === currentIdx);
+        btn.disabled = !isActive;
+        btn.classList.toggle('active-turn', isActive);
+      });
+    }
+
+    // Override setDiceButtonsEnabled untuk keperluan animasi (disable semua)
     function setDiceButtonsEnabled(enabled) {
-      diceBtns.forEach(btn => btn.disabled = !enabled);
+      diceBtns.forEach(btn => {
+        if (!enabled) {
+          btn.disabled = true;
+          btn.classList.remove('active-turn');
+        } else {
+          // Kembalikan ke status giliran
+          updateDiceButtons();
+        }
+      });
     }
 
     function setDiceButtonsRolling(rolling) {
@@ -937,7 +853,7 @@
       });
     }
 
-    // Toast
+    // ---------- Toast ----------
     function showToast(msg, duration = 1600) {
       toastEl.textContent = msg;
       toastEl.classList.add('show');
@@ -945,7 +861,7 @@
       showToast._t = setTimeout(() => toastEl.classList.remove('show'), duration);
     }
 
-    // Turn UI
+    // ---------- Turn UI ----------
     const turnNameEl = document.getElementById('turnName');
     const turnDotEl = document.getElementById('turnDot');
 
@@ -953,18 +869,20 @@
       turnNameEl.textContent = players[currentIdx].name;
       turnDotEl.className = 'turn-dot ' + players[currentIdx].color;
       renderStrip();
+      updateDiceButtons();
     }
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    // Roll dice handler
-    async function rollDice() {
+    // ---------- Roll dice handler (dipanggil dari tombol masing-masing) ----------
+    async function rollDice(playerIdx) {
       if (isAnimating || gameOver) return;
+      if (playerIdx !== currentIdx) return; // keamanan
+
       isAnimating = true;
       setDiceButtonsEnabled(false);
       setDiceButtonsRolling(true);
 
-      // Shake animation
       const shakeFrames = 10;
       for (let i = 0; i < shakeFrames; i++) {
         showDiceFace(1 + Math.floor(Math.random() * 6));
@@ -976,7 +894,7 @@
       showDiceFace(roll);
 
       await sleep(200);
-      await movePlayer(currentIdx, roll);
+      await movePlayer(playerIdx, roll);
 
       isAnimating = false;
       if (!gameOver) {
@@ -1043,11 +961,14 @@
       winOverlay.classList.add('show');
     }
 
-    // Event listeners untuk semua tombol dadu
-    diceBtns.forEach(btn => {
-      btn.addEventListener('click', rollDice);
+    // Event listener untuk setiap tombol dadu
+    diceBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        rollDice(idx);
+      });
     });
 
+    // Restart & reset
     document.getElementById('restartBtn').addEventListener('click', () => {
       if (confirm('Ulangi permainan dari awal?')) resetGame();
     });
@@ -1058,11 +979,11 @@
       currentIdx = 0;
       gameOver = false;
       isAnimating = false;
-      setDiceButtonsEnabled(true);
       winOverlay.classList.remove('show');
       showDiceFace(1);
       updatePawnPositions();
       updateTurnUI();
+      setDiceButtonsEnabled(true);
     }
 
     // ---------- Init ----------
