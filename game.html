@@ -180,6 +180,7 @@
             padding: 14px;
             box-shadow: inset 0 4px 24px rgba(0, 0, 0, 0.55), 0 14px 40px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(185,135,61,0.15);
+            container-type: inline-size;
         }
 
         .board {
@@ -198,7 +199,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 44px;
+            font-size: 6.2cqw;
             cursor: pointer;
             user-select: none;
             transition: background 0.12s, transform 0.08s;
@@ -246,7 +247,7 @@
 
         .cell .piece {
             line-height: 1;
-            font-size: 44px;
+            font-size: 6.2cqw;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             pointer-events: none;
             transition: transform 0.1s;
@@ -377,7 +378,7 @@
                 align-items: flex-start;
             }
             .game-wrapper {
-                padding: 14px 8px 16px;
+                padding: 14px 10px 18px;
                 border-radius: 4px;
                 max-width: 100%;
             }
@@ -399,7 +400,7 @@
                 padding: 4px;
             }
             .cell .piece {
-                font-size: 12.5vw;
+                font-size: 7cqw;
             }
             .cell .piece.white-piece {
                 -webkit-text-stroke: 2px #fdfaf3;
@@ -426,7 +427,7 @@
 
         @media (max-width: 420px) {
             .cell .piece {
-                font-size: 12vw;
+                font-size: 7.3cqw;
             }
             .game-title {
                 font-size: 21px;
