@@ -586,6 +586,123 @@
             background: rgba(237,231,217,0.15);
             border-radius: 4px;
         }
+
+        /* ── Promotion Modal ── */
+        .promo-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 6, 0.72);
+            backdrop-filter: blur(3px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease;
+        }
+        .promo-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .promo-modal {
+            background: linear-gradient(180deg, #3A2E24, #201B17);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 26px 24px 22px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 0 1px rgba(185,135,61,0.1);
+            transform: scale(0.92) translateY(8px);
+            transition: transform 0.18s ease;
+        }
+        .promo-overlay.active .promo-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .promo-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 19px;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+
+        .promo-subtitle {
+            font-size: 12px;
+            color: var(--ivory-dim);
+            letter-spacing: 0.3px;
+            margin-bottom: 20px;
+        }
+
+        .promo-choices {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .promo-choice {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 4px 10px;
+            background: rgba(237,231,217,0.03);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.15s ease;
+        }
+
+        .promo-choice:hover,
+        .promo-choice:active {
+            background: rgba(228,179,104,0.12);
+            border-color: rgba(228,179,104,0.4);
+            transform: translateY(-2px);
+        }
+
+        .promo-choice .promo-icon {
+            font-size: 34px;
+            line-height: 1;
+        }
+
+        .promo-choice.white-piece .promo-icon {
+            color: #fdfaf3;
+            -webkit-text-stroke: 0.6px #8a6a3d;
+            text-stroke: 0.6px #8a6a3d;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+        }
+        .promo-choice.black-piece .promo-icon {
+            color: #17130f;
+            -webkit-text-stroke: 0.6px #000;
+            text-stroke: 0.6px #000;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));
+        }
+
+        .promo-choice .promo-name {
+            font-size: 10.5px;
+            font-weight: 500;
+            color: var(--ivory-dim);
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 420px) {
+            .promo-modal {
+                padding: 22px 16px 18px;
+            }
+            .promo-title {
+                font-size: 17px;
+            }
+            .promo-choice .promo-icon {
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -628,6 +745,15 @@
             <div class="btn-group">
                 <button class="reset-btn" id="resetBtn">⟳ Mulai Ulang</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Promotion Modal -->
+    <div class="promo-overlay" id="promoOverlay">
+        <div class="promo-modal">
+            <p class="promo-title">Promosi Pion</p>
+            <p class="promo-subtitle">Pilih bidak pengganti</p>
+            <div class="promo-choices" id="promoChoices"></div>
         </div>
     </div>
 
@@ -799,6 +925,31 @@
         const capturedByBlackEl = document.getElementById('capturedByBlack');
         const materialDiffTopEl = document.getElementById('materialDiffTop');
         const materialDiffBottomEl = document.getElementById('materialDiffBottom');
+        const promoOverlay = document.getElementById('promoOverlay');
+        const promoChoices = document.getElementById('promoChoices');
+
+        const PROMO_NAMES = { queen: 'Ratu', rook: 'Benteng', bishop: 'Gajah', knight: 'Kuda' };
+
+        // Menampilkan modal promosi dan mengembalikan Promise yang resolve dengan tipe bidak terpilih
+        function askPromotion(color) {
+            return new Promise((resolve) => {
+                promoChoices.innerHTML = '';
+                for (const type of ['queen', 'rook', 'bishop', 'knight']) {
+                    const btn = document.createElement('div');
+                    btn.className = `promo-choice ${color}-piece`;
+                    btn.innerHTML = `
+                        <span class="promo-icon">${UNICODE[color][type]}</span>
+                        <span class="promo-name">${PROMO_NAMES[type]}</span>
+                    `;
+                    btn.addEventListener('click', () => {
+                        promoOverlay.classList.remove('active');
+                        resolve(type);
+                    });
+                    promoChoices.appendChild(btn);
+                }
+                promoOverlay.classList.add('active');
+            });
+        }
 
         // ── Sound toggle ──
         soundToggle.addEventListener('click', () => {
@@ -955,8 +1106,9 @@
         }
 
         // ── Click handler ──
-        function onCellClick(row, col) {
-            if (gameOver) return;
+        let moveInProgress = false;
+        async function onCellClick(row, col) {
+            if (gameOver || moveInProgress) return;
 
             const piece = board[row][col];
 
@@ -964,7 +1116,9 @@
             if (selected) {
                 // Click on a valid move target
                 if (validMoves.some(m => m.row === row && m.col === col)) {
-                    executeMove(selected.row, selected.col, row, col);
+                    moveInProgress = true;
+                    await executeMove(selected.row, selected.col, row, col);
+                    moveInProgress = false;
                     selected = null;
                     validMoves = [];
                     render();
@@ -997,7 +1151,7 @@
         }
 
         // ── Move execution ──
-        function executeMove(fromRow, fromCol, toRow, toCol) {
+        async function executeMove(fromRow, fromCol, toRow, toCol) {
             const piece = board[fromRow][fromCol];
             const captured = board[toRow][toCol];
             const isEnPassant = enPassantTarget && enPassantTarget.row === toRow && enPassantTarget.col === toCol &&
@@ -1097,11 +1251,10 @@
             if (piece.type === PIECES.PAWN) {
                 const promoRow = piece.color === COLORS.WHITE ? 0 : 7;
                 if (toRow === promoRow) {
-                    const promo = prompt('Promosi! Pilih bidak: (queen, rook, bishop, knight)', 'queen');
-                    const typeMap = { 'queen': PIECES.QUEEN, 'rook': PIECES.ROOK, 'bishop': PIECES.BISHOP,
-                        'knight': PIECES.KNIGHT };
-                    const newType = typeMap[promo?.toLowerCase()] || PIECES.QUEEN;
-                    board[toRow][toCol] = { type: newType, color: piece.color };
+                    // Render bidak pion dulu supaya papan ter-update sebelum modal muncul
+                    render();
+                    const chosenType = await askPromotion(piece.color);
+                    board[toRow][toCol] = { type: chosenType, color: piece.color };
                     didPromote = true;
                 }
             }
