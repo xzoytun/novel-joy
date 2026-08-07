@@ -129,6 +129,13 @@
             color: var(--gold-bright);
         }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .turn-indicator {
             display: flex;
             align-items: center;
@@ -168,6 +175,30 @@
         .turn-label strong {
             color: var(--ivory);
             font-weight: 600;
+        }
+
+        .sound-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: rgba(237,231,217,0.03);
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--ivory-dim);
+            transition: 0.2s ease;
+            user-select: none;
+        }
+        .sound-toggle:hover {
+            background: rgba(237,231,217,0.08);
+            color: var(--ivory);
+        }
+        .sound-toggle.muted {
+            color: var(--red-check);
+            border-color: rgba(209,106,92,0.35);
         }
 
         /* ── Board ── */
@@ -476,9 +507,12 @@
             <div class="game-title">
                 <span>♚</span> Catur
             </div>
-            <div class="turn-indicator" id="turnIndicator">
-                <span class="turn-dot white" id="turnDot"></span>
-                <span class="turn-label">Giliran: <strong id="turnLabel">Putih</strong></span>
+            <div class="header-controls">
+                <div class="turn-indicator" id="turnIndicator">
+                    <span class="turn-dot white" id="turnDot"></span>
+                    <span class="turn-label">Giliran: <strong id="turnLabel">Putih</strong></span>
+                </div>
+                <div class="sound-toggle" id="soundToggle" title="Nyalakan/matikan suara">🔊</div>
             </div>
         </div>
 
@@ -497,6 +531,126 @@
     </div>
 
     <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  SOUND ENGINE — synthesized via Web Audio API
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function getAudioCtx() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // Generic tone: oscillator + envelope
+        function playTone({ freq, duration = 0.12, type = 'sine', gain = 0.18, delay = 0, freqEnd = null, attack = 0.005 }) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioCtx();
+                const t0 = ctx.currentTime + delay;
+                const osc = ctx.createOscillator();
+                const amp = ctx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, t0);
+                if (freqEnd !== null) {
+                    osc.frequency.exponentialRampToValueAtTime(Math.max(freqEnd, 1), t0 + duration);
+                }
+
+                amp.gain.setValueAtTime(0, t0);
+                amp.gain.linearRampToValueAtTime(gain, t0 + attack);
+                amp.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+
+                osc.connect(amp);
+                amp.connect(ctx.destination);
+
+                osc.start(t0);
+                osc.stop(t0 + duration + 0.02);
+            } catch (e) { /* audio unsupported, fail silently */ }
+        }
+
+        // Soft filtered "click/knock" noise burst — used for move/capture feel
+        function playKnock({ delay = 0, duration = 0.09, gain = 0.35, freq = 220 }) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioCtx();
+                const t0 = ctx.currentTime + delay;
+                const bufferSize = Math.floor(ctx.sampleRate * duration);
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 2.5);
+                }
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(freq, t0);
+
+                const amp = ctx.createGain();
+                amp.gain.setValueAtTime(gain, t0);
+                amp.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+
+                noise.connect(filter);
+                filter.connect(amp);
+                amp.connect(ctx.destination);
+
+                noise.start(t0);
+                noise.stop(t0 + duration + 0.02);
+            } catch (e) { /* ignore */ }
+        }
+
+        function sfxMove() {
+            playKnock({ freq: 700, duration: 0.07, gain: 0.28 });
+        }
+
+        function sfxCapture() {
+            playKnock({ freq: 320, duration: 0.1, gain: 0.4 });
+            playTone({ freq: 180, freqEnd: 90, duration: 0.14, type: 'triangle', gain: 0.14, delay: 0.01 });
+        }
+
+        function sfxCastle() {
+            playKnock({ freq: 650, duration: 0.06, gain: 0.25 });
+            playKnock({ freq: 650, duration: 0.06, gain: 0.25, delay: 0.09 });
+        }
+
+        function sfxPromote() {
+            playTone({ freq: 523.25, duration: 0.11, type: 'triangle', gain: 0.16 });
+            playTone({ freq: 659.25, duration: 0.11, type: 'triangle', gain: 0.16, delay: 0.09 });
+            playTone({ freq: 783.99, duration: 0.16, type: 'triangle', gain: 0.16, delay: 0.18 });
+        }
+
+        function sfxCheck() {
+            playTone({ freq: 880, duration: 0.09, type: 'square', gain: 0.12 });
+            playTone({ freq: 880, duration: 0.14, type: 'square', gain: 0.12, delay: 0.12 });
+        }
+
+        function sfxCheckmate() {
+            playTone({ freq: 392, duration: 0.18, type: 'sawtooth', gain: 0.14 });
+            playTone({ freq: 329.63, duration: 0.18, type: 'sawtooth', gain: 0.14, delay: 0.16 });
+            playTone({ freq: 261.63, duration: 0.4, type: 'sawtooth', gain: 0.16, delay: 0.32 });
+        }
+
+        function sfxStalemate() {
+            playTone({ freq: 440, duration: 0.2, type: 'sine', gain: 0.12 });
+            playTone({ freq: 415.3, duration: 0.35, type: 'sine', gain: 0.12, delay: 0.18 });
+        }
+
+        function sfxSelect() {
+            playTone({ freq: 950, duration: 0.045, type: 'sine', gain: 0.08 });
+        }
+
+        function sfxIllegal() {
+            playTone({ freq: 160, duration: 0.09, type: 'square', gain: 0.08 });
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  CHESS ENGINE — fully self-contained
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -530,6 +684,18 @@
         const turnDot = document.getElementById('turnDot');
         const turnLabel = document.getElementById('turnLabel');
         const statusMsg = document.getElementById('statusMsg');
+        const soundToggle = document.getElementById('soundToggle');
+
+        // ── Sound toggle ──
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+            soundToggle.classList.toggle('muted', !soundEnabled);
+            if (soundEnabled) {
+                getAudioCtx();
+                playTone({ freq: 700, duration: 0.06, type: 'sine', gain: 0.1 });
+            }
+        });
 
         // ── Initialisation ──
         function createInitialBoard() {
@@ -655,6 +821,7 @@
                 if (piece && piece.color === currentTurn) {
                     selected = { row, col };
                     validMoves = getLegalMoves(row, col);
+                    if (validMoves.length > 0) sfxSelect(); else sfxIllegal();
                     render();
                     return;
                 }
@@ -670,6 +837,7 @@
             if (piece && piece.color === currentTurn) {
                 selected = { row, col };
                 validMoves = getLegalMoves(row, col);
+                if (validMoves.length > 0) sfxSelect(); else sfxIllegal();
                 render();
             }
         }
@@ -708,6 +876,7 @@
             }
 
             // Castling
+            let didCastle = false;
             if (piece.type === PIECES.KING) {
                 const row = piece.color === COLORS.WHITE ? 7 : 0;
                 if (fromRow === row && fromCol === 4) {
@@ -715,10 +884,12 @@
                         board[row][5] = board[row][7];
                         board[row][7] = null;
                         moveData.castling = { rookFrom: { row, col: 7 }, rookTo: { row, col: 5 } };
+                        didCastle = true;
                     } else if (toCol === 2) { // queen-side
                         board[row][3] = board[row][0];
                         board[row][0] = null;
                         moveData.castling = { rookFrom: { row, col: 0 }, rookTo: { row, col: 3 } };
+                        didCastle = true;
                     }
                 }
                 castlingRights[piece.color].kingSide = false;
@@ -751,6 +922,7 @@
             }
 
             // Pawn promotion
+            let didPromote = false;
             if (piece.type === PIECES.PAWN) {
                 const promoRow = piece.color === COLORS.WHITE ? 0 : 7;
                 if (toRow === promoRow) {
@@ -759,6 +931,7 @@
                         'knight': PIECES.KNIGHT };
                     const newType = typeMap[promo?.toLowerCase()] || PIECES.QUEEN;
                     board[toRow][toCol] = { type: newType, color: piece.color };
+                    didPromote = true;
                 }
             }
 
@@ -773,8 +946,24 @@
             if (!hasLegal) {
                 gameOver = true;
                 gameOverReason = inCheck ? 'checkmate' : 'stalemate';
-            } else if (inCheck) {
-                // just a check, game continues
+            }
+
+            // ── Play sound effects (priority: checkmate > stalemate > check > promote > castle > capture > move) ──
+            const wasCapture = !!captured || isEnPassant;
+            if (gameOver && gameOverReason === 'checkmate') {
+                sfxCheckmate();
+            } else if (gameOver && gameOverReason === 'stalemate') {
+                sfxStalemate();
+            } else if (didPromote) {
+                sfxPromote();
+            } else if (didCastle) {
+                sfxCastle();
+            } else if (wasCapture) {
+                sfxCapture();
+                if (inCheck) setTimeout(sfxCheck, 150);
+            } else {
+                sfxMove();
+                if (inCheck) setTimeout(sfxCheck, 130);
             }
 
             // Push to history
