@@ -3,180 +3,246 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>♚ Catur</title>
+    <title>Catur — Classic Chess</title>
     <style>
-        /* ── Reset & Font ── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --ivory: #EDE7D9;
+            --ivory-dim: #C9C0AC;
+            --board-dark: #201B17;
+            --board-dark-2: #171310;
+            --walnut: #3A2E24;
+            --gold: #B9873D;
+            --gold-bright: #E4B368;
+            --line: rgba(237, 231, 217, 0.1);
+        }
+
+        html, body {
+            height: 100%;
+        }
 
         body {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(ellipse at 30% 20%, #1a1a2e, #0f0f1a);
+            background: var(--board-dark-2);
             font-family: 'Inter', sans-serif;
-            padding: 20px;
-            margin: 0;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .landing {
-            max-width: 700px;
+        /* Faint chessboard texture across the whole viewport */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(45deg, rgba(237,231,217,0.025) 25%, transparent 25%, transparent 75%, rgba(237,231,217,0.025) 75%),
+                linear-gradient(45deg, rgba(237,231,217,0.025) 25%, transparent 25%, transparent 75%, rgba(237,231,217,0.025) 75%);
+            background-size: 88px 88px;
+            background-position: 0 0, 44px 44px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse 900px 700px at 50% 8%, rgba(185,135,61,0.10), transparent 65%);
+            pointer-events: none;
+        }
+
+        .card {
+            max-width: 460px;
             width: 100%;
+            position: relative;
             text-align: center;
-            padding: 50px 40px;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            border: 1px solid rgba(255, 215, 140, 0.15);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-            transition: 0.3s;
+            padding: 56px 40px 44px;
+            background: linear-gradient(180deg, rgba(58,46,36,0.55), rgba(32,27,23,0.75));
+            border-radius: 4px;
+            border: 1px solid var(--line);
+            box-shadow:
+                0 40px 90px rgba(0,0,0,0.55),
+                0 0 0 1px rgba(185,135,61,0.06);
+            z-index: 1;
         }
 
-        .landing:hover {
-            border-color: rgba(255, 215, 140, 0.3);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+        /* corner ticks like a board's coordinate marks */
+        .card::before,
+        .card::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 1px solid var(--gold);
+            opacity: 0.55;
+        }
+        .card::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .card::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
         }
 
-        .logo {
-            font-size: 72px;
+        .rank-file {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: var(--gold-bright);
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-bottom: 28px;
+        }
+
+        .crest {
+            font-size: 46px;
             line-height: 1;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 8px 20px rgba(255, 215, 140, 0.2));
+            color: var(--ivory);
+            margin-bottom: 18px;
+            filter: drop-shadow(0 6px 18px rgba(228,179,104,0.25));
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 56px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f6e5d0, #d4a373);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 52px;
+            letter-spacing: 0.5px;
+            color: var(--ivory);
+            margin-bottom: 6px;
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 18px;
-            font-weight: 400;
+            font-size: 12px;
+            font-weight: 500;
             letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            color: var(--gold-bright);
+            margin-bottom: 26px;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 26px;
         }
 
         .desc {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 16px;
-            line-height: 1.8;
-            max-width: 450px;
-            margin: 0 auto 36px;
+            font-size: 15.5px;
+            line-height: 1.75;
+            color: var(--ivory-dim);
+            max-width: 340px;
+            margin: 0 auto 34px;
             font-weight: 400;
         }
 
         .features {
             display: flex;
             justify-content: center;
-            gap: 28px;
-            margin-bottom: 40px;
+            gap: 10px;
+            margin-bottom: 38px;
             flex-wrap: wrap;
         }
 
         .features span {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 6px 16px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .features span::before {
-            content: "✦";
-            color: #d4a373;
-            font-size: 12px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--ivory-dim);
+            padding: 8px 16px;
+            border-radius: 3px;
+            border: 1px solid var(--line);
+            background: rgba(237,231,217,0.02);
+            letter-spacing: 0.2px;
         }
 
         .btn-start {
-            display: inline-block;
-            padding: 18px 60px;
-            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 17px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
             font-weight: 600;
-            color: #1a1a2e;
-            background: linear-gradient(135deg, #f6e5d0, #d4a373);
+            color: var(--board-dark-2);
+            background: linear-gradient(180deg, var(--gold-bright), var(--gold));
             border: none;
-            border-radius: 60px;
+            border-radius: 3px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-decoration: none;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 30px rgba(212, 163, 115, 0.25);
+            letter-spacing: 0.4px;
+            box-shadow: 0 10px 26px rgba(185,135,61,0.28);
         }
 
         .btn-start:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 14px 40px rgba(212, 163, 115, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(185,135,61,0.4);
         }
 
         .btn-start:active {
-            transform: scale(0.97);
+            transform: translateY(0);
+        }
+
+        .btn-start svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-start:hover svg {
+            transform: translateX(3px);
         }
 
         .footer {
-            margin-top: 36px;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 13px;
-            letter-spacing: 1px;
+            margin-top: 26px;
+            color: rgba(237,231,217,0.25);
+            font-size: 11.5px;
+            letter-spacing: 2px;
         }
 
-        /* ── Responsive ── */
-        @media (max-width: 600px) {
-            .landing {
-                padding: 36px 24px;
-                border-radius: 32px;
+        @media (max-width: 520px) {
+            .card {
+                padding: 44px 26px 34px;
             }
             h1 {
-                font-size: 38px;
+                font-size: 40px;
             }
-            .logo {
-                font-size: 52px;
-            }
-            .btn-start {
-                padding: 16px 44px;
-                font-size: 16px;
-                width: 100%;
-            }
-            .features {
-                gap: 12px;
-            }
-            .features span {
-                font-size: 12px;
-                padding: 4px 12px;
+            .crest {
+                font-size: 36px;
             }
             .desc {
-                font-size: 14px;
-                padding: 0 8px;
+                font-size: 14.5px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="landing">
-        <div class="logo">♚</div>
+    <div class="card">
+        <p class="rank-file">e4 · e5</p>
+        <div class="crest">♚</div>
         <h1>Catur</h1>
         <p class="subtitle">Classic Chess</p>
+        <div class="divider"></div>
         <p class="desc">
-            Tantang diri Anda dalam permainan strategi abadi.<br />
+            Tantang diri Anda dalam permainan strategi abadi.
             Mainkan melawan teman di layar yang sama.
         </p>
         <div class="features">
@@ -184,7 +250,10 @@
             <span>Aturan Lengkap</span>
             <span>Anti-kesalahan</span>
         </div>
-        <a href="game.html" class="btn-start">Mulai Bermain</a>
+        <a href="game.html" class="btn-start">
+            Mulai Bermain
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
         <p class="footer">— 2026 —</p>
     </div>
 
