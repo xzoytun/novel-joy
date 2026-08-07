@@ -136,6 +136,9 @@
     border: 2px solid var(--wood);
     border-radius: 20px;
     padding: 10px;
+    /* extra top/bottom margin so the dice buttons that sit above/below
+       the board never overlap the players-strip or the legend */
+    margin: 46px 0 46px 0;
     box-shadow: 0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94,47,23,0.3);
   }
 
@@ -222,7 +225,7 @@
     padding: 4px 8px 4px 4px;
     box-shadow: 0 2px 0 #B8A892;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, background 0.15s ease;
     font-family: 'Fredoka', sans-serif;
     font-weight: 600;
     font-size: 10px;
@@ -272,19 +275,28 @@
   .dice-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
-    transform: none !important;
     box-shadow: 0 1px 0 #B8A892 !important;
   }
+  /* Only shrink the transform on disabled buttons; rolling animation
+     (which also uses transform) is applied separately below and must
+     win for the button that is actually rolling. */
+  .dice-btn:disabled:not(.rolling) { transform: none !important; }
   .dice-btn:disabled .dice-face { filter: grayscale(0.5); }
   .dice-btn:not(:disabled):active {
     transform: translateY(2px);
     box-shadow: 0 1px 0 #B8A892 !important;
   }
+
+  /* IMPORTANT FIX:
+     Previously `.rolling` was added to EVERY dice button whenever any
+     player rolled, so all four buttons shook at once. Now the shake
+     animation is scoped with :not() so it can only ever be applied to
+     the single button that actually has the .rolling class — and we
+     only ever add that class to the active player's button in JS. */
   .dice-btn.rolling {
     animation: shake 0.12s infinite;
   }
   .dice-btn.rolling .dice-label { opacity: 0.6; }
-  .dice-btn.rolling:disabled { animation: shake 0.12s infinite; opacity: 0.7; }
 
   @keyframes shake {
     0%   { transform: rotate(0deg); }
@@ -301,22 +313,24 @@
   }
   .pip.on { background: var(--paper); }
 
-  /* Posisi tombol di sekitar papan */
+  /* Posisi tombol di sekitar papan — digeser lebih jauh dari tepi
+     board dan diberi jarak yang konsisten supaya tidak nabrak
+     players-strip di atas atau legend di bawah. */
   .dice-btn.pos-bottom-left {
-    bottom: -38px;
-    left: 4px;
+    bottom: -46px;
+    left: 6px;
   }
   .dice-btn.pos-bottom-right {
-    bottom: -38px;
-    right: 4px;
+    bottom: -46px;
+    right: 6px;
   }
   .dice-btn.pos-top-left {
-    top: -38px;
-    left: 4px;
+    top: -46px;
+    left: 6px;
   }
   .dice-btn.pos-top-right {
-    top: -38px;
-    right: 4px;
+    top: -46px;
+    right: 6px;
   }
 
   /* Legend di bawah papan */
@@ -324,7 +338,7 @@
     display: flex;
     gap: 14px;
     justify-content: center;
-    margin-top: 14px;
+    margin-top: 8px;
     font-size: 11px;
     font-weight: 600;
     color: #8A7660;
@@ -447,10 +461,11 @@
     .dice-btn { padding: 3px 6px 3px 3px; font-size: 8px; }
     .dice-btn .dice-face { width: 18px; height: 18px; padding: 2px; gap: 1px; }
     .dice-btn .dice-label small { font-size: 6px; }
-    .dice-btn.pos-bottom-left { bottom: -34px; left: 2px; }
-    .dice-btn.pos-bottom-right { bottom: -34px; right: 2px; }
-    .dice-btn.pos-top-left { top: -34px; left: 2px; }
-    .dice-btn.pos-top-right { top: -34px; right: 2px; }
+    .board-wrapper { margin: 42px 0 42px 0; }
+    .dice-btn.pos-bottom-left { bottom: -42px; left: 3px; }
+    .dice-btn.pos-bottom-right { bottom: -42px; right: 3px; }
+    .dice-btn.pos-top-left { top: -42px; left: 3px; }
+    .dice-btn.pos-top-right { top: -42px; right: 3px; }
     .pawn-token { width: 7%; height: 7%; }
   }
 </style>
@@ -762,7 +777,7 @@
 
   // ---------- Buat tombol dadu di sekitar papan ----------
   const boardWrapper = document.querySelector('.board-wrapper');
-  const allPips = [];
+  const allPips = []; // allPips[buttonOrderIdx] -> pip elements for that button
   const diceBtns = [];
 
   const pipPatterns = {
@@ -782,10 +797,13 @@
     { idx: 3, posClass: 'pos-top-right' }      // Pemain 4 di atas kanan (dekat kotak 100)
   ];
 
-  for (let i = 0; i < 4; i++) {
-    const pIdx = positions[i].idx;
+  // Only create buttons for players that actually exist in this game
+  const activePositions = positions.filter(pos => pos.idx < players.length);
+
+  activePositions.forEach(posDef => {
+    const pIdx = posDef.idx;
     const btn = document.createElement('button');
-    btn.className = `dice-btn ${players[pIdx]?.color || 'p1'} ${positions[i].posClass}`;
+    btn.className = `dice-btn ${players[pIdx].color} ${posDef.posClass}`;
     btn.dataset.playerIdx = pIdx;
     btn.disabled = true;
 
@@ -802,30 +820,35 @@
 
     const label = document.createElement('span');
     label.className = 'dice-label';
-    const name = players[pIdx]?.name || `Pemain ${pIdx+1}`;
-    label.innerHTML = `${name}<small>Lempar</small>`;
+    const name = players[pIdx].name;
+    label.innerHTML = `${escapeHtml(name)}<small>Lempar</small>`;
 
     btn.appendChild(face);
     btn.appendChild(label);
     boardWrapper.appendChild(btn);
     diceBtns.push(btn);
+  });
+
+  // Fungsi untuk menampilkan dadu HANYA pada tombol milik pemain tertentu.
+  // (BUG FIX: sebelumnya fungsi ini menulis ke SEMUA tombol dadu sekaligus,
+  // jadi angka & animasi dadu pemain lain ikut berubah walau bukan gilirannya.)
+  function showDiceFace(btnIdx, n) {
+    const pips = allPips[btnIdx];
+    if (!pips) return;
+    pips.forEach(p => p.classList.remove('on'));
+    if (pipPatterns[n]) {
+      pipPatterns[n].forEach(idx => pips[idx].classList.add('on'));
+    }
   }
 
-  // Fungsi untuk menampilkan dadu di semua tombol
-  function showDiceFace(n) {
-    for (let i = 0; i < allPips.length; i++) {
-      const pips = allPips[i];
-      pips.forEach(p => p.classList.remove('on'));
-      if (pipPatterns[n]) {
-        pipPatterns[n].forEach(idx => pips[idx].classList.add('on'));
-      }
-    }
+  function showDiceFaceForPlayer(playerIdx, n) {
+    const btnIdx = diceBtns.findIndex(b => parseInt(b.dataset.playerIdx) === playerIdx);
+    if (btnIdx !== -1) showDiceFace(btnIdx, n);
   }
 
   // Update enable/disable tombol berdasarkan giliran
   function updateDiceButtons() {
-    diceBtns.forEach((btn, idx) => {
-      // idx di sini adalah urutan tombol (0-3), bukan indeks pemain
+    diceBtns.forEach((btn) => {
       const playerIdx = parseInt(btn.dataset.playerIdx);
       if (gameOver) {
         btn.disabled = true;
@@ -843,17 +866,17 @@
       if (!enabled) {
         btn.disabled = true;
         btn.classList.remove('active-turn');
-      } else {
-        updateDiceButtons();
       }
     });
+    if (enabled) updateDiceButtons();
   }
 
-  function setDiceButtonsRolling(rolling) {
-    diceBtns.forEach(btn => {
-      if (rolling) btn.classList.add('rolling');
-      else btn.classList.remove('rolling');
-    });
+  // BUG FIX: hanya menambahkan/menghapus class "rolling" pada SATU tombol
+  // milik pemain yang sedang melempar, bukan pada semua tombol dadu.
+  function setDiceButtonRolling(playerIdx, rolling) {
+    const btn = diceBtns.find(b => parseInt(b.dataset.playerIdx) === playerIdx);
+    if (!btn) return;
+    btn.classList.toggle('rolling', rolling);
   }
 
   // ---------- Toast ----------
@@ -884,17 +907,17 @@
 
     isAnimating = true;
     setDiceButtonsEnabled(false);
-    setDiceButtonsRolling(true);
+    setDiceButtonRolling(playerIdx, true);
 
     const shakeFrames = 10;
     for (let i = 0; i < shakeFrames; i++) {
-      showDiceFace(1 + Math.floor(Math.random() * 6));
+      showDiceFaceForPlayer(playerIdx, 1 + Math.floor(Math.random() * 6));
       await sleep(60);
     }
-    setDiceButtonsRolling(false);
+    setDiceButtonRolling(playerIdx, false);
 
     const roll = 1 + Math.floor(Math.random() * 6);
-    showDiceFace(roll);
+    showDiceFaceForPlayer(playerIdx, roll);
 
     await sleep(200);
     await movePlayer(playerIdx, roll);
@@ -984,14 +1007,20 @@
     gameOver = false;
     isAnimating = false;
     winOverlay.classList.remove('show');
-    showDiceFace(1);
+    diceBtns.forEach((btn, i) => {
+      const playerIdx = parseInt(btn.dataset.playerIdx);
+      showDiceFaceForPlayer(playerIdx, 1);
+    });
     updatePawnPositions();
     updateTurnUI();
     setDiceButtonsEnabled(true);
   }
 
   // ---------- Init ----------
-  showDiceFace(1);
+  diceBtns.forEach((btn) => {
+    const playerIdx = parseInt(btn.dataset.playerIdx);
+    showDiceFaceForPlayer(playerIdx, 1);
+  });
   updatePawnPositions();
   updateTurnUI();
   setDiceButtonsEnabled(true);
