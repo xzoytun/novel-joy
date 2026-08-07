@@ -36,7 +36,7 @@
       var(--cream);
     color: var(--ink);
     padding: 16px;
-    padding-bottom: 120px;
+    padding-bottom: 80px;
   }
 
   .wrap {
@@ -129,14 +129,14 @@
   .player-chip .name { font-size: 12px; font-weight: 700; white-space: nowrap; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
   .player-chip .pos { font-size: 10px; color: #9A8770; font-weight: 600; }
 
-  /* Board */
-  .board-frame {
+  /* Board wrapper with dice buttons around */
+  .board-wrapper {
+    position: relative;
     background: var(--paper);
     border: 2px solid var(--wood);
     border-radius: 20px;
     padding: 10px;
     box-shadow: 0 8px 0 var(--wood-dark), 0 20px 40px -12px rgba(94,47,23,0.3);
-    position: relative;
   }
 
   .board {
@@ -211,37 +211,8 @@
   .pawn-token.p3 { color: var(--gold); }
   .pawn-token.p4 { color: var(--blue); }
 
-  /* ===== EXTRA AREA di bawah papan (legend + dadu 3&4) ===== */
-  .board-extra {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-    padding: 0 4px;
-    gap: 8px;
-  }
-
-  .legend {
-    display: flex;
-    gap: 14px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #8A7660;
-    flex: 1 1 auto;
-  }
-  .legend span { display: flex; align-items: center; gap: 5px; }
-  .legend .sw { width: 14px; height: 3px; border-radius: 2px; }
-  .legend .sw.snake { background: var(--clay); }
-  .legend .sw.ladder { background: var(--moss); }
-
-  /* Tombol dadu atas (untuk pemain 3 & 4) */
-  .dice-top {
-    display: flex;
-    gap: 8px;
-    flex: 0 0 auto;
-  }
-  .dice-top .dice-btn {
+  /* ===== DICE BUTTONS around board ===== */
+  .dice-btn {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -256,9 +227,10 @@
     font-weight: 600;
     font-size: 10px;
     color: var(--wood-dark);
-    position: relative;
+    position: absolute;
+    z-index: 10;
   }
-  .dice-top .dice-btn .dice-face {
+  .dice-btn .dice-face {
     width: 22px;
     height: 22px;
     background: var(--clay);
@@ -271,12 +243,12 @@
     flex-shrink: 0;
     box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
   }
-  .dice-top .dice-btn .dice-label {
-    font-size: 10px;
+  .dice-btn .dice-label {
+    font-size: 9px;
     white-space: nowrap;
     line-height: 1.1;
   }
-  .dice-top .dice-btn .dice-label small {
+  .dice-btn .dice-label small {
     display: block;
     font-weight: 400;
     font-size: 7px;
@@ -284,31 +256,35 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
-  .dice-top .dice-btn.p3 { border-color: var(--gold); box-shadow: 0 2px 0 #C99A1E; }
-  .dice-top .dice-btn.p4 { border-color: var(--blue); box-shadow: 0 2px 0 #3E5F8C; }
+  /* Warna sesuai pemain */
+  .dice-btn.p1 { border-color: var(--clay); box-shadow: 0 2px 0 #B84A1C; }
+  .dice-btn.p2 { border-color: var(--moss); box-shadow: 0 2px 0 #345740; }
+  .dice-btn.p3 { border-color: var(--gold); box-shadow: 0 2px 0 #C99A1E; }
+  .dice-btn.p4 { border-color: var(--blue); box-shadow: 0 2px 0 #3E5F8C; }
 
-  .dice-top .dice-btn.active-turn {
+  .dice-btn.active-turn {
     background: #FFF7E0;
     border-width: 2.5px;
-    transform: scale(1.04);
+    transform: scale(1.08);
     box-shadow: 0 3px 0 var(--gold);
+    z-index: 11;
   }
-  .dice-top .dice-btn:disabled {
+  .dice-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
     transform: none !important;
     box-shadow: 0 1px 0 #B8A892 !important;
   }
-  .dice-top .dice-btn:disabled .dice-face { filter: grayscale(0.5); }
-  .dice-top .dice-btn:not(:disabled):active {
+  .dice-btn:disabled .dice-face { filter: grayscale(0.5); }
+  .dice-btn:not(:disabled):active {
     transform: translateY(2px);
     box-shadow: 0 1px 0 #B8A892 !important;
   }
-  .dice-top .dice-btn.rolling {
+  .dice-btn.rolling {
     animation: shake 0.12s infinite;
   }
-  .dice-top .dice-btn.rolling .dice-label { opacity: 0.6; }
-  .dice-top .dice-btn.rolling:disabled { animation: shake 0.12s infinite; opacity: 0.7; }
+  .dice-btn.rolling .dice-label { opacity: 0.6; }
+  .dice-btn.rolling:disabled { animation: shake 0.12s infinite; opacity: 0.7; }
 
   @keyframes shake {
     0%   { transform: rotate(0deg); }
@@ -325,7 +301,40 @@
   }
   .pip.on { background: var(--paper); }
 
-  /* ===== CONTROL BAR BAWAH (info giliran + dadu 1&2) ===== */
+  /* Posisi tombol di sekitar papan */
+  .dice-btn.pos-bottom-left {
+    bottom: -38px;
+    left: 4px;
+  }
+  .dice-btn.pos-bottom-right {
+    bottom: -38px;
+    right: 4px;
+  }
+  .dice-btn.pos-top-left {
+    top: -38px;
+    left: 4px;
+  }
+  .dice-btn.pos-top-right {
+    top: -38px;
+    right: 4px;
+  }
+
+  /* Legend di bawah papan */
+  .legend {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8A7660;
+  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .legend .sw { width: 14px; height: 3px; border-radius: 2px; }
+  .legend .sw.snake { background: var(--clay); }
+  .legend .sw.ladder { background: var(--moss); }
+
+  /* Control bar bawah (info giliran saja) */
   .control-bar {
     position: fixed;
     bottom: 0;
@@ -336,7 +345,7 @@
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 12px;
     z-index: 20;
     box-shadow: 0 -6px 20px rgba(94,47,23,0.15);
@@ -364,81 +373,6 @@
   .turn-info .turn-dot.p4 { background: var(--blue); }
   .turn-info .lbl { font-size: 8px; text-transform: uppercase; letter-spacing: 0.05em; color: #9A8770; font-weight: 600; line-height: 1; }
   .turn-info .val { font-family: 'Fredoka', sans-serif; font-size: 14px; font-weight: 600; color: var(--wood-dark); line-height: 1.3; }
-
-  /* Tombol dadu bawah (untuk pemain 1 & 2) */
-  .dice-bottom {
-    display: flex;
-    gap: 8px;
-    flex: 1 1 auto;
-    justify-content: flex-end;
-  }
-  .dice-bottom .dice-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #fff;
-    border: 2px solid #D0C4B0;
-    border-radius: 12px;
-    padding: 6px 10px 6px 6px;
-    box-shadow: 0 3px 0 #B8A892;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--wood-dark);
-  }
-  .dice-bottom .dice-btn .dice-face {
-    width: 28px;
-    height: 28px;
-    background: var(--clay);
-    border-radius: 6px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
-    padding: 4px;
-    gap: 2px;
-    flex-shrink: 0;
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
-  }
-  .dice-bottom .dice-btn .dice-label {
-    font-size: 12px;
-    white-space: nowrap;
-    line-height: 1.2;
-  }
-  .dice-bottom .dice-btn .dice-label small {
-    display: block;
-    font-weight: 400;
-    font-size: 8px;
-    color: #9A8770;
-    font-family: 'Space Grotesk', sans-serif;
-  }
-
-  .dice-bottom .dice-btn.p1 { border-color: var(--clay); box-shadow: 0 3px 0 #B84A1C; }
-  .dice-bottom .dice-btn.p2 { border-color: var(--moss); box-shadow: 0 3px 0 #345740; }
-
-  .dice-bottom .dice-btn.active-turn {
-    background: #FFF7E0;
-    border-width: 3px;
-    transform: scale(1.04);
-    box-shadow: 0 4px 0 var(--gold);
-  }
-  .dice-bottom .dice-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: 0 2px 0 #B8A892 !important;
-  }
-  .dice-bottom .dice-btn:disabled .dice-face { filter: grayscale(0.5); }
-  .dice-bottom .dice-btn:not(:disabled):active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 #B8A892 !important;
-  }
-  .dice-bottom .dice-btn.rolling {
-    animation: shake 0.12s infinite;
-  }
-  .dice-bottom .dice-btn.rolling .dice-label { opacity: 0.6; }
-  .dice-bottom .dice-btn.rolling:disabled { animation: shake 0.12s infinite; opacity: 0.7; }
 
   /* Toast */
   .toast {
@@ -510,12 +444,13 @@
   .win-home { background: var(--cream); border: 2px solid var(--wood); color: var(--wood-dark); }
 
   @media (max-width: 400px) {
-    .dice-top .dice-btn { padding: 3px 6px 3px 3px; font-size: 8px; }
-    .dice-top .dice-btn .dice-face { width: 18px; height: 18px; padding: 2px; gap: 1px; }
-    .dice-top .dice-btn .dice-label small { font-size: 6px; }
-    .dice-bottom .dice-btn { padding: 4px 8px 4px 4px; font-size: 10px; }
-    .dice-bottom .dice-btn .dice-face { width: 24px; height: 24px; padding: 3px; gap: 1.5px; }
-    .dice-bottom .dice-btn .dice-label small { font-size: 7px; }
+    .dice-btn { padding: 3px 6px 3px 3px; font-size: 8px; }
+    .dice-btn .dice-face { width: 18px; height: 18px; padding: 2px; gap: 1px; }
+    .dice-btn .dice-label small { font-size: 6px; }
+    .dice-btn.pos-bottom-left { bottom: -34px; left: 2px; }
+    .dice-btn.pos-bottom-right { bottom: -34px; right: 2px; }
+    .dice-btn.pos-top-left { top: -34px; left: 2px; }
+    .dice-btn.pos-top-right { top: -34px; right: 2px; }
     .pawn-token { width: 7%; height: 7%; }
   }
 </style>
@@ -536,23 +471,19 @@
 
   <div class="players-strip" id="playersStrip"></div>
 
-  <div class="board-frame">
+  <div class="board-wrapper">
     <div class="board" id="board"></div>
+    <!-- Tombol dadu akan ditempatkan oleh JS dengan posisi absolute -->
+  </div>
 
-    <!-- Extra area: legend + tombol dadu 3 & 4 -->
-    <div class="board-extra">
-      <div class="legend">
-        <span><span class="sw ladder"></span> Tangga naik</span>
-        <span><span class="sw snake"></span> Ular turun</span>
-      </div>
-      <div class="dice-top" id="diceTop"></div>
-    </div>
+  <div class="legend">
+    <span><span class="sw ladder"></span> Tangga naik</span>
+    <span><span class="sw snake"></span> Ular turun</span>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- Control bar bawah: info giliran + tombol dadu 1 & 2 -->
 <div class="control-bar">
   <div class="turn-info">
     <div class="turn-dot" id="turnDot"></div>
@@ -561,7 +492,6 @@
       <div class="val" id="turnName">—</div>
     </div>
   </div>
-  <div class="dice-bottom" id="diceBottom"></div>
 </div>
 
 <div class="win-overlay" id="winOverlay">
@@ -830,10 +760,8 @@
   const winOverlay = document.getElementById('winOverlay');
   const winName = document.getElementById('winName');
 
-  // ---------- Buat tombol dadu di dua wadah ----------
-  const diceTop = document.getElementById('diceTop');   // untuk pemain 3 & 4
-  const diceBottom = document.getElementById('diceBottom'); // untuk pemain 1 & 2
-
+  // ---------- Buat tombol dadu di sekitar papan ----------
+  const boardWrapper = document.querySelector('.board-wrapper');
   const allPips = [];
   const diceBtns = [];
 
@@ -846,11 +774,19 @@
     6: [0,2,3,5,6,8]
   };
 
-  // Buat 4 tombol
+  // Posisi tombol: [indeks pemain, class posisi]
+  const positions = [
+    { idx: 0, posClass: 'pos-bottom-left' },   // Pemain 1 di bawah kiri (dekat kotak 1)
+    { idx: 1, posClass: 'pos-bottom-right' },  // Pemain 2 di bawah kanan (dekat kotak 10)
+    { idx: 2, posClass: 'pos-top-left' },      // Pemain 3 di atas kiri (dekat kotak 91)
+    { idx: 3, posClass: 'pos-top-right' }      // Pemain 4 di atas kanan (dekat kotak 100)
+  ];
+
   for (let i = 0; i < 4; i++) {
+    const pIdx = positions[i].idx;
     const btn = document.createElement('button');
-    btn.className = `dice-btn ${players[i]?.color || 'p1'}`;
-    btn.dataset.playerIdx = i;
+    btn.className = `dice-btn ${players[pIdx]?.color || 'p1'} ${positions[i].posClass}`;
+    btn.dataset.playerIdx = pIdx;
     btn.disabled = true;
 
     const face = document.createElement('div');
@@ -866,18 +802,13 @@
 
     const label = document.createElement('span');
     label.className = 'dice-label';
-    label.innerHTML = `${players[i]?.name || 'Pemain'}<small>Lempar</small>`;
+    const name = players[pIdx]?.name || `Pemain ${pIdx+1}`;
+    label.innerHTML = `${name}<small>Lempar</small>`;
 
     btn.appendChild(face);
     btn.appendChild(label);
+    boardWrapper.appendChild(btn);
     diceBtns.push(btn);
-
-    // Masukkan ke wadah yang sesuai: indeks 0,1 di bawah; 2,3 di atas
-    if (i < 2) {
-      diceBottom.appendChild(btn);
-    } else {
-      diceTop.appendChild(btn);
-    }
   }
 
   // Fungsi untuk menampilkan dadu di semua tombol
@@ -894,12 +825,14 @@
   // Update enable/disable tombol berdasarkan giliran
   function updateDiceButtons() {
     diceBtns.forEach((btn, idx) => {
+      // idx di sini adalah urutan tombol (0-3), bukan indeks pemain
+      const playerIdx = parseInt(btn.dataset.playerIdx);
       if (gameOver) {
         btn.disabled = true;
         btn.classList.remove('active-turn');
         return;
       }
-      const isActive = (idx === currentIdx);
+      const isActive = (playerIdx === currentIdx);
       btn.disabled = !isActive;
       btn.classList.toggle('active-turn', isActive);
     });
@@ -1032,9 +965,10 @@
   }
 
   // Event listener untuk setiap tombol
-  diceBtns.forEach((btn, idx) => {
+  diceBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      rollDice(idx);
+      const playerIdx = parseInt(btn.dataset.playerIdx);
+      rollDice(playerIdx);
     });
   });
 
