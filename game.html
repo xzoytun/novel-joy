@@ -549,7 +549,7 @@
         }
 
         // Generic tone: oscillator + envelope
-        function playTone({ freq, duration = 0.12, type = 'sine', gain = 0.18, delay = 0, freqEnd = null, attack = 0.005 }) {
+        function playTone({ freq, duration = 0.12, type = 'sine', gain = 0.4, delay = 0, freqEnd = null, attack = 0.005 }) {
             if (!soundEnabled) return;
             try {
                 const ctx = getAudioCtx();
@@ -576,7 +576,7 @@
         }
 
         // Soft filtered "click/knock" noise burst — used for move/capture feel
-        function playKnock({ delay = 0, duration = 0.09, gain = 0.35, freq = 220 }) {
+        function playKnock({ delay = 0, duration = 0.09, gain = 0.75, freq = 220 }) {
             if (!soundEnabled) return;
             try {
                 const ctx = getAudioCtx();
@@ -608,47 +608,47 @@
         }
 
         function sfxMove() {
-            playKnock({ freq: 700, duration: 0.07, gain: 0.28 });
+            playKnock({ freq: 700, duration: 0.08, gain: 0.65 });
         }
 
         function sfxCapture() {
-            playKnock({ freq: 320, duration: 0.1, gain: 0.4 });
-            playTone({ freq: 180, freqEnd: 90, duration: 0.14, type: 'triangle', gain: 0.14, delay: 0.01 });
+            playKnock({ freq: 320, duration: 0.12, gain: 0.85 });
+            playTone({ freq: 180, freqEnd: 90, duration: 0.16, type: 'triangle', gain: 0.35, delay: 0.01 });
         }
 
         function sfxCastle() {
-            playKnock({ freq: 650, duration: 0.06, gain: 0.25 });
-            playKnock({ freq: 650, duration: 0.06, gain: 0.25, delay: 0.09 });
+            playKnock({ freq: 650, duration: 0.07, gain: 0.6 });
+            playKnock({ freq: 650, duration: 0.07, gain: 0.6, delay: 0.09 });
         }
 
         function sfxPromote() {
-            playTone({ freq: 523.25, duration: 0.11, type: 'triangle', gain: 0.16 });
-            playTone({ freq: 659.25, duration: 0.11, type: 'triangle', gain: 0.16, delay: 0.09 });
-            playTone({ freq: 783.99, duration: 0.16, type: 'triangle', gain: 0.16, delay: 0.18 });
+            playTone({ freq: 523.25, duration: 0.12, type: 'triangle', gain: 0.4 });
+            playTone({ freq: 659.25, duration: 0.12, type: 'triangle', gain: 0.4, delay: 0.09 });
+            playTone({ freq: 783.99, duration: 0.18, type: 'triangle', gain: 0.42 });
         }
 
         function sfxCheck() {
-            playTone({ freq: 880, duration: 0.09, type: 'square', gain: 0.12 });
-            playTone({ freq: 880, duration: 0.14, type: 'square', gain: 0.12, delay: 0.12 });
+            playTone({ freq: 880, duration: 0.1, type: 'square', gain: 0.3 });
+            playTone({ freq: 880, duration: 0.16, type: 'square', gain: 0.3, delay: 0.12 });
         }
 
         function sfxCheckmate() {
-            playTone({ freq: 392, duration: 0.18, type: 'sawtooth', gain: 0.14 });
-            playTone({ freq: 329.63, duration: 0.18, type: 'sawtooth', gain: 0.14, delay: 0.16 });
-            playTone({ freq: 261.63, duration: 0.4, type: 'sawtooth', gain: 0.16, delay: 0.32 });
+            playTone({ freq: 392, duration: 0.2, type: 'sawtooth', gain: 0.35 });
+            playTone({ freq: 329.63, duration: 0.2, type: 'sawtooth', gain: 0.35, delay: 0.16 });
+            playTone({ freq: 261.63, duration: 0.45, type: 'sawtooth', gain: 0.4, delay: 0.32 });
         }
 
         function sfxStalemate() {
-            playTone({ freq: 440, duration: 0.2, type: 'sine', gain: 0.12 });
-            playTone({ freq: 415.3, duration: 0.35, type: 'sine', gain: 0.12, delay: 0.18 });
+            playTone({ freq: 440, duration: 0.22, type: 'sine', gain: 0.3 });
+            playTone({ freq: 415.3, duration: 0.38, type: 'sine', gain: 0.3, delay: 0.18 });
         }
 
         function sfxSelect() {
-            playTone({ freq: 950, duration: 0.045, type: 'sine', gain: 0.08 });
+            playTone({ freq: 950, duration: 0.05, type: 'sine', gain: 0.2 });
         }
 
         function sfxIllegal() {
-            playTone({ freq: 160, duration: 0.09, type: 'square', gain: 0.08 });
+            playTone({ freq: 160, duration: 0.1, type: 'square', gain: 0.2 });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
