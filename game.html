@@ -199,12 +199,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6.2cqw;
             cursor: pointer;
             user-select: none;
             transition: background 0.12s, transform 0.08s;
             position: relative;
             aspect-ratio: 1/1;
+            overflow: hidden;
         }
 
         .cell.light {
@@ -223,12 +223,13 @@
         .cell.valid-move::after {
             content: '';
             position: absolute;
-            width: 28%;
-            height: 28%;
+            width: 26%;
+            height: 26%;
             background: rgba(0, 0, 0, 0.18);
             border-radius: 50%;
             pointer-events: none;
             animation: pulse-dot 1.2s ease-in-out infinite;
+            z-index: 0;
         }
 
         .cell.valid-capture {
@@ -243,30 +244,36 @@
             border-radius: 50%;
             border: 4px solid rgba(0, 0, 0, 0.18);
             pointer-events: none;
+            z-index: 0;
         }
 
+        /* ── Piece icons: rapikan ukuran, ketebalan outline, dan hilangkan glow berlebih ── */
         .cell .piece {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 82%;
+            height: 82%;
             line-height: 1;
-            font-size: 6.2cqw;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            font-size: 7.4cqw;
             pointer-events: none;
             transition: transform 0.1s;
             z-index: 1;
         }
 
         .cell .piece.white-piece {
-            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
             color: #fdfaf3;
-            -webkit-text-stroke: 1.5px #fdfaf3;
-            text-stroke: 1.5px #fdfaf3;
+            -webkit-text-stroke: 0.5px #8a6a3d;
+            text-stroke: 0.5px #8a6a3d;
             paint-order: stroke fill;
+            filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.4));
         }
         .cell .piece.black-piece {
-            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
-            color: #171310;
-            -webkit-text-stroke: 0.6px #171310;
-            text-stroke: 0.6px #171310;
+            color: #17130f;
+            -webkit-text-stroke: 0.5px #000000;
+            text-stroke: 0.5px #000000;
             paint-order: stroke fill;
+            filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.35));
         }
 
         .cell:active .piece {
@@ -400,11 +407,11 @@
                 padding: 4px;
             }
             .cell .piece {
-                font-size: 7cqw;
+                font-size: 8.2cqw;
             }
             .cell .piece.white-piece {
-                -webkit-text-stroke: 2px #fdfaf3;
-                text-stroke: 2px #fdfaf3;
+                -webkit-text-stroke: 0.6px #8a6a3d;
+                text-stroke: 0.6px #8a6a3d;
             }
             .status-msg {
                 font-size: 15px;
@@ -416,8 +423,8 @@
                 padding: 11px 22px;
             }
             .cell.valid-move::after {
-                width: 26%;
-                height: 26%;
+                width: 24%;
+                height: 24%;
             }
             .cell.valid-capture::after {
                 inset: 3px;
@@ -427,7 +434,7 @@
 
         @media (max-width: 420px) {
             .cell .piece {
-                font-size: 7.3cqw;
+                font-size: 8.6cqw;
             }
             .game-title {
                 font-size: 21px;
