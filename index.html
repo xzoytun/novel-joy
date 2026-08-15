@@ -3,100 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mekar Untukmu 🌸</title>
+    <title>Animasi Bunga Mekar Bercahaya</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
+            margin: 0;
             height: 100vh;
+            background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .flower-container {
+            position: relative;
+            width: 300px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* Batang Bunga */
+        .stem {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            height: 0px;
+            background: linear-gradient(to top, #2e7d32, #4caf50);
+            border-radius: 4px;
+            animation: growStem 2.5s ease-out forwards;
+        }
+
+        @keyframes growStem {
+            to { height: 280px; }
+        }
+
+        /* Daun */
+        .leaf {
+            position: absolute;
+            background: #4caf50;
+            border-radius: 0 50% 50% 50%;
+            transform: scale(0);
+            opacity: 0;
+            animation: growLeaf 1s ease-out forwards;
+        }
+
+        .leaf.left {
+            bottom: 80px;
+            left: -35px;
+            width: 40px;
+            height: 20px;
+            transform: rotate(-30deg) scale(0);
+            animation-delay: 2s;
+            animation-name: growLeafLeft;
+        }
+
+        .leaf.right {
+            bottom: 140px;
+            right: -35px;
+            width: 40px;
+            height: 20px;
+            transform: rotate(30deg) scale(0);
+            animation-delay: 2.2s;
+            animation-name: growLeafRight;
+        }
+
+        @keyframes growLeafLeft {
+            to { transform: rotate(-30deg) scale(1); opacity: 1; }
+        }
+
+        @keyframes growLeafRight {
+            to { transform: rotate(30deg) scale(1); opacity: 1; }
+        }
+
+        /* Kepala Bunga */
+        .bloom-box {
+            position: absolute;
+            bottom: 270px;
+            width: 0;
+            height: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle, #2d1b36, #0f0a12);
-            overflow: hidden;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* Container Bunga */
-        .flower-container {
-            position: relative;
-            z-index: 2;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        /* Bentuk Bunga (Mekar) */
-        .flower {
-            width: 100px;
-            height: 100px;
-            background: #ff758c;
-            border-radius: 50%;
-            position: relative;
-            animation: bloom 3s infinite alternate ease-in-out, glow 2s infinite alternate;
-        }
-
-        .flower::before, .flower::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: #ff758c;
-            border-radius: 50%;
-            top: 0; left: 0;
-        }
-
-        .flower::before { transform: rotate(60deg); }
-        .flower::after { transform: rotate(120deg); }
-
-        /* Pusat Bunga */
-        .core {
-            position: absolute;
-            top: 25px; left: 25px;
-            width: 50px; height: 50px;
-            background: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #ffeb3b;
-        }
-
-        /* Teks */
-        .text-container {
-            margin-top: 50px;
-            text-align: center;
-            color: #fff;
             opacity: 0;
-            transition: opacity 1s;
+            animation: showBloomBox 0.5s ease-out 2.5s forwards;
         }
 
-        .show { opacity: 1; }
+        @keyframes showBloomBox {
+            to { opacity: 1; }
+        }
 
-        /* Animasi */
+        /* Kelopak Bunga */
+        .petal {
+            position: absolute;
+            width: 40px;
+            height: 90px;
+            background: linear-gradient(to top, #ff4081, #ff80ab);
+            border-radius: 50% 50% 20% 20%;
+            transform-origin: bottom center;
+            transform: scale(0) rotate(0deg);
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.6);
+            animation: bloom 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.8s forwards;
+        }
+
+        /* Mengatur Posisi Melingkar Kelopak */
+        .petal:nth-child(1)  { transform: rotate(0deg); }
+        .petal:nth-child(2)  { transform: rotate(45deg); }
+        .petal:nth-child(3)  { transform: rotate(90deg); }
+        .petal:nth-child(4)  { transform: rotate(135deg); }
+        .petal:nth-child(5)  { transform: rotate(180deg); }
+        .petal:nth-child(6)  { transform: rotate(225deg); }
+        .petal:nth-child(7)  { transform: rotate(270deg); }
+        .petal:nth-child(8)  { transform: rotate(315deg); }
+
         @keyframes bloom {
-            0% { transform: scale(0.6) rotate(0deg); opacity: 0.5; }
-            100% { transform: scale(1) rotate(45deg); opacity: 1; }
+            0% {
+                transform: scale(0) rotate(var(--rot));
+            }
+            100% {
+                transform: scale(1) rotate(var(--rot));
+            }
         }
 
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px #ff758c, 0 0 20px #ff758c; }
-            100% { box-shadow: 0 0 30px #ff758c, 0 0 50px #ff758c; }
+        /* Bagian Tengah Bunga (Pusat) */
+        .center {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #ffeb3b, #f57f17);
+            border-radius: 50%;
+            z-index: 10;
+            transform: scale(0);
+            box-shadow: 0 0 25px #ffeb3b, 0 0 40px #ff9800;
+            animation: growCenter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.5s forwards;
+        }
+
+        @keyframes growCenter {
+            to { transform: scale(1); }
+        }
+
+        /* Efek Cahaya / Glow Tambahan */
+        .glow-effect {
+            position: absolute;
+            bottom: 270px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,105,180,0.3) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: 5;
+            opacity: 0;
+            animation: glowPulse 3s ease-in-out 3.5s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 0.9; transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
 
-    <div class="flower-container" onclick="mekar()">
-        <div class="flower">
-            <div class="core"></div>
-        </div>
-        <div id="text" class="text-container">
-            <h1 id="title">Sentuh Bunganya ✨</h1>
-            <p id="msg">Seperti bunga ini, cintaku mekar untukmu setiap hari.</p>
+    <div class="flower-container">
+        <!-- Batang -->
+        <div class="stem"></div>
+        
+        <!-- Daun -->
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+
+        <!-- Efek Cahaya -->
+        <div class="glow-effect"></div>
+
+        <!-- Kelopak & Pusat Bunga -->
+        <div class="bloom-box">
+            <!-- 8 Kelopak Bunga dengan Variabel Rotasi CSS -->
+            <div class="petal" style="--rot: 0deg;"></div>
+            <div class="petal" style="--rot: 45deg;"></div>
+            <div class="petal" style="--rot: 90deg;"></div>
+            <div class="petal" style="--rot: 135deg;"></div>
+            <div class="petal" style="--rot: 180deg;"></div>
+            <div class="petal" style="--rot: 225deg;"></div>
+            <div class="petal" style="--rot: 270deg;"></div>
+            <div class="petal" style="--rot: 315deg;"></div>
+            
+            <!-- Pusat Bunga -->
+            <div class="center"></div>
         </div>
     </div>
 
     <script>
-        function mekar() {
-            document.getElementById('text').classList.add('show');
-            document.getElementById('title').innerText = "Kamu Berharga 🌸";
-        }
+        // Opsional: Restart animasi otomatis setiap beberapa detik jika diinginkan
+        setTimeout(() => {
+            // Bisa ditambahkan logika interaktif jika diperlukan
+        }, 6000);
     </script>
 </body>
 </html>
