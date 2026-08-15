@@ -3,50 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zoy Digital — Studio Digital untuk Bisnis Naik Kelas</title>
+<title>Zoy Digital — Mulai Cuan Pertamamu dari HP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #F3F9FF;
+    --bg: #EAF4FF;
     --white: #FFFFFF;
-    --sky: #7DD3FC;
-    --primary: #2F80ED;
-    --deep: #123C7A;
-    --ink: #0B2545;
-    --muted: #5B7699;
-    --line: #D7EAFB;
+    --blue: #3B82F6;
+    --blue-dark: #1D4ED8;
+    --blue-light: #93C5FD;
+    --ink: #0F2A47;
+    --muted: #56708F;
+    --pink: #FF5DA2;
+    --yellow: #FFC93C;
+    --green: #22C55E;
+    --line: #D6E9FF;
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
-
   html{scroll-behavior:smooth;}
 
   body{
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
   }
 
-  h1,h2,h3, .logo{
-    font-family: 'Space Grotesk', sans-serif;
+  h1,h2,h3,.logo,.big-num{
+    font-family: 'Baloo 2', sans-serif;
   }
 
   a{ text-decoration:none; color:inherit; }
+  img{ max-width:100%; display:block; }
 
   @media (prefers-reduced-motion: reduce){
-    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   }
 
-  /* ===== Ambient background wave signal ===== */
-  .signal-line{
+  /* ===== floating blobs & emoji ===== */
+  .bg-blob{
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    border-radius: 50%;
+    filter: blur(60px);
     z-index: 0;
+    opacity: 0.5;
     pointer-events: none;
-    opacity: 0.55;
+  }
+  .blob1{ width: 420px; height:420px; background: var(--blue-light); top: -120px; left: -100px; animation: drift 14s ease-in-out infinite; }
+  .blob2{ width: 360px; height:360px; background: #FFD9EC; bottom: -100px; right: -80px; animation: drift 16s ease-in-out infinite reverse; }
+  .blob3{ width: 260px; height:260px; background: #FFF3C4; top: 40%; right: 10%; animation: drift 12s ease-in-out infinite; }
+
+  @keyframes drift{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(30px,-40px) scale(1.08); }
+  }
+
+  .floaty{
+    position: absolute;
+    font-size: 1.8rem;
+    animation: floaty 5s ease-in-out infinite;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0) rotate(-4deg); }
+    50%{ transform: translateY(-22px) rotate(4deg); }
   }
 
   /* ===== Nav ===== */
@@ -57,727 +79,699 @@
     display:flex;
     align-items:center;
     justify-content: space-between;
-    padding: 22px 6vw;
-    background: rgba(243, 249, 255, 0.75);
+    padding: 16px 6vw;
+    background: rgba(234, 244, 255, 0.8);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    border-bottom: 2px solid var(--line);
   }
 
   .logo{
-    font-weight: 700;
-    font-size: 1.35rem;
+    font-weight: 800;
+    font-size: 1.5rem;
     display:flex;
     align-items:center;
-    gap:10px;
-    letter-spacing: -0.02em;
-    color: var(--deep);
+    gap:8px;
+    color: var(--blue-dark);
   }
+  .logo .emoji{ font-size: 1.4rem; }
 
-  .logo-dot{
-    width: 12px; height:12px;
-    border-radius: 50%;
-    background: var(--primary);
-    box-shadow: 0 0 0 0 rgba(47,128,237,0.5);
-    animation: pulse 2.4s infinite;
-  }
-
-  @keyframes pulse{
-    0%{ box-shadow: 0 0 0 0 rgba(47,128,237,0.45); }
-    70%{ box-shadow: 0 0 0 10px rgba(47,128,237,0); }
-    100%{ box-shadow: 0 0 0 0 rgba(47,128,237,0); }
-  }
-
-  nav ul{
-    list-style:none;
-    display:flex;
-    gap: 36px;
-  }
-
-  nav a{
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--deep);
-    position: relative;
-    padding-bottom: 4px;
-  }
-
-  nav a::after{
-    content:'';
-    position:absolute;
-    left:0; bottom:0;
-    width:0%; height:2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-  }
-
-  nav a:hover::after{ width:100%; }
+  nav ul{ list-style:none; display:flex; gap: 30px; }
+  nav a{ font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+  nav a:hover{ color: var(--blue-dark); }
 
   .nav-cta{
-    padding: 10px 22px;
-    background: var(--primary);
+    padding: 11px 24px;
+    background: var(--blue);
     color: white;
     border-radius: 999px;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 0.9rem;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 8px 20px rgba(47,128,237,0.25);
+    box-shadow: 0 6px 0 var(--blue-dark);
+    transition: transform 0.15s ease;
   }
-  .nav-cta:hover{ transform: translateY(-2px); box-shadow: 0 12px 26px rgba(47,128,237,0.35); }
-
-  .menu-toggle{ display:none; }
+  .nav-cta:active{ transform: translateY(4px); box-shadow: 0 2px 0 var(--blue-dark); }
 
   /* ===== Hero ===== */
   .hero{
     position: relative;
     min-height: 100vh;
     display:flex;
-    flex-direction: column;
     align-items:center;
     justify-content:center;
-    text-align:center;
-    padding: 140px 6vw 80px;
+    padding: 120px 6vw 60px;
     z-index: 1;
   }
 
-  .eyebrow{
+  .hero-inner{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items:center;
+    max-width: 1180px;
+    width:100%;
+  }
+
+  .badge-hot{
     display:inline-flex;
     align-items:center;
-    gap:8px;
+    gap: 8px;
+    background: white;
+    border: 2px solid var(--pink);
+    color: var(--pink);
+    font-weight: 800;
+    font-size: 0.85rem;
     padding: 8px 16px;
-    border: 1px solid var(--line);
-    background: var(--white);
     border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: 28px;
-    opacity:0;
-    animation: fadeUp 0.8s ease forwards 0.1s;
+    margin-bottom: 22px;
+    animation: shake 3s ease-in-out infinite;
+  }
+  @keyframes shake{
+    0%,90%,100%{ transform: rotate(0); }
+    92%{ transform: rotate(-3deg); }
+    94%{ transform: rotate(3deg); }
+    96%{ transform: rotate(-2deg); }
+    98%{ transform: rotate(2deg); }
   }
 
   .hero h1{
-    font-size: clamp(2.4rem, 6vw, 4.6rem);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    color: var(--deep);
-    max-width: 920px;
-    opacity:0;
-    animation: fadeUp 0.9s ease forwards 0.25s;
+    font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.12;
+    color: var(--ink);
   }
 
-  .hero h1 span{
-    background: linear-gradient(90deg, var(--primary), #56CCF2);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .hero h1 .hl{
+    color: var(--blue-dark);
+    position: relative;
+    display:inline-block;
+  }
+  .hero h1 .hl::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:2px;
+    width:100%; height:12px;
+    background: var(--yellow);
+    z-index:-1;
+    border-radius: 6px;
+    opacity:0.7;
   }
 
   .hero p{
-    margin-top: 22px;
-    font-size: 1.1rem;
+    margin-top: 20px;
+    font-size: 1.08rem;
     color: var(--muted);
-    max-width: 560px;
+    max-width: 480px;
     line-height: 1.6;
-    opacity:0;
-    animation: fadeUp 0.9s ease forwards 0.4s;
-  }
-
-  .hero-actions{
-    margin-top: 38px;
-    display:flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content:center;
-    opacity:0;
-    animation: fadeUp 0.9s ease forwards 0.55s;
-  }
-
-  .btn-primary{
-    padding: 15px 32px;
-    background: var(--primary);
-    color: white;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: 0 12px 28px rgba(47,128,237,0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 16px 34px rgba(47,128,237,0.4); }
-
-  .btn-ghost{
-    padding: 15px 32px;
-    border: 1.5px solid var(--primary);
-    color: var(--primary);
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    background: var(--white);
-    transition: background 0.25s ease, transform 0.25s ease;
-  }
-  .btn-ghost:hover{ background: #EAF4FF; transform: translateY(-3px); }
-
-  @keyframes fadeUp{
-    from{ opacity:0; transform: translateY(24px); }
-    to{ opacity:1; transform: translateY(0); }
-  }
-
-  .hero-stats{
-    margin-top: 72px;
-    display:flex;
-    gap: 60px;
-    flex-wrap: wrap;
-    justify-content:center;
-    opacity:0;
-    animation: fadeUp 0.9s ease forwards 0.7s;
-  }
-
-  .stat b{
-    display:block;
-    font-family:'Space Grotesk', sans-serif;
-    font-size: 2rem;
-    color: var(--deep);
-  }
-  .stat span{
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  /* ===== Sections shared ===== */
-  section{
-    position: relative;
-    z-index: 1;
-    padding: 110px 6vw;
-  }
-
-  .section-head{
-    max-width: 620px;
-    margin: 0 auto 60px;
-    text-align:center;
-  }
-
-  .section-tag{
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin-bottom: 14px;
-    display:block;
-  }
-
-  .section-head h2{
-    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-    color: var(--deep);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-
-  .section-head p{
-    margin-top: 16px;
-    color: var(--muted);
-    font-size: 1.02rem;
-    line-height: 1.6;
-  }
-
-  .reveal{
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.in{
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ===== Services ===== */
-  .services{
-    background: var(--white);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .service-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .service-card{
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 34px 28px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  .service-card:hover{
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(47,128,237,0.14);
-    border-color: var(--sky);
-  }
-
-  .service-icon{
-    width: 50px; height:50px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--primary), #56CCF2);
-    display:flex; align-items:center; justify-content:center;
-    margin-bottom: 22px;
-    color: white;
-  }
-
-  .service-card h3{
-    font-size: 1.15rem;
-    color: var(--deep);
-    margin-bottom: 10px;
-  }
-
-  .service-card p{
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ===== Process ===== */
-  .process-track{
-    max-width: 1000px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .process-track::before{
-    content:'';
-    position:absolute;
-    top: 26px; left: 0; right:0;
-    height: 2px;
-    background: repeating-linear-gradient(90deg, var(--sky) 0 8px, transparent 8px 16px);
-  }
-
-  .process-steps{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    position: relative;
-  }
-
-  .step-num{
-    width: 52px; height:52px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    display:flex; align-items:center; justify-content:center;
-    font-weight: 700;
-    font-family:'Space Grotesk', sans-serif;
-    margin-bottom: 20px;
-    position: relative;
-    z-index:2;
-  }
-
-  .step h3{
-    font-size: 1.02rem;
-    color: var(--deep);
-    margin-bottom: 8px;
-  }
-  .step p{
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.55;
-  }
-
-  /* ===== Work / Portfolio ===== */
-  .work-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .work-card{
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    aspect-ratio: 4/5;
-    background: linear-gradient(155deg, var(--deep), var(--primary));
-    display:flex;
-    align-items:flex-end;
-    padding: 26px;
-    isolation: isolate;
-  }
-
-  .work-card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 55%),
-      radial-gradient(circle at 80% 80%, rgba(125,211,252,0.35), transparent 50%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-
-  .work-card:hover::before{ transform: scale(1.15) rotate(6deg); }
-
-  .work-tag{
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.75);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
-  }
-
-  .work-card h3{
-    color: white;
-    font-size: 1.2rem;
-  }
-
-  /* ===== Testimonial ===== */
-  .testimonial-wrap{
-    max-width: 780px;
-    margin: 0 auto;
-    text-align:center;
-  }
-
-  .testimonial-wrap blockquote{
-    font-family:'Space Grotesk', sans-serif;
-    font-size: clamp(1.3rem, 3vw, 1.8rem);
-    color: var(--deep);
-    line-height: 1.45;
     font-weight: 500;
   }
 
-  .testimonial-wrap cite{
-    display:block;
-    margin-top: 26px;
-    font-style: normal;
-    color: var(--muted);
-    font-size: 0.92rem;
+  .hero-actions{
+    margin-top: 30px;
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
-  /* ===== CTA band ===== */
-  .cta-band{
-    background: linear-gradient(120deg, var(--deep), var(--primary) 60%, #56CCF2);
+  .btn-primary{
+    padding: 16px 30px;
+    background: var(--blue);
+    color: white;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 6px 0 var(--blue-dark);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); }
+  .btn-primary:active{ transform: translateY(4px); box-shadow: 0 2px 0 var(--blue-dark); }
+
+  .btn-ghost{
+    padding: 16px 28px;
+    border: 2.5px solid var(--blue);
+    color: var(--blue-dark);
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 1rem;
+    background: white;
+  }
+  .btn-ghost:hover{ background: #EAF4FF; }
+
+  .social-proof{
+    margin-top: 34px;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+  .avatars{ display:flex; }
+  .avatars span{
+    width: 34px; height:34px;
+    border-radius: 50%;
+    border: 2.5px solid white;
+    margin-left: -10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 0.9rem;
+    font-weight:700;
+    color:white;
+  }
+  .avatars span:nth-child(1){ background: var(--pink); margin-left:0; }
+  .avatars span:nth-child(2){ background: var(--yellow); color: var(--ink); }
+  .avatars span:nth-child(3){ background: var(--green); }
+  .avatars span:nth-child(4){ background: var(--blue); }
+
+  .social-proof p{
+    margin:0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .social-proof p span{ color: var(--blue-dark); }
+
+  /* ===== Phone mockup ===== */
+  .phone-wrap{
+    position: relative;
+    display:flex;
+    justify-content:center;
+  }
+
+  .phone{
+    width: 260px;
+    background: var(--ink);
+    border-radius: 38px;
+    padding: 14px;
+    box-shadow: 0 30px 60px rgba(15,42,71,0.25);
+    animation: floaty2 5s ease-in-out infinite;
+  }
+  @keyframes floaty2{
+    0%,100%{ transform: translateY(0) rotate(-2deg); }
+    50%{ transform: translateY(-16px) rotate(2deg); }
+  }
+
+  .phone-screen{
+    background: linear-gradient(160deg, #ffffff, #EAF4FF);
+    border-radius: 26px;
+    overflow: hidden;
+    aspect-ratio: 9/18.5;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    padding: 18px 14px;
+  }
+
+  .phone-app-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 14px;
+  }
+
+  .phone-card{
+    background: white;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 8px 20px rgba(59,130,246,0.12);
+    margin-bottom: 12px;
+  }
+
+  .phone-card .label{ font-size: 0.6rem; color: var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+  .big-num{
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--green);
+    display:flex;
+    align-items:center;
+    gap: 6px;
+  }
+
+  .phone-bar-chart{
+    display:flex;
+    align-items:flex-end;
+    gap: 6px;
+    height: 60px;
+    margin-top: 10px;
+  }
+  .phone-bar-chart div{
+    flex:1;
+    background: linear-gradient(180deg, var(--blue-light), var(--blue));
+    border-radius: 6px 6px 0 0;
+    animation: growBar 1.8s ease forwards;
+    transform-origin: bottom;
+  }
+
+  @keyframes growBar{
+    from{ transform: scaleY(0); }
+    to{ transform: scaleY(1); }
+  }
+
+  .float-badge{
+    position: absolute;
+    background: white;
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 24px rgba(15,42,71,0.15);
+    font-size: 0.78rem;
+    font-weight: 800;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    animation: floaty 4.5s ease-in-out infinite;
+  }
+  .float-badge.b1{ top: 10%; left: -8%; color: var(--pink); animation-delay: 0.3s; }
+  .float-badge.b2{ bottom: 14%; right: -10%; color: var(--green); animation-delay: 1s; }
+
+  /* ===== marquee ticker ===== */
+  .ticker{
+    background: var(--ink);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+  }
+  .ticker-track{
+    display:inline-flex;
+    gap: 50px;
+    animation: scroll-left 22s linear infinite;
+  }
+  .ticker-track span{
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .ticker-track span b{ color: var(--yellow); }
+
+  @keyframes scroll-left{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ===== sections shared ===== */
+  section{ position: relative; z-index:1; padding: 90px 6vw; }
+
+  .section-head{ max-width: 640px; margin: 0 auto 50px; text-align:center; }
+  .section-tag{
+    display:inline-block;
+    background: var(--white);
+    border: 2px solid var(--blue-light);
+    color: var(--blue-dark);
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .section-head h2{
+    font-size: clamp(1.8rem, 3.6vw, 2.5rem);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .section-head p{
+    margin-top: 14px;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 1.02rem;
+  }
+
+  .reveal{ opacity:0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ===== steps (cara mulai) ===== */
+  .steps-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .step-card{
+    background: white;
+    border-radius: 22px;
+    padding: 30px 26px;
+    border: 2px solid var(--line);
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .step-card:hover{
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 0 18px 34px rgba(59,130,246,0.18);
+    border-color: var(--blue-light);
+  }
+  .step-badge{
+    width: 42px; height:42px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    font-weight: 800;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 18px;
+    font-family:'Baloo 2', sans-serif;
+    font-size: 1.1rem;
+  }
+  .step-card h3{ font-size: 1.1rem; margin-bottom: 8px; color: var(--ink); }
+  .step-card p{ font-size: 0.9rem; color: var(--muted); font-weight:500; line-height:1.6; }
+
+  /* ===== why us / features ===== */
+  .feature-grid{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .feature-card{
+    background: white;
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align:center;
+    border: 2px solid var(--line);
+    transition: transform 0.25s ease;
+  }
+  .feature-card:hover{ transform: translateY(-6px); border-color: var(--pink); }
+  .feature-icon{ font-size: 2rem; margin-bottom: 12px; }
+  .feature-card h3{ font-size: 0.98rem; color: var(--ink); margin-bottom: 6px; }
+  .feature-card p{ font-size: 0.82rem; color: var(--muted); font-weight:500; line-height:1.5; }
+
+  /* ===== testimonial cards tiktok style ===== */
+  .testi-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .testi-card{
+    background: white;
+    border-radius: 20px;
+    padding: 22px;
+    border: 2px solid var(--line);
+  }
+  .testi-top{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .testi-avatar{
+    width: 38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; color:white; font-size:1rem;
+  }
+  .testi-name{ font-size: 0.88rem; font-weight:800; color:var(--ink); }
+  .testi-handle{ font-size: 0.75rem; color: var(--muted); }
+  .testi-card p{ font-size: 0.88rem; color: var(--ink); line-height:1.55; font-weight:500; }
+  .testi-likes{ margin-top:14px; font-size:0.78rem; color: var(--pink); font-weight:700; display:flex; align-items:center; gap:6px; }
+
+  /* ===== stats counter ===== */
+  .stats-band{
+    background: linear-gradient(120deg, var(--blue-dark), var(--blue));
     border-radius: 28px;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 70px 6vw;
+    padding: 50px 6vw;
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
     text-align:center;
     position: relative;
-    overflow: hidden;
+    overflow:hidden;
   }
-
-  .cta-band h2{
+  .stats-band .stat b{
+    font-size: clamp(1.8rem,4vw,2.6rem);
     color: white;
-    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-    margin-bottom: 16px;
-    letter-spacing: -0.02em;
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight: 800;
   }
-
-  .cta-band p{
+  .stats-band .stat span{
     color: rgba(255,255,255,0.85);
-    margin-bottom: 34px;
+    font-size: 0.85rem;
+    font-weight: 600;
   }
 
-  .cta-band .btn-primary{
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  /* ===== CTA final ===== */
+  .cta-final{
+    text-align:center;
+    max-width: 700px;
+    margin: 0 auto;
   }
-  .cta-band .btn-primary:hover{ transform: translateY(-3px); }
-
-  .cta-glow{
-    position:absolute;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-    border-radius:50%;
-    top: -150px; right: -100px;
-    animation: float 8s ease-in-out infinite;
+  .cta-final h2{
+    font-size: clamp(1.9rem,4vw,2.8rem);
+    font-weight: 800;
+    color: var(--ink);
+    line-height:1.2;
+  }
+  .cta-final h2 span{ color: var(--pink); }
+  .cta-final p{
+    margin-top: 16px;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  .cta-final .btn-primary{
+    margin-top: 30px;
+    font-size: 1.1rem;
+    padding: 18px 40px;
+  }
+  .cta-note{
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 600;
   }
 
-  @keyframes float{
-    0%,100%{ transform: translate(0,0); }
-    50%{ transform: translate(-20px, 30px); }
-  }
-
-  /* ===== Footer ===== */
+  /* ===== footer ===== */
   footer{
-    padding: 60px 6vw 34px;
-    border-top: 1px solid var(--line);
+    padding: 50px 6vw 30px;
+    text-align:center;
     position: relative;
     z-index:1;
   }
+  footer .logo{ justify-content:center; margin-bottom: 12px; }
+  footer p{ color: var(--muted); font-size:0.85rem; font-weight:600; }
 
-  .footer-top{
-    display:flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 40px;
-    max-width: 1100px;
-    margin: 0 auto 40px;
-  }
-
-  .footer-brand p{
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin-top: 10px;
-    max-width: 260px;
-    line-height: 1.6;
-  }
-
-  .footer-cols{
-    display:flex;
-    gap: 60px;
-    flex-wrap: wrap;
-  }
-
-  .footer-col h4{
-    font-size: 0.85rem;
-    color: var(--deep);
-    margin-bottom: 16px;
-    font-family:'Space Grotesk', sans-serif;
-  }
-
-  .footer-col ul{
-    list-style: none;
-  }
-
-  .footer-col li{
-    margin-bottom: 10px;
-  }
-
-  .footer-col a{
-    font-size: 0.88rem;
-    color: var(--muted);
-    transition: color 0.2s ease;
-  }
-  .footer-col a:hover{ color: var(--primary); }
-
-  .footer-bottom{
-    max-width: 1100px;
-    margin: 0 auto;
-    padding-top: 26px;
-    border-top: 1px solid var(--line);
-    display:flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-
-  /* ===== Responsive ===== */
-  @media (max-width: 860px){
+  /* ===== responsive ===== */
+  @media (max-width: 900px){
+    .hero-inner{ grid-template-columns:1fr; text-align:center; }
+    .hero p{ margin-left:auto; margin-right:auto; }
+    .hero-actions{ justify-content:center; }
+    .social-proof{ justify-content:center; }
+    .phone-wrap{ margin-top: 20px; }
     nav ul{ display:none; }
-    .service-grid{ grid-template-columns: 1fr; }
-    .process-steps{ grid-template-columns: 1fr 1fr; row-gap: 40px; }
-    .process-track::before{ display:none; }
-    .work-grid{ grid-template-columns: 1fr 1fr; }
-    .hero-stats{ gap: 32px; }
+    .steps-grid{ grid-template-columns:1fr; }
+    .feature-grid{ grid-template-columns: 1fr 1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .stats-band{ grid-template-columns: 1fr 1fr; }
   }
-
-  @media (max-width: 520px){
-    .work-grid{ grid-template-columns: 1fr; }
-    .process-steps{ grid-template-columns: 1fr; }
-    header{ padding: 18px 5vw; }
+  @media (max-width:520px){
+    .feature-grid{ grid-template-columns:1fr; }
+    header{ padding: 14px 5vw; }
   }
 </style>
 </head>
 <body>
 
-<svg class="signal-line" viewBox="0 0 1440 900" preserveAspectRatio="none">
-  <path id="wave1" d="M0,300 C 300,200 400,400 720,320 C 1040,240 1140,420 1440,320" fill="none" stroke="#BFE1FD" stroke-width="2"/>
-  <path id="wave2" d="M0,500 C 300,600 500,420 720,500 C 940,580 1200,460 1440,540" fill="none" stroke="#DCEEFF" stroke-width="2"/>
-</svg>
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+<div class="bg-blob blob3"></div>
 
 <header>
-  <div class="logo"><span class="logo-dot"></span>zoy digital</div>
+  <div class="logo"><span class="emoji">💙</span>zoy digital</div>
   <nav>
     <ul>
-      <li><a href="#layanan">Layanan</a></li>
-      <li><a href="#proses">Proses</a></li>
-      <li><a href="#karya">Karya</a></li>
-      <li><a href="#kontak">Kontak</a></li>
+      <li><a href="#cara">Cara Mulai</a></li>
+      <li><a href="#kenapa">Kenapa Zoy</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
     </ul>
   </nav>
-  <a href="#kontak" class="nav-cta">Mulai Proyek</a>
+  <a href="https://www.tiktok.com/@zoydigital" target="_blank" rel="noopener" class="nav-cta">Follow TikTok</a>
 </header>
 
 <section class="hero">
-  <div class="eyebrow">✦ Studio Digital Terpercaya</div>
-  <h1>Membangun kehadiran digital yang <span>terasa hidup</span></h1>
-  <p>Zoy Digital membantu bisnis merancang website, brand, dan kampanye digital yang tumbuh bersama pelanggan — bukan sekadar tampil, tapi terhubung.</p>
-  <div class="hero-actions">
-    <a href="#kontak" class="btn-primary">Konsultasi Gratis</a>
-    <a href="#karya" class="btn-ghost">Lihat Karya Kami</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><b>120+</b><span>Proyek selesai</span></div>
-    <div class="stat"><b>98%</b><span>Klien puas</span></div>
-    <div class="stat"><b>6 thn</b><span>Pengalaman</span></div>
-  </div>
-</section>
-
-<section class="services" id="layanan">
-  <div class="section-head reveal">
-    <span class="section-tag">Layanan</span>
-    <h2>Semua yang bisnis Anda butuhkan untuk tampil digital</h2>
-    <p>Dari ide sampai peluncuran, tim kami merancang solusi yang pas dengan tujuan bisnis Anda.</p>
-  </div>
-  <div class="service-grid">
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+  <div class="hero-inner">
+    <div>
+      <div class="badge-hot">🔥 Lagi rame di TikTok!</div>
+      <h1>Modal HP doang, bisa <span class="hl">cuan dari affiliate</span> hari ini juga</h1>
+      <p>Zoy Digital bantu kamu yang baru mulai — tanpa ribet, tanpa modal gede. Tinggal share, orang beli, kamu dapet komisi. Segampang itu.</p>
+      <div class="hero-actions">
+        <a href="https://www.tiktok.com/@zoydigital" target="_blank" rel="noopener" class="btn-primary">🚀 Follow TikTok Zoy Digital</a>
+        <a href="#cara" class="btn-ghost">Lihat Caranya</a>
       </div>
-      <h3>Desain Website</h3>
-      <p>Website responsif dengan desain modern yang mencerminkan identitas brand Anda dan mudah dikelola.</p>
+      <div class="social-proof">
+        <div class="avatars">
+          <span>A</span><span>B</span><span>C</span><span>+</span>
+        </div>
+        <p><span>12.400+</span> pemula udah gabung bulan ini</p>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/><path d="M12 7v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="phone-wrap">
+      <div class="float-badge b1">✨ +Rp58.000</div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-app-bar"><span>Zoy App</span><span>🔵 Live</span></div>
+          <div class="phone-card">
+            <div class="label">Komisi Hari Ini</div>
+            <div class="big-num" id="counterNum">Rp0</div>
+          </div>
+          <div class="phone-card">
+            <div class="label">Penjualan Mingguan</div>
+            <div class="phone-bar-chart">
+              <div style="height:35%"></div>
+              <div style="height:55%; animation-delay:0.1s"></div>
+              <div style="height:40%; animation-delay:0.2s"></div>
+              <div style="height:80%; animation-delay:0.3s"></div>
+              <div style="height:65%; animation-delay:0.4s"></div>
+              <div style="height:95%; animation-delay:0.5s"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h3>Branding &amp; Identitas</h3>
-      <p>Logo, panduan visual, dan strategi merek yang membuat bisnis Anda mudah dikenali dan diingat.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19l6-6 4 4 6-8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>Digital Marketing</h3>
-      <p>Strategi iklan dan media sosial berbasis data untuk mendatangkan pelanggan yang tepat.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="white" stroke-width="2"/><path d="M8 9h8M8 13h5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-      </div>
-      <h3>Aplikasi &amp; Sistem</h3>
-      <p>Pengembangan aplikasi web dan mobile yang efisien, aman, dan siap berkembang bersama bisnis.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>UI/UX Design</h3>
-      <p>Pengalaman pengguna yang intuitif, diuji langsung agar produk Anda nyaman dan mudah dipakai.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 5 3-3 7 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>Konsultasi Strategi</h3>
-      <p>Pendampingan menyeluruh untuk merancang roadmap transformasi digital yang realistis.</p>
+      <div class="float-badge b2">🎉 Order baru!</div>
     </div>
   </div>
 </section>
 
-<section id="proses">
-  <div class="section-head reveal">
-    <span class="section-tag">Cara Kerja</span>
-    <h2>Proses yang jelas, dari awal sampai akhir</h2>
-    <p>Empat langkah sederhana yang kami lalui bersama setiap klien.</p>
+<div class="ticker">
+  <div class="ticker-track">
+    <span>🔥 <b>Rina</b> baru dapat komisi Rp120.000</span>
+    <span>💸 <b>Dimas</b> withdraw Rp450.000</span>
+    <span>🎉 <b>Putri</b> gabung 5 menit lalu</span>
+    <span>🚀 <b>Aldi</b> capai target mingguan</span>
+    <span>🔥 <b>Rina</b> baru dapat komisi Rp120.000</span>
+    <span>💸 <b>Dimas</b> withdraw Rp450.000</span>
+    <span>🎉 <b>Putri</b> gabung 5 menit lalu</span>
+    <span>🚀 <b>Aldi</b> capai target mingguan</span>
   </div>
-  <div class="process-track">
-    <div class="process-steps">
-      <div class="step reveal">
-        <div class="step-num">01</div>
-        <h3>Kenali Kebutuhan</h3>
-        <p>Diskusi mendalam untuk memahami tujuan dan tantangan bisnis Anda.</p>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">02</div>
-        <h3>Rancang Strategi</h3>
-        <p>Menyusun rencana desain dan teknis yang selaras dengan target Anda.</p>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">03</div>
-        <h3>Wujudkan Karya</h3>
-        <p>Tim kami membangun dan menguji setiap detail sebelum diluncurkan.</p>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">04</div>
-        <h3>Dukung &amp; Kembangkan</h3>
-        <p>Pendampingan berkelanjutan agar hasil terus relevan dan bertumbuh.</p>
-      </div>
+</div>
+
+<section id="cara">
+  <div class="section-head reveal">
+    <span class="section-tag">3 Langkah Doang</span>
+    <h2>Semudah ini buat mulai cuan pertamamu</h2>
+    <p>Nggak perlu jago jualan, nggak perlu ribet setup. Ikutin aja langkahnya.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-badge">1</div>
+      <h3>📝 Daftar Gratis</h3>
+      <p>Isi data singkat, akun langsung aktif. Nggak ada biaya, nggak ada syarat ribet.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-badge">2</div>
+      <h3>🔗 Ambil Link Kamu</h3>
+      <p>Pilih produk yang lagi hits, dapat link affiliate unik buat kamu share ke mana aja.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-badge">3</div>
+      <h3>💰 Share &amp; Panen Komisi</h3>
+      <p>Post di TikTok, WhatsApp, atau Instagram. Setiap ada yang beli, komisi otomatis masuk.</p>
     </div>
   </div>
 </section>
 
-<section class="services" id="karya">
+<section id="kenapa">
   <div class="section-head reveal">
-    <span class="section-tag">Karya Pilihan</span>
-    <h2>Beberapa proyek yang telah kami kerjakan</h2>
+    <span class="section-tag">Kenapa Zoy Digital</span>
+    <h2>Dibuat khusus buat kamu yang baru mulai</h2>
   </div>
-  <div class="work-grid">
-    <div class="work-card reveal">
-      <div><div class="work-tag">Website · Ritel</div><h3>Nirwana Living</h3></div>
+  <div class="feature-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Cair Cepat</h3>
+      <p>Komisi bisa dicairkan tiap hari, minimal withdraw rendah banget.</p>
     </div>
-    <div class="work-card reveal">
-      <div><div class="work-tag">Branding · Kuliner</div><h3>Kedai Rasa</h3></div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎓</div>
+      <h3>Bimbingan Pemula</h3>
+      <p>Ada panduan &amp; komunitas yang bantu kamu dari nol sampai jago.</p>
     </div>
-    <div class="work-card reveal">
-      <div><div class="work-tag">Aplikasi · Logistik</div><h3>Kirimin App</h3></div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📱</div>
+      <h3>Full dari HP</h3>
+      <p>Nggak butuh laptop, semua bisa dikerjain lewat aplikasi di HP kamu.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎁</div>
+      <h3>Bonus Mingguan</h3>
+      <p>Ada reward tambahan buat affiliate paling aktif tiap minggunya.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testimoni">
+  <div class="section-head reveal">
+    <span class="section-tag">Kata Mereka</span>
+    <h2>Bukan cuma janji, ini beneran kejadian</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-top">
+        <div class="testi-avatar" style="background:#FF5DA2">R</div>
+        <div>
+          <div class="testi-name">Rina Anjani</div>
+          <div class="testi-handle">@rina.cuanharian</div>
+        </div>
+      </div>
+      <p>Awalnya iseng doang share link pas lagi scroll TikTok, eh minggu pertama udah cair 150rb. Gampang banget!</p>
+      <div class="testi-likes">❤️ 2.4rb suka</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-top">
+        <div class="testi-avatar" style="background:#3B82F6">D</div>
+        <div>
+          <div class="testi-name">Dimas Pratama</div>
+          <div class="testi-handle">@dimaspp</div>
+        </div>
+      </div>
+      <p>Ga nyangka masih pemula tapi bisa dapet komisi tiap hari. Cocok banget buat anak kuliahan kaya aku.</p>
+      <div class="testi-likes">❤️ 1.8rb suka</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-top">
+        <div class="testi-avatar" style="background:#22C55E">P</div>
+        <div>
+          <div class="testi-name">Putri Wulandari</div>
+          <div class="testi-handle">@putriw</div>
+        </div>
+      </div>
+      <p>Komunitasnya suportif banget, ada yang bimbing dari nol. Sekarang udah jadi side income tetap tiap bulan.</p>
+      <div class="testi-likes">❤️ 3.1rb suka</div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="testimonial-wrap reveal">
-    <blockquote>"Zoy Digital memahami bisnis kami lebih dari sekadar mengerjakan tugas — mereka membangun sesuatu yang benar-benar terasa milik kami."</blockquote>
-    <cite>— Dinda Ayu, Founder Kedai Rasa</cite>
+  <div class="stats-band reveal">
+    <div class="stat"><b>12.4K+</b><span>Affiliate Aktif</span></div>
+    <div class="stat"><b>Rp2.1M</b><span>Rata² Komisi/Bulan</span></div>
+    <div class="stat"><b>24 Jam</b><span>Pencairan Tercepat</span></div>
+    <div class="stat"><b>4.9/5</b><span>Rating Pengguna</span></div>
   </div>
 </section>
 
-<section id="kontak">
-  <div class="cta-band reveal">
-    <div class="cta-glow"></div>
-    <h2>Siap membangun kehadiran digital Anda?</h2>
-    <p>Ceritakan proyek Anda, dan tim kami akan membalas dalam 1x24 jam.</p>
-    <a href="#" class="btn-primary">Hubungi Zoy Digital</a>
+<section id="gabung">
+  <div class="cta-final reveal">
+    <h2>Giliran kamu yang <span>cuan</span> sekarang juga</h2>
+    <p>Daftar gratis, tanpa ribet, tanpa modal. Mulai langkah pertamamu jadi affiliate hari ini.</p>
+    <a href="https://www.tiktok.com/@zoydigital" target="_blank" rel="noopener" class="btn-primary">🚀 Follow @zoydigital di TikTok</a>
+    <div class="cta-note">Sudah dipercaya 12.400+ pemula di seluruh Indonesia 🇮🇩</div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="logo"><span class="logo-dot"></span>zoy digital</div>
-      <p>Studio digital yang membantu bisnis tumbuh lewat website, brand, dan strategi yang tepat sasaran.</p>
-    </div>
-    <div class="footer-cols">
-      <div class="footer-col">
-        <h4>Layanan</h4>
-        <ul>
-          <li><a href="#">Desain Website</a></li>
-          <li><a href="#">Branding</a></li>
-          <li><a href="#">Digital Marketing</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Perusahaan</h4>
-        <ul>
-          <li><a href="#">Tentang Kami</a></li>
-          <li><a href="#">Karya</a></li>
-          <li><a href="#">Karir</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Kontak</h4>
-        <ul>
-          <li><a href="#">hello@zoydigital.id</a></li>
-          <li><a href="#">+62 812-0000-0000</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Zoy Digital. Seluruh hak cipta dilindungi.</span>
-    <span>Dibuat dengan ♡ di Indonesia</span>
-  </div>
+  <div class="logo">💙 zoy digital</div>
+  <p style="margin-bottom:14px;">© 2026 Zoy Digital. Yuk mulai cuan pertamamu hari ini.</p>
+  <a href="https://www.tiktok.com/@zoydigital" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--blue-dark);">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.2a2.7 2.7 0 1 1-2.7-2.7c.2 0 .5 0 .7.1V9.4a6 6 0 1 0 5.2 5.9V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.8 4.8 0 0 1-4.5-4.6z"/></svg>
+    @zoydigital
+  </a>
 </footer>
 
 <script>
-  // Scroll reveal
+  // scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -789,21 +783,28 @@
   }, { threshold: 0.15 });
   reveals.forEach(el => observer.observe(el));
 
-  // Ambient wave animation (signature element)
-  const wave1 = document.getElementById('wave1');
-  const wave2 = document.getElementById('wave2');
-  let t = 0;
-  function animateWave(){
-    t += 0.006;
-    const offset1 = Math.sin(t) * 30;
-    const offset2 = Math.cos(t * 0.8) * 24;
-    wave1.setAttribute('d', `M0,${300+offset1} C 300,${200-offset1} 400,${400+offset2} 720,${320+offset1} C 1040,${240-offset2} 1140,${420+offset1} 1440,${320-offset1}`);
-    wave2.setAttribute('d', `M0,${500-offset2} C 300,${600+offset1} 500,${420-offset1} 720,${500+offset2} C 940,${580-offset1} 1200,${460+offset2} 1440,${540-offset2}`);
-    requestAnimationFrame(animateWave);
+  // animated counter in phone mockup
+  const counterEl = document.getElementById('counterNum');
+  let count = 0;
+  const target = 458000;
+  const duration = 2200;
+  const startTime = performance.now();
+
+  function formatRupiah(n){
+    return 'Rp' + Math.round(n).toLocaleString('id-ID');
   }
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    animateWave();
+
+  function tick(now){
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    count = target * eased;
+    counterEl.textContent = formatRupiah(count);
+    if(progress < 1){
+      requestAnimationFrame(tick);
+    }
   }
+  requestAnimationFrame(tick);
 </script>
 
 </body>
