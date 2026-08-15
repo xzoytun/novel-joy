@@ -1,134 +1,810 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemandangan Taman Bunga</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoy Digital — Studio Digital untuk Bisnis Naik Kelas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F9FF;
+    --white: #FFFFFF;
+    --sky: #7DD3FC;
+    --primary: #2F80ED;
+    --deep: #123C7A;
+    --ink: #0B2545;
+    --muted: #5B7699;
+    --line: #D7EAFB;
+  }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-        /* Kontainer Utama dengan Gradasi Langit ke Padang Rumput */
-        .scene {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(to bottom, #7ac1eb 0%, #cce7f0 55%, #a8e6cf 100%);
-            overflow: hidden;
-        }
+  html{scroll-behavior:smooth;}
 
-        /* Efek Matahari Bersinar di Atas Kanan */
-        .sun {
-            position: absolute;
-            top: 40px;
-            right: 60px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, #fff3b0 0%, #ffcc00 60%, #ff9800 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 50px #ffeb3b, 0 0 100px rgba(255, 152, 0, 0.6);
-        }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
 
-        /* Kupu-kupu Utama yang Terbang */
-        .butterfly {
-            position: absolute;
-            top: 32%;
-            left: 42%;
-            font-size: 45px;
-            animation: flyAround 5s ease-in-out infinite;
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
-            z-index: 10;
-        }
+  h1,h2,h3, .logo{
+    font-family: 'Space Grotesk', sans-serif;
+  }
 
-        @keyframes flyAround {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotate(-10deg);
-            }
-            25% {
-                transform: translateY(-25px) translateX(15px) rotate(5deg);
-            }
-            50% {
-                transform: translateY(-10px) translateX(-10px) rotate(-5deg);
-            }
-            75% {
-                transform: translateY(-30px) translateX(10px) rotate(10deg);
-            }
-        }
+  a{ text-decoration:none; color:inherit; }
 
-        /* Area Rumput & Tanaman di Bagian Bawah */
-        .meadow {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 35%;
-            background: linear-gradient(to top, #2d6a4f, #52b788);
-            border-radius: 60% 60% 0 0 / 25% 25% 0 0;
-            box-shadow: inset 0 20px 20px rgba(0, 20, 0, 0.1);
-        }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
 
-        /* Hiasan Bunga-bunga di Rumput */
-        .flowers-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 25%;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            padding-bottom: 20px;
-            font-size: 35px;
-            z-index: 5;
-        }
+  /* ===== Ambient background wave signal ===== */
+  .signal-line{
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+  }
 
-        .flower {
-            animation: sway 3s ease-in-out infinite alternate;
-            transform-origin: bottom center;
-        }
+  /* ===== Nav ===== */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 22px 6vw;
+    background: rgba(243, 249, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
 
-        .flower:nth-child(even) {
-            animation-duration: 3.5s;
-            animation-direction: alternate-reverse;
-        }
+  .logo{
+    font-weight: 700;
+    font-size: 1.35rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    letter-spacing: -0.02em;
+    color: var(--deep);
+  }
 
-        @keyframes sway {
-            0% { transform: rotate(-3deg); }
-            100% { transform: rotate(3deg); }
-        }
-    </style>
+  .logo-dot{
+    width: 12px; height:12px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 0 rgba(47,128,237,0.5);
+    animation: pulse 2.4s infinite;
+  }
+
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(47,128,237,0.45); }
+    70%{ box-shadow: 0 0 0 10px rgba(47,128,237,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(47,128,237,0); }
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap: 36px;
+  }
+
+  nav a{
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--deep);
+    position: relative;
+    padding-bottom: 4px;
+  }
+
+  nav a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0%; height:2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  nav a:hover::after{ width:100%; }
+
+  .nav-cta{
+    padding: 10px 22px;
+    background: var(--primary);
+    color: white;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 20px rgba(47,128,237,0.25);
+  }
+  .nav-cta:hover{ transform: translateY(-2px); box-shadow: 0 12px 26px rgba(47,128,237,0.35); }
+
+  .menu-toggle{ display:none; }
+
+  /* ===== Hero ===== */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 140px 6vw 80px;
+    z-index: 1;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 28px;
+    opacity:0;
+    animation: fadeUp 0.8s ease forwards 0.1s;
+  }
+
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--deep);
+    max-width: 920px;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.25s;
+  }
+
+  .hero h1 span{
+    background: linear-gradient(90deg, var(--primary), #56CCF2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p{
+    margin-top: 22px;
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.6;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-actions{
+    margin-top: 38px;
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content:center;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.55s;
+  }
+
+  .btn-primary{
+    padding: 15px 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 12px 28px rgba(47,128,237,0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 16px 34px rgba(47,128,237,0.4); }
+
+  .btn-ghost{
+    padding: 15px 32px;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: var(--white);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .btn-ghost:hover{ background: #EAF4FF; transform: translateY(-3px); }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(24px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .hero-stats{
+    margin-top: 72px;
+    display:flex;
+    gap: 60px;
+    flex-wrap: wrap;
+    justify-content:center;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  .stat b{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    color: var(--deep);
+  }
+  .stat span{
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ===== Sections shared ===== */
+  section{
+    position: relative;
+    z-index: 1;
+    padding: 110px 6vw;
+  }
+
+  .section-head{
+    max-width: 620px;
+    margin: 0 auto 60px;
+    text-align:center;
+  }
+
+  .section-tag{
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 14px;
+    display:block;
+  }
+
+  .section-head h2{
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    color: var(--deep);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .section-head p{
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Services ===== */
+  .services{
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .service-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card{
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 34px 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .service-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(47,128,237,0.14);
+    border-color: var(--sky);
+  }
+
+  .service-icon{
+    width: 50px; height:50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), #56CCF2);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 22px;
+    color: white;
+  }
+
+  .service-card h3{
+    font-size: 1.15rem;
+    color: var(--deep);
+    margin-bottom: 10px;
+  }
+
+  .service-card p{
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ===== Process ===== */
+  .process-track{
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .process-track::before{
+    content:'';
+    position:absolute;
+    top: 26px; left: 0; right:0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--sky) 0 8px, transparent 8px 16px);
+  }
+
+  .process-steps{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .step-num{
+    width: 52px; height:52px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 700;
+    font-family:'Space Grotesk', sans-serif;
+    margin-bottom: 20px;
+    position: relative;
+    z-index:2;
+  }
+
+  .step h3{
+    font-size: 1.02rem;
+    color: var(--deep);
+    margin-bottom: 8px;
+  }
+  .step p{
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ===== Work / Portfolio ===== */
+  .work-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .work-card{
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/5;
+    background: linear-gradient(155deg, var(--deep), var(--primary));
+    display:flex;
+    align-items:flex-end;
+    padding: 26px;
+    isolation: isolate;
+  }
+
+  .work-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 55%),
+      radial-gradient(circle at 80% 80%, rgba(125,211,252,0.35), transparent 50%);
+    transition: transform 0.6s ease;
+    z-index: -1;
+  }
+
+  .work-card:hover::before{ transform: scale(1.15) rotate(6deg); }
+
+  .work-tag{
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .work-card h3{
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  /* ===== Testimonial ===== */
+  .testimonial-wrap{
+    max-width: 780px;
+    margin: 0 auto;
+    text-align:center;
+  }
+
+  .testimonial-wrap blockquote{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--deep);
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  .testimonial-wrap cite{
+    display:block;
+    margin-top: 26px;
+    font-style: normal;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  /* ===== CTA band ===== */
+  .cta-band{
+    background: linear-gradient(120deg, var(--deep), var(--primary) 60%, #56CCF2);
+    border-radius: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 6vw;
+    text-align:center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-band h2{
+    color: white;
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-band p{
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 34px;
+  }
+
+  .cta-band .btn-primary{
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  }
+  .cta-band .btn-primary:hover{ transform: translateY(-3px); }
+
+  .cta-glow{
+    position:absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+    border-radius:50%;
+    top: -150px; right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  @keyframes float{
+    0%,100%{ transform: translate(0,0); }
+    50%{ transform: translate(-20px, 30px); }
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    padding: 60px 6vw 34px;
+    border-top: 1px solid var(--line);
+    position: relative;
+    z-index:1;
+  }
+
+  .footer-top{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+  }
+
+  .footer-brand p{
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    max-width: 260px;
+    line-height: 1.6;
+  }
+
+  .footer-cols{
+    display:flex;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .footer-col h4{
+    font-size: 0.85rem;
+    color: var(--deep);
+    margin-bottom: 16px;
+    font-family:'Space Grotesk', sans-serif;
+  }
+
+  .footer-col ul{
+    list-style: none;
+  }
+
+  .footer-col li{
+    margin-bottom: 10px;
+  }
+
+  .footer-col a{
+    font-size: 0.88rem;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover{ color: var(--primary); }
+
+  .footer-bottom{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 860px){
+    nav ul{ display:none; }
+    .service-grid{ grid-template-columns: 1fr; }
+    .process-steps{ grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .process-track::before{ display:none; }
+    .work-grid{ grid-template-columns: 1fr 1fr; }
+    .hero-stats{ gap: 32px; }
+  }
+
+  @media (max-width: 520px){
+    .work-grid{ grid-template-columns: 1fr; }
+    .process-steps{ grid-template-columns: 1fr; }
+    header{ padding: 18px 5vw; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="scene">
-        <!-- Matahari -->
-        <div class="sun"></div>
+<svg class="signal-line" viewBox="0 0 1440 900" preserveAspectRatio="none">
+  <path id="wave1" d="M0,300 C 300,200 400,400 720,320 C 1040,240 1140,420 1440,320" fill="none" stroke="#BFE1FD" stroke-width="2"/>
+  <path id="wave2" d="M0,500 C 300,600 500,420 720,500 C 940,580 1200,460 1440,540" fill="none" stroke="#DCEEFF" stroke-width="2"/>
+</svg>
 
-        <!-- Kupu-kupu yang bergerak -->
-        <div class="butterfly">🦋</div>
+<header>
+  <div class="logo"><span class="logo-dot"></span>zoy digital</div>
+  <nav>
+    <ul>
+      <li><a href="#layanan">Layanan</a></li>
+      <li><a href="#proses">Proses</a></li>
+      <li><a href="#karya">Karya</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+  </nav>
+  <a href="#kontak" class="nav-cta">Mulai Proyek</a>
+</header>
 
-        <!-- Padang Rumput -->
-        <div class="meadow"></div>
+<section class="hero">
+  <div class="eyebrow">✦ Studio Digital Terpercaya</div>
+  <h1>Membangun kehadiran digital yang <span>terasa hidup</span></h1>
+  <p>Zoy Digital membantu bisnis merancang website, brand, dan kampanye digital yang tumbuh bersama pelanggan — bukan sekadar tampil, tapi terhubung.</p>
+  <div class="hero-actions">
+    <a href="#kontak" class="btn-primary">Konsultasi Gratis</a>
+    <a href="#karya" class="btn-ghost">Lihat Karya Kami</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>120+</b><span>Proyek selesai</span></div>
+    <div class="stat"><b>98%</b><span>Klien puas</span></div>
+    <div class="stat"><b>6 thn</b><span>Pengalaman</span></div>
+  </div>
+</section>
 
-        <!-- Barisan Bunga di Bawah -->
-        <div class="flowers-container">
-            <span class="flower">🌸</span>
-            <span class="flower">🌻</span>
-            <span class="flower">🌷</span>
-            <span class="flower">🌺</span>
-            <span class="flower">🌹</span>
-            <span class="flower">🌻</span>
-            <span class="flower">🌸</span>
-        </div>
+<section class="services" id="layanan">
+  <div class="section-head reveal">
+    <span class="section-tag">Layanan</span>
+    <h2>Semua yang bisnis Anda butuhkan untuk tampil digital</h2>
+    <p>Dari ide sampai peluncuran, tim kami merancang solusi yang pas dengan tujuan bisnis Anda.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Desain Website</h3>
+      <p>Website responsif dengan desain modern yang mencerminkan identitas brand Anda dan mudah dikelola.</p>
     </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/><path d="M12 7v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Branding &amp; Identitas</h3>
+      <p>Logo, panduan visual, dan strategi merek yang membuat bisnis Anda mudah dikenali dan diingat.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19l6-6 4 4 6-8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Digital Marketing</h3>
+      <p>Strategi iklan dan media sosial berbasis data untuk mendatangkan pelanggan yang tepat.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="white" stroke-width="2"/><path d="M8 9h8M8 13h5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Aplikasi &amp; Sistem</h3>
+      <p>Pengembangan aplikasi web dan mobile yang efisien, aman, dan siap berkembang bersama bisnis.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>UI/UX Design</h3>
+      <p>Pengalaman pengguna yang intuitif, diuji langsung agar produk Anda nyaman dan mudah dipakai.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 5 3-3 7 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Konsultasi Strategi</h3>
+      <p>Pendampingan menyeluruh untuk merancang roadmap transformasi digital yang realistis.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proses">
+  <div class="section-head reveal">
+    <span class="section-tag">Cara Kerja</span>
+    <h2>Proses yang jelas, dari awal sampai akhir</h2>
+    <p>Empat langkah sederhana yang kami lalui bersama setiap klien.</p>
+  </div>
+  <div class="process-track">
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Kenali Kebutuhan</h3>
+        <p>Diskusi mendalam untuk memahami tujuan dan tantangan bisnis Anda.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>Rancang Strategi</h3>
+        <p>Menyusun rencana desain dan teknis yang selaras dengan target Anda.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Wujudkan Karya</h3>
+        <p>Tim kami membangun dan menguji setiap detail sebelum diluncurkan.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h3>Dukung &amp; Kembangkan</h3>
+        <p>Pendampingan berkelanjutan agar hasil terus relevan dan bertumbuh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="karya">
+  <div class="section-head reveal">
+    <span class="section-tag">Karya Pilihan</span>
+    <h2>Beberapa proyek yang telah kami kerjakan</h2>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <div><div class="work-tag">Website · Ritel</div><h3>Nirwana Living</h3></div>
+    </div>
+    <div class="work-card reveal">
+      <div><div class="work-tag">Branding · Kuliner</div><h3>Kedai Rasa</h3></div>
+    </div>
+    <div class="work-card reveal">
+      <div><div class="work-tag">Aplikasi · Logistik</div><h3>Kirimin App</h3></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="testimonial-wrap reveal">
+    <blockquote>"Zoy Digital memahami bisnis kami lebih dari sekadar mengerjakan tugas — mereka membangun sesuatu yang benar-benar terasa milik kami."</blockquote>
+    <cite>— Dinda Ayu, Founder Kedai Rasa</cite>
+  </div>
+</section>
+
+<section id="kontak">
+  <div class="cta-band reveal">
+    <div class="cta-glow"></div>
+    <h2>Siap membangun kehadiran digital Anda?</h2>
+    <p>Ceritakan proyek Anda, dan tim kami akan membalas dalam 1x24 jam.</p>
+    <a href="#" class="btn-primary">Hubungi Zoy Digital</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo"><span class="logo-dot"></span>zoy digital</div>
+      <p>Studio digital yang membantu bisnis tumbuh lewat website, brand, dan strategi yang tepat sasaran.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#">Desain Website</a></li>
+          <li><a href="#">Branding</a></li>
+          <li><a href="#">Digital Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Karya</a></li>
+          <li><a href="#">Karir</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="#">hello@zoydigital.id</a></li>
+          <li><a href="#">+62 812-0000-0000</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Zoy Digital. Seluruh hak cipta dilindungi.</span>
+    <span>Dibuat dengan ♡ di Indonesia</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Ambient wave animation (signature element)
+  const wave1 = document.getElementById('wave1');
+  const wave2 = document.getElementById('wave2');
+  let t = 0;
+  function animateWave(){
+    t += 0.006;
+    const offset1 = Math.sin(t) * 30;
+    const offset2 = Math.cos(t * 0.8) * 24;
+    wave1.setAttribute('d', `M0,${300+offset1} C 300,${200-offset1} 400,${400+offset2} 720,${320+offset1} C 1040,${240-offset2} 1140,${420+offset1} 1440,${320-offset1}`);
+    wave2.setAttribute('d', `M0,${500-offset2} C 300,${600+offset1} 500,${420-offset1} 720,${500+offset2} C 940,${580-offset1} 1200,${460+offset2} 1440,${540-offset2}`);
+    requestAnimationFrame(animateWave);
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    animateWave();
+  }
+</script>
 
 </body>
 </html>
