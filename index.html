@@ -3,289 +3,1584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SakuKita - Dompet Digital Profesional</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="theme-color" content="#4f46e5">
+    <title>SakuKita V2 - Keuangan Pribadi</title>
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Font Inter & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background .25s, color .25s;
+        }
+
+        .dark body {
+            background: #020617;
+            color: #e2e8f0;
+        }
+
+        .dark .card {
+            background: #0f172a;
+            border-color: #1e293b;
+        }
+
+        .dark .input {
+            background: #020617;
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        .dark .transaction-item {
+            background: #020617;
+            border-color: #1e293b;
+        }
+
+        .dark .transaction-item:hover {
+            background: #111827;
+        }
+
+        .dark .muted {
+            color: #94a3b8;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .modal-bg {
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide {
+            animation: slideUp .25s ease;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
 
-    <!-- Header / Navbar -->
-    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
-                    SK
-                </div>
-                <div>
-                    <h1 class="text-base font-bold tracking-tight text-white">SakuKita</h1>
-                    <p class="text-[11px] text-slate-400">Financial Tracker</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                    Sistem Aktif
-                </span>
-            </div>
-        </div>
-    </header>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
 
-    <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow space-y-6">
-        
-        <!-- Kartu Ringkasan Saldo (Hero Card) -->
-        <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 p-6 rounded-3xl border border-indigo-500/20 shadow-xl relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
-            
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
-                <div>
-                    <span class="text-xs uppercase tracking-wider text-indigo-300 font-semibold">Total Saldo Tersedia</span>
-                    <h2 id="saldo-total" class="text-3xl md:text-4xl font-extrabold text-white mt-1 tracking-tight">Rp 0</h2>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="toggleFormMobile()" class="md:hidden bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow-md shadow-indigo-600/30">
-                        + Catat Transaksi
-                    </button>
-                    <button onclick="resetData()" class="text-xs text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 px-3 py-2.5 rounded-xl font-medium transition">
-                        Reset Data
-                    </button>
-                </div>
-            </div>
+<!-- HEADER -->
+<header class="bg-indigo-600 text-white sticky top-0 z-30 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
 
-            <!-- Pemasukan & Pengeluaran Kecil di Dalam Hero Card -->
-            <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-slate-800/80 relative z-10">
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-sm">
-                        ↓
-                    </div>
-                    <div>
-                        <span class="text-[11px] text-slate-400 block font-medium">Pemasukan</span>
-                        <span id="total-pemasukan" class="text-sm md:text-base font-bold text-emerald-400">Rp 0</span>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 font-bold text-sm">
-                        ↑
-                    </div>
-                    <div>
-                        <span class="text-[11px] text-slate-400 block font-medium">Pengeluaran</span>
-                        <span id="total-pengeluaran" class="text-sm md:text-base font-bold text-rose-400">Rp 0</span>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <h1 class="text-xl font-bold">
+                💰 SakuKita
+            </h1>
+            <p class="text-[11px] text-indigo-200">
+                Kelola keuangan dengan mudah
+            </p>
         </div>
 
-        <!-- Grid Bagian Form & Riwayat -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- Form Tambah Transaksi -->
-            <div id="form-container" class="bg-slate-800/50 backdrop-blur-sm p-5 rounded-3xl border border-slate-800 h-fit shadow-lg">
-                <h3 class="font-bold text-white mb-4 text-sm flex items-center">
-                    <svg class="w-4 h-4 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    Catat Transaksi Baru
+        <button
+            onclick="toggleDarkMode()"
+            id="darkButton"
+            class="w-10 h-10 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
+            🌙
+        </button>
+
+    </div>
+</header>
+
+
+<!-- MAIN -->
+<main class="max-w-5xl mx-auto px-4 py-6 pb-24">
+
+    <!-- SALDO UTAMA -->
+    <section class="mb-5">
+
+        <div class="bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-3xl p-6 shadow-lg">
+
+            <div class="flex justify-between items-start">
+
+                <div>
+                    <p class="text-sm text-indigo-200">
+                        Total Saldo
+                    </p>
+
+                    <h2
+                        id="saldo-total"
+                        class="text-3xl font-bold mt-1">
+                        Rp 0
+                    </h2>
+                </div>
+
+                <div class="bg-white/15 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl">
+                    💰
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6">
+
+                <div class="bg-white/10 rounded-2xl p-3">
+                    <p class="text-xs text-indigo-200">
+                        Pemasukan
+                    </p>
+
+                    <p
+                        id="total-pemasukan"
+                        class="font-semibold text-emerald-300 mt-1">
+                        Rp 0
+                    </p>
+                </div>
+
+                <div class="bg-white/10 rounded-2xl p-3">
+                    <p class="text-xs text-indigo-200">
+                        Pengeluaran
+                    </p>
+
+                    <p
+                        id="total-pengeluaran"
+                        class="font-semibold text-rose-300 mt-1">
+                        Rp 0
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTIC MINI -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <p class="text-xs text-slate-400">
+                Hari Ini
+            </p>
+
+            <p
+                id="transaksi-hari"
+                class="text-lg font-bold mt-1">
+                0
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                transaksi
+            </p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <p class="text-xs text-slate-400">
+                Bulan Ini
+            </p>
+
+            <p
+                id="transaksi-bulan"
+                class="text-lg font-bold mt-1">
+                0
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                transaksi
+            </p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <p class="text-xs text-slate-400">
+                Rata-rata
+            </p>
+
+            <p
+                id="rata-rata"
+                class="text-lg font-bold mt-1">
+                Rp 0
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                pengeluaran
+            </p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <p class="text-xs text-slate-400">
+                Terbesar
+            </p>
+
+            <p
+                id="terbesar"
+                class="text-lg font-bold mt-1">
+                Rp 0
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                pengeluaran
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- GRAFIK -->
+    <section class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm mb-6">
+
+        <div class="flex justify-between items-center mb-5">
+
+            <div>
+                <h3 class="font-semibold">
+                    Statistik 7 Hari
                 </h3>
-                <form id="form-transaksi" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Keterangan</label>
-                        <input type="text" id="keterangan" required placeholder="Contoh: Gaji Bulanan, Kopi" 
-                            class="w-full px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nominal (Rp)</label>
-                        <input type="number" id="nominal" required placeholder="Contoh: 50000" 
-                            class="w-full px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Jenis Transaksi</label>
-                        <select id="tipe" class="w-full px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700/80 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                            <option value="pemasukan">Pemasukan (+)</option>
-                            <option value="pengeluaran">Pengeluaran (-)</option>
-                        </select>
-                    </div>
-                    <button type="submit" 
-                        class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition duration-200 shadow-lg shadow-indigo-600/20">
-                        Simpan Transaksi
-                    </button>
-                </form>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    Pemasukan & pengeluaran
+                </p>
             </div>
 
-            <!-- Daftar Riwayat Transaksi -->
-            <div class="md:col-span-2 bg-slate-800/50 backdrop-blur-sm p-5 rounded-3xl border border-slate-800 shadow-lg flex flex-col justify-between">
-               <div>
-                    <!-- Header Riwayat & Filter -->
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                        <h3 class="font-bold text-white text-sm">Riwayat Transaksi</h3>
-                        
-                        <!-- Filter Tombol -->
-                        <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-700/60 text-xs font-medium w-full sm:w-auto">
-                            <button onclick="setFilter('semua')" id="btn-semua" class="flex-1 sm:flex-none px-3 py-1 rounded-lg bg-indigo-600 text-white transition">Semua</button>
-                            <button onclick="setFilter('pemasukan')" id="btn-pemasukan" class="flex-1 sm:flex-none px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Masuk</button>
-                            <button onclick="setFilter('pengeluaran')" id="btn-pengeluaran" class="flex-1 sm:flex-none px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">Keluar</button>
-                        </div>
-                    </div>
-                    
-                    <!-- List Item -->
-                    <div class="overflow-x-auto max-h-[360px] overflow-y-auto pr-1">
-                        <ul id="list-transaksi" class="space-y-2.5">
-                            <p id="pesan-kosong" class="text-sm text-slate-500 text-center py-12">Belum ada transaksi tercatat.</p>
-                        </ul>
-                    </div>
-               </div>
-               
-               <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 text-center">
-                    Data disimpan secara aman di browser lokal Anda (LocalStorage)
-               </div>
-            </div>
+            <span class="text-xl">
+                📊
+            </span>
 
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500 mt-6">
-        &copy; 2026 SakuKita. All rights reserved.
-    </footer>
+        <div
+            id="chart"
+            class="flex items-end gap-2 h-44 overflow-x-auto hide-scrollbar">
+        </div>
 
-    <!-- Script Javascript -->
-    <script>
-        let transaksiList = JSON.parse(localStorage.getItem('transaksi')) || [];
-        let filterAktif = 'semua';
+    </section>
 
-        const form = document.getElementById('form-transaksi');
-        const keteranganInput = document.getElementById('keterangan');
-        const nominalInput = document.getElementById('nominal');
-        const tipeInput = document.getElementById('tipe');
-        
-        const saldoTotalEl = document.getElementById('saldo-total');
-        const totalPemasukanEl = document.getElementById('total-pemasukan');
-        const totalPengeluaranEl = document.getElementById('total-pengeluaran');
-        const listTransaksiEl = document.getElementById('list-transaksi');
-        const pesanKosongEl = document.getElementById('pesan-kosong');
 
-        function formatRupiah(angka) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
-        }
+    <!-- CONTENT -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        function setFilter(tipe) {
-            filterAktif = tipe;
-            ['semua', 'pemasukan', 'pengeluaran'].forEach(t => {
-                const btn = document.getElementById(`btn-${t}`);
-                if(t === tipe) {
-                    btn.className = "flex-1 sm:flex-none px-3 py-1 rounded-lg bg-indigo-600 text-white transition";
-                } else {
-                    btn.className = "flex-1 sm:flex-none px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
-                }
-            });
-            updateAplikasi();
-        }
+        <!-- FORM -->
+        <section class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm h-fit">
 
-        function updateAplikasi() {
-            listTransaksiEl.innerHTML = '';
-            let pemasukan = 0;
-            let pengeluaran = 0;
+            <div class="flex items-center justify-between mb-5">
 
-            // Hitung total keseluruhan dulu
-            transaksiList.forEach(item => {
-                if (item.tipe === 'pemasukan') {
-                    pemasukan += Number(item.nominal);
-                } else {
-                    pengeluaran += Number(item.nominal);
-                }
-            });
+                <div>
+                    <h3 class="font-semibold">
+                        Tambah Transaksi
+                    </h3>
 
-            // Filter data untuk ditampilkan
-            let dataDitampilkan = transaksiList.filter(item => {
-                if (filterAktif === 'pemasukan') return item.tipe === 'pemasukan';
-                if (filterAktif === 'pengeluaran') return item.tipe === 'pengeluaran';
-                return true;
-            });
+                    <p class="text-xs text-slate-400 mt-1">
+                        Catat pemasukan atau pengeluaran
+                    </p>
+                </div>
 
-            if (dataDitampilkan.length === 0) {
-                pesanKosongEl.style.display = 'block';
-                listTransaksiEl.appendChild(pesanKosongEl);
+                <span class="text-xl">
+                    ➕
+                </span>
+
+            </div>
+
+
+            <form
+                id="form-transaksi"
+                class="space-y-4">
+
+                <input
+                    type="hidden"
+                    id="edit-index"
+                    value="-1">
+
+
+                <!-- KETERANGAN -->
+                <div>
+
+                    <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                        Keterangan
+                    </label>
+
+                    <input
+                        type="text"
+                        id="keterangan"
+                        required
+                        placeholder="Contoh: Gaji, makan..."
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+
+                </div>
+
+
+                <!-- NOMINAL -->
+                <div>
+
+                    <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                        Nominal
+                    </label>
+
+                    <div class="relative">
+
+                        <span class="absolute left-3 top-2.5 text-xs text-slate-400">
+                            Rp
+                        </span>
+
+                        <input
+                            type="number"
+                            id="nominal"
+                            min="1"
+                            required
+                            placeholder="50000"
+                            class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+
+                    </div>
+
+                </div>
+
+
+                <!-- JENIS -->
+                <div>
+
+                    <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                        Jenis Transaksi
+                    </label>
+
+                    <select
+                        id="tipe"
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+
+                        <option value="pemasukan">
+                            🟢 Pemasukan
+                        </option>
+
+                        <option value="pengeluaran">
+                            🔴 Pengeluaran
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- KATEGORI -->
+                <div>
+
+                    <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                        Kategori
+                    </label>
+
+                    <select
+                        id="kategori"
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+
+                        <option value="Gaji">💼 Gaji</option>
+                        <option value="Makanan">🍔 Makanan</option>
+                        <option value="Transportasi">🚗 Transportasi</option>
+                        <option value="Belanja">🛒 Belanja</option>
+                        <option value="Tagihan">🏠 Tagihan</option>
+                        <option value="Internet">🌐 Internet</option>
+                        <option value="Hiburan">🎮 Hiburan</option>
+                        <option value="Kesehatan">💊 Kesehatan</option>
+                        <option value="Pendidikan">📚 Pendidikan</option>
+                        <option value="Lainnya">📦 Lainnya</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TANGGAL -->
+                <div>
+
+                    <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                        Tanggal
+                    </label>
+
+                    <input
+                        type="date"
+                        id="tanggal"
+                        required
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+
+                </div>
+
+
+                <div class="flex gap-2">
+
+                    <button
+                        type="submit"
+                        id="submit-button"
+                        class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm">
+
+                        Simpan Transaksi
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancel-edit"
+                        onclick="cancelEdit()"
+                        class="hidden px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-sm">
+
+                        Batal
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- RIWAYAT -->
+        <section class="lg:col-span-2 card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+
+            <div class="flex justify-between items-start mb-5">
+
+                <div>
+                    <h3 class="font-semibold">
+                        Riwayat Transaksi
+                    </h3>
+
+                    <p
+                        id="jumlah-hasil"
+                        class="text-xs text-slate-400 mt-1">
+                        0 transaksi
+                    </p>
+                </div>
+
+                <button
+                    onclick="resetData()"
+                    class="text-xs text-rose-500 hover:underline">
+                    Reset
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="mb-3">
+
+                <div class="relative">
+
+                    <span class="absolute left-3 top-2.5 text-slate-400">
+                        🔍
+                    </span>
+
+                    <input
+                        id="search"
+                        type="text"
+                        placeholder="Cari transaksi..."
+                        oninput="renderTransactions()"
+                        class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTER -->
+            <div class="grid grid-cols-2 gap-2 mb-4">
+
+                <select
+                    id="filter-tipe"
+                    onchange="renderTransactions()"
+                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none">
+
+                    <option value="semua">
+                        Semua Jenis
+                    </option>
+
+                    <option value="pemasukan">
+                        Pemasukan
+                    </option>
+
+                    <option value="pengeluaran">
+                        Pengeluaran
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="filter-kategori"
+                    onchange="renderTransactions()"
+                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none">
+
+                    <option value="semua">
+                        Semua Kategori
+                    </option>
+
+                    <option value="Gaji">Gaji</option>
+                    <option value="Makanan">Makanan</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Belanja">Belanja</option>
+                    <option value="Tagihan">Tagihan</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Hiburan">Hiburan</option>
+                    <option value="Kesehatan">Kesehatan</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Lainnya">Lainnya</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LIST -->
+            <div
+                id="list-transaksi"
+                class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+            </div>
+
+
+            <div
+                id="pesan-kosong"
+                class="hidden text-center py-10">
+
+                <div class="text-4xl mb-3">
+                    📭
+                </div>
+
+                <p class="text-sm font-medium text-slate-500">
+                    Belum ada transaksi
+                </p>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    Transaksi kamu akan muncul di sini
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- BOTTOM NAV MOBILE -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-40">
+
+    <div class="max-w-5xl mx-auto grid grid-cols-4">
+
+        <button
+            onclick="window.scrollTo({top:0,behavior:'smooth'})"
+            class="py-3 text-center">
+
+            <div>🏠</div>
+
+            <span class="text-[10px] text-slate-500">
+                Dashboard
+            </span>
+
+        </button>
+
+
+        <button
+            onclick="document.getElementById('search').focus(); document.getElementById('search').scrollIntoView({behavior:'smooth'})"
+            class="py-3 text-center">
+
+            <div>📋</div>
+
+            <span class="text-[10px] text-slate-500">
+                Riwayat
+            </span>
+
+        </button>
+
+
+        <button
+            onclick="document.getElementById('keterangan').scrollIntoView({behavior:'smooth'}); setTimeout(()=>document.getElementById('keterangan').focus(),400)"
+            class="py-3 text-center">
+
+            <div class="mx-auto -mt-7 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xl shadow-lg">
+                ＋
+            </div>
+
+            <span class="text-[10px] text-slate-500">
+                Tambah
+            </span>
+
+        </button>
+
+
+        <button
+            onclick="exportData()"
+            class="py-3 text-center">
+
+            <div>💾</div>
+
+            <span class="text-[10px] text-slate-500">
+                Backup
+            </span>
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- FOOTER -->
+<footer class="text-center text-xs text-slate-400 pb-24 pt-5">
+    © 2026 SakuKita · Kelola uang, kelola masa depan ✨
+</footer>
+
+
+<!-- FILE IMPORT -->
+<input
+    type="file"
+    id="import-file"
+    accept=".json"
+    class="hidden"
+    onchange="importData(event)">
+
+
+<script>
+
+    /* =========================================
+       DATA
+    ========================================= */
+
+    let transaksiList =
+        JSON.parse(localStorage.getItem('sakukita_transaksi')) || [];
+
+
+    const form = document.getElementById('form-transaksi');
+
+    const keteranganInput =
+        document.getElementById('keterangan');
+
+    const nominalInput =
+        document.getElementById('nominal');
+
+    const tipeInput =
+        document.getElementById('tipe');
+
+    const kategoriInput =
+        document.getElementById('kategori');
+
+    const tanggalInput =
+        document.getElementById('tanggal');
+
+
+    /* =========================================
+       FORMAT RUPIAH
+    ========================================= */
+
+    function formatRupiah(angka) {
+
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(Number(angka) || 0);
+
+    }
+
+
+    /* =========================================
+       ESCAPE HTML
+       Mencegah input user memasukkan HTML
+    ========================================= */
+
+    function escapeHTML(text) {
+
+        const div = document.createElement('div');
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =========================================
+       SIMPAN DATA
+    ========================================= */
+
+    function saveData() {
+
+        localStorage.setItem(
+            'sakukita_transaksi',
+            JSON.stringify(transaksiList)
+        );
+
+    }
+
+
+    /* =========================================
+       DASHBOARD
+    ========================================= */
+
+    function updateDashboard() {
+
+        let pemasukan = 0;
+        let pengeluaran = 0;
+
+        transaksiList.forEach(item => {
+
+            const nominal = Number(item.nominal) || 0;
+
+            if (item.tipe === 'pemasukan') {
+
+                pemasukan += nominal;
+
             } else {
-                pesanKosongEl.style.display = 'none';
-                
-                dataDitampilkan.forEach((item) => {
-                    // Cari indeks asli di array utama agar tombol hapus tepat sasaran
-                    const indexAsli = transaksiList.indexOf(item);
 
-                    const li = document.createElement('li');
-                    li.className = "flex justify-between items-center p-3 bg-slate-900/60 border border-slate-800/80 rounded-2xl hover:bg-slate-900 transition";
-                    
-                    const isMasuk = item.tipe === 'pemasukan';
-                    const warnaTeks = isMasuk ? 'text-emerald-400' : 'text-rose-400';
-                    const tanda = isMasuk ? '+' : '-';
+                pengeluaran += nominal;
 
-                    li.innerHTML = `
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-xl flex items-center justify-center ${isMasuk ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'} font-bold text-sm">
-                                ${isMasuk ? '↓' : '↑'}
-                            </div>
-                            <div>
-                                <h4 class="text-xs md:text-sm font-semibold text-slate-200">${item.keterangan}</h4>
-                                <span class="text-[10px] text-slate-500">${item.tanggal || 'Baru saja'}</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <span class="text-xs md:text-sm font-bold ${warnaTeks}">
-                                ${tanda} ${formatRupiah(item.nominal)}
-                            </span>
-                            <button onclick="hapusTransaksi(${indexAsli})" class="text-slate-600 hover:text-rose-400 p-1.5 transition rounded-lg hover:bg-rose-500/10">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    `;
-                    listTransaksiEl.appendChild(li);
-                });
             }
 
-            let saldoTotal = pemasukan - pengeluaran;
-
-            saldoTotalEl.innerText = formatRupiah(saldoTotal);
-            totalPemasukanEl.innerText = formatRupiah(pemasukan);
-            totalPengeluaranEl.innerText = formatRupiah(pengeluaran);
-
-            localStorage.setItem('transaksi', JSON.stringify(transaksiList));
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const tanggalBaru = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-
-            const transaksiBaru = {
-                keterangan: keteranganInput.value,
-                nominal: parseFloat(nominalInput.value),
-                tipe: tipeInput.value,
-                tanggal: tanggalBaru
-            };
-
-            transaksiList.unshift(transaksiBaru);
-            updateAplikasi();
-
-            keteranganInput.value = '';
-            nominalInput.value = '';
-            keteranganInput.focus();
         });
 
-        function hapusTransaksi(index) {
-            transaksiList.splice(index, 1);
-            updateAplikasi();
+
+        const saldo = pemasukan - pengeluaran;
+
+
+        document.getElementById('saldo-total').textContent =
+            formatRupiah(saldo);
+
+        document.getElementById('total-pemasukan').textContent =
+            formatRupiah(pemasukan);
+
+        document.getElementById('total-pengeluaran').textContent =
+            formatRupiah(pengeluaran);
+
+
+        /* Hari ini */
+
+        const today =
+            new Date().toISOString().split('T')[0];
+
+        const transaksiHari =
+            transaksiList.filter(x => x.tanggal === today).length;
+
+        document.getElementById('transaksi-hari').textContent =
+            transaksiHari;
+
+
+        /* Bulan ini */
+
+        const bulanSekarang =
+            today.substring(0, 7);
+
+        const transaksiBulan =
+            transaksiList.filter(x =>
+                x.tanggal && x.tanggal.startsWith(bulanSekarang)
+            ).length;
+
+        document.getElementById('transaksi-bulan').textContent =
+            transaksiBulan;
+
+
+        /* Rata-rata pengeluaran */
+
+        const jumlahPengeluaran =
+            transaksiList.filter(x => x.tipe === 'pengeluaran').length;
+
+        const rata =
+            jumlahPengeluaran > 0
+                ? pengeluaran / jumlahPengeluaran
+                : 0;
+
+        document.getElementById('rata-rata').textContent =
+            formatRupiah(rata);
+
+
+        /* Pengeluaran terbesar */
+
+        const pengeluaranTerbesar =
+            transaksiList
+                .filter(x => x.tipe === 'pengeluaran')
+                .reduce(
+                    (max, x) =>
+                        Math.max(max, Number(x.nominal) || 0),
+                    0
+                );
+
+        document.getElementById('terbesar').textContent =
+            formatRupiah(pengeluaranTerbesar);
+
+    }
+
+
+    /* =========================================
+       TRANSACTIONS
+    ========================================= */
+
+    function renderTransactions() {
+
+        const container =
+            document.getElementById('list-transaksi');
+
+        const empty =
+            document.getElementById('pesan-kosong');
+
+        const search =
+            document.getElementById('search').value
+                .toLowerCase()
+                .trim();
+
+        const filterTipe =
+            document.getElementById('filter-tipe').value;
+
+        const filterKategori =
+            document.getElementById('filter-kategori').value;
+
+
+        const hasil = transaksiList.filter(item => {
+
+            const cocokSearch =
+                !search ||
+                item.keterangan.toLowerCase().includes(search) ||
+                item.kategori.toLowerCase().includes(search);
+
+            const cocokTipe =
+                filterTipe === 'semua' ||
+                item.tipe === filterTipe;
+
+            const cocokKategori =
+                filterKategori === 'semua' ||
+                item.kategori === filterKategori;
+
+            return cocokSearch &&
+                   cocokTipe &&
+                   cocokKategori;
+
+        });
+
+
+        container.innerHTML = '';
+
+
+        document.getElementById('jumlah-hasil').textContent =
+            `${hasil.length} transaksi`;
+
+
+        if (hasil.length === 0) {
+
+            empty.classList.remove('hidden');
+
+            return;
+
         }
 
-        function resetData() {
-            if (confirm("Yakin ingin menghapus seluruh data transaksi?")) {
-                transaksiList = [];
-                updateAplikasi();
+
+        empty.classList.add('hidden');
+
+
+        hasil.forEach(item => {
+
+            const index =
+                transaksiList.indexOf(item);
+
+            const isIncome =
+                item.tipe === 'pemasukan';
+
+
+            const li =
+                document.createElement('div');
+
+            li.className =
+                'transaction-item animate-slide flex items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl';
+
+
+            li.innerHTML = `
+
+                <div class="flex items-center gap-3 min-w-0">
+
+                    <div class="
+                        w-10 h-10
+                        shrink-0
+                        rounded-xl
+                        flex
+                        items-center
+                        justify-center
+                        font-bold
+                        ${isIncome
+                            ? 'bg-emerald-100 text-emerald-600'
+                            : 'bg-rose-100 text-rose-600'}
+                    ">
+                        ${isIncome ? '↓' : '↑'}
+                    </div>
+
+
+                    <div class="min-w-0">
+
+                        <h4 class="text-sm font-medium truncate">
+                            ${escapeHTML(item.keterangan)}
+                        </h4>
+
+                        <div class="flex items-center gap-2 mt-1">
+
+                            <span class="text-[10px] text-slate-400">
+                                ${formatTanggal(item.tanggal)}
+                            </span>
+
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200 text-slate-500">
+                                ${escapeHTML(item.kategori)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex items-center gap-2 shrink-0">
+
+                    <span class="
+                        text-xs
+                        md:text-sm
+                        font-semibold
+                        ${isIncome
+                            ? 'text-emerald-600'
+                            : 'text-rose-600'}
+                    ">
+                        ${isIncome ? '+' : '-'}
+                        ${formatRupiah(item.nominal)}
+                    </span>
+
+
+                    <button
+                        onclick="editTransaksi(${index})"
+                        class="w-7 h-7 rounded-lg hover:bg-indigo-100 text-slate-400 hover:text-indigo-600">
+                        ✏️
+                    </button>
+
+
+                    <button
+                        onclick="hapusTransaksi(${index})"
+                        class="w-7 h-7 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600">
+                        🗑️
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(li);
+
+        });
+
+    }
+
+
+    /* =========================================
+       FORMAT TANGGAL
+    ========================================= */
+
+    function formatTanggal(tanggal) {
+
+        if (!tanggal) return 'Tanggal tidak diketahui';
+
+        const date = new Date(tanggal + 'T00:00:00');
+
+        return date.toLocaleDateString(
+            'id-ID',
+            {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
             }
+        );
+
+    }
+
+
+    /* =========================================
+       TAMBAH / EDIT
+    ========================================= */
+
+    form.addEventListener('submit', function(e) {
+
+        e.preventDefault();
+
+
+        const keterangan =
+            keteranganInput.value.trim();
+
+        const nominal =
+            Number(nominalInput.value);
+
+        const tipe =
+            tipeInput.value;
+
+        const kategori =
+            kategoriInput.value;
+
+        const tanggal =
+            tanggalInput.value;
+
+
+        if (!keterangan || nominal <= 0 || !tanggal) {
+
+            alert('Mohon isi data transaksi dengan benar.');
+
+            return;
+
         }
 
-        updateAplikasi();
-    </script>
+
+        const editIndex =
+            Number(document.getElementById('edit-index').value);
+
+
+        const data = {
+
+            keterangan,
+            nominal,
+            tipe,
+            kategori,
+            tanggal
+
+        };
+
+
+        if (editIndex >= 0) {
+
+            transaksiList[editIndex] = data;
+
+        } else {
+
+            transaksiList.unshift(data);
+
+        }
+
+
+        saveData();
+
+        updateAll();
+
+        form.reset();
+
+        setDefaultDate();
+
+        cancelEdit();
+
+    });
+
+
+    /* =========================================
+       EDIT
+    ========================================= */
+
+    function editTransaksi(index) {
+
+        const item =
+            transaksiList[index];
+
+        if (!item) return;
+
+
+        keteranganInput.value =
+            item.keterangan;
+
+        nominalInput.value =
+            item.nominal;
+
+        tipeInput.value =
+            item.tipe;
+
+        kategoriInput.value =
+            item.kategori;
+
+        tanggalInput.value =
+            item.tanggal;
+
+
+        document.getElementById('edit-index').value =
+            index;
+
+
+        document.getElementById('submit-button').textContent =
+            'Update Transaksi';
+
+
+        document.getElementById('cancel-edit')
+            .classList.remove('hidden');
+
+
+        keteranganInput
+            .scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+        setTimeout(() => {
+            keteranganInput.focus();
+        }, 400);
+
+    }
+
+
+    /* =========================================
+       CANCEL EDIT
+    ========================================= */
+
+    function cancelEdit() {
+
+        document.getElementById('edit-index').value = -1;
+
+        document.getElementById('submit-button').textContent =
+            'Simpan Transaksi';
+
+        document.getElementById('cancel-edit')
+            .classList.add('hidden');
+
+    }
+
+
+    /* =========================================
+       HAPUS
+    ========================================= */
+
+    function hapusTransaksi(index) {
+
+        const item =
+            transaksiList[index];
+
+        if (!item) return;
+
+
+        if (!confirm(
+            `Hapus transaksi "${item.keterangan}"?`
+        )) return;
+
+
+        transaksiList.splice(index, 1);
+
+        saveData();
+
+        updateAll();
+
+    }
+
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    function resetData() {
+
+        if (transaksiList.length === 0) {
+
+            alert('Belum ada data transaksi.');
+
+            return;
+
+        }
+
+
+        if (
+            confirm(
+                'Yakin ingin menghapus SEMUA transaksi? Data tidak bisa dikembalikan kecuali kamu punya backup.'
+            )
+        ) {
+
+            transaksiList = [];
+
+            saveData();
+
+            updateAll();
+
+        }
+
+    }
+
+
+    /* =========================================
+       GRAFIK 7 HARI
+    ========================================= */
+
+    function renderChart() {
+
+        const chart =
+            document.getElementById('chart');
+
+        chart.innerHTML = '';
+
+
+        const days = [];
+
+
+        for (let i = 6; i >= 0; i--) {
+
+            const date = new Date();
+
+            date.setDate(
+                date.getDate() - i
+            );
+
+            const key =
+                date.toISOString().split('T')[0];
+
+            days.push({
+                key,
+                date
+            });
+
+        }
+
+
+        let maxValue = 1;
+
+
+        days.forEach(day => {
+
+            const income =
+                transaksiList
+                    .filter(x =>
+                        x.tanggal === day.key &&
+                        x.tipe === 'pemasukan'
+                    )
+                    .reduce(
+                        (a, b) =>
+                            a + Number(b.nominal),
+                        0
+                    );
+
+
+            const expense =
+                transaksiList
+                    .filter(x =>
+                        x.tanggal === day.key &&
+                        x.tipe === 'pengeluaran'
+                    )
+                    .reduce(
+                        (a, b) =>
+                            a + Number(b.nominal),
+                        0
+                    );
+
+
+            maxValue =
+                Math.max(
+                    maxValue,
+                    income,
+                    expense
+                );
+
+        });
+
+
+        days.forEach(day => {
+
+            const income =
+                transaksiList
+                    .filter(x =>
+                        x.tanggal === day.key &&
+                        x.tipe === 'pemasukan'
+                    )
+                    .reduce(
+                        (a, b) =>
+                            a + Number(b.nominal),
+                        0
+                    );
+
+
+            const expense =
+                transaksiList
+                    .filter(x =>
+                        x.tanggal === day.key &&
+                        x.tipe === 'pengeluaran'
+                    )
+                    .reduce(
+                        (a, b) =>
+                            a + Number(b.nominal),
+                        0
+                    );
+
+
+            const wrapper =
+                document.createElement('div');
+
+            wrapper.className =
+                'flex-1 min-w-[45px] flex flex-col items-center justify-end h-full';
+
+
+            const bars =
+                document.createElement('div');
+
+            bars.className =
+                'flex items-end justify-center gap-1 h-32 w-full';
+
+
+            const incomeBar =
+                document.createElement('div');
+
+            incomeBar.className =
+                'w-3 md:w-4 bg-emerald-400 rounded-t-md transition-all';
+
+            incomeBar.style.height =
+                `${Math.max(3, income / maxValue * 100)}%`;
+
+
+            const expenseBar =
+                document.createElement('div');
+
+            expenseBar.className =
+                'w-3 md:w-4 bg-rose-400 rounded-t-md transition-all';
+
+            expenseBar.style.height =
+                `${Math.max(3, expense / maxValue * 100)}%`;
+
+
+            bars.appendChild(incomeBar);
+
+            bars.appendChild(expenseBar);
+
+
+            const label =
+                document.createElement('span');
+
+            label.className =
+                'text-[9px] text-slate-400 mt-2';
+
+            label.textContent =
+                day.date.toLocaleDateString(
+                    'id-ID',
+                    { weekday: 'short' }
+                ).replace('.', '');
+
+
+            wrapper.appendChild(bars);
+
+            wrapper.appendChild(label);
+
+            chart.appendChild(wrapper);
+
+        });
+
+    }
+
+
+    /* =========================================
+       EXPORT
+    ========================================= */
+
+    function exportData() {
+
+        if (transaksiList.length === 0) {
+
+            alert('Belum ada data untuk dibackup.');
+
+            return;
+
+        }
+
+
+        const data =
+            JSON.stringify(
+                transaksiList,
+                null,
+                2
+            );
+
+
+        const blob =
+            new Blob(
+                [data],
+                { type: 'application/json' }
+            );
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const a =
+            document.createElement('a');
+
+        a.href = url;
+
+        a.download =
+            `sakukita-backup-${new Date().toISOString().split('T')[0]}.json`;
+
+        a.click();
+
+
+        URL.revokeObjectURL(url);
+
+    }
+
+
+    /* =========================================
+       IMPORT
+    ========================================= */
+
+    function importData(event) {
+
+        const file =
+            event.target.files[0];
+
+        if (!file) return;
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(e) {
+
+            try {
+
+                const data =
+                    JSON.parse(e.target.result);
+
+
+                if (!Array.isArray(data)) {
+
+                    throw new Error();
+
+                }
+
+
+                if (
+                    !confirm(
+                        'Import data akan mengganti data transaksi saat ini. Lanjutkan?'
+                    )
+                ) return;
+
+
+                transaksiList = data.map(item => ({
+
+                    keterangan:
+                        String(item.keterangan || 'Tanpa keterangan'),
+
+                    nominal:
+                        Number(item.nominal) || 0,
+
+                    tipe:
+                        item.tipe === 'pemasukan'
+                            ? 'pemasukan'
+                            : 'pengeluaran',
+
+                    kategori:
+                        String(item.kategori || 'Lainnya'),
+
+                    tanggal:
+                        item.tanggal ||
+                        new Date().toISOString().split('T')[0]
+
+                }));
+
+
+                saveData();
+
+                updateAll();
+
+                alert('Data berhasil diimport.');
+
+            } catch {
+
+                alert(
+                    'File backup tidak valid.'
+                );
+
+            }
+
+        };
+
+
+        reader.readAsText(file);
+
+        event.target.value = '';
+
+    }
+
+
+    /* =========================================
+       DARK MODE
+    ========================================= */
+
+    function toggleDarkMode() {
+
+        document.documentElement.classList.toggle('dark');
+
+        const dark =
+            document.documentElement.classList.contains('dark');
+
+
+        localStorage.setItem(
+            'sakukita_dark',
+            dark ? '1' : '0'
+        );
+
+
+        document.getElementById('darkButton').textContent =
+            dark ? '☀️' : '🌙';
+
+    }
+
+
+    function loadDarkMode() {
+
+        const dark =
+            localStorage.getItem('sakukita_dark') === '1';
+
+
+        if (dark) {
+
+            document.documentElement.classList.add('dark');
+
+            document.getElementById('darkButton').textContent =
+                '☀️';
+
+        }
+
+    }
+
+
+    /* =========================================
+       DEFAULT DATE
+    ========================================= */
+
+    function setDefaultDate() {
+
+        tanggalInput.value =
+            new Date()
+                .toISOString()
+                .split('T')[0];
+
+    }
+
+
+    /* =========================================
+       UPDATE SEMUA
+    ========================================= */
+
+    function updateAll() {
+
+        updateDashboard();
+
+        renderTransactions();
+
+        renderChart();
+
+    }
+
+
+    /* =========================================
+       INIT
+    ========================================= */
+
+    loadDarkMode();
+
+    setDefaultDate();
+
+    updateAll();
+
+</script>
+
 </body>
 </html>
