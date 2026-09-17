@@ -62,15 +62,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 }
 .animate-fade{animation:fadeIn .25s ease}
 
-@keyframes drawLine{
-    from{stroke-dashoffset:2000}
-    to{stroke-dashoffset:0}
-}
-.animate-draw{
-    stroke-dasharray:2000;
-    animation:drawLine 1s ease-out forwards;
-}
-
 .nav-active{color:#4f46e5;font-weight:600}
 .nav-active svg{stroke-width:2.4}
 .dark .nav-active{color:#818cf8}
@@ -103,8 +94,18 @@ button{-webkit-tap-highlight-color:transparent}
 
 main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
-/* Chart styling */
 #chart svg{display:block;width:100%}
+
+/* WhatsApp brand */
+.wa-btn{
+    background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+    box-shadow:0 4px 12px rgba(37,211,102,.25);
+}
+.wa-btn:hover{
+    box-shadow:0 6px 16px rgba(37,211,102,.35);
+    transform:translateY(-1px);
+}
+.wa-btn:active{transform:translateY(0)}
 </style>
 </head>
 
@@ -220,7 +221,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </button>
     </div>
 
-    <!-- STAT CARDS — MODERN -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-500/10 -mr-6 -mt-6"></div>
@@ -268,7 +268,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- CHART — MODERN AREA CHART -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-start mb-4">
             <div class="flex items-center gap-3">
@@ -623,23 +622,80 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <div class="card bg-white border border-rose-100 dark:border-rose-500/20 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-        </div>
-        <div class="flex-1">
-            <h3 class="font-semibold text-sm text-rose-600 dark:text-rose-400">Hapus Semua Data</h3>
-            <p class="text-xs t-muted mt-0.5">Hapus seluruh data SakuKita dari perangkat.</p>
-            <button onclick="resetData()"
-                class="mt-3 border border-rose-200 dark:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-medium px-4 py-2 rounded-xl transition">
-                Hapus Semua
-            </button>
+    <!-- ============ KONTAK ADMIN / DEVELOPER ============ -->
+    <div class="card bg-white border border-emerald-100 dark:border-emerald-500/20 rounded-2xl p-5 shadow-sm overflow-hidden relative">
+        <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-emerald-50 dark:bg-emerald-500/10"></div>
+        <div class="relative">
+            <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-xl wa-btn text-white flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-sm t-strong">Butuh Bantuan?</h3>
+                    <p class="text-xs t-muted mt-1 leading-relaxed">
+                        Hubungi admin untuk pertanyaan, masukan, atau laporan bug.
+                    </p>
+                    <a href="https://wa.me/6283877140463?text=Halo%20Admin%20SakuKita%2C%20saya%20butuh%20bantuan%20terkait%20aplikasi." target="_blank" rel="noopener noreferrer"
+                        class="mt-3 wa-btn text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition inline-flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Chat Admin via WhatsApp
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="text-center pt-4 pb-2">
-        <p class="text-[10px] t-muted font-medium">SakuKita V4</p>
-        <p class="text-[10px] t-faint mt-1">Personal Finance • Local Storage</p>
+    <!-- ============ TENTANG DEVELOPER ============ -->
+    <div class="card bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full"></div>
+        <div class="absolute -right-2 top-12 w-16 h-16 bg-white/5 rounded-full"></div>
+        <div class="relative">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] text-indigo-200 uppercase tracking-wider font-semibold">Dikembangkan oleh</p>
+                    <h3 class="font-bold text-lg leading-tight">Joy Digital</h3>
+                </div>
+            </div>
+            <p class="text-[11px] text-indigo-100 leading-relaxed">
+                SakuKita V4 — Aplikasi keuangan pribadi yang ringan, cepat, dan sepenuhnya offline. Dibuat dengan ❤️ untuk membantu kamu mengelola keuangan dengan lebih baik.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">v4.0</span>
+                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">PWA Ready</span>
+                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">100% Offline</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <div class="text-center pt-4 pb-4">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+            </svg>
+        </div>
+        <p class="text-xs font-semibold t-strong">SakuKita V4</p>
+        <p class="text-[10px] t-muted mt-1">Personal Finance • Local Storage</p>
+        <p class="text-[10px] t-faint mt-3">
+            © <span id="footerYear"></span> <span class="font-semibold text-indigo-600 dark:text-indigo-400">Joy Digital</span>. All rights reserved.
+        </p>
+        <a href="https://wa.me/6283877140463" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 text-[10px] t-muted hover:text-emerald-600 dark:hover:text-emerald-400 mt-2 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            +62 838-7714-0463
+        </a>
     </div>
 </section>
 
@@ -883,6 +939,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
    SAKUKITA V4
    ===================================================== */
 
+/* ============ FOOTER YEAR ============ */
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
 const ICON_PATHS = {
     eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
     eyeOff: '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>',
@@ -998,13 +1057,6 @@ function formatRupiah(value){
     return new Intl.NumberFormat('id-ID',{
         style:'currency', currency:'IDR', minimumFractionDigits:0
     }).format(Number(value) || 0);
-}
-
-function formatRupiahShort(value){
-    const v = Number(value) || 0;
-    if(v >= 1000000) return `Rp ${(v/1000000).toFixed(v%1000000===0?0:1)}jt`;
-    if(v >= 1000) return `Rp ${(v/1000).toFixed(v%1000===0?0:1)}rb`;
-    return `Rp ${v}`;
 }
 
 function localDateKey(date = new Date()){
@@ -1818,7 +1870,6 @@ function renderChart(){
 
     const daysCount = Number(document.getElementById('chartPeriod').value) || 7;
 
-    // Build days
     const days = [];
     for (let i = daysCount - 1; i >= 0; i--) {
         const date = new Date();
@@ -1827,7 +1878,6 @@ function renderChart(){
         days.push({ date, key: localDateKey(date) });
     }
 
-    // Values
     let maxVal = 0;
     const values = days.map(day => {
         const income = transaksiList
@@ -1843,7 +1893,6 @@ function renderChart(){
     const totalIncome = values.reduce((a, v) => a + v.income, 0);
     const totalExpense = values.reduce((a, v) => a + v.expense, 0);
 
-    // Empty state
     if (maxVal === 0) {
         chartEl.innerHTML = `
             <div class="flex flex-col items-center justify-center py-12 t-faint">
@@ -1875,7 +1924,6 @@ function renderChart(){
 
     const niceMax = niceRoundNumber(maxVal);
 
-    // SVG dimensions
     const W = 700;
     const H = 180;
     const padTop = 10;
@@ -1885,7 +1933,6 @@ function renderChart(){
     const chartW = W - padX * 2;
     const baselineY = padTop + chartH;
 
-    // Grid lines
     const gridCount = 4;
     let gridHTML = '';
     for (let i = 0; i <= gridCount; i++) {
@@ -1893,7 +1940,6 @@ function renderChart(){
         gridHTML += `<line x1="${padX}" y1="${y}" x2="${W - padX}" y2="${y}" stroke="currentColor" stroke-opacity="0.06" stroke-width="1" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/>`;
     }
 
-    // Points
     const stepX = values.length > 1 ? chartW / (values.length - 1) : 0;
     const incomePoints = values.map((v, i) => ({
         x: padX + i * stepX,
@@ -1926,7 +1972,6 @@ function renderChart(){
 
     chartEl.innerHTML = svgHTML;
 
-    // X-axis labels — show selected indices
     let labelIndices = [];
     if (values.length <= 7) {
         labelIndices = values.map((_, i) => i);
@@ -1944,7 +1989,6 @@ function renderChart(){
         return `<span class="text-[9px] t-muted ${show ? '' : 'invisible'}" style="flex:1;text-align:center">${label}</span>`;
     }).join('');
 
-    // Legend with totals
     legendEl.innerHTML = `
         <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
             <div class="flex items-center gap-2">
