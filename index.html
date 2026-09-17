@@ -17,20 +17,22 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 
 .dark body{background:#020617;color:#e2e8f0}
 
-/* ===== CARD (hanya untuk kartu putih) ===== */
 .card{background:#ffffff;border-color:#f1f5f9}
 .dark .card{background:#0f172a;border-color:#1e293b}
 
-/* ===== SOFT ===== */
 .soft{background:#f8fafc;border:1px solid #f1f5f9}
 .dark .soft{background:#0b1220;border-color:#1e293b}
 
-/* ===== GRADIENT CARD (bebas dari override background) ===== */
 .gradient-primary{
     background-image:linear-gradient(135deg,#4f46e5 0%,#4f46e5 50%,#7c3aed 100%);
     color:#ffffff;
 }
 .gradient-primary *{color:inherit}
+
+.balance-hero{
+    background-image:linear-gradient(135deg,#4f46e5 0%,#4f46e5 50%,#7c3aed 100%);
+    color:#ffffff;
+}
 
 .dark .input,
 .dark input,
@@ -44,7 +46,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .dark .insight{background:#172554;border-color:#1e3a8a}
 .dark .modal-box{background:#0f172a;border-color:#1e293b}
 
-/* ===== SEMANTIC TEXT (untuk light & dark) ===== */
 .t-strong{color:#1e293b}
 .dark .t-strong{color:#e2e8f0}
 
@@ -57,7 +58,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .t-faint{color:#94a3b8}
 .dark .t-faint{color:#64748b}
 
-/* ===== TEXT PUTIH (untuk card gradient gelap) ===== */
 .t-on-dark-1{color:#ffffff}
 .t-on-dark-2{color:rgba(255,255,255,0.85)}
 .t-on-dark-3{color:rgba(255,255,255,0.72)}
@@ -93,7 +93,6 @@ button{-webkit-tap-highlight-color:transparent}
 main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 #chart svg{display:block;width:100%}
 
-/* ===== WHATSAPP BTN ===== */
 .wa-btn{
     background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
     color:#ffffff;
@@ -102,12 +101,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 }
 .wa-btn:hover{box-shadow:0 6px 16px rgba(37,211,102,.4);transform:translateY(-1px)}
 .wa-btn:active{transform:translateY(0)}
-
-/* ===== BALANCE HERO ===== */
-.balance-hero{
-    background-image:linear-gradient(135deg,#4f46e5 0%,#4f46e5 50%,#7c3aed 100%);
-    color:#ffffff;
-}
 </style>
 </head>
 
@@ -128,12 +121,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="toggleBalance()" id="balanceToggle" title="Sembunyikan saldo"
-                class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
-                </svg>
-            </button>
             <button onclick="toggleDarkMode()" id="darkButton"
                 class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -150,11 +137,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
 
+    <!-- BALANCE CARD -->
     <div class="balance-hero rounded-[28px] p-5 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
-        <div class="relative flex justify-between items-start">
-            <div>
+
+        <div class="relative flex justify-between items-start gap-3">
+            <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-1.5 t-on-dark-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>
@@ -164,13 +153,16 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight t-on-dark-1">Rp 0</h2>
                 <p id="saldo-perubahan" class="text-[11px] t-on-dark-2 mt-2">Belum ada transaksi</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center t-on-dark-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+
+            <!-- TOMBOL MATA — dipindah dari header ke sini -->
+            <button onclick="toggleBalance()" id="balanceToggle" title="Sembunyikan / tampilkan saldo"
+                class="w-12 h-12 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur flex items-center justify-center transition shrink-0 t-on-dark-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
                 </svg>
-            </div>
+            </button>
         </div>
+
         <div class="grid grid-cols-2 gap-3 mt-5 relative">
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
                 <div class="flex items-center gap-1.5 t-on-dark-3">
@@ -617,7 +609,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- KONTAK ADMIN -->
     <div class="card bg-white border border-emerald-100 dark:border-emerald-500/20 rounded-2xl p-5 shadow-sm overflow-hidden relative">
         <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-emerald-50 dark:bg-emerald-500/10"></div>
         <div class="relative">
@@ -644,7 +635,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- TENTANG DEVELOPER (fixed: pakai .gradient-primary, bukan .card) -->
     <div class="gradient-primary rounded-2xl p-5 shadow-lg relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-12 w-16 h-16 bg-white/5 rounded-full"></div>
@@ -671,7 +661,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- FOOTER -->
     <div class="text-center pt-4 pb-4">
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1057,7 +1046,7 @@ function toggleBalance(){
 }
 function displayMoney(value){ return hideBalance ? '••••••••' : formatRupiah(value); }
 function loadBalanceVisibility(){
-    document.getElementById('balanceToggle').innerHTML = hideBalance ? icon('eyeOff', 18) : icon('eye', 18);
+    document.getElementById('balanceToggle').innerHTML = hideBalance ? icon('eyeOff', 22) : icon('eye', 22);
 }
 
 function updateDashboard(){
