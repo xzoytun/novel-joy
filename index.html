@@ -28,7 +28,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .dark .soft{background:#0b1220;border-color:#1e293b}
 
 .header-bg{background:#1e40af}
-
 .gradient-primary{background:#1e3a8a;color:#ffffff}
 .gradient-primary *{color:inherit}
 .balance-hero{background:#1e3a8a;color:#ffffff}
@@ -110,7 +109,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 .wa-btn:hover{box-shadow:0 6px 16px rgba(37,211,102,.4);transform:translateY(-1px)}
 .wa-btn:active{transform:translateY(0)}
 
-/* ===== SUB-TAB BELAJAR ===== */
 .sub-tab{
     padding:7px 13px;
     border-radius:11px;
@@ -126,22 +124,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 .sub-tab:hover{background:#f1f5f9}
 .dark .sub-tab{color:#94a3b8}
 .dark .sub-tab:hover{background:#1e293b}
-.sub-tab.active{
-    background:#4f46e5;
-    color:#fff;
-    box-shadow:0 4px 12px rgba(79,70,229,.3);
-}
-.dark .sub-tab.active{
-    background:#4f46e5;
-    color:#fff;
-}
+.sub-tab.active{background:#4f46e5;color:#fff;box-shadow:0 4px 12px rgba(79,70,229,.3)}
+.dark .sub-tab.active{background:#4f46e5;color:#fff}
 
-/* ===== KALENDER MINI ===== */
-.cal-grid{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:5px;
-}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .cal-cell{
     aspect-ratio:1;
     border-radius:9px;
@@ -156,27 +142,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     transition:all .2s ease;
 }
 .dark .cal-cell{background:#1e293b;color:#64748b}
-.cal-cell.learned{
-    background:#d1fae5;
-    color:#047857;
-}
+.cal-cell.learned{background:#d1fae5;color:#047857}
 .dark .cal-cell.learned{background:rgba(16,185,129,.18);color:#34d399}
-.cal-cell.today{
-    background:#4f46e5;
-    color:#fff;
-    box-shadow:0 0 0 2px rgba(79,70,229,.25);
-}
-.cal-cell.today.learned{
-    background:#10b981;
-    box-shadow:0 0 0 2px rgba(16,185,129,.3);
-}
-.cal-cell .dot{
-    width:4px;height:4px;border-radius:50%;margin-top:2px;
-    background:currentColor;opacity:.7;
-}
+.cal-cell.today{background:#4f46e5;color:#fff;box-shadow:0 0 0 2px rgba(79,70,229,.25)}
+.cal-cell.today.learned{background:#10b981;box-shadow:0 0 0 2px rgba(16,185,129,.3)}
+.cal-cell .dot{width:4px;height:4px;border-radius:50%;margin-top:2px;background:currentColor;opacity:.7}
 .cal-cell.empty .dot{display:none}
 
-/* ===== MOOD PICKER ===== */
 .mood-btn{
     width:38px;height:38px;
     border-radius:12px;
@@ -190,17 +162,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 .mood-btn:hover{background:#e2e8f0}
 .dark .mood-btn{background:#1e293b}
 .dark .mood-btn:hover{background:#334155}
-.mood-btn.selected{
-    background:#e0e7ff;
-    border-color:#4f46e5;
-    transform:scale(1.05);
-}
-.dark .mood-btn.selected{
-    background:rgba(79,70,229,.25);
-    border-color:#818cf8;
-}
+.mood-btn.selected{background:#e0e7ff;border-color:#4f46e5;transform:scale(1.05)}
+.dark .mood-btn.selected{background:rgba(79,70,229,.25);border-color:#818cf8}
 
-/* ===== STATUS PILIHAN HAFALAN ===== */
 .status-btn{
     flex:1;
     padding:10px 6px;
@@ -214,26 +178,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 .dark .status-btn{background:#0b1220;border-color:#1e293b}
 .status-btn:hover{border-color:#cbd5e1}
 .dark .status-btn:hover{border-color:#334155}
-.status-btn.selected[data-status="lancar"]{
-    background:#ecfdf5;border-color:#10b981;
-}
-.dark .status-btn.selected[data-status="lancar"]{
-    background:rgba(16,185,129,.15);border-color:#10b981;
-}
-.status-btn.selected[data-status="murajaah"]{
-    background:#fffbeb;border-color:#f59e0b;
-}
-.dark .status-btn.selected[data-status="murajaah"]{
-    background:rgba(245,158,11,.15);border-color:#f59e0b;
-}
-.status-btn.selected[data-status="belum"]{
-    background:#fef2f2;border-color:#ef4444;
-}
-.dark .status-btn.selected[data-status="belum"]{
-    background:rgba(239,68,68,.15);border-color:#ef4444;
-}
+.status-btn.selected[data-status="lancar"]{background:#ecfdf5;border-color:#10b981}
+.dark .status-btn.selected[data-status="lancar"]{background:rgba(16,185,129,.15);border-color:#10b981}
+.status-btn.selected[data-status="murajaah"]{background:#fffbeb;border-color:#f59e0b}
+.dark .status-btn.selected[data-status="murajaah"]{background:rgba(245,158,11,.15);border-color:#f59e0b}
+.status-btn.selected[data-status="belum"]{background:#fef2f2;border-color:#ef4444}
+.dark .status-btn.selected[data-status="belum"]{background:rgba(239,68,68,.15);border-color:#ef4444}
 
-/* Checklist item */
 .checklist-item{
     display:flex;align-items:center;gap:12px;
     padding:12px 14px;
@@ -256,11 +207,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     transition:all .15s ease;
 }
 .dark .check-box{border-color:#475569}
-.check-box.checked{
-    background:#4f46e5;
-    border-color:#4f46e5;
-    color:#fff;
-}
+.check-box.checked{background:#4f46e5;border-color:#4f46e5;color:#fff}
 </style>
 </head>
 
@@ -449,7 +396,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- ====== CARD BELAJAR DASHBOARD ====== -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-start mb-4">
             <div class="flex items-center gap-3">
@@ -638,7 +584,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 </section>
 
 
-<!-- ================= BELAJAR (NEW) ================= -->
+<!-- ================= BELAJAR ================= -->
 <section id="belajarSection" class="hidden space-y-5">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -659,25 +605,15 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </button>
     </div>
 
-    <!-- SUB TABS -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-2 shadow-sm">
         <div class="flex gap-1 overflow-x-auto hide-scrollbar">
-            <button id="tab-catatan" onclick="switchBelajarTab('catatan')" class="sub-tab active flex items-center gap-1.5">
-                📓 <span>Catatan</span>
-            </button>
-            <button id="tab-hafalan" onclick="switchBelajarTab('hafalan')" class="sub-tab flex items-center gap-1.5">
-                🧠 <span>Hafalan</span>
-            </button>
-            <button id="tab-checklist" onclick="switchBelajarTab('checklist')" class="sub-tab flex items-center gap-1.5">
-                ✍️ <span>Checklist</span>
-            </button>
-            <button id="tab-statistik" onclick="switchBelajarTab('statistik')" class="sub-tab flex items-center gap-1.5">
-                📊 <span>Statistik</span>
-            </button>
+            <button id="tab-catatan" onclick="switchBelajarTab('catatan')" class="sub-tab active flex items-center gap-1.5">📓 <span>Catatan</span></button>
+            <button id="tab-hafalan" onclick="switchBelajarTab('hafalan')" class="sub-tab flex items-center gap-1.5">🧠 <span>Hafalan</span></button>
+            <button id="tab-checklist" onclick="switchBelajarTab('checklist')" class="sub-tab flex items-center gap-1.5">✍️ <span>Checklist</span></button>
+            <button id="tab-statistik" onclick="switchBelajarTab('statistik')" class="sub-tab flex items-center gap-1.5">📊 <span>Statistik</span></button>
         </div>
     </div>
 
-    <!-- TAB: CATATAN -->
     <div id="belajarTabCatatan" class="space-y-4">
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="relative mb-3">
@@ -703,7 +639,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- TAB: HAFALAN -->
     <div id="belajarTabHafalan" class="hidden space-y-4">
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="grid grid-cols-2 gap-2">
@@ -737,7 +672,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- TAB: CHECKLIST -->
     <div id="belajarTabChecklist" class="hidden space-y-4">
         <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
             <div class="flex justify-between items-start mb-4">
@@ -750,11 +684,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <p class="text-[10px] t-muted">selesai</p>
                 </div>
             </div>
-
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden mb-4">
                 <div id="checklist-progress-bar" class="progress bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full" style="width:0%"></div>
             </div>
-
             <div class="flex gap-2 mb-4">
                 <input id="checklist-input" type="text" placeholder="Tambah kegiatan belajar..."
                     onkeypress="if(event.key==='Enter'){event.preventDefault();addChecklistItem();}"
@@ -764,7 +696,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </button>
             </div>
-
             <div id="list-checklist" class="space-y-2"></div>
             <div id="checklist-kosong" class="text-center py-6 t-faint">
                 <p class="text-xs">Belum ada kegiatan hari ini</p>
@@ -772,7 +703,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- TAB: STATISTIK -->
     <div id="belajarTabStatistik" class="hidden space-y-4">
         <div class="grid grid-cols-2 gap-3">
             <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
@@ -954,7 +884,106 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <p class="text-xs t-muted mt-1">Kelola data dan aplikasi</p>
     </div>
 
-    <!-- Target tabungan (dipindah dari bottom nav) -->
+    <!-- ============ TENTANG APLIKASI ============ -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-sm t-strong">Tentang SakuKita</h3>
+                <p class="text-[10px] t-muted mt-0.5">Kenali aplikasi & bagaimana data kamu dijaga</p>
+            </div>
+        </div>
+
+        <p class="text-xs t-base leading-relaxed">
+            <span class="font-semibold t-strong">SakuKita</span> adalah aplikasi keuangan pribadi yang <span class="font-semibold text-indigo-600 dark:text-indigo-400">100% offline</span> dan berjalan sepenuhnya di perangkat kamu. Aplikasi ini dirancang untuk membantu mencatat keuangan, target tabungan, budget bulanan, hingga aktivitas belajar — tanpa perlu registrasi, login, atau koneksi internet.
+        </p>
+
+        <div class="mt-4 p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/5 border border-emerald-100 dark:border-emerald-500/20">
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-sm text-emerald-800 dark:text-emerald-300">Keamanan Data Terjamin</h4>
+            </div>
+
+            <div class="space-y-2.5">
+                <div class="flex items-start gap-2.5">
+                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                        <span class="font-semibold">Tersimpan di HP kamu sendiri.</span> Data disimpan menggunakan <em>LocalStorage</em> browser — bukan di server kami.
+                    </p>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                        <span class="font-semibold">Tidak ada yang bisa melihat.</span> Tidak ada pihak ketiga, iklan, atau pelacak yang mengakses data keuanganmu.
+                    </p>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                        <span class="font-semibold">Kamu pemilik penuh.</span> Bebas backup, pindah, atau hapus data kapan saja — tanpa minta izin siapa pun.
+                    </p>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                        <span class="font-semibold">Aman tanpa internet.</span> Karena semua diproses di perangkat, data tetap bisa dibuka kapan saja meski sedang offline.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20">
+            <div class="flex gap-2.5">
+                <div class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                        <line x1="12" x2="12" y1="9" y2="13"/>
+                        <line x1="12" x2="12.01" y1="17" y2="17"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[11px] font-semibold text-amber-800 dark:text-amber-300 mb-0.5">Penting untuk diketahui</p>
+                    <p class="text-[10px] text-amber-700 dark:text-amber-300/90 leading-relaxed">
+                        Karena data tersimpan di perangkat ini, menghapus data browser, mengganti HP, atau install ulang browser <span class="font-semibold">bisa menghilangkan data</span>. Disarankan rutin <span class="font-semibold">Backup</span> untuk keamanan ekstra.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="downloadBackup()"
+            class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-3 rounded-xl transition shadow-sm shadow-emerald-500/25 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" x2="12" y1="15" y2="3"/>
+            </svg>
+            Amankan Data Sekarang
+        </button>
+    </div>
+
+    <!-- Target tabungan -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
@@ -1127,42 +1156,37 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div class="text-center pt-2 pb-2">
-    <!-- Brand -->
-    <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-            <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-        </svg>
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+            </svg>
+        </div>
+
+        <h3 class="text-sm font-bold t-strong tracking-tight">SakuKita V4</h3>
+        <p class="text-[10px] t-muted mt-0.5">Personal Finance • Local Storage</p>
+
+        <p class="text-[11px] t-base mt-3 italic leading-relaxed max-w-xs mx-auto">
+            "Kelola keuanganmu hari ini,<br>wujudkan impianmu esok hari."
+        </p>
+
+        <div class="my-3 h-px bg-slate-100 dark:bg-slate-800 max-w-[200px] mx-auto"></div>
+
+        <p class="text-[10px] t-muted leading-relaxed">
+            © <span id="footerYear"></span>
+            <span class="font-semibold text-indigo-600 dark:text-indigo-400">Joy Digital</span>
+            <span class="t-faint mx-0.5">×</span>
+            <span class="font-semibold text-pink-500 dark:text-pink-400">Maira</span>
+        </p>
+
+        <a href="https://wa.me/6283877140463" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 text-[10px] t-muted hover:text-emerald-600 dark:hover:text-emerald-400 mt-1.5 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            +62 838-7714-0463
+        </a>
     </div>
-
-    <h3 class="text-sm font-bold t-strong tracking-tight">SakuKita V4</h3>
-    <p class="text-[10px] t-muted mt-0.5">Personal Finance • Local Storage</p>
-
-    <!-- Tagline -->
-    <p class="text-[11px] t-base mt-3 italic leading-relaxed max-w-xs mx-auto">
-        "Kelola keuanganmu hari ini,<br>wujudkan impianmu esok hari."
-    </p>
-
-    <!-- Divider -->
-    <div class="my-3 h-px bg-slate-100 dark:bg-slate-800 max-w-[200px] mx-auto"></div>
-
-    <!-- Copyright -->
-    <p class="text-[10px] t-muted leading-relaxed">
-        © <span id="footerYear"></span>
-        <span class="font-semibold text-indigo-600 dark:text-indigo-400">Joy Digital</span>
-        <span class="t-faint mx-0.5">×</span>
-        <span class="font-semibold text-pink-500 dark:text-pink-400">Maira</span>
-    </p>
-
-    <!-- Kontak -->
-    <a href="https://wa.me/6283877140463" target="_blank" rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 text-[10px] t-muted hover:text-emerald-600 dark:hover:text-emerald-400 mt-1.5 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-        +62 838-7714-0463
-    </a>
-</div>
 </section>
 
 </main>
@@ -1173,9 +1197,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">
-                    📓
-                </div>
+                <div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">📓</div>
                 <div>
                     <h3 id="catatan-modal-title" class="font-bold text-sm t-strong">Tambah Catatan</h3>
                     <p class="text-[10px] t-muted mt-0.5">Catatan belajar harian</p>
@@ -1259,9 +1281,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
-                    🧠
-                </div>
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">🧠</div>
                 <div>
                     <h3 id="hafalan-modal-title" class="font-bold text-sm t-strong">Tambah Hafalan</h3>
                     <p class="text-[10px] t-muted mt-0.5">Progress hafalan & murajaah</p>
@@ -1502,8 +1522,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <p class="text-[10px] t-muted mt-0.5">Masukkan transaksi dengan cepat</p>
                 </div>
             </div>
-            <button onclick="closeQuickModal()"
-                class="btn-cancel w-9 h-9 rounded-full flex items-center justify-center">
+            <button onclick="closeQuickModal()" class="btn-cancel w-9 h-9 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
         </div>
@@ -1623,10 +1642,10 @@ const CATEGORY_KEYWORDS = {
 
 function guessCategoryFromText(text) {
     const t = String(text || '').toLowerCase().trim();
-    if(!t) return null;
-    for(const [cat, words] of Object.entries(CATEGORY_KEYWORDS)) {
-        for(const w of words) {
-            if(t === w || t.includes(w)) return cat;
+    if (!t) return null;
+    for (const [cat, words] of Object.entries(CATEGORY_KEYWORDS)) {
+        for (const w of words) {
+            if (t === w || t.includes(w)) return cat;
         }
     }
     return null;
@@ -1634,7 +1653,7 @@ function guessCategoryFromText(text) {
 
 function getEffectiveCategory(item) {
     const stored = String(item.kategori || '').trim();
-    if(stored && stored !== 'Lainnya') return stored;
+    if (stored && stored !== 'Lainnya') return stored;
     const guessed = guessCategoryFromText(item.keterangan);
     return guessed || stored || 'Lainnya';
 }
@@ -1673,7 +1692,6 @@ const tipeInput = document.getElementById('tipe');
 const kategoriInput = document.getElementById('kategori');
 const tanggalInput = document.getElementById('tanggal');
 
-/* ============ BELAJAR: KATEGORI ============ */
 const KATEGORI_BELAJAR = [
     { value: 'quran', label: 'Al-Qur\'an', emoji: '📖', group: 'agama' },
     { value: 'hadist', label: 'Hadist', emoji: '🤲', group: 'agama' },
@@ -1703,9 +1721,7 @@ function getStatusHafalanInfo(status) {
     return map[status] || map.belum;
 }
 
-function genId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-}
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
 function saveBelajarData() {
     localStorage.setItem(STORAGE.catatan, JSON.stringify(catatanList));
@@ -1736,7 +1752,6 @@ function saveData() {
     localStorage.setItem(STORAGE.budget, JSON.stringify(budgetList));
     localStorage.setItem(STORAGE.tagihan, JSON.stringify(tagihanList));
 }
-
 function formatTanggalIndo(dateStr) {
     if (!dateStr) return '';
     const d = new Date(dateStr + 'T12:00:00');
@@ -2248,9 +2263,6 @@ function hapusTagihan(idx) {
     tagihanList.splice(idx, 1); saveData(); renderTagihan();
 }
 
-/* =====================================================
-   CHART
-   ===================================================== */
 function niceRoundNumber(val) {
     if (val <= 0) return 1;
     const exp = Math.floor(Math.log10(val));
@@ -2371,10 +2383,6 @@ function renderChart() {
         </div>`;
 }
 
-/* =====================================================
-   BELAJAR — CORE
-   ===================================================== */
-
 function getAktivitasDates() {
     const dates = new Set();
     catatanList.forEach(c => { if (c.tanggal) dates.add(c.tanggal); });
@@ -2391,10 +2399,7 @@ function hitungStreak() {
     if (!dates.size) return 0;
     let streak = 0;
     const cursor = new Date();
-    // Kalau hari ini belum ada aktivitas, cek dari kemarin
-    if (!dates.has(localDateKey(cursor))) {
-        cursor.setDate(cursor.getDate() - 1);
-    }
+    if (!dates.has(localDateKey(cursor))) cursor.setDate(cursor.getDate() - 1);
     while (dates.has(localDateKey(cursor))) {
         streak++;
         cursor.setDate(cursor.getDate() - 1);
@@ -2455,29 +2460,16 @@ function switchBelajarTab(tab) {
         const btn = document.getElementById('tab-' + t);
         const content = document.getElementById('belajarTab' + t.charAt(0).toUpperCase() + t.slice(1));
         if (!btn || !content) return;
-        if (t === tab) {
-            btn.classList.add('active');
-            content.classList.remove('hidden');
-        } else {
-            btn.classList.remove('active');
-            content.classList.add('hidden');
-        }
+        if (t === tab) { btn.classList.add('active'); content.classList.remove('hidden'); }
+        else { btn.classList.remove('active'); content.classList.add('hidden'); }
     });
-
     const addLabel = document.getElementById('belajar-add-label');
     const addBtn = document.getElementById('belajar-add-btn');
     if (addBtn) {
-        if (tab === 'hafalan') {
-            addLabel.textContent = 'Hafalan';
-            addBtn.classList.remove('hidden');
-        } else if (tab === 'checklist' || tab === 'statistik') {
-            addBtn.classList.add('hidden');
-        } else {
-            addLabel.textContent = 'Catatan';
-            addBtn.classList.remove('hidden');
-        }
+        if (tab === 'hafalan') { addLabel.textContent = 'Hafalan'; addBtn.classList.remove('hidden'); }
+        else if (tab === 'checklist' || tab === 'statistik') { addBtn.classList.add('hidden'); }
+        else { addLabel.textContent = 'Catatan'; addBtn.classList.remove('hidden'); }
     }
-
     if (tab === 'catatan') renderCatatan();
     if (tab === 'hafalan') renderHafalan();
     if (tab === 'checklist') renderChecklist();
@@ -2485,28 +2477,19 @@ function switchBelajarTab(tab) {
 }
 
 function openBelajarAddModal() {
-    if (activeBelajarTab === 'hafalan') {
-        openHafalanModal();
-    } else {
-        openCatatanModal();
-    }
+    if (activeBelajarTab === 'hafalan') openHafalanModal();
+    else openCatatanModal();
 }
-
-/* ============ CATATAN ============ */
 
 function renderCatatanFilterChips() {
     const container = document.getElementById('catatan-filter');
     if (!container) return;
     const chips = [{ value: 'semua', label: 'Semua', emoji: '' }]
         .concat(KATEGORI_BELAJAR.map(k => ({ value: k.value, label: k.label, emoji: k.emoji })));
-
     container.innerHTML = chips.map(chip => {
         const active = filterCatatanKategori === chip.value;
         return `<button onclick="setFilterCatatan('${chip.value}')" 
-            class="text-[10px] font-semibold px-3 py-1.5 rounded-full whitespace-nowrap transition ${active
-                ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/20'
-                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
-            }">
+            class="text-[10px] font-semibold px-3 py-1.5 rounded-full whitespace-nowrap transition ${active ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/20' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}">
             ${chip.emoji ? chip.emoji + ' ' : ''}${chip.label}
         </button>`;
     }).join('');
@@ -2538,7 +2521,6 @@ function renderCatatan() {
     if (!filtered.length) { empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
 
-    // Group by date
     const groups = {};
     filtered.forEach(item => {
         if (!groups[item.tanggal]) groups[item.tanggal] = [];
@@ -2589,7 +2571,6 @@ function renderCatatan() {
             `;
             groupEl.appendChild(card);
         });
-
         container.appendChild(groupEl);
     });
 }
@@ -2621,9 +2602,7 @@ function editCatatan(id) {
     document.getElementById('catatanModal').classList.remove('hidden');
 }
 
-function closeCatatanModal() {
-    document.getElementById('catatanModal').classList.add('hidden');
-}
+function closeCatatanModal() { document.getElementById('catatanModal').classList.add('hidden'); }
 
 function selectMood(mood) {
     selectedMood = mood;
@@ -2633,11 +2612,8 @@ function selectMood(mood) {
 function updateMoodSelection() {
     document.querySelectorAll('.mood-btn').forEach(btn => {
         const val = btn.getAttribute('data-mood') || '';
-        if (val === selectedMood) {
-            btn.classList.add('selected');
-        } else {
-            btn.classList.remove('selected');
-        }
+        if (val === selectedMood) btn.classList.add('selected');
+        else btn.classList.remove('selected');
     });
 }
 
@@ -2647,26 +2623,14 @@ function saveCatatan(e) {
     const isi = document.getElementById('catatan-isi').value.trim();
     const kategori = document.getElementById('catatan-kategori').value;
     const tanggal = document.getElementById('catatan-tanggal').value;
-
     if (!judul || !isi || !tanggal) { alert('Lengkapi catatan.'); return; }
 
     if (editingCatatanId) {
         const item = catatanList.find(c => c.id === editingCatatanId);
-        if (item) {
-            item.judul = judul;
-            item.isi = isi;
-            item.kategori = kategori;
-            item.tanggal = tanggal;
-            item.mood = selectedMood;
-        }
+        if (item) { item.judul = judul; item.isi = isi; item.kategori = kategori; item.tanggal = tanggal; item.mood = selectedMood; }
     } else {
-        catatanList.push({
-            id: genId(),
-            judul, isi, kategori, tanggal,
-            mood: selectedMood
-        });
+        catatanList.push({ id: genId(), judul, isi, kategori, tanggal, mood: selectedMood });
     }
-
     saveBelajarData();
     closeCatatanModal();
     renderCatatan();
@@ -2682,8 +2646,6 @@ function hapusCatatan(id) {
     renderDashboardBelajar();
     renderBelajarStats();
 }
-
-/* ============ HAFALAN ============ */
 
 function renderHafalan() {
     const container = document.getElementById('list-hafalan');
@@ -2730,14 +2692,12 @@ function renderHafalan() {
                     </button>
                 </div>
             </div>
-
             <div class="flex items-center justify-between gap-3 mb-2">
                 <span class="text-[10px] font-semibold px-2.5 py-1 rounded-full border ${status.color === 'emerald' ? 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20' : status.color === 'amber' ? 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20' : 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20'}">
                     ${status.emoji} ${status.label}
                 </span>
                 <span class="text-[10px] t-muted">${formatTanggalIndo(item.tanggal)}</span>
             </div>
-
             ${item.catatan ? `<p class="text-[11px] t-muted italic mt-2 pl-2 border-l-2 border-slate-200 dark:border-slate-700">${escapeHTML(item.catatan)}</p>` : ''}
         `;
         container.appendChild(card);
@@ -2773,9 +2733,7 @@ function editHafalan(id) {
     document.getElementById('hafalanModal').classList.remove('hidden');
 }
 
-function closeHafalanModal() {
-    document.getElementById('hafalanModal').classList.add('hidden');
-}
+function closeHafalanModal() { document.getElementById('hafalanModal').classList.add('hidden'); }
 
 function selectHafalanStatus(status) {
     selectedHafalanStatus = status;
@@ -2785,11 +2743,8 @@ function selectHafalanStatus(status) {
 function updateHafalanStatusSelection() {
     document.querySelectorAll('.status-btn').forEach(btn => {
         const val = btn.getAttribute('data-status');
-        if (val === selectedHafalanStatus) {
-            btn.classList.add('selected');
-        } else {
-            btn.classList.remove('selected');
-        }
+        if (val === selectedHafalanStatus) btn.classList.add('selected');
+        else btn.classList.remove('selected');
     });
 }
 
@@ -2800,28 +2755,14 @@ function saveHafalan(e) {
     const detail = document.getElementById('hafalan-detail').value.trim();
     const catatan = document.getElementById('hafalan-catatan-input').value.trim();
     const tanggal = document.getElementById('hafalan-tanggal').value;
-
     if (!judul || !tanggal) { alert('Lengkapi data hafalan.'); return; }
 
     if (editingHafalanId) {
         const item = hafalanList.find(h => h.id === editingHafalanId);
-        if (item) {
-            item.kategori = kategori;
-            item.judul = judul;
-            item.detail = detail;
-            item.status = selectedHafalanStatus;
-            item.catatan = catatan;
-            item.tanggal = tanggal;
-        }
+        if (item) { item.kategori = kategori; item.judul = judul; item.detail = detail; item.status = selectedHafalanStatus; item.catatan = catatan; item.tanggal = tanggal; }
     } else {
-        hafalanList.push({
-            id: genId(),
-            kategori, judul, detail,
-            status: selectedHafalanStatus,
-            catatan, tanggal
-        });
+        hafalanList.push({ id: genId(), kategori, judul, detail, status: selectedHafalanStatus, catatan, tanggal });
     }
-
     saveBelajarData();
     closeHafalanModal();
     renderHafalan();
@@ -2837,8 +2778,6 @@ function hapusHafalan(id) {
     renderDashboardBelajar();
     renderBelajarStats();
 }
-
-/* ============ CHECKLIST ============ */
 
 function renderChecklist() {
     const today = localDateKey();
@@ -2917,23 +2856,18 @@ function hapusChecklist(id) {
     renderBelajarStats();
 }
 
-/* ============ STATISTIK BELAJAR ============ */
-
 function renderBelajarStats() {
     const hari = hitungHariBelajarBulanIni();
     const breakdown = hitungBreakdownKategori();
     const streak = hitungStreak();
-
     const elHari = document.getElementById('stat-hari');
     const elPelajaran = document.getElementById('stat-pelajaran');
     const elAgama = document.getElementById('stat-agama');
     const elStreak = document.getElementById('stat-streak');
-
     if (elHari) elHari.textContent = hari;
     if (elPelajaran) elPelajaran.textContent = breakdown.pelajaran;
     if (elAgama) elAgama.textContent = breakdown.agama;
     if (elStreak) elStreak.textContent = streak;
-
     renderKalenderBelajar();
     renderKategoriFavorit();
 }
@@ -2943,7 +2877,6 @@ function renderKalenderBelajar() {
     if (!container) return;
     const dates = getAktivitasDates();
     const today = localDateKey();
-
     const cells = [];
     for (let i = 27; i >= 0; i--) {
         const d = new Date();
@@ -2952,12 +2885,10 @@ function renderKalenderBelajar() {
         const dayNum = d.getDate();
         const isLearned = dates.has(key);
         const isToday = key === today;
-
         let cls = 'cal-cell';
         if (isToday) cls += ' today';
         else if (isLearned) cls += ' learned';
         else cls += ' empty';
-
         cells.push(`<div class="${cls}">
             <span>${dayNum}</span>
             ${isLearned ? '<span class="dot"></span>' : '<span class="dot"></span>'}
@@ -2970,25 +2901,15 @@ function renderKategoriFavorit() {
     const container = document.getElementById('statistik-favorit');
     const empty = document.getElementById('statistik-favorit-kosong');
     if (!container || !empty) return;
-
-    // Hitung frekuensi kategori
     const freq = {};
     catatanList.forEach(c => {
         const k = c.kategori || 'umum';
         freq[k] = (freq[k] || 0) + 1;
     });
-
     const entries = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-    if (!entries.length) {
-        container.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-    }
+    if (!entries.length) { container.innerHTML = ''; empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
-
     const maxCount = entries[0][1];
-
     container.innerHTML = entries.map(([kat, count]) => {
         const info = getKategoriInfo(kat);
         const width = Math.round((count / maxCount) * 100);
@@ -3005,9 +2926,6 @@ function renderKategoriFavorit() {
     }).join('');
 }
 
-/* =====================================================
-   BACKUP / IMPORT / CSV / RESET
-   ===================================================== */
 function downloadBackup() {
     const backup = {
         app: 'SakuKita', version: 4,
