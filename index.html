@@ -1,180 +1,1966 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DompetKu - Pengelola Keuangan</title>
-    <!-- Tailwind CSS untuk styling cepat -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4f46e5">
+<meta name="description" content="SakuKita V4 - Aplikasi keuangan pribadi">
+<title>SakuKita V4</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
+.dark body{background:#020617;color:#e2e8f0}
+.dark .card{background:#0f172a;border-color:#1e293b}
+.dark .soft{background:#0b1220;border-color:#1e293b}
+.dark .input,
+.dark input,
+.dark select{background:#020617;border-color:#334155;color:#e2e8f0}
+.dark .bottom-nav{background:#0f172a;border-color:#1e293b}
+.dark .muted{color:#94a3b8}
+.dark .insight{background:#172554;border-color:#1e3a8a}
+.dark .modal-box{background:#0f172a;border-color:#1e293b}
+
+.hide-scrollbar::-webkit-scrollbar{display:none}
+.hide-scrollbar{scrollbar-width:none}
+
+@keyframes slideUp{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.animate-slide{animation:slideUp .22s ease}
+
+.nav-active{color:#4f46e5;font-weight:600}
+.nav-active svg{stroke-width:2.4}
+.dark .nav-active{color:#818cf8}
+
+.progress{transition:width .4s ease}
+
+input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
+
+button{-webkit-tap-highlight-color:transparent}
+.no-select{user-select:none}
+
+/* Icon strokes */
+.icon{stroke-width:2;flex-shrink:0}
+.icon-sm{stroke-width:2.2}
+</style>
 </head>
-<body class="bg-gray-100 font-sans">
 
-    <div class="max-w-md mx-auto bg-white min-h-screen shadow-lg flex flex-col justify-between">
-        
-        <!-- Header -->
-        <header class="bg-indigo-600 text-white p-6 rounded-b-3xl shadow-md">
-            <h1 class="text-2xl font-bold">DompetKu 💰</h1>
-            <p class="text-sm text-indigo-200">Kelola keuangan jadi lebih mudah</p>
-            
-            <!-- Kartu Saldo -->
-            <div class="mt-6 bg-white text-gray-800 p-4 rounded-2xl shadow">
-                <p class="text-xs text-gray-500 uppercase font-semibold">Total Saldo</p>
-                <h2 id="total-saldo" class="text-3xl font-extrabold text-indigo-600">Rp 0</h2>
-                
-                <div class="flex justify-between mt-4 pt-4 border-t border-gray-100">
-                    <div>
-                        <p class="text-xs text-green-600 font-medium">Pemasukan</p>
-                        <p id="total-pemasukan" class="text-sm font-bold text-green-700">Rp 0</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-red-600 font-medium">Pengeluaran</p>
-                        <p id="total-pengeluaran" class="text-sm font-bold text-red-700">Rp 0</p>
-                    </div>
-                </div>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-40 bg-indigo-600 text-white shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
+
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                </svg>
             </div>
-        </header>
+            <div>
+                <h1 class="text-base font-bold tracking-tight leading-none">SakuKita</h1>
+                <p id="greeting" class="text-[10px] text-indigo-200 mt-1">Kelola keuangan lebih mudah</p>
+            </div>
+        </div>
 
-        <!-- Konten Utama -->
-        <main class="p-6 flex-1">
-            
-            <!-- Form Tambah Transaksi -->
-            <section class="mb-6">
-                <h3 class="text-lg font-bold text-gray-700 mb-3">Tambah Transaksi</h3>
-                <form id="form-transaksi" class="space-y-3">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Keterangan</label>
-                        <input type="text" id="keterangan" placeholder="Contoh: Gaji, Beli Makan" required 
-                            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Jumlah (Rp)</label>
-                        <input type="number" id="jumlah" placeholder="Contoh: 50000" required 
-                            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600">Tipe Transaksi</label>
-                        <select id="tipe" class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm">
-                            <option value="pemasukan">Pemasukan (+)</option>
-                            <option value="pengeluaran">Pengeluaran (-)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition text-sm">
-                        Simpan Transaksi
-                    </button>
-                </form>
-            </section>
+        <div class="flex items-center gap-2">
+            <button onclick="toggleBalance()" id="balanceToggle" title="Sembunyikan saldo"
+                class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+            </button>
 
-            <!-- Riwayat Transaksi -->
-            <section>
-                <h3 class="text-lg font-bold text-gray-700 mb-3">Riwayat Transaksi</h3>
-                <div id="list-transaksi" class="space-y-2 max-h-60 overflow-y-auto pr-1">
-                    <!-- Data transaksi akan dimasukkan lewat Javascript di sini -->
-                    <p class="text-sm text-gray-400 text-center py-4">Belum ada transaksi.</p>
+            <button onclick="toggleDarkMode()" id="darkButton"
+                class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<!-- ============ MAIN ============ -->
+<main class="max-w-5xl mx-auto px-4 py-5 pb-28">
+
+<!-- ================= DASHBOARD ================= -->
+<section id="dashboardSection" class="space-y-5">
+
+    <!-- BALANCE CARD -->
+    <div class="bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-[28px] p-5 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
+        <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
+
+        <div class="relative flex justify-between items-start">
+            <div>
+                <div class="flex items-center gap-1.5 text-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>
+                    </svg>
+                    <p class="text-[10px] font-semibold uppercase tracking-wider">Total Saldo Bersih</p>
                 </div>
-            </section>
 
-        </main>
+                <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight">Rp 0</h2>
 
-        <!-- Footer -->
-        <footer class="text-center py-4 text-xs text-gray-400 border-t">
-            &copy; 2026 DompetKu App
-        </footer>
+                <p id="saldo-perubahan" class="text-[11px] text-indigo-100 mt-2">Belum ada transaksi</p>
+            </div>
+
+            <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-5 relative">
+            <div class="bg-white/10 rounded-2xl p-3 backdrop-blur-sm">
+                <div class="flex items-center gap-1.5 text-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                        <polyline points="16 7 22 7 22 13"/>
+                    </svg>
+                    <p class="text-[10px] font-medium">Pemasukan</p>
+                </div>
+                <p id="total-pemasukan" class="font-bold text-emerald-300 mt-1.5 text-sm">Rp 0</p>
+            </div>
+
+            <div class="bg-white/10 rounded-2xl p-3 backdrop-blur-sm">
+                <div class="flex items-center gap-1.5 text-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
+                        <polyline points="16 17 22 17 22 11"/>
+                    </svg>
+                    <p class="text-[10px] font-medium">Pengeluaran</p>
+                </div>
+                <p id="total-pengeluaran" class="font-bold text-rose-300 mt-1.5 text-sm">Rp 0</p>
+            </div>
+        </div>
     </div>
 
-    <!-- JavaScript Logika Aplikasi -->
-    <script>
-        // Ambil data dari LocalStorage atau buat array kosong
-        let transaksiList = JSON.parse(localStorage.getItem('transaksi')) || [];
 
-        const form = document.getElementById('form-transaksi');
-        const keteranganInput = document.getElementById('keterangan');
-        const jumlahInput = document.getElementById('jumlah');
-        const tipeInput = document.getElementById('tipe');
-        
-        const totalSaldoEl = document.getElementById('total-saldo');
-        const totalPemasukanEl = document.getElementById('total-pemasukan');
-        const totalPengeluaranEl = document.getElementById('total-pengeluaran');
-        const listTransaksiEl = document.getElementById('list-transaksi');
+    <!-- QUICK ACTION -->
+    <div class="grid grid-cols-3 gap-3">
 
-        // Fungsi format ke Rupiah
-        function formatRupiah(angka) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
-        }
+        <button onclick="openQuickTransaction('pemasukan')"
+            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-emerald-200 transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
+                </svg>
+            </div>
+            <p class="text-[11px] font-semibold mt-2 text-slate-700 dark:text-slate-200">Pemasukan</p>
+        </button>
 
-        // Fungsi untuk memperbarui tampilan UI
-        function updateUI() {
-            listTransaksiEl.innerHTML = '';
-            
-            let pemasukan = 0;
-            let pengeluaran = 0;
+        <button onclick="openQuickTransaction('pengeluaran')"
+            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-rose-200 transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>
+                </svg>
+            </div>
+            <p class="text-[11px] font-semibold mt-2 text-slate-700 dark:text-slate-200">Pengeluaran</p>
+        </button>
 
-            if (transaksiList.length === 0) {
-                listTransaksiEl.innerHTML = `<p class="text-sm text-gray-400 text-center py-4">Belum ada transaksi.</p>`;
-            }
+        <button onclick="showPage('target')"
+            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+            </div>
+            <p class="text-[11px] font-semibold mt-2 text-slate-700 dark:text-slate-200">Target</p>
+        </button>
 
-            transaksiList.forEach((item, index) => {
-                if (item.tipe === 'pemasukan') {
-                    pemasukan += Number(item.jumlah);
-                } else {
-                    pengeluaran += Number(item.jumlah);
-                }
+    </div>
 
-                // Buat elemen HTML untuk setiap riwayat
-                const div = document.createElement('div');
-                div.className = `flex justify-between items-center p-3 rounded-lg border bg-white shadow-sm`;
-                div.innerHTML = `
-                    <div>
-                        <p class="text-sm font-bold text-gray-700">${item.keterangan}</p>
-                        <span class="text-xs ${item.tipe === 'pemasukan' ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'} px-2 py-0.5 rounded-full font-medium">
-                            ${item.tipe}
-                        </span>
+
+    <!-- STATISTICS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Hari Ini</p>
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+            </div>
+            <p id="transaksi-hari" class="text-lg font-bold mt-2">0</p>
+            <p class="text-[9px] text-slate-400">transaksi</p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Bulan Ini</p>
+                <div class="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+                    </svg>
+                </div>
+            </div>
+            <p id="transaksi-bulan" class="text-lg font-bold mt-2">0</p>
+            <p class="text-[9px] text-slate-400">transaksi</p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Rata-rata</p>
+                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
+                    </svg>
+                </div>
+            </div>
+            <p id="rata-rata" class="text-sm font-bold mt-3">Rp 0</p>
+            <p class="text-[9px] text-slate-400">pengeluaran</p>
+        </div>
+
+        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Terbesar</p>
+                <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
+                        <polyline points="16 17 22 17 22 11"/>
+                    </svg>
+                </div>
+            </div>
+            <p id="terbesar" class="text-sm font-bold mt-3">Rp 0</p>
+            <p class="text-[9px] text-slate-400">pengeluaran</p>
+        </div>
+
+    </div>
+
+
+    <!-- CHART -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-5">
+            <div>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
+                        </svg>
                     </div>
-                    <div class="text-right">
-                        <p class="text-sm font-extrabold ${item.tipe === 'pemasukan' ? 'text-green-600' : 'text-red-600'}">
-                            ${item.tipe === 'pemasukan' ? '+' : '-'} ${formatRupiah(item.jumlah)}
-                        </p>
-                        <button onclick="hapusTransaksi(${index})" class="text-xs text-red-400 hover:text-red-600 mt-1">Hapus</button>
+                    <h3 class="font-semibold text-sm">Arus Kas</h3>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1.5">Statistik pemasukan & pengeluaran</p>
+            </div>
+
+            <select id="chartPeriod" onchange="renderChart()"
+                class="input text-[10px] border border-slate-200 rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="7">7 Hari</option>
+                <option value="30">30 Hari</option>
+            </select>
+        </div>
+
+        <div id="chart" class="flex items-end gap-2 h-44 overflow-x-auto hide-scrollbar"></div>
+
+        <div class="flex justify-center gap-5 mt-3 text-[9px] text-slate-400">
+            <span class="flex items-center gap-1.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                Pemasukan
+            </span>
+            <span class="flex items-center gap-1.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-rose-400"></span>
+                Pengeluaran
+            </span>
+        </div>
+    </div>
+
+
+    <!-- INSIGHT -->
+    <div class="insight card bg-indigo-50 border border-indigo-100 rounded-2xl p-4 shadow-sm">
+        <div class="flex gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                    <path d="M9 18h6"/><path d="M10 22h4"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-indigo-900 dark:text-indigo-200 text-sm">Insight Keuangan</h3>
+                <p id="insight-text" class="text-[11px] text-indigo-700 dark:text-indigo-300 mt-1 leading-relaxed">
+                    Menganalisis keuangan kamu...
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- RECENT TRANSACTIONS -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <h3 class="font-semibold text-sm">Transaksi Terbaru</h3>
+                <p class="text-[10px] text-slate-400">Aktivitas keuangan terakhir</p>
+            </div>
+            <button onclick="showPage('transaksi')"
+                class="text-[10px] text-indigo-600 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
+                Lihat Semua
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="recent-transactions" class="space-y-2"></div>
+
+        <div id="recent-empty" class="text-center py-8 text-slate-400 hidden">
+            <div class="flex justify-center mb-2 text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+                    <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+                </svg>
+            </div>
+            <p class="text-xs">Belum ada transaksi</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= TRANSAKSI ================= -->
+<section id="transaksiSection" class="hidden space-y-5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+        <!-- FORM -->
+        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm h-fit">
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <h3 class="font-semibold text-sm">Tambah Transaksi</h3>
+                    <p class="text-[10px] text-slate-400">Catat pemasukan / pengeluaran</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/><path d="M12 5v14"/>
+                    </svg>
+                </div>
+            </div>
+
+            <form id="form-transaksi" class="space-y-4">
+                <input type="hidden" id="edit-index" value="-1">
+
+                <div>
+                    <label class="block text-[11px] font-medium mb-1.5">Keterangan</label>
+                    <input id="keterangan" type="text" required maxlength="100" placeholder="Contoh: Gaji, makan..."
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-medium mb-1.5">Nominal</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-2.5 text-xs text-slate-400 font-medium">Rp</span>
+                        <input id="nominal" type="number" min="1" required placeholder="50000"
+                            class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     </div>
-                `;
-                listTransaksiEl.appendChild(div);
-            });
+                </div>
 
-            let totalSaldo = pemasukan - pengeluaran;
+                <div>
+                    <label class="block text-[11px] font-medium mb-1.5">Jenis</label>
+                    <select id="tipe"
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        <option value="pemasukan">Pemasukan</option>
+                        <option value="pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
 
-            totalSaldoEl.innerText = formatRupiah(totalSaldo);
-            totalPemasukanEl.innerText = formatRupiah(pemasukan);
-            totalPengeluaranEl.innerText = formatRupiah(pengeluaran);
+                <div>
+                    <label class="block text-[11px] font-medium mb-1.5">Kategori</label>
+                    <select id="kategori"
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        <option value="Gaji">Gaji</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Transportasi">Transportasi</option>
+                        <option value="Belanja">Belanja</option>
+                        <option value="Tagihan">Tagihan</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Hiburan">Hiburan</option>
+                        <option value="Kesehatan">Kesehatan</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
 
-            // Simpan ke localStorage
-            localStorage.setItem('transaksi', JSON.stringify(transaksiList));
+                <div>
+                    <label class="block text-[11px] font-medium mb-1.5">Tanggal</label>
+                    <input id="tanggal" type="date" required
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                </div>
+
+                <div class="flex gap-2">
+                    <button id="submit-button" type="submit"
+                        class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm shadow-indigo-500/20">
+                        Simpan
+                    </button>
+                    <button id="cancel-edit" type="button" onclick="cancelEdit()"
+                        class="hidden px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-sm transition">
+                        Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- LIST -->
+        <div class="lg:col-span-2 card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="font-semibold text-sm">Riwayat Transaksi</h3>
+                    <p id="jumlah-hasil" class="text-[10px] text-slate-400 mt-0.5">0 transaksi</p>
+                </div>
+                <button onclick="resetData()" class="text-[10px] text-rose-500 hover:underline font-medium">Reset</button>
+            </div>
+
+            <div class="relative mb-3">
+                <span class="absolute left-3 top-2.5 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                    </svg>
+                </span>
+                <input id="search" type="text" placeholder="Cari transaksi..." oninput="renderTransactions()"
+                    class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                <select id="filter-tipe" onchange="renderTransactions()"
+                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="semua">Semua Jenis</option>
+                    <option value="pemasukan">Pemasukan</option>
+                    <option value="pengeluaran">Pengeluaran</option>
+                </select>
+
+                <select id="filter-kategori" onchange="renderTransactions()"
+                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="semua">Semua Kategori</option>
+                    <option value="Gaji">Gaji</option>
+                    <option value="Makanan">Makanan</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Belanja">Belanja</option>
+                    <option value="Tagihan">Tagihan</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Hiburan">Hiburan</option>
+                    <option value="Kesehatan">Kesehatan</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+            </div>
+
+            <div id="list-transaksi" class="space-y-5"></div>
+
+            <div id="pesan-kosong" class="hidden text-center py-10">
+                <div class="flex justify-center mb-3 text-slate-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+                        <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+                    </svg>
+                </div>
+                <p class="text-sm font-medium text-slate-500">Belum ada transaksi</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= TARGET ================= -->
+<section id="targetSection" class="hidden space-y-5">
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-5">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Target Tabungan</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Wujudkan impian finansialmu</p>
+                </div>
+            </div>
+            <button onclick="openTargetModal()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="M12 5v14"/>
+                </svg>
+                Target
+            </button>
+        </div>
+
+        <div id="list-target" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+        <div id="target-kosong" class="hidden text-center py-10">
+            <div class="flex justify-center mb-3 text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+            </div>
+            <p class="text-sm font-medium text-slate-500">Belum ada target</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= BUDGET ================= -->
+<section id="budgetSection" class="hidden space-y-5">
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-5">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                        <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Budget Bulanan</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Kontrol pengeluaran setiap kategori</p>
+                </div>
+            </div>
+            <button onclick="openBudgetModal()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20">
+                Atur Budget
+            </button>
+        </div>
+
+        <div id="list-budget" class="space-y-4"></div>
+
+        <div id="budget-kosong" class="text-center py-10 text-slate-400">
+            <div class="flex justify-center mb-3 text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                </svg>
+            </div>
+            <p class="text-sm font-medium">Belum ada budget</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= TAGIHAN ================= -->
+<section id="tagihanSection" class="hidden space-y-5">
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex justify-between items-center mb-5">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Tagihan Rutin</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Jangan sampai lupa bayar</p>
+                </div>
+            </div>
+            <button onclick="openTagihanModal()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="M12 5v14"/>
+                </svg>
+                Tagihan
+            </button>
+        </div>
+
+        <div id="list-tagihan" class="space-y-3"></div>
+
+        <div id="tagihan-kosong" class="hidden text-center py-10">
+            <div class="flex justify-center mb-3 text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                </svg>
+            </div>
+            <p class="text-sm font-medium text-slate-500">Belum ada tagihan</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+<section id="settingsSection" class="hidden space-y-4 max-w-2xl mx-auto">
+
+    <div class="mb-5">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            Pengaturan
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">Kelola data dan aplikasi</p>
+    </div>
+
+    <!-- PRIVACY -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex gap-4">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-sm">Data Lokal</h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Data SakuKita disimpan di perangkat ini menggunakan LocalStorage. Tidak membutuhkan akun atau server.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <span class="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full font-medium border border-emerald-100">Tanpa login</span>
+                    <span class="text-[9px] bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full font-medium border border-indigo-100">LocalStorage</span>
+                    <span class="text-[9px] bg-slate-50 text-slate-600 px-2 py-1 rounded-full font-medium border border-slate-200">Offline</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKUP -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-semibold text-sm">Backup Data</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Simpan seluruh data sebagai file JSON.</p>
+            <button onclick="downloadBackup()"
+                class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20 flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+                </svg>
+                Download Backup
+            </button>
+        </div>
+    </div>
+
+    <!-- RESTORE -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-semibold text-sm">Restore Data</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Pulihkan data dari backup JSON.</p>
+            <button onclick="document.getElementById('import-file').click()"
+                class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+                </svg>
+                Pilih File
+            </button>
+        </div>
+    </div>
+
+    <!-- CSV -->
+    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-semibold text-sm">Export CSV</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Cocok untuk Excel atau Google Sheets.</p>
+            <button onclick="exportCSV()"
+                class="mt-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-blue-500/20 flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+                </svg>
+                Download CSV
+            </button>
+        </div>
+    </div>
+
+    <!-- DELETE -->
+    <div class="card bg-white border border-rose-100 rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-semibold text-sm text-rose-600">Hapus Semua Data</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Hapus seluruh data SakuKita dari perangkat.</p>
+            <button onclick="resetData()"
+                class="mt-3 border border-rose-200 hover:bg-rose-50 text-rose-600 text-xs font-medium px-4 py-2 rounded-xl transition">
+                Hapus Semua
+            </button>
+        </div>
+    </div>
+
+    <div class="text-center pt-4 pb-2">
+        <p class="text-[10px] text-slate-400 font-medium">SakuKita V4</p>
+        <p class="text-[9px] text-slate-300 mt-1">Personal Finance • Local Storage</p>
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= MODAL TARGET ================= -->
+<div id="targetModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100">
+        <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+            </div>
+            <h3 class="font-bold text-base">Buat Target Tabungan</h3>
+        </div>
+
+        <form id="form-target" onsubmit="saveTarget(event)" class="space-y-3">
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Nama Target</label>
+                <input id="target-nama" type="text" required maxlength="60" placeholder="Contoh: Beli Laptop"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Nominal Target</label>
+                <input id="target-nominal" type="number" min="1" required placeholder="5000000"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Sudah Terkumpul</label>
+                <input id="target-terkumpul" type="number" min="0" value="0" required
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button type="submit"
+                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
+                    Simpan Target
+                </button>
+                <button type="button" onclick="closeTargetModal()"
+                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= MODAL BUDGET ================= -->
+<div id="budgetModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100">
+        <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                </svg>
+            </div>
+            <h3 class="font-bold text-base">Atur Budget</h3>
+        </div>
+
+        <form id="form-budget" onsubmit="saveBudget(event)" class="space-y-3">
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Kategori</label>
+                <select id="budget-kategori"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    <option value="Makanan">Makanan</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Belanja">Belanja</option>
+                    <option value="Tagihan">Tagihan</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Hiburan">Hiburan</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Batas Bulanan</label>
+                <input id="budget-limit" type="number" min="1" required placeholder="1000000"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button type="submit"
+                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
+                    Simpan Budget
+                </button>
+                <button type="button" onclick="closeBudgetModal()"
+                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= MODAL TAGIHAN ================= -->
+<div id="tagihanModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100">
+        <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                </svg>
+            </div>
+            <h3 class="font-bold text-base">Tambah Tagihan</h3>
+        </div>
+
+        <form id="form-tagihan" onsubmit="saveTagihan(event)" class="space-y-3">
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Nama Tagihan</label>
+                <input id="tagihan-nama" type="text" required maxlength="60" placeholder="Contoh: Wi-Fi"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Nominal</label>
+                <input id="tagihan-nominal" type="number" min="1" required placeholder="150000"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Jatuh Tempo (tanggal)</label>
+                <input id="tagihan-tgl" type="number" min="1" max="31" required placeholder="25"
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button type="submit"
+                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
+                    Simpan
+                </button>
+                <button type="button" onclick="closeTagihanModal()"
+                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- FILE IMPORT -->
+<input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
+
+
+<!-- ================= QUICK ADD MODAL ================= -->
+<div id="quickModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100">
+        <div class="flex justify-between items-center mb-5">
+            <div class="flex items-center gap-3">
+                <div id="quickIconWrap" class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center"></div>
+                <div>
+                    <h3 id="quickTitle" class="font-bold text-sm">Tambah Transaksi</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Masukkan transaksi dengan cepat</p>
+                </div>
+            </div>
+            <button onclick="closeQuickModal()"
+                class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="quickForm" onsubmit="saveQuickTransaction(event)" class="space-y-4">
+            <input type="hidden" id="quickType">
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Keterangan</label>
+                <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang"
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5">Nominal</label>
+                <input id="quickNominal" type="number" min="1" required placeholder="50000"
+                    class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-indigo-500/25">
+                Simpan Transaksi
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+<nav class="bottom-nav fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
+    <div class="max-w-5xl mx-auto grid grid-cols-5 items-end">
+
+        <button id="nav-dashboard" onclick="showPage('dashboard')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span class="text-[9px] mt-0.5">Home</span>
+        </button>
+
+        <button id="nav-transaksi" onclick="showPage('transaksi')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>
+            </svg>
+            <span class="text-[9px] mt-0.5">Transaksi</span>
+        </button>
+
+        <button onclick="openQuickTransaction('pengeluaran')" class="flex flex-col items-center justify-end">
+            <div class="w-14 h-14 -mt-7 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center border-4 border-slate-50 dark:border-slate-950 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="M12 5v14"/>
+                </svg>
+            </div>
+            <span class="text-[9px] text-slate-400 mt-1">Tambah</span>
+        </button>
+
+        <button id="nav-target" onclick="showPage('target')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+            </svg>
+            <span class="text-[9px] mt-0.5">Target</span>
+        </button>
+
+        <button id="nav-settings" onclick="showPage('settings')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+            <span class="text-[9px] mt-0.5">Lainnya</span>
+        </button>
+
+    </div>
+</nav>
+
+
+<script>
+/* =====================================================
+   SAKUKITA V4 — SVG Icon System
+   ===================================================== */
+
+const ICON_PATHS = {
+    wallet: '<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
+    eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+    eyeOff: '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>',
+    moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+    trendingUp: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    trendingDown: '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
+    target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    receipt: '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>',
+    plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+    menu: '<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>',
+    briefcase: '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+    car: '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>',
+    shoppingBag: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+    fileText: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    gamepad: '<line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>',
+    heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+    book: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
+    package: '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+    pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+    bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+    calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    chart: '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>'
+};
+
+function icon(name, size = 18) {
+    const p = ICON_PATHS[name] || '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">${p}</svg>`;
+}
+
+function categoryIcon(category, size = 18) {
+    const map = {
+        Gaji:'briefcase', Makanan:'utensils', Transportasi:'car', Belanja:'shoppingBag',
+        Tagihan:'fileText', Internet:'globe', Hiburan:'gamepad', Kesehatan:'heart',
+        Pendidikan:'book', Lainnya:'package'
+    };
+    return icon(map[category] || 'package', size);
+}
+
+
+/* ================= STORAGE ================= */
+const STORAGE = {
+    transaksi: 'sakukita_transaksi',
+    target: 'sakukita_target',
+    budget: 'sakukita_budget',
+    tagihan: 'sakukita_tagihan',
+    dark: 'sakukita_dark',
+    hideBalance: 'sakukita_hide_balance'
+};
+
+let transaksiList = readJSON(STORAGE.transaksi, []);
+let targetList = readJSON(STORAGE.target, []);
+let budgetList = readJSON(STORAGE.budget, {});
+let tagihanList = readJSON(STORAGE.tagihan, []);
+let hideBalance = localStorage.getItem(STORAGE.hideBalance) === '1';
+
+const form = document.getElementById('form-transaksi');
+const keteranganInput = document.getElementById('keterangan');
+const nominalInput = document.getElementById('nominal');
+const tipeInput = document.getElementById('tipe');
+const kategoriInput = document.getElementById('kategori');
+const tanggalInput = document.getElementById('tanggal');
+
+
+/* ================= HELPERS ================= */
+function readJSON(key, fallback){
+    try{
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : fallback;
+    }catch(e){ return fallback; }
+}
+
+function formatRupiah(value){
+    return new Intl.NumberFormat('id-ID',{
+        style:'currency', currency:'IDR', minimumFractionDigits:0
+    }).format(Number(value) || 0);
+}
+
+function localDateKey(date = new Date()){
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,'0');
+    const d = String(date.getDate()).padStart(2,'0');
+    return `${y}-${m}-${d}`;
+}
+
+function localMonthKey(date = new Date()){
+    return localDateKey(date).substring(0,7);
+}
+
+function escapeHTML(value){
+    return String(value ?? '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+function saveData(){
+    localStorage.setItem(STORAGE.transaksi, JSON.stringify(transaksiList));
+    localStorage.setItem(STORAGE.target, JSON.stringify(targetList));
+    localStorage.setItem(STORAGE.budget, JSON.stringify(budgetList));
+    localStorage.setItem(STORAGE.tagihan, JSON.stringify(tagihanList));
+}
+
+
+/* ================= GREETING ================= */
+function updateGreeting(){
+    const hour = new Date().getHours();
+    let text = 'Selamat malam 🌙';
+    if(hour >= 5 && hour < 12) text = 'Selamat pagi ☀️';
+    else if(hour >= 12 && hour < 17) text = 'Selamat siang 🌤️';
+    else if(hour >= 17 && hour < 19) text = 'Selamat sore 🌅';
+    document.getElementById('greeting').textContent = text + ' • Kelola keuanganmu';
+}
+
+
+/* ================= BALANCE VISIBILITY ================= */
+function toggleBalance(){
+    hideBalance = !hideBalance;
+    localStorage.setItem(STORAGE.hideBalance, hideBalance ? '1' : '0');
+    updateDashboard();
+    loadBalanceVisibility();
+}
+
+function displayMoney(value){
+    return hideBalance ? '••••••••' : formatRupiah(value);
+}
+
+function loadBalanceVisibility(){
+    document.getElementById('balanceToggle').innerHTML =
+        hideBalance
+        ? icon('eyeOff', 18)
+        : icon('eye', 18);
+}
+
+
+/* ================= DASHBOARD ================= */
+function updateDashboard(){
+    let pemasukan = 0;
+    let pengeluaran = 0;
+
+    transaksiList.forEach(item => {
+        const value = Number(item.nominal) || 0;
+        if(item.tipe === 'pemasukan') pemasukan += value;
+        else pengeluaran += value;
+    });
+
+    const saldo = pemasukan - pengeluaran;
+
+    document.getElementById('saldo-total').textContent = displayMoney(saldo);
+    document.getElementById('total-pemasukan').textContent = displayMoney(pemasukan);
+    document.getElementById('total-pengeluaran').textContent = displayMoney(pengeluaran);
+
+    const month = localMonthKey();
+    const monthTransactions = transaksiList.filter(x => x.tanggal && x.tanggal.startsWith(month));
+    const monthIncome = monthTransactions.filter(x => x.tipe === 'pemasukan').reduce((a,b) => a + Number(b.nominal || 0),0);
+    const monthExpense = monthTransactions.filter(x => x.tipe === 'pengeluaran').reduce((a,b) => a + Number(b.nominal || 0),0);
+
+    const today = localDateKey();
+    document.getElementById('transaksi-hari').textContent = transaksiList.filter(x => x.tanggal === today).length;
+    document.getElementById('transaksi-bulan').textContent = monthTransactions.length;
+
+    const expenses = transaksiList.filter(x => x.tipe === 'pengeluaran');
+    const average = expenses.length ? pengeluaran / expenses.length : 0;
+    document.getElementById('rata-rata').textContent = displayMoney(average);
+
+    const biggest = expenses.reduce((max,item) => Math.max(max, Number(item.nominal)||0), 0);
+    document.getElementById('terbesar').textContent = displayMoney(biggest);
+
+    const saldoBulan = monthIncome - monthExpense;
+    if(monthTransactions.length){
+        const text = saldoBulan >= 0
+            ? `+${formatRupiah(saldoBulan)} arus kas bulan ini`
+            : `${formatRupiah(Math.abs(saldoBulan))} defisit bulan ini`;
+        document.getElementById('saldo-perubahan').textContent = text;
+    }else{
+        document.getElementById('saldo-perubahan').textContent = 'Belum ada transaksi bulan ini';
+    }
+
+    updateInsight(monthIncome, monthExpense);
+    renderRecentTransactions();
+}
+
+
+/* ================= INSIGHT ================= */
+function updateInsight(income, expense){
+    const el = document.getElementById('insight-text');
+
+    if(!transaksiList.length){
+        el.textContent = 'Belum ada data. Mulai catat transaksi pertama kamu untuk mendapatkan insight keuangan.';
+        return;
+    }
+    if(income === 0 && expense > 0){
+        el.textContent = `Bulan ini kamu sudah mencatat ${formatRupiah(expense)} pengeluaran, tetapi belum ada pemasukan yang tercatat.`;
+        return;
+    }
+    if(expense > income){
+        el.textContent = `⚠️ Pengeluaran bulan ini lebih besar ${formatRupiah(expense-income)} dibanding pemasukan. Coba periksa kategori pengeluaran terbesar.`;
+        return;
+    }
+    if(income > 0){
+        const savingRate = Math.round(((income-expense)/income)*100);
+        if(savingRate >= 30){
+            el.textContent = `✨ Bagus! Sekitar ${savingRate}% pemasukan bulan ini masih tersisa setelah pengeluaran.`;
+        }else if(savingRate >= 10){
+            el.textContent = `👍 Sekitar ${savingRate}% pemasukan bulan ini masih tersisa. Kamu masih punya ruang untuk meningkatkan tabungan.`;
+        }else{
+            el.textContent = `💡 Pengeluaran sudah mendekati pemasukan. Coba sisihkan uang untuk tabungan sebelum membelanjakannya.`;
         }
+        return;
+    }
+    el.textContent = 'Terus catat transaksi supaya SakuKita bisa memberikan insight yang lebih akurat.';
+}
 
-        // Tambah transaksi baru
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const transaksiBaru = {
-                keterangan: keteranganInput.value,
-                jumlah: Number(jumlahInput.value),
-                tipe: tipeInput.value
-            };
 
-            transaksiList.unshift(transaksiBaru); // Masukkan ke urutan paling atas
-            updateUI();
+/* ================= RECENT ================= */
+function renderRecentTransactions(){
+    const container = document.getElementById('recent-transactions');
+    const empty = document.getElementById('recent-empty');
+    container.innerHTML = '';
 
-            // Reset form
-            keteranganInput.value = '';
-            jumlahInput.value = '';
+    const recent = [...transaksiList]
+        .sort((a,b) => (b.tanggal || '').localeCompare(a.tanggal || ''))
+        .slice(0,5);
+
+    if(!recent.length){
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    recent.forEach(item => {
+        const income = item.tipe === 'pemasukan';
+        const row = document.createElement('div');
+        row.className = 'soft flex items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl';
+        row.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                    income ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
+                }">
+                    ${categoryIcon(item.kategori, 16)}
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-medium truncate">${escapeHTML(item.keterangan)}</p>
+                    <p class="text-[9px] text-slate-400 mt-0.5">
+                        ${escapeHTML(item.tanggal)} • ${escapeHTML(item.kategori)}
+                    </p>
+                </div>
+            </div>
+            <span class="text-xs font-semibold shrink-0 ${income ? 'text-emerald-600' : 'text-rose-600'}">
+                ${income ? '+' : '-'}${displayMoney(item.nominal)}
+            </span>
+        `;
+        container.appendChild(row);
+    });
+}
+
+
+/* ================= TRANSACTIONS ================= */
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const data = {
+        keterangan: keteranganInput.value.trim(),
+        nominal: Number(nominalInput.value),
+        tipe: tipeInput.value,
+        kategori: kategoriInput.value,
+        tanggal: tanggalInput.value
+    };
+
+    if(!data.keterangan || !data.nominal || data.nominal < 1 || !data.tanggal){
+        alert('Lengkapi data transaksi.');
+        return;
+    }
+
+    const editIndex = Number(document.getElementById('edit-index').value);
+    if(editIndex >= 0){
+        transaksiList[editIndex] = data;
+    }else{
+        transaksiList.unshift(data);
+    }
+
+    saveData();
+    updateAll();
+    form.reset();
+    setDefaultDate();
+    cancelEdit();
+});
+
+function editTransaksi(index){
+    const item = transaksiList[index];
+    if(!item) return;
+
+    keteranganInput.value = item.keterangan;
+    nominalInput.value = item.nominal;
+    tipeInput.value = item.tipe;
+    kategoriInput.value = item.kategori;
+    tanggalInput.value = item.tanggal;
+
+    document.getElementById('edit-index').value = index;
+    document.getElementById('submit-button').textContent = 'Update';
+    document.getElementById('cancel-edit').classList.remove('hidden');
+
+    showPage('transaksi');
+}
+
+function cancelEdit(){
+    document.getElementById('edit-index').value = -1;
+    document.getElementById('submit-button').textContent = 'Simpan';
+    document.getElementById('cancel-edit').classList.add('hidden');
+}
+
+function hapusTransaksi(index){
+    if(!confirm('Hapus transaksi ini?')) return;
+    transaksiList.splice(index,1);
+    saveData();
+    updateAll();
+}
+
+
+/* ================= GROUP TRANSACTIONS ================= */
+function renderTransactions(){
+    const container = document.getElementById('list-transaksi');
+    const empty = document.getElementById('pesan-kosong');
+    const search = document.getElementById('search').value.toLowerCase().trim();
+    const filterTipe = document.getElementById('filter-tipe').value;
+    const filterKategori = document.getElementById('filter-kategori').value;
+
+    let hasil = transaksiList
+        .map((item,index)=>({...item,_index:index}))
+        .filter(item => {
+            const keterangan = String(item.keterangan || '').toLowerCase();
+            const kategori = String(item.kategori || '').toLowerCase();
+            const cocokSearch = !search || keterangan.includes(search) || kategori.includes(search);
+            const cocokTipe = filterTipe === 'semua' || item.tipe === filterTipe;
+            const cocokKategori = filterKategori === 'semua' || item.kategori === filterKategori;
+            return cocokSearch && cocokTipe && cocokKategori;
+        })
+        .sort((a,b)=> (b.tanggal || '').localeCompare(a.tanggal || ''));
+
+    container.innerHTML = '';
+    document.getElementById('jumlah-hasil').textContent = `${hasil.length} transaksi`;
+
+    if(!hasil.length){
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    const groups = {};
+    hasil.forEach(item => {
+        if(!groups[item.tanggal]) groups[item.tanggal] = [];
+        groups[item.tanggal].push(item);
+    });
+
+    Object.keys(groups).forEach(date => {
+        const section = document.createElement('div');
+        const dateTitle = formatDateTitle(date);
+        section.innerHTML = `
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">${dateTitle}</span>
+                <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1"></div>
+            </div>
+        `;
+
+        groups[date].forEach(item => {
+            const income = item.tipe === 'pemasukan';
+            const row = document.createElement('div');
+            row.className = 'transaction-item animate-slide flex items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl mb-2';
+            row.innerHTML = `
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${
+                        income ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
+                    }">
+                        ${categoryIcon(item.kategori, 18)}
+                    </div>
+                    <div class="min-w-0">
+                        <h4 class="text-xs font-semibold truncate">${escapeHTML(item.keterangan)}</h4>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-[9px] text-slate-400">${escapeHTML(item.kategori)}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 shrink-0">
+                    <span class="text-xs font-semibold ${income ? 'text-emerald-600' : 'text-rose-600'}">
+                        ${income ? '+' : '-'}${displayMoney(item.nominal)}
+                    </span>
+                    <button onclick="editTransaksi(${item._index})"
+                        class="w-7 h-7 rounded-lg hover:bg-indigo-100 text-slate-400 hover:text-indigo-600 flex items-center justify-center transition">
+                        ${icon('pencil', 13)}
+                    </button>
+                    <button onclick="hapusTransaksi(${item._index})"
+                        class="w-7 h-7 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition">
+                        ${icon('trash', 13)}
+                    </button>
+                </div>
+            `;
+            section.appendChild(row);
         });
 
-        // Hapus transaksi
-        function hapusTransaksi(index) {
-            transaksiList.splice(index, 1);
-            updateUI();
+        container.appendChild(section);
+    });
+}
+
+function formatDateTitle(date){
+    if(!date) return 'Tanpa tanggal';
+    const today = localDateKey();
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate()-1);
+    const yesterday = localDateKey(yesterdayDate);
+
+    if(date === today) return 'Hari Ini';
+    if(date === yesterday) return 'Kemarin';
+
+    const d = new Date(date + 'T12:00:00');
+    return d.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+}
+
+
+/* ================= QUICK TRANSACTION ================= */
+function openQuickTransaction(type){
+    document.getElementById('quickType').value = type;
+    document.getElementById('quickTitle').textContent =
+        type === 'pemasukan' ? 'Tambah Pemasukan' : 'Tambah Pengeluaran';
+
+    const iconWrap = document.getElementById('quickIconWrap');
+    if(type === 'pemasukan'){
+        iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center';
+        iconWrap.innerHTML = icon('trendingUp', 20);
+    }else{
+        iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center';
+        iconWrap.innerHTML = icon('trendingDown', 20);
+    }
+
+    document.getElementById('quickKeterangan').value = '';
+    document.getElementById('quickNominal').value = '';
+    document.getElementById('quickModal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('quickKeterangan').focus(), 100);
+}
+
+function closeQuickModal(){
+    document.getElementById('quickModal').classList.add('hidden');
+}
+
+function saveQuickTransaction(e){
+    e.preventDefault();
+    const type = document.getElementById('quickType').value;
+    const keterangan = document.getElementById('quickKeterangan').value.trim();
+    const nominal = Number(document.getElementById('quickNominal').value);
+
+    if(!keterangan || nominal < 1){
+        alert('Masukkan keterangan dan nominal.');
+        return;
+    }
+
+    transaksiList.unshift({
+        keterangan, nominal, tipe:type,
+        kategori: 'Lainnya',
+        tanggal: localDateKey()
+    });
+
+    saveData();
+    updateAll();
+    closeQuickModal();
+}
+
+
+/* ================= TARGET ================= */
+function renderTarget(){
+    const container = document.getElementById('list-target');
+    const empty = document.getElementById('target-kosong');
+    container.innerHTML = '';
+
+    if(!targetList.length){
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    targetList.forEach((item,idx)=>{
+        const target = Number(item.nominal) || 0;
+        const collected = Number(item.terkumpul) || 0;
+        const percent = target > 0 ? Math.min(100,Math.round((collected/target)*100)) : 0;
+        const remaining = Math.max(0,target-collected);
+
+        const card = document.createElement('div');
+        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 animate-slide';
+
+        card.innerHTML = `
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        ${icon('target', 18)}
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm">${escapeHTML(item.nama)}</h4>
+                        <p class="text-[9px] text-slate-400 mt-0.5">${percent}% tercapai</p>
+                    </div>
+                </div>
+                <button onclick="hapusTarget(${idx})"
+                    class="w-7 h-7 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition">
+                    ${icon('trash', 13)}
+                </button>
+            </div>
+
+            <div class="flex justify-between items-end mb-2">
+                <div>
+                    <p class="text-[9px] text-slate-400">Terkumpul</p>
+                    <p class="font-bold text-sm text-indigo-600">${displayMoney(collected)}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[9px] text-slate-400">Target</p>
+                    <p class="text-xs font-semibold">${displayMoney(target)}</p>
+                </div>
+            </div>
+
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                <div class="progress bg-indigo-600 h-full rounded-full" style="width:${percent}%"></div>
+            </div>
+
+            <div class="flex justify-between mt-2">
+                <p class="text-[9px] text-slate-400">
+                    ${remaining > 0 ? `Kurang ${displayMoney(remaining)}` : '🎉 Target tercapai!'}
+                </p>
+                <p class="text-[9px] font-semibold text-indigo-600">${percent}%</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function openTargetModal(){ document.getElementById('targetModal').classList.remove('hidden'); }
+function closeTargetModal(){ document.getElementById('targetModal').classList.add('hidden'); }
+
+function saveTarget(e){
+    e.preventDefault();
+    const nominal = Number(document.getElementById('target-nominal').value);
+    const terkumpul = Number(document.getElementById('target-terkumpul').value);
+
+    if(nominal <= 0 || terkumpul < 0){
+        alert('Nominal target tidak valid.');
+        return;
+    }
+
+    targetList.push({
+        nama: document.getElementById('target-nama').value.trim(),
+        nominal,
+        terkumpul: Math.min(terkumpul,nominal)
+    });
+
+    saveData();
+    renderTarget();
+    closeTargetModal();
+    document.getElementById('form-target').reset();
+}
+
+function hapusTarget(idx){
+    if(!confirm('Hapus target ini?')) return;
+    targetList.splice(idx,1);
+    saveData();
+    renderTarget();
+}
+
+
+/* ================= BUDGET ================= */
+function renderBudget(){
+    const container = document.getElementById('list-budget');
+    const empty = document.getElementById('budget-kosong');
+    container.innerHTML = '';
+
+    const keys = Object.keys(budgetList);
+    if(!keys.length){
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    const month = localMonthKey();
+
+    keys.forEach(cat => {
+        const limit = Number(budgetList[cat]) || 0;
+        const spent = transaksiList
+            .filter(x => x.kategori === cat && x.tipe === 'pengeluaran' && x.tanggal && x.tanggal.startsWith(month))
+            .reduce((a,b)=>a+Number(b.nominal||0), 0);
+
+        const percent = limit > 0 ? Math.round((spent/limit)*100) : 0;
+        const width = Math.min(100,percent);
+
+        let status = 'Aman';
+        let statusClass = 'bg-emerald-50 text-emerald-700 border-emerald-100';
+        if(percent >= 100){
+            status = 'Melebihi Budget';
+            statusClass = 'bg-rose-50 text-rose-700 border-rose-100';
+        }else if(percent >= 80){
+            status = 'Hampir Habis';
+            statusClass = 'bg-amber-50 text-amber-700 border-amber-100';
         }
 
-        // Jalankan saat pertama kali dibuka
-        updateUI();
-    </script>
+        const remaining = limit-spent;
+
+        const card = document.createElement('div');
+        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 animate-slide';
+
+        card.innerHTML = `
+            <div class="flex justify-between items-start">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        ${categoryIcon(cat, 18)}
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-sm">${escapeHTML(cat)}</h4>
+                        <p class="text-[9px] text-slate-400">Bulan ini</p>
+                    </div>
+                </div>
+                <span class="text-[9px] px-2 py-1 rounded-full font-medium border ${statusClass}">${status}</span>
+            </div>
+
+            <div class="flex justify-between mt-4 mb-2">
+                <span class="text-xs font-semibold">${displayMoney(spent)}</span>
+                <span class="text-[10px] text-slate-400">/ ${displayMoney(limit)}</span>
+            </div>
+
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                <div class="progress ${
+                    percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-indigo-600'
+                } h-full rounded-full" style="width:${width}%"></div>
+            </div>
+
+            <div class="flex justify-between mt-2">
+                <p class="text-[9px] text-slate-400">
+                    ${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}
+                </p>
+                <p class="text-[9px] font-semibold">${percent}%</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function openBudgetModal(){ document.getElementById('budgetModal').classList.remove('hidden'); }
+function closeBudgetModal(){ document.getElementById('budgetModal').classList.add('hidden'); }
+
+function saveBudget(e){
+    e.preventDefault();
+    const cat = document.getElementById('budget-kategori').value;
+    const limit = Number(document.getElementById('budget-limit').value);
+
+    if(limit <= 0){
+        alert('Budget harus lebih dari 0.');
+        return;
+    }
+
+    budgetList[cat] = limit;
+    saveData();
+    renderBudget();
+    closeBudgetModal();
+    document.getElementById('form-budget').reset();
+}
+
+
+/* ================= TAGIHAN ================= */
+function getNextDueDate(day){
+    const now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth();
+    const maxDay = new Date(year, month+1, 0).getDate();
+    const safeDay = Math.min(day,maxDay);
+
+    let due = new Date(year, month, safeDay);
+
+    if(due < new Date(year, month, now.getDate())){
+        month++;
+        if(month > 11){ month = 0; year++; }
+        const maxNext = new Date(year, month+1, 0).getDate();
+        due = new Date(year, month, Math.min(day,maxNext));
+    }
+    return due;
+}
+
+function daysUntil(date){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const target = new Date(date);
+    target.setHours(0,0,0,0);
+    return Math.ceil((target-today)/86400000);
+}
+
+function renderTagihan(){
+    const container = document.getElementById('list-tagihan');
+    const empty = document.getElementById('tagihan-kosong');
+    container.innerHTML = '';
+
+    if(!tagihanList.length){
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    tagihanList.forEach((item,idx)=>{
+        const due = getNextDueDate(Number(item.tgl));
+        const days = daysUntil(due);
+
+        let countdown = '';
+        let badge = 'bg-emerald-50 text-emerald-700 border-emerald-100';
+
+        if(days === 0){
+            countdown = 'Jatuh tempo hari ini';
+            badge = 'bg-rose-50 text-rose-700 border-rose-100';
+        }else if(days === 1){
+            countdown = 'Besok jatuh tempo';
+            badge = 'bg-amber-50 text-amber-700 border-amber-100';
+        }else{
+            countdown = `${days} hari lagi`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 flex justify-between items-center gap-3 animate-slide';
+
+        card.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    ${icon('bell', 18)}
+                </div>
+                <div class="min-w-0">
+                    <h4 class="font-semibold text-sm truncate">${escapeHTML(item.nama)}</h4>
+                    <p class="text-[9px] text-slate-400 mt-1">
+                        Setiap tanggal ${item.tgl} • ${displayMoney(item.nominal)}
+                    </p>
+                    <span class="inline-block mt-2 text-[9px] px-2 py-1 rounded-full font-medium border ${badge}">${countdown}</span>
+                </div>
+            </div>
+
+            <button onclick="hapusTagihan(${idx})"
+                class="w-8 h-8 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition shrink-0">
+                ${icon('trash', 14)}
+            </button>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function openTagihanModal(){ document.getElementById('tagihanModal').classList.remove('hidden'); }
+function closeTagihanModal(){ document.getElementById('tagihanModal').classList.add('hidden'); }
+
+function saveTagihan(e){
+    e.preventDefault();
+    const nama = document.getElementById('tagihan-nama').value.trim();
+    const nominal = Number(document.getElementById('tagihan-nominal').value);
+    const tgl = Number(document.getElementById('tagihan-tgl').value);
+
+    if(!nama || nominal <= 0 || tgl < 1 || tgl > 31){
+        alert('Data tagihan tidak valid.');
+        return;
+    }
+
+    tagihanList.push({ nama, nominal, tgl });
+    saveData();
+    renderTagihan();
+    closeTagihanModal();
+    document.getElementById('form-tagihan').reset();
+}
+
+function hapusTagihan(idx){
+    if(!confirm('Hapus tagihan ini?')) return;
+    tagihanList.splice(idx,1);
+    saveData();
+    renderTagihan();
+}
+
+
+/* ================= CHART ================= */
+function renderChart(){
+    const chart = document.getElementById('chart');
+    chart.innerHTML = '';
+
+    const daysCount = Number(document.getElementById('chartPeriod').value) || 7;
+    const days = [];
+
+    for(let i=daysCount-1;i>=0;i--){
+        const date = new Date();
+        date.setHours(12,0,0,0);
+        date.setDate(date.getDate()-i);
+        days.push({ date, key: localDateKey(date) });
+    }
+
+    let max = 1;
+    const values = days.map(day => {
+        const income = transaksiList
+            .filter(x => x.tanggal === day.key && x.tipe === 'pemasukan')
+            .reduce((a,b)=>a+Number(b.nominal||0), 0);
+        const expense = transaksiList
+            .filter(x => x.tanggal === day.key && x.tipe === 'pengeluaran')
+            .reduce((a,b)=>a+Number(b.nominal||0), 0);
+        max = Math.max(max, income, expense);
+        return { day, income, expense };
+    });
+
+    values.forEach(data => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex-1 min-w-[38px] md:min-w-[42px] flex flex-col items-center justify-end h-full';
+
+        const bars = document.createElement('div');
+        bars.className = 'flex items-end justify-center gap-1 h-32 w-full';
+
+        const incomeBar = document.createElement('div');
+        incomeBar.className = 'w-2.5 md:w-3 bg-emerald-400 rounded-t-md transition-all';
+        incomeBar.style.height = `${Math.max(3,(data.income/max)*100)}%`;
+        incomeBar.title = `Pemasukan: ${formatRupiah(data.income)}`;
+
+        const expenseBar = document.createElement('div');
+        expenseBar.className = 'w-2.5 md:w-3 bg-rose-400 rounded-t-md transition-all';
+        expenseBar.style.height = `${Math.max(3,(data.expense/max)*100)}%`;
+        expenseBar.title = `Pengeluaran: ${formatRupiah(data.expense)}`;
+
+        bars.appendChild(incomeBar);
+        bars.appendChild(expenseBar);
+
+        const label = document.createElement('span');
+        label.className = 'text-[8px] text-slate-400 mt-2';
+        label.textContent = data.day.date.toLocaleDateString('id-ID',{ day:'numeric', month:'short' });
+
+        wrapper.appendChild(bars);
+        wrapper.appendChild(label);
+        chart.appendChild(wrapper);
+    });
+}
+
+
+/* ================= BACKUP ================= */
+function downloadBackup(){
+    const backup = {
+        app:'SakuKita', version:4,
+        exportedAt: new Date().toISOString(),
+        transaksiList, targetList, budgetList, tagihanList
+    };
+
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sakukita-v4-backup-${localDateKey()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+
+/* ================= IMPORT ================= */
+function importData(e){
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(evt){
+        try{
+            const data = JSON.parse(evt.target.result);
+            if(!data || typeof data !== 'object') throw new Error();
+            if(data.transaksiList && !Array.isArray(data.transaksiList)) throw new Error();
+            if(data.targetList && !Array.isArray(data.targetList)) throw new Error();
+            if(data.tagihanList && !Array.isArray(data.tagihanList)) throw new Error();
+
+            transaksiList = data.transaksiList || data.transactions || [];
+            targetList = data.targetList || [];
+            budgetList = data.budgetList || {};
+            tagihanList = data.tagihanList || [];
+
+            saveData();
+            updateAll();
+            alert('✅ Restore data berhasil!');
+        }catch(err){
+            alert('❌ File backup tidak valid.');
+        }
+        e.target.value = '';
+    };
+    reader.readAsText(file);
+}
+
+
+/* ================= CSV ================= */
+function csvEscape(value){
+    return `"${String(value ?? '').replace(/"/g,'""')}"`;
+}
+
+function exportCSV(){
+    if(!transaksiList.length){
+        alert('Belum ada transaksi.');
+        return;
+    }
+
+    let csv = 'Tanggal,Keterangan,Jenis,Kategori,Nominal\n';
+    transaksiList.forEach(item => {
+        csv += [
+            csvEscape(item.tanggal),
+            csvEscape(item.keterangan),
+            csvEscape(item.tipe),
+            csvEscape(item.kategori),
+            Number(item.nominal)||0
+        ].join(',') + '\n';
+    });
+
+    const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sakukita-laporan-${localDateKey()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+
+/* ================= RESET ================= */
+function resetData(){
+    if(!confirm('Yakin ingin menghapus SEMUA data SakuKita? Data tidak dapat dikembalikan kecuali kamu punya backup.')) return;
+
+    transaksiList = [];
+    targetList = [];
+    budgetList = {};
+    tagihanList = [];
+
+    saveData();
+    updateAll();
+    alert('Semua data berhasil dihapus.');
+}
+
+
+/* ================= DARK MODE ================= */
+function toggleDarkMode(){
+    const dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem(STORAGE.dark, dark ? '1' : '0');
+    document.getElementById('darkButton').innerHTML = dark ? icon('sun', 18) : icon('moon', 18);
+}
+
+function loadDarkMode(){
+    const dark = localStorage.getItem(STORAGE.dark) === '1';
+    if(dark) document.documentElement.classList.add('dark');
+    document.getElementById('darkButton').innerHTML = dark ? icon('sun', 18) : icon('moon', 18);
+}
+
+
+/* ================= NAVIGATION ================= */
+function showPage(page){
+    const pages = ['dashboard','transaksi','target','budget','tagihan','settings'];
+
+    pages.forEach(p => {
+        document.getElementById(p+'Section').classList.add('hidden');
+    });
+
+    document.getElementById(page+'Section').classList.remove('hidden');
+
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+
+    const nav = document.getElementById('nav-'+page);
+    if(nav) nav.classList.add('nav-active');
+
+    if(page === 'budget') renderBudget();
+    if(page === 'tagihan') renderTagihan();
+    if(page === 'target') renderTarget();
+    if(page === 'transaksi') renderTransactions();
+
+    window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+
+/* ================= DATE ================= */
+function setDefaultDate(){
+    tanggalInput.value = localDateKey();
+}
+
+
+/* ================= UPDATE ALL ================= */
+function updateAll(){
+    updateGreeting();
+    loadBalanceVisibility();
+    updateDashboard();
+    renderTransactions();
+    renderChart();
+    renderTarget();
+    renderBudget();
+    renderTagihan();
+}
+
+
+/* ================= MODAL CLICK OUTSIDE ================= */
+['targetModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
+    const modal = document.getElementById(id);
+    modal.addEventListener('click', function(e){
+        if(e.target === modal) modal.classList.add('hidden');
+    });
+});
+
+
+/* ================= ESC ================= */
+document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    ['targetModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+    });
+});
+
+
+/* ================= INIT ================= */
+loadDarkMode();
+setDefaultDate();
+updateAll();
+showPage('dashboard');
+
+</script>
+
 </body>
-</html>
+            </html>
