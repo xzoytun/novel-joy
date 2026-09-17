@@ -14,17 +14,43 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ============ DARK MODE BASE ============ */
 .dark body{background:#020617;color:#e2e8f0}
+
+/* Card & Soft – dengan DEFAULT + DARK override */
+.card{background:#ffffff;border-color:#f1f5f9}
 .dark .card{background:#0f172a;border-color:#1e293b}
+
+.soft{background:#f8fafc;border:1px solid #f1f5f9}
 .dark .soft{background:#0b1220;border-color:#1e293b}
+
 .dark .input,
 .dark input,
 .dark select{background:#020617;border-color:#334155;color:#e2e8f0}
+
+.dark input::placeholder,
+.dark textarea::placeholder{color:#64748b}
+
 .dark .bottom-nav{background:#0f172a;border-color:#1e293b}
 .dark .muted{color:#94a3b8}
 .dark .insight{background:#172554;border-color:#1e3a8a}
 .dark .modal-box{background:#0f172a;border-color:#1e293b}
 
+/* ============ TEXT COLOR HELPERS ============ */
+.t-strong{color:#1e293b}
+.dark .t-strong{color:#e2e8f0}
+
+.t-base{color:#334155}
+.dark .t-base{color:#cbd5e1}
+
+.t-muted{color:#64748b}
+.dark .t-muted{color:#94a3b8}
+
+.t-faint{color:#94a3b8}
+.dark .t-faint{color:#64748b}
+
+/* ============ UTILITIES ============ */
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
 
@@ -41,11 +67,11 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .progress{transition:width .4s ease}
 
 input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
+.dark input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.5}
 
 button{-webkit-tap-highlight-color:transparent}
 .no-select{user-select:none}
 
-/* Icon strokes */
 .icon{stroke-width:2;flex-shrink:0}
 .icon-sm{stroke-width:2.2}
 </style>
@@ -89,13 +115,11 @@ button{-webkit-tap-highlight-color:transparent}
 </header>
 
 
-<!-- ============ MAIN ============ -->
 <main class="max-w-5xl mx-auto px-4 py-5 pb-28">
 
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
 
-    <!-- BALANCE CARD -->
     <div class="bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-[28px] p-5 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
@@ -110,7 +134,6 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
 
                 <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight">Rp 0</h2>
-
                 <p id="saldo-perubahan" class="text-[11px] text-indigo-100 mt-2">Belum ada transaksi</p>
             </div>
 
@@ -148,114 +171,107 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
 
 
-    <!-- QUICK ACTION -->
     <div class="grid grid-cols-3 gap-3">
-
         <button onclick="openQuickTransaction('pemasukan')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-emerald-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-100 transition">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
                 </svg>
             </div>
-            <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Pemasukan</p>
+            <p class="text-xs font-semibold mt-2 t-base">Pemasukan</p>
         </button>
 
         <button onclick="openQuickTransaction('pengeluaran')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-rose-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-100 transition">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center group-hover:bg-rose-100 dark:group-hover:bg-rose-500/25 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>
                 </svg>
             </div>
-            <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Pengeluaran</p>
+            <p class="text-xs font-semibold mt-2 t-base">Pengeluaran</p>
         </button>
 
         <button onclick="showPage('target')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-100 transition">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/25 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
                 </svg>
             </div>
-            <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Target</p>
+            <p class="text-xs font-semibold mt-2 t-base">Target</p>
         </button>
-
     </div>
 
 
-    <!-- STATISTICS -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
-                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Hari Ini</p>
-                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Hari Ini</p>
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
                     </svg>
                 </div>
             </div>
-            <p id="transaksi-hari" class="text-lg font-bold mt-2">0</p>
-            <p class="text-[9px] text-slate-400">transaksi</p>
+            <p id="transaksi-hari" class="text-lg font-bold mt-2 t-strong">0</p>
+            <p class="text-[10px] t-muted">transaksi</p>
         </div>
 
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
-                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Bulan Ini</p>
-                <div class="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center">
+                <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Bulan Ini</p>
+                <div class="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
                     </svg>
                 </div>
             </div>
-            <p id="transaksi-bulan" class="text-lg font-bold mt-2">0</p>
-            <p class="text-[9px] text-slate-400">transaksi</p>
+            <p id="transaksi-bulan" class="text-lg font-bold mt-2 t-strong">0</p>
+            <p class="text-[10px] t-muted">transaksi</p>
         </div>
 
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
-                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Rata-rata</p>
-                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Rata-rata</p>
+                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
                     </svg>
                 </div>
             </div>
-            <p id="rata-rata" class="text-sm font-bold mt-3">Rp 0</p>
-            <p class="text-[9px] text-slate-400">pengeluaran</p>
+            <p id="rata-rata" class="text-sm font-bold mt-3 t-strong">Rp 0</p>
+            <p class="text-[10px] t-muted">pengeluaran</p>
         </div>
 
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
-                <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Terbesar</p>
-                <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+                <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Terbesar</p>
+                <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
                         <polyline points="16 17 22 17 22 11"/>
                     </svg>
                 </div>
             </div>
-            <p id="terbesar" class="text-sm font-bold mt-3">Rp 0</p>
-            <p class="text-[9px] text-slate-400">pengeluaran</p>
+            <p id="terbesar" class="text-sm font-bold mt-3 t-strong">Rp 0</p>
+            <p class="text-[10px] t-muted">pengeluaran</p>
         </div>
-
     </div>
 
 
-    <!-- CHART -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div>
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
                         </svg>
                     </div>
-                    <h3 class="font-semibold text-sm">Arus Kas</h3>
+                    <h3 class="font-semibold text-sm t-strong">Arus Kas</h3>
                 </div>
-                <p class="text-[10px] text-slate-400 mt-1.5">Statistik pemasukan & pengeluaran</p>
+                <p class="text-[10px] t-muted mt-1.5">Statistik pemasukan & pengeluaran</p>
             </div>
 
             <select id="chartPeriod" onchange="renderChart()"
@@ -267,7 +283,7 @@ button{-webkit-tap-highlight-color:transparent}
 
         <div id="chart" class="flex items-end gap-2 h-44 overflow-x-auto hide-scrollbar"></div>
 
-        <div class="flex justify-center gap-5 mt-3 text-[9px] text-slate-400">
+        <div class="flex justify-center gap-5 mt-3 text-[10px] t-muted">
             <span class="flex items-center gap-1.5">
                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
                 Pemasukan
@@ -280,7 +296,6 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
 
 
-    <!-- INSIGHT -->
     <div class="insight card bg-indigo-50 border border-indigo-100 rounded-2xl p-4 shadow-sm">
         <div class="flex gap-3">
             <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
@@ -299,15 +314,14 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
 
 
-    <!-- RECENT TRANSACTIONS -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-4">
             <div>
-                <h3 class="font-semibold text-sm">Transaksi Terbaru</h3>
-                <p class="text-[10px] text-slate-400">Aktivitas keuangan terakhir</p>
+                <h3 class="font-semibold text-sm t-strong">Transaksi Terbaru</h3>
+                <p class="text-[10px] t-muted">Aktivitas keuangan terakhir</p>
             </div>
             <button onclick="showPage('transaksi')"
-                class="text-[10px] text-indigo-600 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
+                class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
                 Lihat Semua
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
@@ -317,8 +331,8 @@ button{-webkit-tap-highlight-color:transparent}
 
         <div id="recent-transactions" class="space-y-2"></div>
 
-        <div id="recent-empty" class="text-center py-8 text-slate-400 hidden">
-            <div class="flex justify-center mb-2 text-slate-300">
+        <div id="recent-empty" class="text-center py-8 t-faint hidden">
+            <div class="flex justify-center mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
                     <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
@@ -335,14 +349,13 @@ button{-webkit-tap-highlight-color:transparent}
 <section id="transaksiSection" class="hidden space-y-5">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-        <!-- FORM -->
         <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm h-fit">
             <div class="flex justify-between items-center mb-5">
                 <div>
-                    <h3 class="font-semibold text-sm">Tambah Transaksi</h3>
-                    <p class="text-[10px] text-slate-400">Catat pemasukan / pengeluaran</p>
+                    <h3 class="font-semibold text-sm t-strong">Tambah Transaksi</h3>
+                    <p class="text-[10px] t-muted">Catat pemasukan / pengeluaran</p>
                 </div>
-                <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
@@ -353,22 +366,22 @@ button{-webkit-tap-highlight-color:transparent}
                 <input type="hidden" id="edit-index" value="-1">
 
                 <div>
-                    <label class="block text-[11px] font-medium mb-1.5">Keterangan</label>
+                    <label class="block text-[11px] font-medium mb-1.5 t-base">Keterangan</label>
                     <input id="keterangan" type="text" required maxlength="100" placeholder="Contoh: Gaji, makan..."
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-medium mb-1.5">Nominal</label>
+                    <label class="block text-[11px] font-medium mb-1.5 t-base">Nominal</label>
                     <div class="relative">
-                        <span class="absolute left-3 top-2.5 text-xs text-slate-400 font-medium">Rp</span>
+                        <span class="absolute left-3 top-2.5 text-xs t-muted font-medium">Rp</span>
                         <input id="nominal" type="number" min="1" required placeholder="50000"
                             class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-medium mb-1.5">Jenis</label>
+                    <label class="block text-[11px] font-medium mb-1.5 t-base">Jenis</label>
                     <select id="tipe"
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         <option value="pemasukan">Pemasukan</option>
@@ -377,7 +390,7 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-medium mb-1.5">Kategori</label>
+                    <label class="block text-[11px] font-medium mb-1.5 t-base">Kategori</label>
                     <select id="kategori"
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         <option value="Gaji">Gaji</option>
@@ -395,7 +408,7 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-medium mb-1.5">Tanggal</label>
+                    <label class="block text-[11px] font-medium mb-1.5 t-base">Tanggal</label>
                     <input id="tanggal" type="date" required
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
@@ -406,7 +419,7 @@ button{-webkit-tap-highlight-color:transparent}
                         Simpan
                     </button>
                     <button id="cancel-edit" type="button" onclick="cancelEdit()"
-                        class="hidden px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-sm transition">
+                        class="hidden px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base rounded-xl text-sm transition">
                         Batal
                     </button>
                 </div>
@@ -414,18 +427,17 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
 
 
-        <!-- LIST -->
         <div class="lg:col-span-2 card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h3 class="font-semibold text-sm">Riwayat Transaksi</h3>
-                    <p id="jumlah-hasil" class="text-[10px] text-slate-400 mt-0.5">0 transaksi</p>
+                    <h3 class="font-semibold text-sm t-strong">Riwayat Transaksi</h3>
+                    <p id="jumlah-hasil" class="text-[10px] t-muted mt-0.5">0 transaksi</p>
                 </div>
                 <button onclick="resetData()" class="text-[10px] text-rose-500 hover:underline font-medium">Reset</button>
             </div>
 
             <div class="relative mb-3">
-                <span class="absolute left-3 top-2.5 text-slate-400">
+                <span class="absolute left-3 top-2.5 t-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                     </svg>
@@ -462,13 +474,13 @@ button{-webkit-tap-highlight-color:transparent}
             <div id="list-transaksi" class="space-y-5"></div>
 
             <div id="pesan-kosong" class="hidden text-center py-10">
-                <div class="flex justify-center mb-3 text-slate-300">
+                <div class="flex justify-center mb-3 t-faint">
                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
                         <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
                     </svg>
                 </div>
-                <p class="text-sm font-medium text-slate-500">Belum ada transaksi</p>
+                <p class="text-sm font-medium t-muted">Belum ada transaksi</p>
             </div>
         </div>
     </div>
@@ -480,14 +492,14 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-semibold">Target Tabungan</h3>
-                    <p class="text-[10px] text-slate-400 mt-0.5">Wujudkan impian finansialmu</p>
+                    <h3 class="font-semibold t-strong">Target Tabungan</h3>
+                    <p class="text-[10px] t-muted mt-0.5">Wujudkan impian finansialmu</p>
                 </div>
             </div>
             <button onclick="openTargetModal()"
@@ -502,12 +514,12 @@ button{-webkit-tap-highlight-color:transparent}
         <div id="list-target" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
 
         <div id="target-kosong" class="hidden text-center py-10">
-            <div class="flex justify-center mb-3 text-slate-300">
+            <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
                 </svg>
             </div>
-            <p class="text-sm font-medium text-slate-500">Belum ada target</p>
+            <p class="text-sm font-medium t-muted">Belum ada target</p>
         </div>
     </div>
 </section>
@@ -518,15 +530,15 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                         <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-semibold">Budget Bulanan</h3>
-                    <p class="text-[10px] text-slate-400 mt-0.5">Kontrol pengeluaran setiap kategori</p>
+                    <h3 class="font-semibold t-strong">Budget Bulanan</h3>
+                    <p class="text-[10px] t-muted mt-0.5">Kontrol pengeluaran setiap kategori</p>
                 </div>
             </div>
             <button onclick="openBudgetModal()"
@@ -537,8 +549,8 @@ button{-webkit-tap-highlight-color:transparent}
 
         <div id="list-budget" class="space-y-4"></div>
 
-        <div id="budget-kosong" class="text-center py-10 text-slate-400">
-            <div class="flex justify-center mb-3 text-slate-300">
+        <div id="budget-kosong" class="text-center py-10 t-muted">
+            <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                     <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
@@ -555,14 +567,14 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-semibold">Tagihan Rutin</h3>
-                    <p class="text-[10px] text-slate-400 mt-0.5">Jangan sampai lupa bayar</p>
+                    <h3 class="font-semibold t-strong">Tagihan Rutin</h3>
+                    <p class="text-[10px] t-muted mt-0.5">Jangan sampai lupa bayar</p>
                 </div>
             </div>
             <button onclick="openTagihanModal()"
@@ -577,12 +589,12 @@ button{-webkit-tap-highlight-color:transparent}
         <div id="list-tagihan" class="space-y-3"></div>
 
         <div id="tagihan-kosong" class="hidden text-center py-10">
-            <div class="flex justify-center mb-3 text-slate-300">
+            <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
                 </svg>
             </div>
-            <p class="text-sm font-medium text-slate-500">Belum ada tagihan</p>
+            <p class="text-sm font-medium t-muted">Belum ada tagihan</p>
         </div>
     </div>
 </section>
@@ -592,48 +604,46 @@ button{-webkit-tap-highlight-color:transparent}
 <section id="settingsSection" class="hidden space-y-4 max-w-2xl mx-auto">
 
     <div class="mb-5">
-        <h2 class="text-xl font-bold flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600">
+        <h2 class="text-xl font-bold flex items-center gap-2 t-strong">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600 dark:text-indigo-400">
                 <circle cx="12" cy="12" r="3"/>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
             Pengaturan
         </h2>
-        <p class="text-xs text-slate-400 mt-1">Kelola data dan aplikasi</p>
+        <p class="text-xs t-muted mt-1">Kelola data dan aplikasi</p>
     </div>
 
-    <!-- PRIVACY -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex gap-4">
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
             </div>
             <div>
-                <h3 class="font-semibold text-sm">Data Lokal</h3>
-                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                <h3 class="font-semibold text-sm t-strong">Data Lokal</h3>
+                <p class="text-xs t-muted mt-1 leading-relaxed">
                     Data SakuKita disimpan di perangkat ini menggunakan LocalStorage. Tidak membutuhkan akun atau server.
                 </p>
                 <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full font-medium border border-emerald-100">Tanpa login</span>
-                    <span class="text-[9px] bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full font-medium border border-indigo-100">LocalStorage</span>
-                    <span class="text-[9px] bg-slate-50 text-slate-600 px-2 py-1 rounded-full font-medium border border-slate-200">Offline</span>
+                    <span class="text-[10px] bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded-full font-medium border border-emerald-100 dark:border-emerald-500/20">Tanpa login</span>
+                    <span class="text-[10px] bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-400 px-2 py-1 rounded-full font-medium border border-indigo-100 dark:border-indigo-500/20">LocalStorage</span>
+                    <span class="text-[10px] bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-1 rounded-full font-medium border border-slate-200 dark:border-slate-700">Offline</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- BACKUP -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+        <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
             </svg>
         </div>
         <div class="flex-1">
-            <h3 class="font-semibold text-sm">Backup Data</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Simpan seluruh data sebagai file JSON.</p>
+            <h3 class="font-semibold text-sm t-strong">Backup Data</h3>
+            <p class="text-xs t-muted mt-0.5">Simpan seluruh data sebagai file JSON.</p>
             <button onclick="downloadBackup()"
                 class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20 flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -644,16 +654,15 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-    <!-- RESTORE -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
             </svg>
         </div>
         <div class="flex-1">
-            <h3 class="font-semibold text-sm">Restore Data</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Pulihkan data dari backup JSON.</p>
+            <h3 class="font-semibold text-sm t-strong">Restore Data</h3>
+            <p class="text-xs t-muted mt-0.5">Pulihkan data dari backup JSON.</p>
             <button onclick="document.getElementById('import-file').click()"
                 class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -664,16 +673,15 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-    <!-- CSV -->
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+        <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
             </svg>
         </div>
         <div class="flex-1">
-            <h3 class="font-semibold text-sm">Export CSV</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Cocok untuk Excel atau Google Sheets.</p>
+            <h3 class="font-semibold text-sm t-strong">Export CSV</h3>
+            <p class="text-xs t-muted mt-0.5">Cocok untuk Excel atau Google Sheets.</p>
             <button onclick="exportCSV()"
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-blue-500/20 flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -684,26 +692,25 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-    <!-- DELETE -->
-    <div class="card bg-white border border-rose-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+    <div class="card bg-white border border-rose-100 dark:border-rose-500/20 rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
             </svg>
         </div>
         <div class="flex-1">
-            <h3 class="font-semibold text-sm text-rose-600">Hapus Semua Data</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Hapus seluruh data SakuKita dari perangkat.</p>
+            <h3 class="font-semibold text-sm text-rose-600 dark:text-rose-400">Hapus Semua Data</h3>
+            <p class="text-xs t-muted mt-0.5">Hapus seluruh data SakuKita dari perangkat.</p>
             <button onclick="resetData()"
-                class="mt-3 border border-rose-200 hover:bg-rose-50 text-rose-600 text-xs font-medium px-4 py-2 rounded-xl transition">
+                class="mt-3 border border-rose-200 dark:border-rose-500/30 hover:bg-rose-50 dark:hover:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-medium px-4 py-2 rounded-xl transition">
                 Hapus Semua
             </button>
         </div>
     </div>
 
     <div class="text-center pt-4 pb-2">
-        <p class="text-[10px] text-slate-400 font-medium">SakuKita V4</p>
-        <p class="text-[9px] text-slate-300 mt-1">Personal Finance • Local Storage</p>
+        <p class="text-[10px] t-muted font-medium">SakuKita V4</p>
+        <p class="text-[10px] t-faint mt-1">Personal Finance • Local Storage</p>
     </div>
 
 </section>
@@ -715,40 +722,37 @@ button{-webkit-tap-highlight-color:transparent}
 <div id="targetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
                 </svg>
             </div>
-            <h3 class="font-bold text-base">Buat Target Tabungan</h3>
+            <h3 class="font-bold text-base t-strong">Buat Target Tabungan</h3>
         </div>
 
         <form id="form-target" onsubmit="saveTarget(event)" class="space-y-3">
             <div>
-                <label class="block text-xs font-medium mb-1.5">Nama Target</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nama Target</label>
                 <input id="target-nama" type="text" required maxlength="60" placeholder="Contoh: Beli Laptop"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Nominal Target</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nominal Target</label>
                 <input id="target-nominal" type="number" min="1" required placeholder="5000000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Sudah Terkumpul</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Sudah Terkumpul</label>
                 <input id="target-terkumpul" type="number" min="0" value="0" required
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div class="flex gap-2 pt-2">
                 <button type="submit"
                     class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
                     Simpan Target
                 </button>
                 <button type="button" onclick="closeTargetModal()"
-                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
                     Batal
                 </button>
             </div>
@@ -761,18 +765,18 @@ button{-webkit-tap-highlight-color:transparent}
 <div id="budgetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                     <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
                 </svg>
             </div>
-            <h3 class="font-bold text-base">Atur Budget</h3>
+            <h3 class="font-bold text-base t-strong">Atur Budget</h3>
         </div>
 
         <form id="form-budget" onsubmit="saveBudget(event)" class="space-y-3">
             <div>
-                <label class="block text-xs font-medium mb-1.5">Kategori</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Kategori</label>
                 <select id="budget-kategori"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     <option value="Makanan">Makanan</option>
@@ -784,20 +788,18 @@ button{-webkit-tap-highlight-color:transparent}
                     <option value="Hiburan">Hiburan</option>
                 </select>
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Batas Bulanan</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Batas Bulanan</label>
                 <input id="budget-limit" type="number" min="1" required placeholder="1000000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div class="flex gap-2 pt-2">
                 <button type="submit"
                     class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
                     Simpan Budget
                 </button>
                 <button type="button" onclick="closeBudgetModal()"
-                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
                     Batal
                 </button>
             </div>
@@ -810,40 +812,37 @@ button{-webkit-tap-highlight-color:transparent}
 <div id="tagihanModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
                 </svg>
             </div>
-            <h3 class="font-bold text-base">Tambah Tagihan</h3>
+            <h3 class="font-bold text-base t-strong">Tambah Tagihan</h3>
         </div>
 
         <form id="form-tagihan" onsubmit="saveTagihan(event)" class="space-y-3">
             <div>
-                <label class="block text-xs font-medium mb-1.5">Nama Tagihan</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nama Tagihan</label>
                 <input id="tagihan-nama" type="text" required maxlength="60" placeholder="Contoh: Wi-Fi"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Nominal</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
                 <input id="tagihan-nominal" type="number" min="1" required placeholder="150000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Jatuh Tempo (tanggal)</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Jatuh Tempo (tanggal)</label>
                 <input id="tagihan-tgl" type="number" min="1" max="31" required placeholder="25"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div class="flex gap-2 pt-2">
                 <button type="submit"
                     class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
                     Simpan
                 </button>
                 <button type="button" onclick="closeTagihanModal()"
-                    class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-medium transition">
+                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
                     Batal
                 </button>
             </div>
@@ -852,7 +851,6 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 
-<!-- FILE IMPORT -->
 <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
 
 
@@ -863,12 +861,12 @@ button{-webkit-tap-highlight-color:transparent}
             <div class="flex items-center gap-3">
                 <div id="quickIconWrap" class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center"></div>
                 <div>
-                    <h3 id="quickTitle" class="font-bold text-sm">Tambah Transaksi</h3>
-                    <p class="text-[10px] text-slate-400 mt-0.5">Masukkan transaksi dengan cepat</p>
+                    <h3 id="quickTitle" class="font-bold text-sm t-strong">Tambah Transaksi</h3>
+                    <p class="text-[10px] t-muted mt-0.5">Masukkan transaksi dengan cepat</p>
                 </div>
             </div>
             <button onclick="closeQuickModal()"
-                class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+                class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
                 </svg>
@@ -879,13 +877,12 @@ button{-webkit-tap-highlight-color:transparent}
             <input type="hidden" id="quickType">
 
             <div>
-                <label class="block text-xs font-medium mb-1.5">Keterangan</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Keterangan</label>
                 <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang"
                     class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div>
-                <label class="block text-xs font-medium mb-1.5">Nominal</label>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
                 <input id="quickNominal" type="number" min="1" required placeholder="50000"
                     class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
@@ -903,14 +900,14 @@ button{-webkit-tap-highlight-color:transparent}
 <nav class="bottom-nav fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
     <div class="max-w-5xl mx-auto grid grid-cols-5 items-end">
 
-        <button id="nav-dashboard" onclick="showPage('dashboard')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+        <button id="nav-dashboard" onclick="showPage('dashboard')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
             <span class="text-[9px] mt-0.5">Home</span>
         </button>
 
-        <button id="nav-transaksi" onclick="showPage('transaksi')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+        <button id="nav-transaksi" onclick="showPage('transaksi')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
                 <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>
@@ -924,17 +921,17 @@ button{-webkit-tap-highlight-color:transparent}
                     <path d="M5 12h14"/><path d="M12 5v14"/>
                 </svg>
             </div>
-            <span class="text-[9px] text-slate-400 mt-1">Tambah</span>
+            <span class="text-[9px] text-slate-400 dark:text-slate-500 mt-1">Tambah</span>
         </button>
 
-        <button id="nav-target" onclick="showPage('target')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+        <button id="nav-target" onclick="showPage('target')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
             </svg>
             <span class="text-[9px] mt-0.5">Target</span>
         </button>
 
-        <button id="nav-settings" onclick="showPage('settings')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 transition">
+        <button id="nav-settings" onclick="showPage('settings')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
             </svg>
@@ -1085,9 +1082,7 @@ function displayMoney(value){
 
 function loadBalanceVisibility(){
     document.getElementById('balanceToggle').innerHTML =
-        hideBalance
-        ? icon('eyeOff', 18)
-        : icon('eye', 18);
+        hideBalance ? icon('eyeOff', 18) : icon('eye', 18);
 }
 
 
@@ -1189,22 +1184,23 @@ function renderRecentTransactions(){
     recent.forEach(item => {
         const income = item.tipe === 'pemasukan';
         const row = document.createElement('div');
-        row.className = 'soft flex items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl';
+        row.className = 'soft flex items-center justify-between gap-3 p-3 rounded-2xl';
         row.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                    income ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
+                    income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
+                           : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
                 }">
                     ${categoryIcon(item.kategori, 16)}
                 </div>
                 <div class="min-w-0">
-                    <p class="text-xs font-medium truncate">${escapeHTML(item.keterangan)}</p>
-                    <p class="text-[9px] text-slate-400 mt-0.5">
+                    <p class="text-xs font-semibold truncate t-strong">${escapeHTML(item.keterangan)}</p>
+                    <p class="text-[10px] t-muted mt-0.5">
                         ${escapeHTML(item.tanggal)} • ${escapeHTML(item.kategori)}
                     </p>
                 </div>
             </div>
-            <span class="text-xs font-semibold shrink-0 ${income ? 'text-emerald-600' : 'text-rose-600'}">
+            <span class="text-xs font-semibold shrink-0 ${income ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
                 ${income ? '+' : '-'}${displayMoney(item.nominal)}
             </span>
         `;
@@ -1315,7 +1311,7 @@ function renderTransactions(){
         const dateTitle = formatDateTitle(date);
         section.innerHTML = `
             <div class="flex items-center gap-2 mb-2">
-                <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">${dateTitle}</span>
+                <span class="text-[10px] font-semibold t-muted uppercase tracking-wider">${dateTitle}</span>
                 <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1"></div>
             </div>
         `;
@@ -1323,31 +1319,32 @@ function renderTransactions(){
         groups[date].forEach(item => {
             const income = item.tipe === 'pemasukan';
             const row = document.createElement('div');
-            row.className = 'transaction-item animate-slide flex items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl mb-2';
+            row.className = 'soft animate-slide flex items-center justify-between gap-3 p-3 rounded-2xl mb-2';
             row.innerHTML = `
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${
-                        income ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
+                        income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
+                               : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
                     }">
                         ${categoryIcon(item.kategori, 18)}
                     </div>
                     <div class="min-w-0">
-                        <h4 class="text-xs font-semibold truncate">${escapeHTML(item.keterangan)}</h4>
+                        <h4 class="text-xs font-semibold truncate t-strong">${escapeHTML(item.keterangan)}</h4>
                         <div class="flex items-center gap-2 mt-1">
-                            <span class="text-[9px] text-slate-400">${escapeHTML(item.kategori)}</span>
+                            <span class="text-[10px] t-muted">${escapeHTML(item.kategori)}</span>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-1 shrink-0">
-                    <span class="text-xs font-semibold ${income ? 'text-emerald-600' : 'text-rose-600'}">
+                    <span class="text-xs font-semibold ${income ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
                         ${income ? '+' : '-'}${displayMoney(item.nominal)}
                     </span>
                     <button onclick="editTransaksi(${item._index})"
-                        class="w-7 h-7 rounded-lg hover:bg-indigo-100 text-slate-400 hover:text-indigo-600 flex items-center justify-center transition">
+                        class="w-7 h-7 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 t-muted hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center justify-center transition">
                         ${icon('pencil', 13)}
                     </button>
                     <button onclick="hapusTransaksi(${item._index})"
-                        class="w-7 h-7 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition">
+                        class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
                         ${icon('trash', 13)}
                     </button>
                 </div>
@@ -1382,10 +1379,10 @@ function openQuickTransaction(type){
 
     const iconWrap = document.getElementById('quickIconWrap');
     if(type === 'pemasukan'){
-        iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center';
+        iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center';
         iconWrap.innerHTML = icon('trendingUp', 20);
     }else{
-        iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center';
+        iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center';
         iconWrap.innerHTML = icon('trendingDown', 20);
     }
 
@@ -1441,33 +1438,33 @@ function renderTarget(){
         const remaining = Math.max(0,target-collected);
 
         const card = document.createElement('div');
-        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 animate-slide';
+        card.className = 'soft rounded-2xl p-4 animate-slide';
 
         card.innerHTML = `
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                         ${icon('target', 18)}
                     </div>
                     <div>
-                        <h4 class="font-semibold text-sm">${escapeHTML(item.nama)}</h4>
-                        <p class="text-[9px] text-slate-400 mt-0.5">${percent}% tercapai</p>
+                        <h4 class="font-semibold text-sm t-strong">${escapeHTML(item.nama)}</h4>
+                        <p class="text-[10px] t-muted mt-0.5">${percent}% tercapai</p>
                     </div>
                 </div>
                 <button onclick="hapusTarget(${idx})"
-                    class="w-7 h-7 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition">
+                    class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
                     ${icon('trash', 13)}
                 </button>
             </div>
 
             <div class="flex justify-between items-end mb-2">
                 <div>
-                    <p class="text-[9px] text-slate-400">Terkumpul</p>
-                    <p class="font-bold text-sm text-indigo-600">${displayMoney(collected)}</p>
+                    <p class="text-[10px] t-muted">Terkumpul</p>
+                    <p class="font-bold text-sm text-indigo-600 dark:text-indigo-400">${displayMoney(collected)}</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[9px] text-slate-400">Target</p>
-                    <p class="text-xs font-semibold">${displayMoney(target)}</p>
+                    <p class="text-[10px] t-muted">Target</p>
+                    <p class="text-xs font-semibold t-strong">${displayMoney(target)}</p>
                 </div>
             </div>
 
@@ -1476,10 +1473,10 @@ function renderTarget(){
             </div>
 
             <div class="flex justify-between mt-2">
-                <p class="text-[9px] text-slate-400">
+                <p class="text-[10px] t-muted">
                     ${remaining > 0 ? `Kurang ${displayMoney(remaining)}` : '🎉 Target tercapai!'}
                 </p>
-                <p class="text-[9px] font-semibold text-indigo-600">${percent}%</p>
+                <p class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">${percent}%</p>
             </div>
         `;
         container.appendChild(card);
@@ -1544,37 +1541,37 @@ function renderBudget(){
         const width = Math.min(100,percent);
 
         let status = 'Aman';
-        let statusClass = 'bg-emerald-50 text-emerald-700 border-emerald-100';
+        let statusClass = 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20';
         if(percent >= 100){
             status = 'Melebihi Budget';
-            statusClass = 'bg-rose-50 text-rose-700 border-rose-100';
+            statusClass = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20';
         }else if(percent >= 80){
             status = 'Hampir Habis';
-            statusClass = 'bg-amber-50 text-amber-700 border-amber-100';
+            statusClass = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20';
         }
 
         const remaining = limit-spent;
 
         const card = document.createElement('div');
-        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 animate-slide';
+        card.className = 'soft rounded-2xl p-4 animate-slide';
 
         card.innerHTML = `
             <div class="flex justify-between items-start">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
                         ${categoryIcon(cat, 18)}
                     </div>
                     <div>
-                        <h4 class="font-semibold text-sm">${escapeHTML(cat)}</h4>
-                        <p class="text-[9px] text-slate-400">Bulan ini</p>
+                        <h4 class="font-semibold text-sm t-strong">${escapeHTML(cat)}</h4>
+                        <p class="text-[10px] t-muted">Bulan ini</p>
                     </div>
                 </div>
-                <span class="text-[9px] px-2 py-1 rounded-full font-medium border ${statusClass}">${status}</span>
+                <span class="text-[10px] px-2 py-1 rounded-full font-medium border ${statusClass}">${status}</span>
             </div>
 
             <div class="flex justify-between mt-4 mb-2">
-                <span class="text-xs font-semibold">${displayMoney(spent)}</span>
-                <span class="text-[10px] text-slate-400">/ ${displayMoney(limit)}</span>
+                <span class="text-xs font-semibold t-strong">${displayMoney(spent)}</span>
+                <span class="text-[10px] t-muted">/ ${displayMoney(limit)}</span>
             </div>
 
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
@@ -1584,10 +1581,10 @@ function renderBudget(){
             </div>
 
             <div class="flex justify-between mt-2">
-                <p class="text-[9px] text-slate-400">
+                <p class="text-[10px] t-muted">
                     ${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}
                 </p>
-                <p class="text-[9px] font-semibold">${percent}%</p>
+                <p class="text-[10px] font-semibold t-base">${percent}%</p>
             </div>
         `;
         container.appendChild(card);
@@ -1658,37 +1655,37 @@ function renderTagihan(){
         const days = daysUntil(due);
 
         let countdown = '';
-        let badge = 'bg-emerald-50 text-emerald-700 border-emerald-100';
+        let badge = 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20';
 
         if(days === 0){
             countdown = 'Jatuh tempo hari ini';
-            badge = 'bg-rose-50 text-rose-700 border-rose-100';
+            badge = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20';
         }else if(days === 1){
             countdown = 'Besok jatuh tempo';
-            badge = 'bg-amber-50 text-amber-700 border-amber-100';
+            badge = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20';
         }else{
             countdown = `${days} hari lagi`;
         }
 
         const card = document.createElement('div');
-        card.className = 'card bg-slate-50 border border-slate-100 rounded-2xl p-4 flex justify-between items-center gap-3 animate-slide';
+        card.className = 'soft rounded-2xl p-4 flex justify-between items-center gap-3 animate-slide';
 
         card.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
                     ${icon('bell', 18)}
                 </div>
                 <div class="min-w-0">
-                    <h4 class="font-semibold text-sm truncate">${escapeHTML(item.nama)}</h4>
-                    <p class="text-[9px] text-slate-400 mt-1">
+                    <h4 class="font-semibold text-sm truncate t-strong">${escapeHTML(item.nama)}</h4>
+                    <p class="text-[10px] t-muted mt-1">
                         Setiap tanggal ${item.tgl} • ${displayMoney(item.nominal)}
                     </p>
-                    <span class="inline-block mt-2 text-[9px] px-2 py-1 rounded-full font-medium border ${badge}">${countdown}</span>
+                    <span class="inline-block mt-2 text-[10px] px-2 py-1 rounded-full font-medium border ${badge}">${countdown}</span>
                 </div>
             </div>
 
             <button onclick="hapusTagihan(${idx})"
-                class="w-8 h-8 rounded-lg hover:bg-rose-100 text-slate-400 hover:text-rose-600 flex items-center justify-center transition shrink-0">
+                class="w-8 h-8 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
                 ${icon('trash', 14)}
             </button>
         `;
@@ -1773,7 +1770,7 @@ function renderChart(){
         bars.appendChild(expenseBar);
 
         const label = document.createElement('span');
-        label.className = 'text-[8px] text-slate-400 mt-2';
+        label.className = 'text-[9px] t-muted mt-2';
         label.textContent = data.day.date.toLocaleDateString('id-ID',{ day:'numeric', month:'short' });
 
         wrapper.appendChild(bars);
