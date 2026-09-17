@@ -64,13 +64,15 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .dark select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E")}
 .dark .item{background:#0F1420!important;border-color:#232838!important}
 .dark .nav{background:#131722;border-color:#232838}
-.dark .nav-btn{color:#5B6472}
+.dark .nav-btn{color:#9AA0AE}
 .dark .nav-btn.active{color:#5FB6A2}
 .dark .nav-btn.active::after{background:#5FB6A2}
-.dark .t-slate{color:#8A93A6}
+.dark .t-slate{color:#A3AAC2}
 .dark .divider{border-color:#232838}
 .dark .track{background:#1C2230!important}
-.dark .header{background:rgba(19,23,34,.92);border-color:#232838}
+.dark .header{background:rgba(19,23,34,.92)!important;border-color:#232838!important}
+.dark .header h1{color:#F3F4F6}
+.dark .header p{color:#A3AAC2}
 .dark .hero{background:#131722!important;border-color:#232838}
 .dark .hero-sub{background:#0F1420!important;border-color:#232838!important}
 </style>
@@ -86,8 +88,8 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         <svg class="icon" style="stroke:#fff;width:19px;height:19px" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10.5h19"/><path d="M6 15h3"/></svg>
       </div>
       <div class="leading-tight">
-        <h1 class="display text-[15px] font-bold tracking-tight">SakuKita</h1>
-        <p class="text-[10px] text-slate-400 t-slate">Kelola uang, kelola masa depan</p>
+        <h1 class="display text-[15px] font-bold tracking-tight text-slate-900">SakuKita</h1>
+        <p class="text-[10px] text-slate-500 t-slate">Kelola uang, kelola masa depan</p>
       </div>
     </div>
     <button onclick="toggleDark()" id="darkBtn"
@@ -103,7 +105,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   <div class="hero relative rounded-xl p-5 mb-4 border" style="background:#1F4E42;border-color:#1F4E42">
     <div class="relative flex justify-between items-start">
       <div>
-        <p class="text-[10.5px] tracking-wide text-white/60 font-medium">Total Saldo</p>
+        <p class="text-[10.5px] tracking-wide text-white/70 font-medium">Total Saldo</p>
         <h2 id="saldo" class="num text-[27px] leading-tight font-bold mt-1 text-white display">Rp 0</h2>
       </div>
       <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
@@ -113,14 +115,14 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
     <div class="relative grid grid-cols-2 gap-2.5 mt-4">
       <div class="hero-sub rounded-lg bg-white/10 p-3 border border-white/10">
-        <p class="text-[10px] text-white/60 mb-1 flex items-center gap-1">
+        <p class="text-[10px] text-white/70 mb-1 flex items-center gap-1">
           <svg class="icon-sm" style="stroke:#6EE7B7" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
           Pemasukan
         </p>
         <b id="income" class="num text-[14px] text-white">Rp 0</b>
       </div>
       <div class="hero-sub rounded-lg bg-white/10 p-3 border border-white/10">
-        <p class="text-[10px] text-white/60 mb-1 flex items-center gap-1">
+        <p class="text-[10px] text-white/70 mb-1 flex items-center gap-1">
           <svg class="icon-sm" style="stroke:#FCA5A5" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M18 13l-6 6-6-6"/></svg>
           Pengeluaran
         </p>
@@ -135,28 +137,28 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style="background:#EEF2F6">
         <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
       </div>
-      <p class="text-[10px] text-slate-400 t-slate">Transaksi</p>
+      <p class="text-[10px] text-slate-500 t-slate">Transaksi</p>
       <b id="count" class="num text-base block mt-0.5">0</b>
     </div>
     <div class="card p-3.5">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style="background:#EEF2F6">
         <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 3v3M16 3v3"/></svg>
       </div>
-      <p class="text-[10px] text-slate-400 t-slate">Bulan Ini</p>
+      <p class="text-[10px] text-slate-500 t-slate">Bulan Ini</p>
       <b id="monthCount" class="num text-base block mt-0.5">0</b>
     </div>
     <div class="card p-3.5">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style="background:#EEF2F6">
         <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
       </div>
-      <p class="text-[10px] text-slate-400 t-slate">Rata-rata</p>
+      <p class="text-[10px] text-slate-500 t-slate">Rata-rata</p>
       <b id="avg" class="num text-[14px] block mt-0.5 truncate">Rp 0</b>
     </div>
     <div class="card p-3.5">
       <div class="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style="background:#EEF2F6">
         <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 1 0-12 0c0 6.5-2.5 8.5-2.5 8.5h17S18 15 18 8.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
       </div>
-      <p class="text-[10px] text-slate-400 t-slate">Terbesar</p>
+      <p class="text-[10px] text-slate-500 t-slate">Terbesar</p>
       <b id="biggest" class="num text-[14px] block mt-0.5 truncate">Rp 0</b>
     </div>
   </div>
@@ -166,9 +168,9 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
     <div class="flex items-start justify-between mb-4">
       <div>
         <h3 class="display font-semibold text-[14px]">Arus Kas 7 Hari</h3>
-        <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Pemasukan &amp; pengeluaran harian</p>
+        <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Pemasukan &amp; pengeluaran harian</p>
       </div>
-      <div class="flex gap-2.5 text-[10px] text-slate-400 t-slate">
+      <div class="flex gap-2.5 text-[10px] text-slate-500 t-slate">
         <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-sm inline-block" style="background:#2E6F5E"></i>Masuk</span>
         <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-sm inline-block" style="background:#C4443A"></i>Keluar</span>
       </div>
@@ -192,12 +194,12 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
           <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>
           <div>
             <h3 class="display font-semibold text-[14px]">Target Terdekat</h3>
-            <p class="text-[10.5px] text-slate-400 t-slate">Progress tabungan</p>
+            <p class="text-[10.5px] text-slate-500 t-slate">Progress tabungan</p>
           </div>
         </div>
-        <button onclick="showPage('target')" class="text-[11px] font-medium" style="color:#1F4E42">Lihat</button>
+        <button onclick="showPage('target')" class="text-[11px] font-medium px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition" style="color:#2E6F5E">Lihat</button>
       </div>
-      <div id="targetMini" class="text-xs text-slate-400 t-slate">Belum ada target.</div>
+      <div id="targetMini" class="text-xs text-slate-500 t-slate">Belum ada target.</div>
     </div>
     <div class="card p-4">
       <div class="flex justify-between items-start mb-3">
@@ -205,12 +207,12 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
           <svg class="icon-sm" style="stroke:#475467" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>
           <div>
             <h3 class="display font-semibold text-[14px]">Budget Bulan Ini</h3>
-            <p class="text-[10.5px] text-slate-400 t-slate">Batas pengeluaran</p>
+            <p class="text-[10.5px] text-slate-500 t-slate">Batas pengeluaran</p>
           </div>
         </div>
-        <button onclick="showPage('budget')" class="text-[11px] font-medium" style="color:#1F4E42">Lihat</button>
+        <button onclick="showPage('budget')" class="text-[11px] font-medium px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition" style="color:#2E6F5E">Lihat</button>
       </div>
-      <div id="budgetMini" class="text-xs text-slate-400 t-slate">Belum ada budget.</div>
+      <div id="budgetMini" class="text-xs text-slate-500 t-slate">Belum ada budget.</div>
     </div>
   </div>
 
@@ -222,7 +224,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       </div>
       <div>
         <h3 class="display font-semibold text-[14px]">Insight</h3>
-        <div id="insight" class="text-[12px] text-slate-500 t-slate mt-1 leading-relaxed">
+        <div id="insight" class="text-[12px] text-slate-600 t-slate mt-1 leading-relaxed">
           Belum cukup data untuk membuat insight.
         </div>
       </div>
@@ -243,24 +245,24 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       <form id="txForm" class="space-y-3">
         <input type="hidden" id="txEdit" value="-1">
         <div>
-          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Keterangan</label>
-          <input id="txDesc" required placeholder="cth: Makan siang" class="input mt-1 px-3 py-2 text-xs rounded-lg">
+          <label class="text-[10.5px] font-medium text-slate-600 t-slate">Keterangan</label>
+          <input id="txDesc" required placeholder="cth: Makan siang" class="input mt-1 px-3.5 py-2.5 text-xs rounded-lg">
         </div>
         <div>
-          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Nominal (Rp)</label>
-          <input id="txAmount" required min="1" type="number" inputmode="numeric" placeholder="0" class="input num mt-1 px-3 py-2 text-xs rounded-lg">
+          <label class="text-[10.5px] font-medium text-slate-600 t-slate">Nominal (Rp)</label>
+          <input id="txAmount" required min="1" type="number" inputmode="numeric" placeholder="0" class="input num mt-1 px-3.5 py-2.5 text-xs rounded-lg">
         </div>
         <div class="grid grid-cols-2 gap-2.5">
           <div>
-            <label class="text-[10.5px] font-medium text-slate-500 t-slate">Jenis</label>
-            <select id="txType" class="input mt-1 px-3 py-2 text-xs rounded-lg">
+            <label class="text-[10.5px] font-medium text-slate-600 t-slate">Jenis</label>
+            <select id="txType" class="input mt-1 px-3 py-2.5 text-xs rounded-lg">
               <option value="pemasukan">Masuk</option>
               <option value="pengeluaran">Keluar</option>
             </select>
           </div>
           <div>
-            <label class="text-[10.5px] font-medium text-slate-500 t-slate">Kategori</label>
-            <select id="txCat" class="input mt-1 px-3 py-2 text-xs rounded-lg">
+            <label class="text-[10.5px] font-medium text-slate-600 t-slate">Kategori</label>
+            <select id="txCat" class="input mt-1 px-3 py-2.5 text-xs rounded-lg">
               <option>Gaji</option><option>Makanan</option><option>Transportasi</option>
               <option>Belanja</option><option>Tagihan</option><option>Internet</option>
               <option>Hiburan</option><option>Kesehatan</option><option>Pendidikan</option><option>Lainnya</option>
@@ -268,13 +270,13 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
           </div>
         </div>
         <div>
-          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Tanggal</label>
-          <input id="txDate" required type="date" class="input mt-1 px-3 py-2 text-xs rounded-lg">
+          <label class="text-[10.5px] font-medium text-slate-600 t-slate">Tanggal</label>
+          <input id="txDate" required type="date" class="input mt-1 px-3 py-2.5 text-xs rounded-lg">
         </div>
         <div class="flex gap-2 pt-1">
-          <button id="txSubmit" class="flex-1 text-white py-2 rounded-lg text-xs font-semibold active:scale-[.98] transition" style="background:#1F4E42">Simpan</button>
+          <button id="txSubmit" class="flex-1 text-white py-2.5 rounded-lg text-xs font-semibold active:scale-[.98] transition shadow-sm" style="background:#1F4E42">Simpan</button>
           <button type="button" id="txCancel" onclick="cancelTx()"
-                  class="hidden px-3 soft rounded-lg text-xs text-slate-500 font-medium">Batal</button>
+                  class="hidden px-4 soft rounded-lg text-xs text-slate-600 font-medium py-2.5">Batal</button>
         </div>
       </form>
     </div>
@@ -283,26 +285,26 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       <div class="flex justify-between items-start mb-3.5">
         <div>
           <h3 class="display font-semibold text-[14px]">Riwayat</h3>
-          <p id="resultCount" class="text-[10.5px] text-slate-400 t-slate mt-0.5">0 transaksi</p>
+          <p id="resultCount" class="text-[10.5px] text-slate-500 t-slate mt-0.5">0 transaksi</p>
         </div>
-        <button onclick="resetAllTx()" class="text-[10.5px] font-medium" style="color:#C4443A">Hapus semua</button>
+        <button onclick="resetAllTx()" class="text-[10.5px] font-medium px-2.5 py-1 rounded hover:bg-rose-50 transition" style="color:#C4443A">Hapus semua</button>
       </div>
 
       <div class="relative mb-2.5">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
           <svg class="icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         </span>
         <input id="search" oninput="renderTx()" placeholder="Cari transaksi..."
-               class="input pl-9 pr-3 py-2 text-xs rounded-lg">
+               class="input pl-10 pr-3 py-2.5 text-xs rounded-lg">
       </div>
 
       <div class="grid grid-cols-2 gap-2 mb-3.5">
-        <select id="filterType" onchange="renderTx()" class="input px-3 py-1.5 text-xs rounded-lg">
+        <select id="filterType" onchange="renderTx()" class="input px-3 py-2 text-xs rounded-lg">
           <option value="semua">Semua Jenis</option>
           <option value="pemasukan">Pemasukan</option>
           <option value="pengeluaran">Pengeluaran</option>
         </select>
-        <select id="filterCat" onchange="renderTx()" class="input px-3 py-1.5 text-xs rounded-lg">
+        <select id="filterCat" onchange="renderTx()" class="input px-3 py-2 text-xs rounded-lg">
           <option value="semua">Semua Kategori</option>
           <option>Gaji</option><option>Makanan</option><option>Transportasi</option>
           <option>Belanja</option><option>Tagihan</option><option>Internet</option>
@@ -324,10 +326,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   <div class="flex justify-between items-center mb-4">
     <div>
       <h2 class="display text-lg font-bold tracking-tight">Target Tabungan</h2>
-      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Buat tujuan dan pantau progress-nya.</p>
+      <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Buat tujuan dan pantau progress-nya.</p>
     </div>
     <button onclick="openTargetForm()"
-            class="text-white text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition flex items-center gap-1.5"
+            class="text-white text-xs font-semibold px-4 py-2.5 rounded-lg active:scale-95 transition flex items-center gap-1.5 shadow-sm"
             style="background:#1F4E42">
       <svg class="icon-sm" style="stroke:#fff" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
       Target
@@ -341,10 +343,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   <div class="flex justify-between items-center mb-4">
     <div>
       <h2 class="display text-lg font-bold tracking-tight">Budget Bulanan</h2>
-      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Atur batas pengeluaran per kategori.</p>
+      <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Atur batas pengeluaran per kategori.</p>
     </div>
     <button onclick="openBudgetForm()"
-            class="text-white text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition flex items-center gap-1.5"
+            class="text-white text-xs font-semibold px-4 py-2.5 rounded-lg active:scale-95 transition flex items-center gap-1.5 shadow-sm"
             style="background:#1F4E42">
       <svg class="icon-sm" style="stroke:#fff" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
       Budget
@@ -358,10 +360,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   <div class="flex justify-between items-center mb-4">
     <div>
       <h2 class="display text-lg font-bold tracking-tight">Tagihan</h2>
-      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Catat tagihan &amp; tanggal jatuh tempo.</p>
+      <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Catat tagihan &amp; tanggal jatuh tempo.</p>
     </div>
     <button onclick="openBillForm()"
-            class="text-white text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition flex items-center gap-1.5"
+            class="text-white text-xs font-semibold px-4 py-2.5 rounded-lg active:scale-95 transition flex items-center gap-1.5 shadow-sm"
             style="background:#1F4E42">
       <svg class="icon-sm" style="stroke:#fff" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
       Tagihan
@@ -374,7 +376,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 <section id="settings" class="page hidden">
   <div class="mb-4">
     <h2 class="display text-lg font-bold tracking-tight">Pengaturan</h2>
-    <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Semua data tersimpan lokal di perangkat ini.</p>
+    <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Semua data tersimpan lokal di perangkat ini.</p>
   </div>
 
   <div class="space-y-3.5">
@@ -385,13 +387,13 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         </div>
         <div>
           <h3 class="display font-semibold text-[14px]">Backup &amp; Restore</h3>
-          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Simpan atau pulihkan seluruh data SakuKita.</p>
+          <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Simpan atau pulihkan seluruh data SakuKita.</p>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 mt-3.5">
-        <button onclick="downloadBackup()" class="text-white text-xs font-semibold px-3 py-2 rounded-lg active:scale-95 transition" style="background:#1F4E42">Download JSON</button>
-        <button onclick="document.getElementById('importFile').click()" class="text-xs font-semibold px-3 py-2 rounded-lg active:scale-95 transition border" style="border-color:#D6DAE1;color:#12161F">Restore JSON</button>
-        <button onclick="exportCSV()" class="text-xs font-semibold px-3 py-2 rounded-lg active:scale-95 transition border" style="border-color:#D6DAE1;color:#12161F">Export CSV</button>
+      <div class="flex flex-wrap gap-2.5 mt-3.5">
+        <button onclick="downloadBackup()" class="text-white text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition shadow-sm" style="background:#1F4E42">Download JSON</button>
+        <button onclick="document.getElementById('importFile').click()" class="text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition border hover:bg-slate-50 dark:hover:bg-slate-800" style="border-color:#D6DAE1;color:inherit">Restore JSON</button>
+        <button onclick="exportCSV()" class="text-xs font-semibold px-3.5 py-2 rounded-lg active:scale-95 transition border hover:bg-slate-50 dark:hover:bg-slate-800" style="border-color:#D6DAE1;color:inherit">Export CSV</button>
       </div>
       <p id="backupStatus" class="text-[10px] text-slate-400 t-slate mt-2.5"></p>
     </div>
@@ -403,10 +405,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         </div>
         <div>
           <h3 class="display font-semibold text-[14px]">Auto Backup</h3>
-          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Salinan lokal otomatis tiap perubahan.</p>
+          <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Salinan lokal otomatis tiap perubahan.</p>
         </div>
       </div>
-      <button onclick="toggleAutoBackup()" id="autoBtn" class="shrink-0 text-[10.5px] font-semibold px-2.5 py-1.5 rounded-lg transition border"></button>
+      <button onclick="toggleAutoBackup()" id="autoBtn" class="shrink-0 text-xs font-semibold px-3.5 py-2 rounded-lg transition border"></button>
     </div>
 
     <div class="card p-4" style="border-color:#F3D3CF">
@@ -416,10 +418,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         </div>
         <div>
           <h3 class="display font-semibold text-[14px]" style="color:#C4443A">Hapus Semua Data</h3>
-          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Transaksi, target, budget, dan tagihan akan hilang permanen.</p>
+          <p class="text-[10.5px] text-slate-500 t-slate mt-0.5">Transaksi, target, budget, dan tagihan akan hilang permanen.</p>
         </div>
       </div>
-      <button onclick="resetEverything()" class="mt-3.5 border text-xs font-semibold px-3 py-2 rounded-lg transition" style="border-color:#F3D3CF;color:#C4443A">Hapus Semua Data</button>
+      <button onclick="resetEverything()" class="mt-3.5 border text-xs font-semibold px-3.5 py-2 rounded-lg transition hover:bg-rose-50" style="border-color:#F3D3CF;color:#C4443A">Hapus Semua Data</button>
     </div>
   </div>
 </section>
@@ -462,7 +464,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       <div class="flex justify-between items-start mb-4">
         <div>
           <h3 id="modalTitle" class="display text-base font-bold tracking-tight"></h3>
-          <p id="modalDesc" class="text-[10.5px] text-slate-400 t-slate mt-0.5"></p>
+          <p id="modalDesc" class="text-[10.5px] text-slate-500 t-slate mt-0.5"></p>
         </div>
         <button onclick="closeModal()" class="w-7 h-7 rounded-full soft flex items-center justify-center text-slate-400">
           <svg class="icon-sm" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -482,10 +484,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         <svg class="icon" style="stroke:#C4443A" viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 2.9 17a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
       </div>
       <h3 id="confirmTitle" class="display font-bold text-[14px]"></h3>
-      <p id="confirmText" class="text-[12px] text-slate-500 t-slate mt-1 leading-relaxed"></p>
+      <p id="confirmText" class="text-[12px] text-slate-600 t-slate mt-1 leading-relaxed"></p>
       <div class="flex gap-2 mt-4">
-        <button onclick="closeConfirm()" class="flex-1 soft rounded-lg py-2 text-xs text-slate-600 font-medium">Batal</button>
-        <button id="confirmOk" class="flex-1 text-white py-2 rounded-lg text-xs font-semibold active:scale-[.98] transition" style="background:#C4443A">Hapus</button>
+        <button onclick="closeConfirm()" class="flex-1 soft rounded-lg py-2.5 text-xs text-slate-600 font-medium">Batal</button>
+        <button id="confirmOk" class="flex-1 text-white py-2.5 rounded-lg text-xs font-semibold active:scale-[.98] transition shadow-sm" style="background:#C4443A">Hapus</button>
       </div>
     </div>
   </div>
@@ -531,7 +533,7 @@ function toast(msg,type='ok'){
     info:'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01"/><path d="M11 12h1v4h1"/>'
   };
   const el=document.createElement('div');
-  el.className='animate-up pointer-events-auto flex items-center gap-2 pl-2.5 pr-3.5 py-2 rounded-lg text-white text-[12px] font-medium shadow-lg';
+  el.className='animate-up pointer-events-auto flex items-center gap-2 pl-3 pr-4 py-2.5 rounded-lg text-white text-[12px] font-medium shadow-lg';
   el.style.background=colors[type]||colors.ok;
   el.innerHTML=`<svg class="icon-sm" style="stroke:#fff" viewBox="0 0 24 24">${icons[type]||icons.ok}</svg>${esc(msg)}`;
   $('toastWrap').appendChild(el);
@@ -553,7 +555,7 @@ function openModal({title,desc='',fields,submitText='Simpan',onSubmit}){
   $('modalTitle').textContent=title;
   $('modalDesc').textContent=desc;
   $('modalForm').innerHTML=fields.map(f=>{
-    const base='input mt-1 px-3 py-2 text-xs rounded-lg'+(f.type==='number'?' num':'');
+    const base='input mt-1 px-3.5 py-2.5 text-xs rounded-lg'+(f.type==='number'?' num':'');
     let ctrl;
     if(f.type==='select'){
       ctrl=`<select id="mf_${f.id}" class="${base}">${f.options.map(o=>{
@@ -566,11 +568,11 @@ function openModal({title,desc='',fields,submitText='Simpan',onSubmit}){
         ${f.min!=null?`min="${f.min}"`:''} ${f.step?`step="${f.step}"`:''}
         ${f.type==='number'?'inputmode="decimal"':''} ${f.required!==false?'required':''}>`;
     }
-    return `<div><label class="text-[10.5px] font-medium text-slate-500 t-slate">${esc(f.label)}</label>${ctrl}</div>`;
+    return `<div><label class="text-[10.5px] font-medium text-slate-600 t-slate">${esc(f.label)}</label>${ctrl}</div>`;
   }).join('')+
-  `<div class="flex gap-2 pt-1">
-     <button type="button" onclick="closeModal()" class="flex-1 soft rounded-lg py-2 text-xs text-slate-600 font-medium">Batal</button>
-     <button type="submit" class="flex-1 text-white py-2 rounded-lg text-xs font-semibold active:scale-[.98] transition"
+  `<div class="flex gap-2 pt-2">
+     <button type="button" onclick="closeModal()" class="flex-1 soft rounded-lg py-2.5 text-xs text-slate-600 font-medium">Batal</button>
+     <button type="submit" class="flex-1 text-white py-2.5 rounded-lg text-xs font-semibold active:scale-[.98] transition shadow-sm"
        style="background:#1F4E42">${esc(submitText)}</button>
    </div>`;
 
@@ -640,7 +642,7 @@ function renderChart(){
         <div title="Keluar ${rupiah(x.exp)}" class="w-[7px] sm:w-2.5 rounded-t-[2px] transition-all duration-300"
              style="height:${Math.max(3,x.exp/max*100)}%;background:#C4443A"></div>
       </div>
-      <span class="text-[9px] font-medium ${x.key===today()?'':'text-slate-400'}" style="${x.key===today()?'color:#1F4E42':''}">${x.label}</span>
+      <span class="text-[9px] font-medium ${x.key===today()?'':'text-slate-400'}" style="${x.key===today()?'color:#2E6F5E':''}">${x.label}</span>
     </div>`).join('');
 }
 
@@ -648,30 +650,30 @@ function renderMini(){
   const t=[...data.targets].sort((a,b)=>(b.saved/b.goal)-(a.saved/a.goal))[0];
   $('targetMini').innerHTML=t?`
     <div class="flex justify-between items-baseline">
-      <b class="text-[12.5px] text-slate-700 truncate">${esc(t.name)}</b>
-      <span class="num text-[10.5px] font-semibold" style="color:#1F4E42">${(t.saved/t.goal*100).toFixed(0)}%</span>
+      <b class="text-[12.5px] text-slate-700 dark:text-slate-200 truncate">${esc(t.name)}</b>
+      <span class="num text-[10.5px] font-semibold" style="color:#2E6F5E">${(t.saved/t.goal*100).toFixed(0)}%</span>
     </div>
     <div class="track h-1.5 bg-slate-100 rounded-full overflow-hidden mt-2">
-      <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,t.saved/t.goal*100)}%;background:#1F4E42"></div>
+      <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,t.saved/t.goal*100)}%;background:#2E6F5E"></div>
     </div>
-    <p class="num text-[10px] text-slate-400 t-slate mt-1.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>`
-    :`<p class="text-[12px] text-slate-400">Belum ada target. <button onclick="openTargetForm()" class="font-medium" style="color:#1F4E42">Buat sekarang</button></p>`;
+    <p class="num text-[10px] text-slate-500 t-slate mt-1.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>`
+    :`<p class="text-[12px] text-slate-400">Belum ada target. <button onclick="openTargetForm()" class="font-medium" style="color:#2E6F5E">Buat sekarang</button></p>`;
 
   const m=today().slice(0,7);
   const bs=data.budgets.filter(b=>b.month===m);
   $('budgetMini').innerHTML=bs.length?bs.slice(0,2).map(b=>{
     const used=data.transactions.filter(t=>t.type==='pengeluaran'&&t.category===b.category&&t.date?.startsWith(m)).reduce((a,x)=>a+ +x.amount,0);
     const p=used/b.amount*100;
-    const col=p>=100?'#C4443A':p>=80?'#B8791A':'#1F4E42';
+    const col=p>=100?'#C4443A':p>=80?'#B8791A':'#2E6F5E';
     return `<div class="mb-3 last:mb-0">
       <div class="flex justify-between text-[11px] mb-1">
-        <span class="font-medium text-slate-600">${esc(b.category)}</span>
-        <span class="num text-slate-400 t-slate">${rupiahShort(used)} / ${rupiahShort(b.amount)}</span>
+        <span class="font-medium text-slate-600 dark:text-slate-300">${esc(b.category)}</span>
+        <span class="num text-slate-500 t-slate">${rupiahShort(used)} / ${rupiahShort(b.amount)}</span>
       </div>
       <div class="track h-1.5 bg-slate-100 rounded-full overflow-hidden">
         <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,p)}%;background:${col}"></div>
       </div></div>`;
-  }).join(''):`<p class="text-[12px] text-slate-400">Belum ada budget. <button onclick="openBudgetForm()" class="font-medium" style="color:#1F4E42">Atur sekarang</button></p>`;
+  }).join(''):`<p class="text-[12px] text-slate-400">Belum ada budget. <button onclick="openBudgetForm()" class="font-medium" style="color:#2E6F5E">Atur sekarang</button></p>`;
 }
 
 function renderInsight(){
@@ -684,7 +686,7 @@ function renderInsight(){
   const top=Object.entries(by).sort((a,b)=>b[1]-a[1])[0];
   const total=ex.reduce((a,b)=>a+ +b.amount,0);
   const pct=(top[1]/total*100).toFixed(0);
-  $('insight').innerHTML=`Kategori pengeluaran terbesar adalah <b class="text-slate-700">${esc(top[0])}</b> sebesar <b style="color:#C4443A">${rupiah(top[1])}</b> — sekitar <b>${pct}%</b> dari total pengeluaranmu.`;
+  $('insight').innerHTML=`Kategori pengeluaran terbesar adalah <b class="text-slate-700 dark:text-slate-200">${esc(top[0])}</b> sebesar <b style="color:#C4443A">${rupiah(top[1])}</b> — sekitar <b>${pct}%</b> dari total pengeluaranmu.`;
 }
 
 /* ================= TRANSAKSI ================= */
@@ -718,24 +720,24 @@ function renderTx(){
 
   $('txList').innerHTML=arr.map(t=>{
     const i=data.transactions.indexOf(t),inc=t.type==='pemasukan';
-    return `<div class="item animate-up flex items-center justify-between gap-2 p-2.5 rounded-lg border"
+    return `<div class="item animate-up flex items-center justify-between gap-2.5 p-3 rounded-lg border"
       style="background:#FAFAFB;border-color:#E4E7EC">
-      <div class="flex gap-2.5 items-center min-w-0">
-        <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center"
+      <div class="flex gap-3 items-center min-w-0">
+        <div class="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"
              style="${inc?'background:#E4F1EC':'background:#FBEBEA'}">
           <svg class="icon-sm" style="stroke:${inc?'#1F4E42':'#C4443A'}" viewBox="0 0 24 24">${inc?'<path d="M12 19V5"/><path d="M6 11l6-6 6 6"/>':'<path d="M12 5v14"/><path d="M18 13l-6 6-6-6"/>'}</svg>
         </div>
         <div class="min-w-0">
-          <b class="text-[12px] truncate block text-slate-700">${esc(t.description)}</b>
-          <span class="text-[9.5px] text-slate-400 t-slate">${formatDate(t.date)} · ${esc(t.category)}</span>
+          <b class="text-[12.5px] truncate block text-slate-800 dark:text-slate-200">${esc(t.description)}</b>
+          <span class="text-[10px] text-slate-500 t-slate">${formatDate(t.date)} · ${esc(t.category)}</span>
         </div>
       </div>
-      <div class="flex items-center gap-0.5 shrink-0">
-        <b class="num text-[11.5px] mr-1" style="color:${inc?'#1F4E42':'#C4443A'}">${inc?'+':'−'}${rupiah(t.amount)}</b>
-        <button onclick="editTx(${i})" class="w-7 h-7 rounded-md hover:bg-slate-200/60 flex items-center justify-center text-slate-500 transition">
+      <div class="flex items-center gap-1 shrink-0">
+        <b class="num text-[12px] mr-1.5" style="color:${inc?'#2E6F5E':'#C4443A'}">${inc?'+':'−'}${rupiah(t.amount)}</b>
+        <button onclick="editTx(${i})" class="w-8 h-8 rounded-md hover:bg-slate-200/60 flex items-center justify-center text-slate-500 transition">
           <svg class="icon-sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
         </button>
-        <button onclick="deleteTx(${i})" class="w-7 h-7 rounded-md hover:bg-rose-100/60 flex items-center justify-center transition" style="color:#C4443A">
+        <button onclick="deleteTx(${i})" class="w-8 h-8 rounded-md hover:bg-rose-100/60 flex items-center justify-center transition" style="color:#C4443A">
           <svg class="icon-sm" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
         </button>
       </div>
@@ -793,8 +795,8 @@ function renderTargets(){
   if(!data.targets.length){
     $('targetList').innerHTML=`<div class="card p-8 text-center col-span-full">
       <svg class="icon mx-auto mb-2" style="width:26px;height:26px;stroke:#98A2B3" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>
-      <p class="text-xs text-slate-400 t-slate">Belum ada target tabungan.</p>
-      <button onclick="openTargetForm()" class="mt-3 text-white text-xs font-semibold px-3.5 py-2 rounded-lg" style="background:#1F4E42">Buat Target Pertama</button>
+      <p class="text-xs text-slate-500 t-slate">Belum ada target tabungan.</p>
+      <button onclick="openTargetForm()" class="mt-3 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm" style="background:#1F4E42">Buat Target Pertama</button>
     </div>`;
     return;
   }
@@ -803,17 +805,17 @@ function renderTargets(){
     const done=p>=100;
     return `<div class="card p-4 animate-up">
       <div class="flex justify-between items-start gap-2">
-        <div class="flex gap-2.5 min-w-0">
-          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center"
+        <div class="flex gap-3 min-w-0">
+          <div class="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"
                style="${done?'background:#E4F1EC':'background:#EEF2F6'}">
             <svg class="icon-sm" style="stroke:${done?'#1F4E42':'#475467'}" viewBox="0 0 24 24">${done?'<path d="M20 6 9 17l-5-5"/>':'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>'}</svg>
           </div>
           <div class="min-w-0">
-            <h3 class="display font-semibold text-[13.5px] truncate text-slate-700">${esc(t.name)}</h3>
-            <p class="num text-[10.5px] text-slate-400 t-slate mt-0.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>
+            <h3 class="display font-semibold text-[13.5px] truncate text-slate-800 dark:text-slate-200">${esc(t.name)}</h3>
+            <p class="num text-[10.5px] text-slate-500 t-slate mt-0.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>
           </div>
         </div>
-        <button onclick="deleteTarget(${i})" class="w-6 h-6 rounded-md hover:bg-rose-50 flex items-center justify-center shrink-0" style="color:#C4443A">
+        <button onclick="deleteTarget(${i})" class="w-7 h-7 rounded-md hover:bg-rose-50 flex items-center justify-center shrink-0" style="color:#C4443A">
           <svg class="icon-sm" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
         </button>
       </div>
@@ -823,10 +825,10 @@ function renderTargets(){
              style="width:${p}%;background:${done?'#1F4E42':'#2E6F5E'}"></div>
       </div>
 
-      <div class="flex justify-between items-center mt-2">
-        <span class="num text-[10.5px] font-semibold" style="color:#1F4E42">${p.toFixed(0)}%</span>
-        ${done?'<span class="text-[10px] font-medium" style="color:#1F4E42">Tercapai</span>'
-              :`<button onclick="addTarget(${i})" class="text-[10.5px] font-medium" style="color:#1F4E42">+ Tambah dana</button>`}
+      <div class="flex justify-between items-center mt-2.5">
+        <span class="num text-[11px] font-semibold" style="color:#2E6F5E">${p.toFixed(0)}%</span>
+        ${done?'<span class="text-[10.5px] font-medium" style="color:#1F4E42">Tercapai</span>'
+              :`<button onclick="addTarget(${i})" class="text-[11px] font-medium px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition" style="color:#2E6F5E">+ Tambah dana</button>`}
       </div>
     </div>`;
   }).join('');
@@ -874,8 +876,8 @@ function renderBudgets(){
   if(!data.budgets.length){
     $('budgetList').innerHTML=`<div class="card p-8 text-center">
       <svg class="icon mx-auto mb-2" style="width:26px;height:26px;stroke:#98A2B3" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>
-      <p class="text-xs text-slate-400 t-slate">Belum ada budget bulanan.</p>
-      <button onclick="openBudgetForm()" class="mt-3 text-white text-xs font-semibold px-3.5 py-2 rounded-lg" style="background:#1F4E42">Atur Budget</button>
+      <p class="text-xs text-slate-500 t-slate">Belum ada budget bulanan.</p>
+      <button onclick="openBudgetForm()" class="mt-3 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm" style="background:#1F4E42">Atur Budget</button>
     </div>`;
     return;
   }
@@ -885,20 +887,20 @@ function renderBudgets(){
     const used=data.transactions.filter(t=>t.type==='pengeluaran'&&t.category===b.category&&t.date?.startsWith(b.month)).reduce((a,x)=>a+ +x.amount,0);
     const p=used/b.amount*100, left=b.amount-used;
     const over=p>=100, warn=p>=80;
-    const col=over?'#C4443A':warn?'#B8791A':'#1F4E42';
+    const col=over?'#C4443A':warn?'#B8791A':'#2E6F5E';
     return `<div class="card p-4 animate-up">
       <div class="flex justify-between items-start gap-2">
-        <div class="flex gap-2.5 min-w-0">
-          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center"
+        <div class="flex gap-3 min-w-0">
+          <div class="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"
                style="${over?'background:#FBEBEA':warn?'background:#FBF1E0':'background:#EEF2F6'}">
             <svg class="icon-sm" style="stroke:${over?'#C4443A':warn?'#B8791A':'#475467'}" viewBox="0 0 24 24">${over?'<path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/>':'<rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/>'}</svg>
           </div>
           <div class="min-w-0">
-            <b class="text-[13.5px] block truncate text-slate-700">${esc(b.category)}</b>
-            <p class="text-[10px] text-slate-400 t-slate mt-0.5">${b.month}</p>
+            <b class="text-[13.5px] block truncate text-slate-800 dark:text-slate-200">${esc(b.category)}</b>
+            <p class="text-[10px] text-slate-500 t-slate mt-0.5">${b.month}</p>
           </div>
         </div>
-        <button onclick="deleteBudget(${i})" class="w-6 h-6 rounded-md hover:bg-rose-50 flex items-center justify-center shrink-0" style="color:#C4443A">
+        <button onclick="deleteBudget(${i})" class="w-7 h-7 rounded-md hover:bg-rose-50 flex items-center justify-center shrink-0" style="color:#C4443A">
           <svg class="icon-sm" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
         </button>
       </div>
@@ -907,8 +909,8 @@ function renderBudgets(){
         <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,p)}%;background:${col}"></div>
       </div>
 
-      <div class="flex justify-between items-center mt-2 text-[10.5px]">
-        <span class="num text-slate-500 t-slate">${rupiah(used)} <span class="text-slate-300">/</span> ${rupiah(b.amount)}</span>
+      <div class="flex justify-between items-center mt-2.5 text-[11px]">
+        <span class="num text-slate-600 t-slate">${rupiah(used)} <span class="text-slate-300">/</span> ${rupiah(b.amount)}</span>
         <span class="num font-semibold" style="color:${col}">
           ${over?`Lewat ${rupiah(-left)}`:`Sisa ${rupiah(left)}`}
         </span>
@@ -943,8 +945,8 @@ function renderBills(){
   if(!data.bills.length){
     $('billList').innerHTML=`<div class="card p-8 text-center">
       <svg class="icon mx-auto mb-2" style="width:26px;height:26px;stroke:#98A2B3" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 1 0-12 0c0 6.5-2.5 8.5-2.5 8.5h17S18 15 18 8.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-      <p class="text-xs text-slate-400 t-slate">Belum ada tagihan tercatat.</p>
-      <button onclick="openBillForm()" class="mt-3 text-white text-xs font-semibold px-3.5 py-2 rounded-lg" style="background:#1F4E42">Tambah Tagihan</button>
+      <p class="text-xs text-slate-500 t-slate">Belum ada tagihan tercatat.</p>
+      <button onclick="openBillForm()" class="mt-3 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm" style="background:#1F4E42">Tambah Tagihan</button>
     </div>`;
     return;
   }
@@ -961,25 +963,25 @@ function renderBills(){
     else {status=`${days} hari lagi`;color='#667085';bg='#F1F2F4'}
 
     return `<div class="card p-4 animate-up">
-      <div class="flex items-center justify-between gap-2.5">
-        <div class="flex gap-2.5 min-w-0">
-          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center"
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex gap-3 min-w-0">
+          <div class="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"
                style="background:${b.paid?'#E4F1EC':bg}">
             <svg class="icon-sm" style="stroke:${b.paid?'#1F4E42':color}" viewBox="0 0 24 24">${b.paid?'<path d="M20 6 9 17l-5-5"/>':'<path d="M18 8.5a6 6 0 1 0-12 0c0 6.5-2.5 8.5-2.5 8.5h17S18 15 18 8.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>'}</svg>
           </div>
           <div class="min-w-0">
-            <b class="text-[13px] block truncate text-slate-700 ${b.paid?'line-through opacity-50':''}">${esc(b.name)}</b>
-            <p class="num text-[10px] text-slate-400 t-slate mt-0.5">${rupiah(b.amount)} · ${formatDate(b.due)}</p>
-            <span class="inline-block text-[9.5px] font-semibold px-2 py-0.5 rounded-md mt-1.5"
+            <b class="text-[13px] block truncate text-slate-800 dark:text-slate-200 ${b.paid?'line-through opacity-50':''}">${esc(b.name)}</b>
+            <p class="num text-[10.5px] text-slate-500 t-slate mt-0.5">${rupiah(b.amount)} · ${formatDate(b.due)}</p>
+            <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md mt-1.5"
                   style="background:${b.paid?'#E4F1EC':bg};color:${b.paid?'#1F4E42':color}">${status}</span>
           </div>
         </div>
-        <div class="flex items-center gap-1 shrink-0">
-          <button onclick="toggleBill(${i})" class="text-[10.5px] font-semibold px-2.5 py-1.5 rounded-lg transition active:scale-95"
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button onclick="toggleBill(${i})" class="text-[11px] font-semibold px-3 py-1.5 rounded-lg transition active:scale-95 shadow-sm"
             style="${b.paid?'background:#F1F2F4;color:#667085':'background:#E4F1EC;color:#1F4E42'}">
             ${b.paid?'Batal':'Lunas'}
           </button>
-          <button onclick="deleteBill(${i})" class="w-7 h-7 rounded-md hover:bg-rose-50 flex items-center justify-center transition" style="color:#C4443A">
+          <button onclick="deleteBill(${i})" class="w-8 h-8 rounded-md hover:bg-rose-50 flex items-center justify-center transition" style="color:#C4443A">
             <svg class="icon-sm" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
           </button>
         </div>
@@ -1069,6 +1071,7 @@ function toggleDark(){
 }
 function loadDark(){
   const d=localStorage.getItem('sakukita_dark')==='1';
+  if(d)document.documentElement.classList.0add?.('dark'); // Safe check
   if(d)document.documentElement.classList.add('dark');
   $('darkBtn').innerHTML=d?sunIcon:moonIcon;
 }
