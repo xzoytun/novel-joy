@@ -17,11 +17,20 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 
 .dark body{background:#020617;color:#e2e8f0}
 
+/* ===== CARD (hanya untuk kartu putih) ===== */
 .card{background:#ffffff;border-color:#f1f5f9}
 .dark .card{background:#0f172a;border-color:#1e293b}
 
+/* ===== SOFT ===== */
 .soft{background:#f8fafc;border:1px solid #f1f5f9}
 .dark .soft{background:#0b1220;border-color:#1e293b}
+
+/* ===== GRADIENT CARD (bebas dari override background) ===== */
+.gradient-primary{
+    background-image:linear-gradient(135deg,#4f46e5 0%,#4f46e5 50%,#7c3aed 100%);
+    color:#ffffff;
+}
+.gradient-primary *{color:inherit}
 
 .dark .input,
 .dark input,
@@ -35,6 +44,7 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .dark .insight{background:#172554;border-color:#1e3a8a}
 .dark .modal-box{background:#0f172a;border-color:#1e293b}
 
+/* ===== SEMANTIC TEXT (untuk light & dark) ===== */
 .t-strong{color:#1e293b}
 .dark .t-strong{color:#e2e8f0}
 
@@ -47,19 +57,19 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .t-faint{color:#94a3b8}
 .dark .t-faint{color:#64748b}
 
+/* ===== TEXT PUTIH (untuk card gradient gelap) ===== */
+.t-on-dark-1{color:#ffffff}
+.t-on-dark-2{color:rgba(255,255,255,0.85)}
+.t-on-dark-3{color:rgba(255,255,255,0.72)}
+.t-on-dark-4{color:rgba(255,255,255,0.55)}
+
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
 
-@keyframes slideUp{
-    from{opacity:0;transform:translateY(12px)}
-    to{opacity:1;transform:translateY(0)}
-}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .animate-slide{animation:slideUp .22s ease}
 
-@keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .animate-fade{animation:fadeIn .25s ease}
 
 .nav-active{color:#4f46e5;font-weight:600}
@@ -73,39 +83,31 @@ input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
 
 button{-webkit-tap-highlight-color:transparent}
 .no-select{user-select:none}
-
 .icon{stroke-width:2;flex-shrink:0}
 .icon-sm{stroke-width:2.2}
 
-.date-sticky{
-    position:sticky;
-    top:57px;
-    z-index:20;
-    padding:6px 0;
-    background:#ffffff;
-}
+.date-sticky{position:sticky;top:57px;z-index:20;padding:6px 0;background:#ffffff}
 .dark .date-sticky{background:#0f172a}
-.date-sticky-inner{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:4px 0;
-}
+.date-sticky-inner{display:flex;align-items:center;gap:8px;padding:4px 0}
 
 main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
-
 #chart svg{display:block;width:100%}
 
-/* WhatsApp brand */
+/* ===== WHATSAPP BTN ===== */
 .wa-btn{
     background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+    color:#ffffff;
     box-shadow:0 4px 12px rgba(37,211,102,.25);
+    transition:all .2s ease;
 }
-.wa-btn:hover{
-    box-shadow:0 6px 16px rgba(37,211,102,.35);
-    transform:translateY(-1px);
-}
+.wa-btn:hover{box-shadow:0 6px 16px rgba(37,211,102,.4);transform:translateY(-1px)}
 .wa-btn:active{transform:translateY(0)}
+
+/* ===== BALANCE HERO ===== */
+.balance-hero{
+    background-image:linear-gradient(135deg,#4f46e5 0%,#4f46e5 50%,#7c3aed 100%);
+    color:#ffffff;
+}
 </style>
 </head>
 
@@ -148,21 +150,21 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
 
-    <div class="bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-[28px] p-5 shadow-xl relative overflow-hidden">
+    <div class="balance-hero rounded-[28px] p-5 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
         <div class="relative flex justify-between items-start">
             <div>
-                <div class="flex items-center gap-1.5 text-indigo-200">
+                <div class="flex items-center gap-1.5 t-on-dark-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>
                     </svg>
                     <p class="text-[10px] font-semibold uppercase tracking-wider">Total Saldo Bersih</p>
                 </div>
-                <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight">Rp 0</h2>
-                <p id="saldo-perubahan" class="text-[11px] text-indigo-100 mt-2">Belum ada transaksi</p>
+                <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight t-on-dark-1">Rp 0</h2>
+                <p id="saldo-perubahan" class="text-[11px] t-on-dark-2 mt-2">Belum ada transaksi</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+            <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center t-on-dark-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                     <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
@@ -171,7 +173,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
         <div class="grid grid-cols-2 gap-3 mt-5 relative">
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
-                <div class="flex items-center gap-1.5 text-indigo-200">
+                <div class="flex items-center gap-1.5 t-on-dark-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
                     </svg>
@@ -180,7 +182,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <p id="total-pemasukan" class="font-bold text-emerald-300 mt-1.5 text-base">Rp 0</p>
             </div>
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
-                <div class="flex items-center gap-1.5 text-indigo-200">
+                <div class="flex items-center gap-1.5 t-on-dark-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>
                     </svg>
@@ -195,27 +197,21 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <button onclick="openQuickTransaction('pemasukan')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-emerald-200 transition group">
             <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pemasukan</p>
         </button>
         <button onclick="openQuickTransaction('pengeluaran')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-rose-200 transition group">
             <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center group-hover:bg-rose-100 dark:group-hover:bg-rose-500/25 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pengeluaran</p>
         </button>
         <button onclick="showPage('target')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group">
             <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/25 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Target</p>
         </button>
@@ -285,7 +281,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <option value="30">30 Hari</option>
             </select>
         </div>
-
         <div id="chart" class="w-full"></div>
         <div id="chartLabels" class="flex justify-between mt-1.5"></div>
         <div id="chartLegend" class="mt-4"></div>
@@ -622,12 +617,12 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- ============ KONTAK ADMIN / DEVELOPER ============ -->
+    <!-- KONTAK ADMIN -->
     <div class="card bg-white border border-emerald-100 dark:border-emerald-500/20 rounded-2xl p-5 shadow-sm overflow-hidden relative">
         <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-emerald-50 dark:bg-emerald-500/10"></div>
         <div class="relative">
             <div class="flex items-start gap-4">
-                <div class="w-11 h-11 rounded-xl wa-btn text-white flex items-center justify-center shrink-0">
+                <div class="w-11 h-11 rounded-xl wa-btn flex items-center justify-center shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                     </svg>
@@ -638,7 +633,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                         Hubungi admin untuk pertanyaan, masukan, atau laporan bug.
                     </p>
                     <a href="https://wa.me/6283877140463?text=Halo%20Admin%20SakuKita%2C%20saya%20butuh%20bantuan%20terkait%20aplikasi." target="_blank" rel="noopener noreferrer"
-                        class="mt-3 wa-btn text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition inline-flex items-center gap-2">
+                        class="mt-3 wa-btn text-xs font-semibold px-4 py-2.5 rounded-xl inline-flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                         </svg>
@@ -649,34 +644,34 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- ============ TENTANG DEVELOPER ============ -->
-    <div class="card bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
+    <!-- TENTANG DEVELOPER (fixed: pakai .gradient-primary, bukan .card) -->
+    <div class="gradient-primary rounded-2xl p-5 shadow-lg relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-12 w-16 h-16 bg-white/5 rounded-full"></div>
         <div class="relative">
             <div class="flex items-center gap-3 mb-3">
-                <div class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+                <div class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center t-on-dark-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
                     </svg>
                 </div>
                 <div>
-                    <p class="text-[10px] text-indigo-200 uppercase tracking-wider font-semibold">Dikembangkan oleh</p>
-                    <h3 class="font-bold text-lg leading-tight">Joy Digital</h3>
+                    <p class="text-[10px] t-on-dark-3 uppercase tracking-wider font-semibold">Dikembangkan oleh</p>
+                    <h3 class="font-bold text-lg leading-tight t-on-dark-1">Joy Digital</h3>
                 </div>
             </div>
-            <p class="text-[11px] text-indigo-100 leading-relaxed">
+            <p class="text-[11px] t-on-dark-2 leading-relaxed">
                 SakuKita V4 — Aplikasi keuangan pribadi yang ringan, cepat, dan sepenuhnya offline. Dibuat dengan ❤️ untuk membantu kamu mengelola keuangan dengan lebih baik.
             </p>
             <div class="flex flex-wrap gap-2 mt-4">
-                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">v4.0</span>
-                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">PWA Ready</span>
-                <span class="text-[10px] bg-white/15 backdrop-blur px-2.5 py-1 rounded-full font-medium">100% Offline</span>
+                <span class="text-[10px] bg-white/20 backdrop-blur px-2.5 py-1 rounded-full font-medium t-on-dark-1">v4.0</span>
+                <span class="text-[10px] bg-white/20 backdrop-blur px-2.5 py-1 rounded-full font-medium t-on-dark-1">PWA Ready</span>
+                <span class="text-[10px] bg-white/20 backdrop-blur px-2.5 py-1 rounded-full font-medium t-on-dark-1">100% Offline</span>
             </div>
         </div>
     </div>
 
-    <!-- ============ FOOTER ============ -->
+    <!-- FOOTER -->
     <div class="text-center pt-4 pb-4">
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -735,8 +730,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 </div>
 
-
-<!-- ================= MODAL TAMBAH SALDO TARGET ================= -->
+<!-- ================= MODAL TAMBAH SALDO ================= -->
 <div id="addSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
@@ -783,7 +777,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 </div>
 
-
 <!-- ================= MODAL BUDGET ================= -->
 <div id="budgetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
@@ -820,7 +813,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 </div>
 
-
 <!-- ================= MODAL TAGIHAN ================= -->
 <div id="tagihanModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
@@ -854,11 +846,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 </div>
 
-
 <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
 
-
-<!-- ================= QUICK ADD MODAL ================= -->
+<!-- ================= QUICK ADD ================= -->
 <div id="quickModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex justify-between items-center mb-5">
@@ -871,18 +861,14 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <button onclick="closeQuickModal()"
                 class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100 flex items-center justify-center transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
         </div>
-
         <form id="quickForm" onsubmit="saveQuickTransaction(event)" class="space-y-4">
             <input type="hidden" id="quickType">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Keterangan</label>
-                <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang"
-                    oninput="updateQuickCategoryHint()"
+                <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang" oninput="updateQuickCategoryHint()"
                     class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 <div id="quickCategoryHint" class="hidden mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-100 dark:border-indigo-500/20 animate-fade">
                     <span id="quickCategoryHintIcon" class="text-indigo-600 dark:text-indigo-400"></span>
@@ -903,7 +889,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </form>
     </div>
 </div>
-
 
 <!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom-nav fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
@@ -933,13 +918,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 </nav>
 
-
 <script>
-/* =====================================================
-   SAKUKITA V4
-   ===================================================== */
-
-/* ============ FOOTER YEAR ============ */
 document.getElementById('footerYear').textContent = new Date().getFullYear();
 
 const ICON_PATHS = {
@@ -983,8 +962,6 @@ function categoryIcon(category, size = 18) {
     return icon(map[category] || 'package', size);
 }
 
-
-/* ============ AUTO-DETECT KATEGORI ============ */
 const CATEGORY_KEYWORDS = {
     'Minuman': ['kopi','coffee','teh','minum','minuman','jus','juice','susu','boba','milkshake','smoothie','matcha','latte','cappuccino','americano','mocha','espresso','soda','coca','cola','sprite','fanta','pepsi','air mineral','aqua','es teh','es jeruk','lemon tea','milk tea','thai tea','starbucks','bubble tea','yakult','pocari','mizone','energen','milo','dancow','jasjus','jeruk','teh kotak','teh pucuk','teh gelas'],
     'Makanan': ['makan','makanan','mie','mi','nasi','ayam','bakso','soto','sate','roti','kue','snack','jajan','sarapan','burger','pizza','indomie','kentang','seblak','batagor','siomay','pecel','gado','rendang','sushi','ramen','donat','pancake','bubur','martabak','bakmi','kwetiau','bihun','lontong','ketoprak','pempek','padang','warteg','warung','resto','restoran','lunch','dinner','breakfast','nyeblak','daging','geprek'],
@@ -1017,15 +994,10 @@ function getEffectiveCategory(item) {
     return guessed || stored || 'Lainnya';
 }
 
-
-/* ================= STORAGE ================= */
 const STORAGE = {
-    transaksi: 'sakukita_transaksi',
-    target: 'sakukita_target',
-    budget: 'sakukita_budget',
-    tagihan: 'sakukita_tagihan',
-    dark: 'sakukita_dark',
-    hideBalance: 'sakukita_hide_balance'
+    transaksi: 'sakukita_transaksi', target: 'sakukita_target',
+    budget: 'sakukita_budget', tagihan: 'sakukita_tagihan',
+    dark: 'sakukita_dark', hideBalance: 'sakukita_hide_balance'
 };
 
 let transaksiList = readJSON(STORAGE.transaksi, []);
@@ -1044,38 +1016,23 @@ const tipeInput = document.getElementById('tipe');
 const kategoriInput = document.getElementById('kategori');
 const tanggalInput = document.getElementById('tanggal');
 
-
-/* ================= HELPERS ================= */
 function readJSON(key, fallback){
-    try{
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : fallback;
-    }catch(e){ return fallback; }
+    try{ const data = localStorage.getItem(key); return data ? JSON.parse(data) : fallback; }
+    catch(e){ return fallback; }
 }
-
 function formatRupiah(value){
-    return new Intl.NumberFormat('id-ID',{
-        style:'currency', currency:'IDR', minimumFractionDigits:0
-    }).format(Number(value) || 0);
+    return new Intl.NumberFormat('id-ID',{style:'currency', currency:'IDR', minimumFractionDigits:0}).format(Number(value) || 0);
 }
-
 function localDateKey(date = new Date()){
     const y = date.getFullYear();
     const m = String(date.getMonth()+1).padStart(2,'0');
     const d = String(date.getDate()).padStart(2,'0');
     return `${y}-${m}-${d}`;
 }
-
-function localMonthKey(date = new Date()){
-    return localDateKey(date).substring(0,7);
-}
-
+function localMonthKey(date = new Date()){ return localDateKey(date).substring(0,7); }
 function escapeHTML(value){
-    return String(value ?? '')
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
-
 function saveData(){
     localStorage.setItem(STORAGE.transaksi, JSON.stringify(transaksiList));
     localStorage.setItem(STORAGE.target, JSON.stringify(targetList));
@@ -1083,8 +1040,6 @@ function saveData(){
     localStorage.setItem(STORAGE.tagihan, JSON.stringify(tagihanList));
 }
 
-
-/* ================= GREETING ================= */
 function updateGreeting(){
     const hour = new Date().getHours();
     let text = 'Selamat malam 🌙';
@@ -1094,33 +1049,22 @@ function updateGreeting(){
     document.getElementById('greeting').textContent = text + ' • Kelola keuanganmu';
 }
 
-
-/* ================= BALANCE VISIBILITY ================= */
 function toggleBalance(){
     hideBalance = !hideBalance;
     localStorage.setItem(STORAGE.hideBalance, hideBalance ? '1' : '0');
     updateDashboard();
     loadBalanceVisibility();
 }
-
-function displayMoney(value){
-    return hideBalance ? '••••••••' : formatRupiah(value);
-}
-
+function displayMoney(value){ return hideBalance ? '••••••••' : formatRupiah(value); }
 function loadBalanceVisibility(){
-    document.getElementById('balanceToggle').innerHTML =
-        hideBalance ? icon('eyeOff', 18) : icon('eye', 18);
+    document.getElementById('balanceToggle').innerHTML = hideBalance ? icon('eyeOff', 18) : icon('eye', 18);
 }
 
-
-/* ================= DASHBOARD ================= */
 function updateDashboard(){
-    let pemasukan = 0;
-    let pengeluaran = 0;
+    let pemasukan = 0, pengeluaran = 0;
     transaksiList.forEach(item => {
         const value = Number(item.nominal) || 0;
-        if(item.tipe === 'pemasukan') pemasukan += value;
-        else pengeluaran += value;
+        if(item.tipe === 'pemasukan') pemasukan += value; else pengeluaran += value;
     });
     const saldo = pemasukan - pengeluaran;
     document.getElementById('saldo-total').textContent = displayMoney(saldo);
@@ -1156,53 +1100,28 @@ function updateDashboard(){
     renderRecentTransactions();
 }
 
-
-/* ================= INSIGHT ================= */
 function updateInsight(income, expense){
     const el = document.getElementById('insight-text');
-    if(!transaksiList.length){
-        el.textContent = 'Belum ada data. Mulai catat transaksi pertama kamu untuk mendapatkan insight keuangan.';
-        return;
-    }
-    if(income === 0 && expense > 0){
-        el.textContent = `Bulan ini kamu sudah mencatat ${formatRupiah(expense)} pengeluaran, tetapi belum ada pemasukan yang tercatat.`;
-        return;
-    }
-    if(expense > income){
-        el.textContent = `⚠️ Pengeluaran bulan ini lebih besar ${formatRupiah(expense-income)} dibanding pemasukan. Coba periksa kategori pengeluaran terbesar.`;
-        return;
-    }
+    if(!transaksiList.length){ el.textContent = 'Belum ada data. Mulai catat transaksi pertama kamu untuk mendapatkan insight keuangan.'; return; }
+    if(income === 0 && expense > 0){ el.textContent = `Bulan ini kamu sudah mencatat ${formatRupiah(expense)} pengeluaran, tetapi belum ada pemasukan yang tercatat.`; return; }
+    if(expense > income){ el.textContent = `⚠️ Pengeluaran bulan ini lebih besar ${formatRupiah(expense-income)} dibanding pemasukan. Coba periksa kategori pengeluaran terbesar.`; return; }
     if(income > 0){
         const savingRate = Math.round(((income-expense)/income)*100);
-        if(savingRate >= 30){
-            el.textContent = `✨ Bagus! Sekitar ${savingRate}% pemasukan bulan ini masih tersisa setelah pengeluaran.`;
-        }else if(savingRate >= 10){
-            el.textContent = `👍 Sekitar ${savingRate}% pemasukan bulan ini masih tersisa. Kamu masih punya ruang untuk meningkatkan tabungan.`;
-        }else{
-            el.textContent = `💡 Pengeluaran sudah mendekati pemasukan. Coba sisihkan uang untuk tabungan sebelum membelanjakan.`;
-        }
+        if(savingRate >= 30) el.textContent = `✨ Bagus! Sekitar ${savingRate}% pemasukan bulan ini masih tersisa setelah pengeluaran.`;
+        else if(savingRate >= 10) el.textContent = `👍 Sekitar ${savingRate}% pemasukan bulan ini masih tersisa. Kamu masih punya ruang untuk meningkatkan tabungan.`;
+        else el.textContent = `💡 Pengeluaran sudah mendekati pemasukan. Coba sisihkan uang untuk tabungan sebelum membelanjakan.`;
         return;
     }
     el.textContent = 'Terus catat transaksi supaya SakuKita bisa memberikan insight yang lebih akurat.';
 }
 
-
-/* ================= RECENT ================= */
 function renderRecentTransactions(){
     const container = document.getElementById('recent-transactions');
     const empty = document.getElementById('recent-empty');
     container.innerHTML = '';
-
-    const recent = [...transaksiList]
-        .sort((a,b) => (b.tanggal || '').localeCompare(a.tanggal || ''))
-        .slice(0,5);
-
-    if(!recent.length){
-        empty.classList.remove('hidden');
-        return;
-    }
+    const recent = [...transaksiList].sort((a,b) => (b.tanggal || '').localeCompare(a.tanggal || '')).slice(0,5);
+    if(!recent.length){ empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
-
     recent.forEach(item => {
         const income = item.tipe === 'pemasukan';
         const displayCat = getEffectiveCategory(item);
@@ -1210,29 +1129,21 @@ function renderRecentTransactions(){
         row.className = 'soft flex items-center justify-between gap-3 p-3 rounded-2xl';
         row.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                    income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
-                           : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
-                }">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400' : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'}">
                     ${categoryIcon(displayCat, 16)}
                 </div>
                 <div class="min-w-0">
                     <p class="text-xs font-semibold truncate t-strong">${escapeHTML(item.keterangan)}</p>
-                    <p class="text-[10px] t-muted mt-0.5">
-                        ${escapeHTML(item.tanggal)} • ${escapeHTML(displayCat)}
-                    </p>
+                    <p class="text-[10px] t-muted mt-0.5">${escapeHTML(item.tanggal)} • ${escapeHTML(displayCat)}</p>
                 </div>
             </div>
             <span class="text-xs font-semibold shrink-0 ${income ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
                 ${income ? '+' : '-'}${displayMoney(item.nominal)}
-            </span>
-        `;
+            </span>`;
         container.appendChild(row);
     });
 }
 
-
-/* ================= TRANSACTIONS ================= */
 form.addEventListener('submit', function(e){
     e.preventDefault();
     const data = {
@@ -1242,56 +1153,33 @@ form.addEventListener('submit', function(e){
         kategori: kategoriInput.value,
         tanggal: tanggalInput.value
     };
-    if(!data.keterangan || !data.nominal || data.nominal < 1 || !data.tanggal){
-        alert('Lengkapi data transaksi.');
-        return;
-    }
+    if(!data.keterangan || !data.nominal || data.nominal < 1 || !data.tanggal){ alert('Lengkapi data transaksi.'); return; }
     const editIndex = Number(document.getElementById('edit-index').value);
-    if(editIndex >= 0){
-        transaksiList[editIndex] = data;
-    }else{
-        transaksiList.unshift(data);
-    }
-    saveData();
-    updateAll();
-    form.reset();
-    setDefaultDate();
-    cancelEdit();
+    if(editIndex >= 0){ transaksiList[editIndex] = data; } else { transaksiList.unshift(data); }
+    saveData(); updateAll(); form.reset(); setDefaultDate(); cancelEdit();
 });
 
 function editTransaksi(index){
-    const item = transaksiList[index];
-    if(!item) return;
-    keteranganInput.value = item.keterangan;
-    nominalInput.value = item.nominal;
-    tipeInput.value = item.tipe;
-    kategoriInput.value = item.kategori;
-    tanggalInput.value = item.tanggal;
+    const item = transaksiList[index]; if(!item) return;
+    keteranganInput.value = item.keterangan; nominalInput.value = item.nominal;
+    tipeInput.value = item.tipe; kategoriInput.value = item.kategori; tanggalInput.value = item.tanggal;
     document.getElementById('edit-index').value = index;
     document.getElementById('submit-button').textContent = 'Update';
     document.getElementById('cancel-edit').classList.remove('hidden');
-    showPage('transaksi');
-    window.scrollTo({ top:0, behavior:'smooth' });
+    showPage('transaksi'); window.scrollTo({ top:0, behavior:'smooth' });
 }
-
 function cancelEdit(){
     document.getElementById('edit-index').value = -1;
     document.getElementById('submit-button').textContent = 'Simpan';
     document.getElementById('cancel-edit').classList.add('hidden');
 }
-
 function hapusTransaksi(index){
     if(!confirm('Hapus transaksi ini?')) return;
-    transaksiList.splice(index,1);
-    saveData();
-    updateAll();
+    transaksiList.splice(index,1); saveData(); updateAll();
 }
 
-
-/* ================= GROUP TRANSACTIONS ================= */
 function renderTransactions(resetLimit = false){
     if(resetLimit) txDisplayLimit = TX_PAGE_SIZE;
-
     const container = document.getElementById('list-transaksi');
     const empty = document.getElementById('pesan-kosong');
     const search = document.getElementById('search').value.toLowerCase().trim();
@@ -1316,14 +1204,9 @@ function renderTransactions(resetLimit = false){
 
     container.innerHTML = '';
     document.getElementById('jumlah-hasil').textContent =
-        total === 0 ? '0 transaksi'
-        : hasMore ? `Menampilkan ${shown.length} dari ${total} transaksi`
-        : `${total} transaksi`;
+        total === 0 ? '0 transaksi' : hasMore ? `Menampilkan ${shown.length} dari ${total} transaksi` : `${total} transaksi`;
 
-    if(!total){
-        empty.classList.remove('hidden');
-        return;
-    }
+    if(!total){ empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
 
     const groups = {};
@@ -1341,19 +1224,14 @@ function renderTransactions(resetLimit = false){
                     <span class="text-[10px] font-semibold t-muted uppercase tracking-wider">${dateTitle}</span>
                     <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1"></div>
                 </div>
-            </div>
-        `;
-
+            </div>`;
         groups[date].forEach(item => {
             const income = item.tipe === 'pemasukan';
             const row = document.createElement('div');
             row.className = 'soft animate-slide flex items-center justify-between gap-3 p-3 rounded-2xl mb-2';
             row.innerHTML = `
                 <div class="flex items-center gap-3 min-w-0">
-                    <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${
-                        income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
-                               : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
-                    }">
+                    <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400' : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'}">
                         ${categoryIcon(item._displayCat, 18)}
                     </div>
                     <div class="min-w-0">
@@ -1367,19 +1245,15 @@ function renderTransactions(resetLimit = false){
                     <span class="text-xs font-semibold ${income ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
                         ${income ? '+' : '-'}${displayMoney(item.nominal)}
                     </span>
-                    <button onclick="editTransaksi(${item._index})"
-                        class="w-7 h-7 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 t-muted hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center justify-center transition">
+                    <button onclick="editTransaksi(${item._index})" class="w-7 h-7 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 t-muted hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center justify-center transition">
                         ${icon('pencil', 13)}
                     </button>
-                    <button onclick="hapusTransaksi(${item._index})"
-                        class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
+                    <button onclick="hapusTransaksi(${item._index})" class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
                         ${icon('trash', 13)}
                     </button>
-                </div>
-            `;
+                </div>`;
             section.appendChild(row);
         });
-
         container.appendChild(section);
     });
 
@@ -1388,26 +1262,17 @@ function renderTransactions(resetLimit = false){
         const nextBatch = Math.min(TX_PAGE_SIZE, remaining);
         const loadMore = document.createElement('button');
         loadMore.className = 'w-full mt-4 py-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 hover:bg-indigo-100 dark:hover:bg-indigo-500/25 text-indigo-600 dark:text-indigo-400 text-xs font-semibold transition flex items-center justify-center gap-2';
-        loadMore.innerHTML = `
-            ${icon('chevronDown', 15)}
-            <span>Muat ${nextBatch} transaksi lagi</span>
-            <span class="text-[10px] font-normal opacity-70">(sisa ${remaining})</span>
-        `;
+        loadMore.innerHTML = `${icon('chevronDown', 15)}<span>Muat ${nextBatch} transaksi lagi</span><span class="text-[10px] font-normal opacity-70">(sisa ${remaining})</span>`;
         loadMore.onclick = loadMoreTx;
         container.appendChild(loadMore);
     }
 }
-
-function loadMoreTx(){
-    txDisplayLimit += TX_PAGE_SIZE;
-    renderTransactions(false);
-}
+function loadMoreTx(){ txDisplayLimit += TX_PAGE_SIZE; renderTransactions(false); }
 
 function formatDateTitle(date){
     if(!date) return 'Tanpa tanggal';
     const today = localDateKey();
-    const yesterdayDate = new Date();
-    yesterdayDate.setDate(yesterdayDate.getDate()-1);
+    const yesterdayDate = new Date(); yesterdayDate.setDate(yesterdayDate.getDate()-1);
     const yesterday = localDateKey(yesterdayDate);
     if(date === today) return 'Hari Ini';
     if(date === yesterday) return 'Kemarin';
@@ -1415,17 +1280,14 @@ function formatDateTitle(date){
     return d.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
 }
 
-
-/* ================= QUICK TRANSACTION ================= */
 function openQuickTransaction(type){
     document.getElementById('quickType').value = type;
-    document.getElementById('quickTitle').textContent =
-        type === 'pemasukan' ? 'Tambah Pemasukan' : 'Tambah Pengeluaran';
+    document.getElementById('quickTitle').textContent = type === 'pemasukan' ? 'Tambah Pemasukan' : 'Tambah Pengeluaran';
     const iconWrap = document.getElementById('quickIconWrap');
     if(type === 'pemasukan'){
         iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center';
         iconWrap.innerHTML = icon('trendingUp', 20);
-    }else{
+    } else {
         iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center';
         iconWrap.innerHTML = icon('trendingDown', 20);
     }
@@ -1435,11 +1297,7 @@ function openQuickTransaction(type){
     document.getElementById('quickModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('quickKeterangan').focus(), 100);
 }
-
-function closeQuickModal(){
-    document.getElementById('quickModal').classList.add('hidden');
-}
-
+function closeQuickModal(){ document.getElementById('quickModal').classList.add('hidden'); }
 function updateQuickCategoryHint(){
     const text = document.getElementById('quickKeterangan').value.trim();
     const hint = document.getElementById('quickCategoryHint');
@@ -1452,50 +1310,31 @@ function updateQuickCategoryHint(){
     hintIcon.innerHTML = categoryIcon(guessed, 14);
     hint.classList.remove('hidden');
 }
-
 function saveQuickTransaction(e){
     e.preventDefault();
     const type = document.getElementById('quickType').value;
     const keterangan = document.getElementById('quickKeterangan').value.trim();
     const nominal = Number(document.getElementById('quickNominal').value);
-    if(!keterangan || nominal < 1){
-        alert('Masukkan keterangan dan nominal.');
-        return;
-    }
+    if(!keterangan || nominal < 1){ alert('Masukkan keterangan dan nominal.'); return; }
     const guessed = guessCategoryFromText(keterangan) || 'Lainnya';
-    transaksiList.unshift({
-        keterangan, nominal, tipe:type,
-        kategori: guessed,
-        tanggal: localDateKey()
-    });
-    saveData();
-    updateAll();
-    closeQuickModal();
+    transaksiList.unshift({ keterangan, nominal, tipe:type, kategori: guessed, tanggal: localDateKey() });
+    saveData(); updateAll(); closeQuickModal();
 }
 
-
-/* ================= TARGET ================= */
 function renderTarget(){
     const container = document.getElementById('list-target');
     const empty = document.getElementById('target-kosong');
     container.innerHTML = '';
-
-    if(!targetList.length){
-        empty.classList.remove('hidden');
-        return;
-    }
+    if(!targetList.length){ empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
-
     targetList.forEach((item,idx)=>{
         const target = Number(item.nominal) || 0;
         const collected = Number(item.terkumpul) || 0;
         const percent = target > 0 ? Math.min(100,Math.round((collected/target)*100)) : 0;
         const remaining = Math.max(0,target-collected);
         const isDone = collected >= target;
-
         const card = document.createElement('div');
         card.className = 'soft rounded-2xl p-4 animate-slide';
-
         card.innerHTML = `
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center gap-2.5 min-w-0">
@@ -1507,12 +1346,10 @@ function renderTarget(){
                         <p class="text-[10px] t-muted mt-0.5">${percent}% tercapai</p>
                     </div>
                 </div>
-                <button onclick="hapusTarget(${idx})"
-                    class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
+                <button onclick="hapusTarget(${idx})" class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
                     ${icon('trash', 13)}
                 </button>
             </div>
-
             <div class="flex justify-between items-end mb-2">
                 <div>
                     <p class="text-[10px] t-muted">Terkumpul</p>
@@ -1523,69 +1360,39 @@ function renderTarget(){
                     <p class="text-xs font-semibold t-strong">${displayMoney(target)}</p>
                 </div>
             </div>
-
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
                 <div class="progress bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full" style="width:${percent}%"></div>
             </div>
-
             <div class="flex justify-between mt-2 mb-3">
-                <p class="text-[10px] t-muted">
-                    ${isDone ? '🎉 Target tercapai!' : `Kurang ${displayMoney(remaining)}`}
-                </p>
+                <p class="text-[10px] t-muted">${isDone ? '🎉 Target tercapai!' : `Kurang ${displayMoney(remaining)}`}</p>
                 <p class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">${percent}%</p>
             </div>
-
-            <button onclick="openAddSaldoModal(${idx})"
-                ${isDone ? 'disabled' : ''}
-                class="w-full ${isDone
-                    ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed'
-                    : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                ${icon('plus', 14)}
-                ${isDone ? 'Target Selesai' : 'Tambah Saldo'}
-            </button>
-        `;
+            <button onclick="openAddSaldoModal(${idx})" ${isDone ? 'disabled' : ''} class="w-full ${isDone ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
+                ${icon('plus', 14)} ${isDone ? 'Target Selesai' : 'Tambah Saldo'}
+            </button>`;
         container.appendChild(card);
     });
 }
-
 function openTargetModal(){ document.getElementById('targetModal').classList.remove('hidden'); }
 function closeTargetModal(){ document.getElementById('targetModal').classList.add('hidden'); }
-
 function saveTarget(e){
     e.preventDefault();
     const nominal = Number(document.getElementById('target-nominal').value);
     const terkumpul = Number(document.getElementById('target-terkumpul').value);
-    if(nominal <= 0 || terkumpul < 0){
-        alert('Nominal target tidak valid.');
-        return;
-    }
-    targetList.push({
-        nama: document.getElementById('target-nama').value.trim(),
-        nominal,
-        terkumpul: Math.min(terkumpul,nominal)
-    });
-    saveData();
-    renderTarget();
-    closeTargetModal();
-    document.getElementById('form-target').reset();
+    if(nominal <= 0 || terkumpul < 0){ alert('Nominal target tidak valid.'); return; }
+    targetList.push({ nama: document.getElementById('target-nama').value.trim(), nominal, terkumpul: Math.min(terkumpul,nominal) });
+    saveData(); renderTarget(); closeTargetModal(); document.getElementById('form-target').reset();
 }
-
 function hapusTarget(idx){
     if(!confirm('Hapus target ini?')) return;
-    targetList.splice(idx,1);
-    saveData();
-    renderTarget();
+    targetList.splice(idx,1); saveData(); renderTarget();
 }
 
-
-/* ================= TAMBAH SALDO TARGET ================= */
 function openAddSaldoModal(idx){
-    const item = targetList[idx];
-    if(!item) return;
+    const item = targetList[idx]; if(!item) return;
     const target = Number(item.nominal) || 0;
     const collected = Number(item.terkumpul) || 0;
     const remaining = Math.max(0, target - collected);
-
     document.getElementById('add-saldo-index').value = idx;
     document.getElementById('addSaldoSubtitle').textContent = item.nama;
     document.getElementById('add-saldo-current').textContent = formatRupiah(collected);
@@ -1593,91 +1400,52 @@ function openAddSaldoModal(idx){
     document.getElementById('add-saldo-amount').value = '';
     document.getElementById('add-saldo-amount').max = remaining;
     document.getElementById('add-saldo-as-transaction').checked = true;
-
     document.getElementById('addSaldoModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('add-saldo-amount').focus(), 100);
 }
-
-function closeAddSaldoModal(){
-    document.getElementById('addSaldoModal').classList.add('hidden');
-}
-
+function closeAddSaldoModal(){ document.getElementById('addSaldoModal').classList.add('hidden'); }
 function saveAddSaldo(e){
     e.preventDefault();
     const idx = Number(document.getElementById('add-saldo-index').value);
-    const item = targetList[idx];
-    if(!item) return;
+    const item = targetList[idx]; if(!item) return;
     const amount = Number(document.getElementById('add-saldo-amount').value);
     const asTransaction = document.getElementById('add-saldo-as-transaction').checked;
     const target = Number(item.nominal) || 0;
     const collected = Number(item.terkumpul) || 0;
     const remaining = target - collected;
-
     if(amount <= 0){ alert('Nominal harus lebih dari 0.'); return; }
     if(amount > remaining){ alert(`Nominal melebihi sisa target (${formatRupiah(remaining)}).`); return; }
-
     item.terkumpul = collected + amount;
-
     if(asTransaction){
-        transaksiList.unshift({
-            keterangan: `Tabungan: ${item.nama}`,
-            nominal: amount,
-            tipe: 'pengeluaran',
-            kategori: 'Tabungan',
-            tanggal: localDateKey()
-        });
+        transaksiList.unshift({ keterangan: `Tabungan: ${item.nama}`, nominal: amount, tipe: 'pengeluaran', kategori: 'Tabungan', tanggal: localDateKey() });
     }
-    saveData();
-    updateAll();
-    closeAddSaldoModal();
+    saveData(); updateAll(); closeAddSaldoModal();
 }
 
-
-/* ================= BUDGET ================= */
 function renderBudget(){
     const container = document.getElementById('list-budget');
     const empty = document.getElementById('budget-kosong');
     container.innerHTML = '';
-
     const keys = Object.keys(budgetList);
-    if(!keys.length){
-        empty.classList.remove('hidden');
-        return;
-    }
+    if(!keys.length){ empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
-
     const month = localMonthKey();
-
     keys.forEach(cat => {
         const limit = Number(budgetList[cat]) || 0;
-        const spent = transaksiList
-            .filter(x => x.tipe === 'pengeluaran' && x.tanggal && x.tanggal.startsWith(month))
-            .filter(x => getEffectiveCategory(x) === cat)
-            .reduce((a,b)=>a+Number(b.nominal||0), 0);
-
+        const spent = transaksiList.filter(x => x.tipe === 'pengeluaran' && x.tanggal && x.tanggal.startsWith(month)).filter(x => getEffectiveCategory(x) === cat).reduce((a,b)=>a+Number(b.nominal||0), 0);
         const percent = limit > 0 ? Math.round((spent/limit)*100) : 0;
         const width = Math.min(100,percent);
-
         let status = 'Aman';
         let statusClass = 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20';
-        if(percent >= 100){
-            status = 'Melebihi Budget';
-            statusClass = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20';
-        }else if(percent >= 80){
-            status = 'Hampir Habis';
-            statusClass = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20';
-        }
+        if(percent >= 100){ status = 'Melebihi Budget'; statusClass = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20'; }
+        else if(percent >= 80){ status = 'Hampir Habis'; statusClass = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20'; }
         const remaining = limit-spent;
-
         const card = document.createElement('div');
         card.className = 'soft rounded-2xl p-4 animate-slide';
-
         card.innerHTML = `
             <div class="flex justify-between items-start">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                        ${categoryIcon(cat, 18)}
-                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">${categoryIcon(cat, 18)}</div>
                     <div>
                         <h4 class="font-semibold text-sm t-strong">${escapeHTML(cat)}</h4>
                         <p class="text-[10px] t-muted">Bulan ini</p>
@@ -1690,42 +1458,28 @@ function renderBudget(){
                 <span class="text-[10px] t-muted">/ ${displayMoney(limit)}</span>
             </div>
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                <div class="progress ${
-                    percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-indigo-600'
-                } h-full rounded-full" style="width:${width}%"></div>
+                <div class="progress ${percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-indigo-600'} h-full rounded-full" style="width:${width}%"></div>
             </div>
             <div class="flex justify-between mt-2">
-                <p class="text-[10px] t-muted">
-                    ${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}
-                </p>
+                <p class="text-[10px] t-muted">${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}</p>
                 <p class="text-[10px] font-semibold t-base">${percent}%</p>
-            </div>
-        `;
+            </div>`;
         container.appendChild(card);
     });
 }
-
 function openBudgetModal(){ document.getElementById('budgetModal').classList.remove('hidden'); }
 function closeBudgetModal(){ document.getElementById('budgetModal').classList.add('hidden'); }
-
 function saveBudget(e){
     e.preventDefault();
     const cat = document.getElementById('budget-kategori').value;
     const limit = Number(document.getElementById('budget-limit').value);
     if(limit <= 0){ alert('Budget harus lebih dari 0.'); return; }
-    budgetList[cat] = limit;
-    saveData();
-    renderBudget();
-    closeBudgetModal();
-    document.getElementById('form-budget').reset();
+    budgetList[cat] = limit; saveData(); renderBudget(); closeBudgetModal(); document.getElementById('form-budget').reset();
 }
 
-
-/* ================= TAGIHAN ================= */
 function getNextDueDate(day){
     const now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth();
+    let year = now.getFullYear(), month = now.getMonth();
     const maxDay = new Date(year, month+1, 0).getDate();
     const safeDay = Math.min(day,maxDay);
     let due = new Date(year, month, safeDay);
@@ -1737,44 +1491,27 @@ function getNextDueDate(day){
     }
     return due;
 }
-
 function daysUntil(date){
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    const target = new Date(date);
-    target.setHours(0,0,0,0);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const target = new Date(date); target.setHours(0,0,0,0);
     return Math.ceil((target-today)/86400000);
 }
-
 function renderTagihan(){
     const container = document.getElementById('list-tagihan');
     const empty = document.getElementById('tagihan-kosong');
     container.innerHTML = '';
-    if(!tagihanList.length){
-        empty.classList.remove('hidden');
-        return;
-    }
+    if(!tagihanList.length){ empty.classList.remove('hidden'); return; }
     empty.classList.add('hidden');
-
     tagihanList.forEach((item,idx)=>{
         const due = getNextDueDate(Number(item.tgl));
         const days = daysUntil(due);
         let countdown = '';
         let badge = 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20';
-
-        if(days === 0){
-            countdown = 'Jatuh tempo hari ini';
-            badge = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20';
-        }else if(days === 1){
-            countdown = 'Besok jatuh tempo';
-            badge = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20';
-        }else{
-            countdown = `${days} hari lagi`;
-        }
-
+        if(days === 0){ countdown = 'Jatuh tempo hari ini'; badge = 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/20'; }
+        else if(days === 1){ countdown = 'Besok jatuh tempo'; badge = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20'; }
+        else { countdown = `${days} hari lagi`; }
         const card = document.createElement('div');
         card.className = 'soft rounded-2xl p-4 flex justify-between items-center gap-3 animate-slide';
-
         card.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
                 <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
@@ -1782,53 +1519,32 @@ function renderTagihan(){
                 </div>
                 <div class="min-w-0">
                     <h4 class="font-semibold text-sm truncate t-strong">${escapeHTML(item.nama)}</h4>
-                    <p class="text-[10px] t-muted mt-1">
-                        Setiap tanggal ${item.tgl} • ${displayMoney(item.nominal)}
-                    </p>
+                    <p class="text-[10px] t-muted mt-1">Setiap tanggal ${item.tgl} • ${displayMoney(item.nominal)}</p>
                     <span class="inline-block mt-2 text-[10px] px-2 py-1 rounded-full font-medium border ${badge}">${countdown}</span>
                 </div>
             </div>
-            <button onclick="hapusTagihan(${idx})"
-                class="w-8 h-8 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
+            <button onclick="hapusTagihan(${idx})" class="w-8 h-8 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
                 ${icon('trash', 14)}
-            </button>
-        `;
+            </button>`;
         container.appendChild(card);
     });
 }
-
 function openTagihanModal(){ document.getElementById('tagihanModal').classList.remove('hidden'); }
 function closeTagihanModal(){ document.getElementById('tagihanModal').classList.add('hidden'); }
-
 function saveTagihan(e){
     e.preventDefault();
     const nama = document.getElementById('tagihan-nama').value.trim();
     const nominal = Number(document.getElementById('tagihan-nominal').value);
     const tgl = Number(document.getElementById('tagihan-tgl').value);
-    if(!nama || nominal <= 0 || tgl < 1 || tgl > 31){
-        alert('Data tagihan tidak valid.');
-        return;
-    }
-    tagihanList.push({ nama, nominal, tgl });
-    saveData();
-    renderTagihan();
-    closeTagihanModal();
-    document.getElementById('form-tagihan').reset();
+    if(!nama || nominal <= 0 || tgl < 1 || tgl > 31){ alert('Data tagihan tidak valid.'); return; }
+    tagihanList.push({ nama, nominal, tgl }); saveData(); renderTagihan(); closeTagihanModal(); document.getElementById('form-tagihan').reset();
 }
-
 function hapusTagihan(idx){
     if(!confirm('Hapus tagihan ini?')) return;
-    tagihanList.splice(idx,1);
-    saveData();
-    renderTagihan();
+    tagihanList.splice(idx,1); saveData(); renderTagihan();
 }
 
-
-/* =====================================================
-   CHART — MODERN AREA CHART
-   ===================================================== */
-
-function niceRoundNumber(val) {
+function niceRoundNumber(val){
     if (val <= 0) return 1;
     const exp = Math.floor(Math.log10(val));
     const pow = Math.pow(10, exp);
@@ -1840,59 +1556,40 @@ function niceRoundNumber(val) {
     else nice = 10;
     return nice * pow;
 }
-
-function smoothPath(points) {
+function smoothPath(points){
     if (points.length < 2) return '';
     let d = `M ${points[0].x} ${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
-        const p1 = points[i];
-        const p2 = points[i + 1];
+        const p1 = points[i], p2 = points[i + 1];
         const dx = p2.x - p1.x;
-        const cp1x = p1.x + dx * 0.4;
-        const cp2x = p2.x - dx * 0.4;
-        d += ` C ${cp1x} ${p1.y}, ${cp2x} ${p2.y}, ${p2.x} ${p2.y}`;
+        d += ` C ${p1.x + dx * 0.4} ${p1.y}, ${p2.x - dx * 0.4} ${p2.y}, ${p2.x} ${p2.y}`;
     }
     return d;
 }
-
-function areaPath(points, baselineY) {
+function areaPath(points, baselineY){
     if (points.length < 2) return '';
-    return smoothPath(points) +
-        ` L ${points[points.length - 1].x} ${baselineY} L ${points[0].x} ${baselineY} Z`;
+    return smoothPath(points) + ` L ${points[points.length - 1].x} ${baselineY} L ${points[0].x} ${baselineY} Z`;
 }
-
 function renderChart(){
     const chartEl = document.getElementById('chart');
     const labelsEl = document.getElementById('chartLabels');
     const legendEl = document.getElementById('chartLegend');
-
     if(!chartEl || !labelsEl || !legendEl) return;
-
     const daysCount = Number(document.getElementById('chartPeriod').value) || 7;
-
     const days = [];
     for (let i = daysCount - 1; i >= 0; i--) {
-        const date = new Date();
-        date.setHours(12, 0, 0, 0);
-        date.setDate(date.getDate() - i);
+        const date = new Date(); date.setHours(12, 0, 0, 0); date.setDate(date.getDate() - i);
         days.push({ date, key: localDateKey(date) });
     }
-
     let maxVal = 0;
     const values = days.map(day => {
-        const income = transaksiList
-            .filter(x => x.tanggal === day.key && x.tipe === 'pemasukan')
-            .reduce((a, b) => a + Number(b.nominal || 0), 0);
-        const expense = transaksiList
-            .filter(x => x.tanggal === day.key && x.tipe === 'pengeluaran')
-            .reduce((a, b) => a + Number(b.nominal || 0), 0);
+        const income = transaksiList.filter(x => x.tanggal === day.key && x.tipe === 'pemasukan').reduce((a, b) => a + Number(b.nominal || 0), 0);
+        const expense = transaksiList.filter(x => x.tanggal === day.key && x.tipe === 'pengeluaran').reduce((a, b) => a + Number(b.nominal || 0), 0);
         maxVal = Math.max(maxVal, income, expense);
         return { day, income, expense };
     });
-
     const totalIncome = values.reduce((a, v) => a + v.income, 0);
     const totalExpense = values.reduce((a, v) => a + v.expense, 0);
-
     if (maxVal === 0) {
         chartEl.innerHTML = `
             <div class="flex flex-col items-center justify-center py-12 t-faint">
@@ -1900,57 +1597,33 @@ function renderChart(){
                     <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
                 </svg>
                 <p class="text-[11px] mt-3">Belum ada data dalam periode ini</p>
-            </div>
-        `;
+            </div>`;
         labelsEl.innerHTML = '';
         legendEl.innerHTML = `
             <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] t-muted">Pemasukan</span>
-                </div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span class="text-[10px] t-muted">Pemasukan</span></div>
                 <span class="text-xs font-semibold t-muted">Rp 0</span>
             </div>
             <div class="flex items-center justify-between gap-3 mt-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
-                    <span class="text-[10px] t-muted">Pengeluaran</span>
-                </div>
+                <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><span class="text-[10px] t-muted">Pengeluaran</span></div>
                 <span class="text-xs font-semibold t-muted">Rp 0</span>
-            </div>
-        `;
+            </div>`;
         return;
     }
-
     const niceMax = niceRoundNumber(maxVal);
-
-    const W = 700;
-    const H = 180;
-    const padTop = 10;
-    const padBottom = 6;
-    const padX = 4;
+    const W = 700, H = 180, padTop = 10, padBottom = 6, padX = 4;
     const chartH = H - padTop - padBottom;
     const chartW = W - padX * 2;
     const baselineY = padTop + chartH;
-
-    const gridCount = 4;
     let gridHTML = '';
-    for (let i = 0; i <= gridCount; i++) {
-        const y = padTop + (chartH / gridCount) * i;
+    for (let i = 0; i <= 4; i++) {
+        const y = padTop + (chartH / 4) * i;
         gridHTML += `<line x1="${padX}" y1="${y}" x2="${W - padX}" y2="${y}" stroke="currentColor" stroke-opacity="0.06" stroke-width="1" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/>`;
     }
-
     const stepX = values.length > 1 ? chartW / (values.length - 1) : 0;
-    const incomePoints = values.map((v, i) => ({
-        x: padX + i * stepX,
-        y: padTop + chartH - (v.income / niceMax) * chartH
-    }));
-    const expensePoints = values.map((v, i) => ({
-        x: padX + i * stepX,
-        y: padTop + chartH - (v.expense / niceMax) * chartH
-    }));
-
-    const svgHTML = `
+    const incomePoints = values.map((v, i) => ({ x: padX + i * stepX, y: padTop + chartH - (v.income / niceMax) * chartH }));
+    const expensePoints = values.map((v, i) => ({ x: padX + i * stepX, y: padTop + chartH - (v.expense / niceMax) * chartH }));
+    chartEl.innerHTML = `
         <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="height:160px" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
@@ -1967,68 +1640,41 @@ function renderChart(){
             <path d="${areaPath(expensePoints, baselineY)}" fill="url(#expenseGrad)"/>
             <path d="${smoothPath(expensePoints)}" fill="none" stroke="#f43f5e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
             <path d="${smoothPath(incomePoints)}" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-        </svg>
-    `;
-
-    chartEl.innerHTML = svgHTML;
-
+        </svg>`;
     let labelIndices = [];
-    if (values.length <= 7) {
-        labelIndices = values.map((_, i) => i);
-    } else {
+    if (values.length <= 7) { labelIndices = values.map((_, i) => i); }
+    else {
         const step = Math.ceil(values.length / 6);
         for (let i = 0; i < values.length; i += step) labelIndices.push(i);
-        if (labelIndices[labelIndices.length - 1] !== values.length - 1) {
-            labelIndices.push(values.length - 1);
-        }
+        if (labelIndices[labelIndices.length - 1] !== values.length - 1) labelIndices.push(values.length - 1);
     }
-
     labelsEl.innerHTML = values.map((v, i) => {
         const show = labelIndices.includes(i);
         const label = v.day.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
         return `<span class="text-[9px] t-muted ${show ? '' : 'invisible'}" style="flex:1;text-align:center">${label}</span>`;
     }).join('');
-
     legendEl.innerHTML = `
         <div class="flex items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                <span class="text-[11px] t-muted">Total Pemasukan</span>
-            </div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-[11px] t-muted">Total Pemasukan</span></div>
             <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">${formatRupiah(totalIncome)}</span>
         </div>
         <div class="flex items-center justify-between gap-3 mt-2">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                <span class="text-[11px] t-muted">Total Pengeluaran</span>
-            </div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span class="text-[11px] t-muted">Total Pengeluaran</span></div>
             <span class="text-xs font-semibold text-rose-600 dark:text-rose-400">${formatRupiah(totalExpense)}</span>
-        </div>
-    `;
+        </div>`;
 }
 
-
-/* ================= BACKUP / IMPORT / CSV / RESET ================= */
 function downloadBackup(){
-    const backup = {
-        app:'SakuKita', version:4,
-        exportedAt: new Date().toISOString(),
-        transaksiList, targetList, budgetList, tagihanList
-    };
+    const backup = { app:'SakuKita', version:4, exportedAt: new Date().toISOString(), transaksiList, targetList, budgetList, tagihanList };
     const blob = new Blob([JSON.stringify(backup, null, 2)], { type:'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `sakukita-v4-backup-${localDateKey()}.json`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    a.href = url; a.download = `sakukita-v4-backup-${localDateKey()}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
 }
-
 function importData(e){
-    const file = e.target.files[0];
-    if(!file) return;
+    const file = e.target.files[0]; if(!file) return;
     const reader = new FileReader();
     reader.onload = function(evt){
         try{
@@ -2038,76 +1684,46 @@ function importData(e){
             targetList = data.targetList || [];
             budgetList = data.budgetList || {};
             tagihanList = data.tagihanList || [];
-            saveData();
-            updateAll();
-            alert('✅ Restore data berhasil!');
-        }catch(err){
-            alert('❌ File backup tidak valid.');
-        }
+            saveData(); updateAll(); alert('✅ Restore data berhasil!');
+        }catch(err){ alert('❌ File backup tidak valid.'); }
         e.target.value = '';
     };
     reader.readAsText(file);
 }
-
-function csvEscape(value){
-    return `"${String(value ?? '').replace(/"/g,'""')}"`;
-}
-
+function csvEscape(value){ return `"${String(value ?? '').replace(/"/g,'""')}"`; }
 function exportCSV(){
     if(!transaksiList.length){ alert('Belum ada transaksi.'); return; }
     let csv = 'Tanggal,Keterangan,Jenis,Kategori,Nominal\n';
     transaksiList.forEach(item => {
-        csv += [
-            csvEscape(item.tanggal),
-            csvEscape(item.keterangan),
-            csvEscape(item.tipe),
-            csvEscape(getEffectiveCategory(item)),
-            Number(item.nominal)||0
-        ].join(',') + '\n';
+        csv += [csvEscape(item.tanggal), csvEscape(item.keterangan), csvEscape(item.tipe), csvEscape(getEffectiveCategory(item)), Number(item.nominal)||0].join(',') + '\n';
     });
     const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `sakukita-laporan-${localDateKey()}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    a.href = url; a.download = `sakukita-laporan-${localDateKey()}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
 }
-
 function resetData(){
     if(!confirm('Yakin ingin menghapus SEMUA data SakuKita? Data tidak dapat dikembalikan kecuali kamu punya backup.')) return;
-    transaksiList = [];
-    targetList = [];
-    budgetList = {};
-    tagihanList = [];
-    saveData();
-    updateAll();
-    alert('Semua data berhasil dihapus.');
+    transaksiList = []; targetList = []; budgetList = {}; tagihanList = [];
+    saveData(); updateAll(); alert('Semua data berhasil dihapus.');
 }
 
-
-/* ================= DARK MODE ================= */
 function toggleDarkMode(){
     const dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem(STORAGE.dark, dark ? '1' : '0');
     document.getElementById('darkButton').innerHTML = dark ? icon('sun', 18) : icon('moon', 18);
 }
-
 function loadDarkMode(){
     const dark = localStorage.getItem(STORAGE.dark) === '1';
     if(dark) document.documentElement.classList.add('dark');
     document.getElementById('darkButton').innerHTML = dark ? icon('sun', 18) : icon('moon', 18);
 }
 
-
-/* ================= NAVIGATION ================= */
 function showPage(page){
     const pages = ['dashboard','transaksi','target','budget','tagihan','settings'];
-    pages.forEach(p => {
-        document.getElementById(p+'Section').classList.add('hidden');
-    });
+    pages.forEach(p => document.getElementById(p+'Section').classList.add('hidden'));
     document.getElementById(page+'Section').classList.remove('hidden');
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
     const nav = document.getElementById('nav-'+page);
@@ -2119,59 +1735,31 @@ function showPage(page){
     if(page === 'dashboard') renderChart();
     window.scrollTo({ top:0, behavior:'smooth' });
 }
-
-
-/* ================= DATE ================= */
-function setDefaultDate(){
-    tanggalInput.value = localDateKey();
-}
-
-
-/* ================= UPDATE ALL ================= */
+function setDefaultDate(){ tanggalInput.value = localDateKey(); }
 function updateAll(){
-    updateGreeting();
-    loadBalanceVisibility();
-    updateDashboard();
-    renderTransactions(false);
-    renderChart();
-    renderTarget();
-    renderBudget();
-    renderTagihan();
+    updateGreeting(); loadBalanceVisibility(); updateDashboard();
+    renderTransactions(false); renderChart(); renderTarget(); renderBudget(); renderTagihan();
 }
 
-
-/* ================= MODAL CLICK OUTSIDE ================= */
 ['targetModal','addSaldoModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
     const modal = document.getElementById(id);
-    modal.addEventListener('click', function(e){
-        if(e.target === modal) modal.classList.add('hidden');
-    });
+    modal.addEventListener('click', function(e){ if(e.target === modal) modal.classList.add('hidden'); });
 });
-
-
-/* ================= ESC ================= */
 document.addEventListener('keydown', function(e){
     if(e.key !== 'Escape') return;
     ['targetModal','addSaldoModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
     });
 });
-
-
-/* ================= RESIZE — Re-render chart ================= */
 let resizeTimer;
 window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => renderChart(), 200);
+    clearTimeout(resizeTimer); resizeTimer = setTimeout(() => renderChart(), 200);
 });
 
-
-/* ================= INIT ================= */
 loadDarkMode();
 setDefaultDate();
 updateAll();
 showPage('dashboard');
-
 </script>
 
 </body>
