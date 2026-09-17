@@ -16,13 +16,13 @@ html{scroll-behavior:smooth}
 body{font-family:Poppins,sans-serif;background:#f6f7fb;color:#0f172a;transition:background-color .3s,color .3s}
 
 /* ---------- Components ---------- */
-.card{background:#fff;border:1px solid #eef1f6;border-radius:1.25rem;
-  box-shadow:0 1px 2px rgba(15,23,42,.04),0 12px 28px -22px rgba(15,23,42,.45)}
-.soft{background:#fff;border:1px solid #eef1f6;border-radius:1.1rem}
+.card{background:#fff;border:1px solid #eef1f6;border-radius:1.15rem;
+  box-shadow:0 1px 2px rgba(15,23,42,.03),0 8px 20px -16px rgba(15,23,42,.35)}
+.soft{background:#fff;border:1px solid #eef1f6;border-radius:1rem}
 
 .input{width:100%;background:#fff;border:1px solid #e2e8f0;color:#0f172a;
   transition:border-color .18s,box-shadow .18s;outline:none;-webkit-appearance:none;appearance:none}
-.input:focus{border-color:#818cf8;box-shadow:0 0 0 4px rgba(99,102,241,.13)}
+.input:focus{border-color:#818cf8;box-shadow:0 0 0 3px rgba(99,102,241,.13)}
 .input::placeholder{color:#a3adbd}
 select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right .75rem center;padding-right:2.25rem}
@@ -31,22 +31,22 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .item:hover{transform:translateY(-1px)}
 
 /* ---------- Bottom nav ---------- */
-.nav-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:10px 0 9px;color:#94a3b8;font-size:9.5px;font-weight:500;transition:color .2s}
-.nav-btn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;
+.nav-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:8px 0 7px;color:#94a3b8;font-size:9.5px;font-weight:500;transition:color .2s}
+.nav-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;
   stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .nav-btn.active{color:#4f46e5}
 .nav-btn.active svg{transform:translateY(-1px)}
-.nav-btn.active::after{content:'';position:absolute;top:0;width:26px;height:3px;border-radius:0 0 6px 6px;
+.nav-btn.active::after{content:'';position:absolute;top:0;width:22px;height:2.5px;border-radius:0 0 4px 4px;
   background:linear-gradient(90deg,#4f46e5,#8b5cf6)}
 
 /* ---------- Animations ---------- */
-@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-@keyframes sheet{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.animate-up{animation:up .24s cubic-bezier(.22,1,.36,1) both}
-.animate-fade{animation:fade .2s ease both}
-.animate-sheet{animation:sheet .28s cubic-bezier(.22,1,.36,1) both}
+@keyframes sheet{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.animate-up{animation:up .22s cubic-bezier(.22,1,.36,1) both}
+.animate-fade{animation:fade .18s ease both}
+.animate-sheet{animation:sheet .25s cubic-bezier(.22,1,.36,1) both}
 
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
@@ -57,10 +57,9 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .dark .card{background:#0f172a;border-color:#1b2537;box-shadow:0 1px 2px rgba(0,0,0,.4)}
 .dark .soft{background:#0b1220;border-color:#1b2537}
 .dark .input{background:#0b1220;border-color:#334155;color:#e2e8f0}
-.dark .input:focus{border-color:#6366f1;box-shadow:0 0 0 4px rgba(99,102,241,.2)}
+.dark .input:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.2)}
 .dark select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E")}
 .dark .item{background:#0b1220!important;border-color:#1b2537!important}
-.dark .item:hover{box-shadow:0 10px 24px -18px rgba(0,0,0,.9)}
 .dark .nav{background:#0f172a;border-color:#1b2537}
 .dark .nav-btn{color:#64748b}
 .dark .nav-btn.active{color:#a5b4fc}
@@ -75,132 +74,130 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ HEADER ============ -->
 <header class="header sticky top-0 z-40 border-b border-slate-200/70 backdrop-blur-xl"
-        style="background:rgba(255,255,255,.82)">
-  <div class="max-w-5xl mx-auto px-4 py-3.5 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg shadow-lg shadow-indigo-500/25"
+        style="background:rgba(255,255,255,.85)">
+  <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base shadow-md shadow-indigo-500/20"
            style="background:linear-gradient(135deg,#4f46e5,#8b5cf6)">💰</div>
       <div class="leading-tight">
-        <h1 class="text-[17px] font-bold tracking-tight">SakuKita</h1>
-        <p class="text-[10.5px] text-slate-400 t-slate">Kelola uang, kelola masa depan</p>
+        <h1 class="text-[15.5px] font-bold tracking-tight">SakuKita</h1>
+        <p class="text-[10px] text-slate-400 t-slate">Kelola uang, kelola masa depan</p>
       </div>
     </div>
     <button onclick="toggleDark()" id="darkBtn"
-            class="w-10 h-10 rounded-2xl soft flex items-center justify-center text-base active:scale-95 transition">🌙</button>
+            class="w-9 h-9 rounded-xl soft flex items-center justify-center text-sm active:scale-95 transition">🌙</button>
   </div>
 </header>
 
-<main class="max-w-5xl mx-auto px-4 py-5 pb-28">
+<main class="max-w-3xl mx-auto px-4 py-4 pb-24">
 
 <!-- ============ DASHBOARD ============ -->
 <section id="dashboard" class="page">
   <!-- Hero balance -->
-  <div class="relative overflow-hidden rounded-3xl p-6 text-white mb-5 shadow-xl shadow-indigo-600/20"
+  <div class="relative overflow-hidden rounded-2xl p-5 text-white mb-4 shadow-lg shadow-indigo-600/15"
        style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 55%,#9333ea 100%)">
-    <div class="absolute -right-12 -top-16 w-48 h-48 rounded-full bg-white/10"></div>
-    <div class="absolute -right-6 top-20 w-28 h-28 rounded-full bg-white/[.07]"></div>
-    <div class="absolute -left-10 -bottom-16 w-40 h-40 rounded-full bg-black/[.06]"></div>
+    <div class="absolute -right-10 -top-12 w-40 h-40 rounded-full bg-white/10"></div>
+    <div class="absolute -left-8 -bottom-12 w-32 h-32 rounded-full bg-black/[.06]"></div>
 
     <div class="relative flex justify-between items-start">
       <div>
-        <p class="text-[11px] uppercase tracking-widest text-indigo-100/80 font-medium">Total Saldo</p>
-        <h2 id="saldo" class="num text-[30px] leading-tight font-bold mt-1.5">Rp 0</h2>
+        <p class="text-[10.5px] uppercase tracking-wider text-indigo-100/80 font-medium">Total Saldo</p>
+        <h2 id="saldo" class="num text-[26px] leading-tight font-bold mt-1">Rp 0</h2>
       </div>
-      <div class="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center text-xl">💳</div>
+      <div class="w-9 h-9 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-sm">💳</div>
     </div>
 
-    <div class="relative grid grid-cols-2 gap-3 mt-6">
-      <div class="rounded-2xl bg-white/12 backdrop-blur-sm p-3.5 border border-white/10">
-        <p class="text-[10.5px] text-indigo-100/80 mb-1">↓ Pemasukan</p>
-        <b id="income" class="num text-[15px] text-emerald-200">Rp 0</b>
+    <div class="relative grid grid-cols-2 gap-2.5 mt-4">
+      <div class="rounded-xl bg-white/12 backdrop-blur-sm p-3 border border-white/10">
+        <p class="text-[10px] text-indigo-100/80 mb-0.5">↓ Pemasukan</p>
+        <b id="income" class="num text-[14px] text-emerald-200">Rp 0</b>
       </div>
-      <div class="rounded-2xl bg-white/12 backdrop-blur-sm p-3.5 border border-white/10">
-        <p class="text-[10.5px] text-indigo-100/80 mb-1">↑ Pengeluaran</p>
-        <b id="expense" class="num text-[15px] text-rose-200">Rp 0</b>
+      <div class="rounded-xl bg-white/12 backdrop-blur-sm p-3 border border-white/10">
+        <p class="text-[10px] text-indigo-100/80 mb-0.5">↑ Pengeluaran</p>
+        <b id="expense" class="num text-[14px] text-rose-200">Rp 0</b>
       </div>
     </div>
   </div>
 
   <!-- Stat cards -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-    <div class="card p-4">
-      <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm mb-2.5">📋</div>
-      <p class="text-[10.5px] text-slate-400 t-slate">Transaksi</p>
-      <b id="count" class="num text-lg block mt-0.5">0</b>
+  <div class="grid grid-cols-2 gap-3 mb-4">
+    <div class="card p-3.5">
+      <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs mb-2">📋</div>
+      <p class="text-[10px] text-slate-400 t-slate">Transaksi</p>
+      <b id="count" class="num text-base block mt-0.5">0</b>
     </div>
-    <div class="card p-4">
-      <div class="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-sm mb-2.5">📅</div>
-      <p class="text-[10.5px] text-slate-400 t-slate">Bulan Ini</p>
-      <b id="monthCount" class="num text-lg block mt-0.5">0</b>
+    <div class="card p-3.5">
+      <div class="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center text-xs mb-2">📅</div>
+      <p class="text-[10px] text-slate-400 t-slate">Bulan Ini</p>
+      <b id="monthCount" class="num text-base block mt-0.5">0</b>
     </div>
-    <div class="card p-4">
-      <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm mb-2.5">📈</div>
-      <p class="text-[10.5px] text-slate-400 t-slate">Rata-rata</p>
-      <b id="avg" class="num text-[15px] block mt-0.5 truncate">Rp 0</b>
+    <div class="card p-3.5">
+      <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs mb-2">📈</div>
+      <p class="text-[10px] text-slate-400 t-slate">Rata-rata</p>
+      <b id="avg" class="num text-[14px] block mt-0.5 truncate">Rp 0</b>
     </div>
-    <div class="card p-4">
-      <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-sm mb-2.5">🔥</div>
-      <p class="text-[10.5px] text-slate-400 t-slate">Terbesar</p>
-      <b id="biggest" class="num text-[15px] block mt-0.5 truncate">Rp 0</b>
+    <div class="card p-3.5">
+      <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xs mb-2">🔥</div>
+      <p class="text-[10px] text-slate-400 t-slate">Terbesar</p>
+      <b id="biggest" class="num text-[14px] block mt-0.5 truncate">Rp 0</b>
     </div>
   </div>
 
   <!-- Chart -->
-  <div class="card p-5 mb-5">
-    <div class="flex items-start justify-between mb-5">
+  <div class="card p-4 mb-4">
+    <div class="flex items-start justify-between mb-4">
       <div>
-        <h3 class="font-semibold text-[15px]">Arus Kas 7 Hari</h3>
-        <p class="text-[11px] text-slate-400 t-slate mt-0.5">Pemasukan &amp; pengeluaran harian</p>
+        <h3 class="font-semibold text-[14px]">Arus Kas 7 Hari</h3>
+        <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Pemasukan &amp; pengeluaran harian</p>
       </div>
-      <div class="flex gap-3 text-[10px] text-slate-400 t-slate">
-        <span class="flex items-center gap-1.5"><i class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></i>Masuk</span>
-        <span class="flex items-center gap-1.5"><i class="w-2 h-2 rounded-full bg-rose-400 inline-block"></i>Keluar</span>
+      <div class="flex gap-2.5 text-[10px] text-slate-400 t-slate">
+        <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></i>Masuk</span>
+        <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-full bg-rose-400 inline-block"></i>Keluar</span>
       </div>
     </div>
-    <div class="relative h-40">
+    <div class="relative h-36">
       <div class="absolute inset-0 flex flex-col justify-between">
-        <div class="border-t border-dashed border-slate-100 divider"></div>
         <div class="border-t border-dashed border-slate-100 divider"></div>
         <div class="border-t border-dashed border-slate-100 divider"></div>
         <div class="border-t border-dashed border-slate-100 divider"></div>
         <div class="border-t border-slate-200 divider"></div>
       </div>
-      <div id="chart" class="relative h-full flex items-end gap-1.5"></div>
+      <div id="chart" class="relative h-full flex items-end gap-1"></div>
     </div>
   </div>
 
   <!-- Mini panels -->
-  <div class="grid md:grid-cols-2 gap-5">
-    <div class="card p-5">
-      <div class="flex justify-between items-start mb-4">
+  <div class="grid sm:grid-cols-2 gap-4 mb-4">
+    <div class="card p-4">
+      <div class="flex justify-between items-start mb-3">
         <div>
-          <h3 class="font-semibold text-[15px]">🎯 Target Terdekat</h3>
-          <p class="text-[11px] text-slate-400 t-slate mt-0.5">Progress tabungan</p>
+          <h3 class="font-semibold text-[14px]">🎯 Target Terdekat</h3>
+          <p class="text-[10.5px] text-slate-400 t-slate">Progress tabungan</p>
         </div>
         <button onclick="showPage('target')" class="text-[11px] font-medium text-indigo-600 hover:underline">Lihat</button>
       </div>
-      <div id="targetMini" class="text-sm text-slate-400 t-slate">Belum ada target.</div>
+      <div id="targetMini" class="text-xs text-slate-400 t-slate">Belum ada target.</div>
     </div>
-    <div class="card p-5">
-      <div class="flex justify-between items-start mb-4">
+    <div class="card p-4">
+      <div class="flex justify-between items-start mb-3">
         <div>
-          <h3 class="font-semibold text-[15px]">💳 Budget Bulan Ini</h3>
-          <p class="text-[11px] text-slate-400 t-slate mt-0.5">Batas pengeluaran</p>
+          <h3 class="font-semibold text-[14px]">💳 Budget Bulan Ini</h3>
+          <p class="text-[10.5px] text-slate-400 t-slate">Batas pengeluaran</p>
         </div>
         <button onclick="showPage('budget')" class="text-[11px] font-medium text-indigo-600 hover:underline">Lihat</button>
       </div>
-      <div id="budgetMini" class="text-sm text-slate-400 t-slate">Belum ada budget.</div>
+      <div id="budgetMini" class="text-xs text-slate-400 t-slate">Belum ada budget.</div>
     </div>
   </div>
 
   <!-- Insight -->
-  <div class="card p-5 mt-5 relative overflow-hidden">
-    <div class="absolute right-0 top-0 w-32 h-32 rounded-full bg-indigo-50/70 -mr-12 -mt-12"></div>
-    <div class="relative flex gap-3">
-      <div class="w-9 h-9 shrink-0 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">💡</div>
+  <div class="card p-4 relative overflow-hidden">
+    <div class="absolute right-0 top-0 w-28 h-28 rounded-full bg-indigo-50/70 -mr-10 -mt-10"></div>
+    <div class="relative flex gap-2.5">
+      <div class="w-8 h-8 shrink-0 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center text-sm">💡</div>
       <div>
-        <h3 class="font-semibold text-[15px]">Insight</h3>
-        <div id="insight" class="text-[13px] text-slate-500 t-slate mt-1.5 leading-relaxed">
+        <h3 class="font-semibold text-[14px]">Insight</h3>
+        <div id="insight" class="text-[12px] text-slate-500 t-slate mt-1 leading-relaxed">
           Belum cukup data untuk membuat insight.
         </div>
       </div>
@@ -210,33 +207,33 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ TRANSAKSI ============ -->
 <section id="transactions" class="page hidden">
-  <div class="grid lg:grid-cols-3 gap-5">
-    <div class="card p-5 h-fit lg:sticky lg:top-24">
-      <h3 class="font-semibold text-[15px] mb-4 flex items-center gap-2">
-        <span class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs">➕</span>
+  <div class="grid lg:grid-cols-3 gap-4">
+    <div class="card p-4 h-fit lg:sticky lg:top-20">
+      <h3 class="font-semibold text-[14px] mb-3.5 flex items-center gap-2">
+        <span class="w-6 h-6 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs">➕</span>
         <span id="formTitle">Tambah Transaksi</span>
       </h3>
       <form id="txForm" class="space-y-3">
         <input type="hidden" id="txEdit" value="-1">
         <div>
-          <label class="text-[11px] font-medium text-slate-500 t-slate">Keterangan</label>
-          <input id="txDesc" required placeholder="cth: Makan siang" class="input mt-1.5 px-3.5 py-2.5 text-sm rounded-xl">
+          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Keterangan</label>
+          <input id="txDesc" required placeholder="cth: Makan siang" class="input mt-1 px-3 py-2 text-xs rounded-xl">
         </div>
         <div>
-          <label class="text-[11px] font-medium text-slate-500 t-slate">Nominal (Rp)</label>
-          <input id="txAmount" required min="1" type="number" inputmode="numeric" placeholder="0" class="input num mt-1.5 px-3.5 py-2.5 text-sm rounded-xl">
+          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Nominal (Rp)</label>
+          <input id="txAmount" required min="1" type="number" inputmode="numeric" placeholder="0" class="input num mt-1 px-3 py-2 text-xs rounded-xl">
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
-            <label class="text-[11px] font-medium text-slate-500 t-slate">Jenis</label>
-            <select id="txType" class="input mt-1.5 px-3.5 py-2.5 text-sm rounded-xl">
+            <label class="text-[10.5px] font-medium text-slate-500 t-slate">Jenis</label>
+            <select id="txType" class="input mt-1 px-3 py-2 text-xs rounded-xl">
               <option value="pemasukan">Masuk</option>
               <option value="pengeluaran">Keluar</option>
             </select>
           </div>
           <div>
-            <label class="text-[11px] font-medium text-slate-500 t-slate">Kategori</label>
-            <select id="txCat" class="input mt-1.5 px-3.5 py-2.5 text-sm rounded-xl">
+            <label class="text-[10.5px] font-medium text-slate-500 t-slate">Kategori</label>
+            <select id="txCat" class="input mt-1 px-3 py-2 text-xs rounded-xl">
               <option>Gaji</option><option>Makanan</option><option>Transportasi</option>
               <option>Belanja</option><option>Tagihan</option><option>Internet</option>
               <option>Hiburan</option><option>Kesehatan</option><option>Pendidikan</option><option>Lainnya</option>
@@ -244,40 +241,40 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
           </div>
         </div>
         <div>
-          <label class="text-[11px] font-medium text-slate-500 t-slate">Tanggal</label>
-          <input id="txDate" required type="date" class="input mt-1.5 px-3.5 py-2.5 text-sm rounded-xl">
+          <label class="text-[10.5px] font-medium text-slate-500 t-slate">Tanggal</label>
+          <input id="txDate" required type="date" class="input mt-1 px-3 py-2 text-xs rounded-xl">
         </div>
         <div class="flex gap-2 pt-1">
-          <button id="txSubmit" class="flex-1 text-white py-2.5 rounded-xl text-sm font-medium active:scale-[.98] transition shadow-lg shadow-indigo-500/25"
+          <button id="txSubmit" class="flex-1 text-white py-2 rounded-xl text-xs font-medium active:scale-[.98] transition shadow-md shadow-indigo-500/20"
                   style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">Simpan</button>
           <button type="button" id="txCancel" onclick="cancelTx()"
-                  class="hidden px-4 soft text-sm text-slate-500">Batal</button>
+                  class="hidden px-3 soft text-xs text-slate-500">Batal</button>
         </div>
       </form>
     </div>
 
-    <div class="lg:col-span-2 card p-5">
-      <div class="flex justify-between items-start mb-4">
+    <div class="lg:col-span-2 card p-4">
+      <div class="flex justify-between items-start mb-3.5">
         <div>
-          <h3 class="font-semibold text-[15px]">📋 Riwayat</h3>
-          <p id="resultCount" class="text-[11px] text-slate-400 t-slate mt-0.5">0 transaksi</p>
+          <h3 class="font-semibold text-[14px]">📋 Riwayat</h3>
+          <p id="resultCount" class="text-[10.5px] text-slate-400 t-slate mt-0.5">0 transaksi</p>
         </div>
-        <button onclick="resetAllTx()" class="text-[11px] text-rose-500 hover:underline">Hapus semua</button>
+        <button onclick="resetAllTx()" class="text-[10.5px] text-rose-500 hover:underline">Hapus semua</button>
       </div>
 
-      <div class="relative mb-3">
-        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+      <div class="relative mb-2.5">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
         <input id="search" oninput="renderTx()" placeholder="Cari transaksi..."
-               class="input pl-10 pr-3.5 py-2.5 text-sm rounded-xl">
+               class="input pl-9 pr-3 py-2 text-xs rounded-xl">
       </div>
 
-      <div class="grid grid-cols-2 gap-2 mb-4">
-        <select id="filterType" onchange="renderTx()" class="input px-3 py-2 text-xs rounded-xl">
+      <div class="grid grid-cols-2 gap-2 mb-3.5">
+        <select id="filterType" onchange="renderTx()" class="input px-3 py-1.5 text-xs rounded-xl">
           <option value="semua">Semua Jenis</option>
           <option value="pemasukan">Pemasukan</option>
           <option value="pengeluaran">Pengeluaran</option>
         </select>
-        <select id="filterCat" onchange="renderTx()" class="input px-3 py-2 text-xs rounded-xl">
+        <select id="filterCat" onchange="renderTx()" class="input px-3 py-1.5 text-xs rounded-xl">
           <option value="semua">Semua Kategori</option>
           <option>Gaji</option><option>Makanan</option><option>Transportasi</option>
           <option>Belanja</option><option>Tagihan</option><option>Internet</option>
@@ -285,10 +282,10 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         </select>
       </div>
 
-      <div id="txList" class="space-y-2.5 max-h-[540px] overflow-y-auto hide-scrollbar pr-0.5"></div>
-      <div id="txEmpty" class="hidden text-center py-12 text-slate-400 t-slate">
-        <div class="text-4xl mb-2">📭</div>
-        <p class="text-sm">Belum ada transaksi yang cocok.</p>
+      <div id="txList" class="space-y-2 max-h-[480px] overflow-y-auto hide-scrollbar pr-0.5"></div>
+      <div id="txEmpty" class="hidden text-center py-10 text-slate-400 t-slate">
+        <div class="text-3xl mb-2">📭</div>
+        <p class="text-xs">Belum ada transaksi yang cocok.</p>
       </div>
     </div>
   </div>
@@ -296,27 +293,27 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ TARGET ============ -->
 <section id="target" class="page hidden">
-  <div class="flex justify-between items-center mb-5">
+  <div class="flex justify-between items-center mb-4">
     <div>
-      <h2 class="text-xl font-bold tracking-tight">🎯 Target Tabungan</h2>
-      <p class="text-[11px] text-slate-400 t-slate mt-0.5">Buat tujuan dan pantau progress-nya.</p>
+      <h2 class="text-lg font-bold tracking-tight">🎯 Target Tabungan</h2>
+      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Buat tujuan dan pantau progress-nya.</p>
     </div>
     <button onclick="openTargetForm()"
-            class="text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-500/25 active:scale-95 transition"
+            class="text-white text-xs font-medium px-3.5 py-2 rounded-xl shadow-md shadow-indigo-500/20 active:scale-95 transition"
             style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">+ Target</button>
   </div>
-  <div id="targetList" class="grid md:grid-cols-2 gap-4"></div>
+  <div id="targetList" class="grid sm:grid-cols-2 gap-3.5"></div>
 </section>
 
 <!-- ============ BUDGET ============ -->
 <section id="budget" class="page hidden">
-  <div class="flex justify-between items-center mb-5">
+  <div class="flex justify-between items-center mb-4">
     <div>
-      <h2 class="text-xl font-bold tracking-tight">💳 Budget Bulanan</h2>
-      <p class="text-[11px] text-slate-400 t-slate mt-0.5">Atur batas pengeluaran per kategori.</p>
+      <h2 class="text-lg font-bold tracking-tight">💳 Budget Bulanan</h2>
+      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Atur batas pengeluaran per kategori.</p>
     </div>
     <button onclick="openBudgetForm()"
-            class="text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-500/25 active:scale-95 transition"
+            class="text-white text-xs font-medium px-3.5 py-2 rounded-xl shadow-md shadow-indigo-500/20 active:scale-95 transition"
             style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">+ Budget</button>
   </div>
   <div id="budgetList" class="space-y-3"></div>
@@ -324,13 +321,13 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ TAGIHAN ============ -->
 <section id="bills" class="page hidden">
-  <div class="flex justify-between items-center mb-5">
+  <div class="flex justify-between items-center mb-4">
     <div>
-      <h2 class="text-xl font-bold tracking-tight">🔔 Tagihan</h2>
-      <p class="text-[11px] text-slate-400 t-slate mt-0.5">Catat tagihan &amp; tanggal jatuh tempo.</p>
+      <h2 class="text-lg font-bold tracking-tight">🔔 Tagihan</h2>
+      <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Catat tagihan &amp; tanggal jatuh tempo.</p>
     </div>
     <button onclick="openBillForm()"
-            class="text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-500/25 active:scale-95 transition"
+            class="text-white text-xs font-medium px-3.5 py-2 rounded-xl shadow-md shadow-indigo-500/20 active:scale-95 transition"
             style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">+ Tagihan</button>
   </div>
   <div id="billList" class="space-y-3"></div>
@@ -338,48 +335,48 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ PENGATURAN ============ -->
 <section id="settings" class="page hidden">
-  <div class="mb-5">
-    <h2 class="text-xl font-bold tracking-tight">⚙️ Pengaturan</h2>
-    <p class="text-[11px] text-slate-400 t-slate mt-0.5">Semua data tersimpan lokal di perangkat ini.</p>
+  <div class="mb-4">
+    <h2 class="text-lg font-bold tracking-tight">⚙️ Pengaturan</h2>
+    <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Semua data tersimpan lokal di perangkat ini.</p>
   </div>
 
-  <div class="space-y-4">
-    <div class="card p-5">
-      <div class="flex gap-3">
-        <div class="w-9 h-9 shrink-0 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">💾</div>
+  <div class="space-y-3.5">
+    <div class="card p-4">
+      <div class="flex gap-2.5">
+        <div class="w-8 h-8 shrink-0 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm">💾</div>
         <div>
-          <h3 class="font-semibold text-[15px]">Backup &amp; Restore</h3>
-          <p class="text-[11px] text-slate-400 t-slate mt-0.5">Simpan atau pulihkan seluruh data SakuKita.</p>
+          <h3 class="font-semibold text-[14px]">Backup &amp; Restore</h3>
+          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Simpan atau pulihkan seluruh data SakuKita.</p>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 mt-4">
-        <button onclick="downloadBackup()" class="text-white text-xs font-medium px-4 py-2.5 rounded-xl active:scale-95 transition" style="background:#4f46e5">Download JSON</button>
-        <button onclick="document.getElementById('importFile').click()" class="text-white text-xs font-medium px-4 py-2.5 rounded-xl active:scale-95 transition" style="background:#059669">Restore JSON</button>
-        <button onclick="exportCSV()" class="text-white text-xs font-medium px-4 py-2.5 rounded-xl active:scale-95 transition" style="background:#2563eb">Export CSV</button>
+      <div class="flex flex-wrap gap-2 mt-3.5">
+        <button onclick="downloadBackup()" class="text-white text-xs font-medium px-3 py-2 rounded-xl active:scale-95 transition" style="background:#4f46e5">Download JSON</button>
+        <button onclick="document.getElementById('importFile').click()" class="text-white text-xs font-medium px-3 py-2 rounded-xl active:scale-95 transition" style="background:#059669">Restore JSON</button>
+        <button onclick="exportCSV()" class="text-white text-xs font-medium px-3 py-2 rounded-xl active:scale-95 transition" style="background:#2563eb">Export CSV</button>
       </div>
-      <p id="backupStatus" class="text-[10.5px] text-slate-400 t-slate mt-3"></p>
+      <p id="backupStatus" class="text-[10px] text-slate-400 t-slate mt-2.5"></p>
     </div>
 
-    <div class="card p-5 flex justify-between items-center gap-4">
-      <div class="flex gap-3">
-        <div class="w-9 h-9 shrink-0 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">🔄</div>
+    <div class="card p-4 flex justify-between items-center gap-3">
+      <div class="flex gap-2.5">
+        <div class="w-8 h-8 shrink-0 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm">🔄</div>
         <div>
-          <h3 class="font-semibold text-[15px]">Auto Backup</h3>
-          <p class="text-[11px] text-slate-400 t-slate mt-0.5">Salinan lokal otomatis tiap perubahan.</p>
+          <h3 class="font-semibold text-[14px]">Auto Backup</h3>
+          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Salinan lokal otomatis tiap perubahan.</p>
         </div>
       </div>
-      <button onclick="toggleAutoBackup()" id="autoBtn" class="shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full transition"></button>
+      <button onclick="toggleAutoBackup()" id="autoBtn" class="shrink-0 text-[10.5px] font-semibold px-2.5 py-1 rounded-lg transition"></button>
     </div>
 
-    <div class="card p-5" style="border-color:#fecdd3">
-      <div class="flex gap-3">
-        <div class="w-9 h-9 shrink-0 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">🗑️</div>
+    <div class="card p-4" style="border-color:#fecdd3">
+      <div class="flex gap-2.5">
+        <div class="w-8 h-8 shrink-0 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-sm">🗑️</div>
         <div>
-          <h3 class="font-semibold text-[15px] text-rose-600">Hapus Semua Data</h3>
-          <p class="text-[11px] text-slate-400 t-slate mt-0.5">Transaksi, target, budget, dan tagihan akan hilang permanen.</p>
+          <h3 class="font-semibold text-[14px] text-rose-600">Hapus Semua Data</h3>
+          <p class="text-[10.5px] text-slate-400 t-slate mt-0.5">Transaksi, target, budget, dan tagihan akan hilang permanen.</p>
         </div>
       </div>
-      <button onclick="resetEverything()" class="mt-4 border border-rose-200 text-rose-600 text-xs font-medium px-4 py-2.5 rounded-xl hover:bg-rose-50 transition">Hapus Semua Data</button>
+      <button onclick="resetEverything()" class="mt-3.5 border border-rose-200 text-rose-600 text-xs font-medium px-3 py-2 rounded-xl hover:bg-rose-50 transition">Hapus Semua Data</button>
     </div>
   </div>
 </section>
@@ -387,9 +384,9 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 </main>
 
 <!-- ============ NAV ============ -->
-<nav class="nav fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 backdrop-blur-xl"
+<nav class="nav fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200/80 backdrop-blur-xl"
      style="background:rgba(255,255,255,.92);padding-bottom:env(safe-area-inset-bottom)">
-  <div class="max-w-5xl mx-auto grid grid-cols-5">
+  <div class="max-w-3xl mx-auto grid grid-cols-5">
     <button data-page="dashboard" onclick="showPage('dashboard')" class="nav-btn active">
       <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1H10v-5h4v5h3.5a1 1 0 0 0 1-1V9.5"/></svg>
       <span>Home</span>
@@ -416,17 +413,17 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 <!-- ============ MODAL FORM ============ -->
 <div id="modal" class="fixed inset-0 z-[60] hidden">
   <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-fade" onclick="closeModal()"></div>
-  <div class="absolute inset-x-0 bottom-0 md:inset-0 md:m-auto md:h-fit md:max-w-md animate-sheet">
-    <div class="card !rounded-b-none md:!rounded-3xl p-6 max-h-[88vh] overflow-y-auto hide-scrollbar">
-      <div class="w-10 h-1 rounded-full bg-slate-200 mx-auto mb-5 md:hidden"></div>
-      <div class="flex justify-between items-start mb-5">
+  <div class="absolute inset-x-0 bottom-0 sm:inset-0 sm:m-auto sm:h-fit sm:max-w-sm animate-sheet">
+    <div class="card !rounded-b-none sm:!rounded-2xl p-5 max-h-[85vh] overflow-y-auto hide-scrollbar">
+      <div class="w-8 h-1 rounded-full bg-slate-200 mx-auto mb-4 sm:hidden"></div>
+      <div class="flex justify-between items-start mb-4">
         <div>
-          <h3 id="modalTitle" class="text-lg font-bold tracking-tight"></h3>
-          <p id="modalDesc" class="text-[11px] text-slate-400 t-slate mt-0.5"></p>
+          <h3 id="modalTitle" class="text-base font-bold tracking-tight"></h3>
+          <p id="modalDesc" class="text-[10.5px] text-slate-400 t-slate mt-0.5"></p>
         </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-full soft flex items-center justify-center text-slate-400 text-sm">✕</button>
+        <button onclick="closeModal()" class="w-7 h-7 rounded-full soft flex items-center justify-center text-slate-400 text-xs">✕</button>
       </div>
-      <form id="modalForm" class="space-y-3.5"></form>
+      <form id="modalForm" class="space-y-3"></form>
     </div>
   </div>
 </div>
@@ -434,14 +431,14 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 <!-- ============ CONFIRM ============ -->
 <div id="confirmModal" class="fixed inset-0 z-[70] hidden">
   <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-fade" onclick="closeConfirm()"></div>
-  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 md:inset-x-0 md:mx-auto md:max-w-sm animate-up">
-    <div class="card p-6">
-      <div class="w-11 h-11 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg mb-4">⚠️</div>
-      <h3 id="confirmTitle" class="font-bold text-[15px]"></h3>
-      <p id="confirmText" class="text-[12.5px] text-slate-500 t-slate mt-1.5 leading-relaxed"></p>
-      <div class="flex gap-2 mt-5">
-        <button onclick="closeConfirm()" class="flex-1 soft py-2.5 text-sm text-slate-600 font-medium">Batal</button>
-        <button id="confirmOk" class="flex-1 bg-rose-600 text-white py-2.5 rounded-xl text-sm font-medium active:scale-[.98] transition">Hapus</button>
+  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-0 sm:mx-auto sm:max-w-xs animate-up">
+    <div class="card p-5">
+      <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-base mb-3">⚠️</div>
+      <h3 id="confirmTitle" class="font-bold text-[14px]"></h3>
+      <p id="confirmText" class="text-[12px] text-slate-500 t-slate mt-1 leading-relaxed"></p>
+      <div class="flex gap-2 mt-4">
+        <button onclick="closeConfirm()" class="flex-1 soft py-2 text-xs text-slate-600 font-medium">Batal</button>
+        <button id="confirmOk" class="flex-1 bg-rose-600 text-white py-2 rounded-xl text-xs font-medium active:scale-[.98] transition">Hapus</button>
       </div>
     </div>
   </div>
@@ -449,7 +446,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 
 <!-- ============ TOAST ============ -->
 <div id="toastWrap" class="fixed left-0 right-0 z-[80] flex flex-col items-center gap-2 pointer-events-none"
-     style="bottom:calc(74px + env(safe-area-inset-bottom))"></div>
+     style="bottom:calc(64px + env(safe-area-inset-bottom))"></div>
 
 <input id="importFile" type="file" accept=".json" class="hidden" onchange="importBackup(event)">
 
@@ -483,11 +480,11 @@ function toast(msg,type='ok'){
   const colors={ok:'#059669',err:'#e11d48',info:'#4f46e5'};
   const icons={ok:'✓',err:'!',info:'i'};
   const el=document.createElement('div');
-  el.className='animate-up pointer-events-auto flex items-center gap-2.5 pl-2.5 pr-4 py-2.5 rounded-2xl text-white text-[12.5px] font-medium shadow-xl';
+  el.className='animate-up pointer-events-auto flex items-center gap-2 pl-2.5 pr-3.5 py-2 rounded-xl text-white text-[12px] font-medium shadow-lg';
   el.style.background=colors[type]||colors.ok;
-  el.innerHTML=`<span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-[11px]">${icons[type]||'✓'}</span>${esc(msg)}`;
+  el.innerHTML=`<span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">${icons[type]||'✓'}</span>${esc(msg)}`;
   $('toastWrap').appendChild(el);
-  setTimeout(()=>{el.style.transition='.3s';el.style.opacity='0';el.style.transform='translateY(8px)';setTimeout(()=>el.remove(),300)},2400);
+  setTimeout(()=>{el.style.transition='.3s';el.style.opacity='0';el.style.transform='translateY(6px)';setTimeout(()=>el.remove(),300)},2200);
 }
 
 /* ================= NAVIGATION ================= */
@@ -505,7 +502,7 @@ function openModal({title,desc='',fields,submitText='Simpan',onSubmit}){
   $('modalTitle').textContent=title;
   $('modalDesc').textContent=desc;
   $('modalForm').innerHTML=fields.map(f=>{
-    const base='input mt-1.5 px-3.5 py-2.5 text-sm rounded-xl'+(f.type==='number'?' num':'');
+    const base='input mt-1 px-3 py-2 text-xs rounded-xl'+(f.type==='number'?' num':'');
     let ctrl;
     if(f.type==='select'){
       ctrl=`<select id="mf_${f.id}" class="${base}">${f.options.map(o=>{
@@ -518,11 +515,11 @@ function openModal({title,desc='',fields,submitText='Simpan',onSubmit}){
         ${f.min!=null?`min="${f.min}"`:''} ${f.step?`step="${f.step}"`:''}
         ${f.type==='number'?'inputmode="decimal"':''} ${f.required!==false?'required':''}>`;
     }
-    return `<div><label class="text-[11px] font-medium text-slate-500 t-slate">${esc(f.label)}</label>${ctrl}</div>`;
+    return `<div><label class="text-[10.5px] font-medium text-slate-500 t-slate">${esc(f.label)}</label>${ctrl}</div>`;
   }).join('')+
-  `<div class="flex gap-2 pt-2">
-     <button type="button" onclick="closeModal()" class="flex-1 soft py-2.5 text-sm text-slate-600 font-medium">Batal</button>
-     <button type="submit" class="flex-1 text-white py-2.5 rounded-xl text-sm font-medium active:scale-[.98] transition shadow-lg shadow-indigo-500/25"
+  `<div class="flex gap-2 pt-1">
+     <button type="button" onclick="closeModal()" class="flex-1 soft py-2 text-xs text-slate-600 font-medium">Batal</button>
+     <button type="submit" class="flex-1 text-white py-2 rounded-xl text-xs font-medium active:scale-[.98] transition shadow-md shadow-indigo-500/20"
        style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">${esc(submitText)}</button>
    </div>`;
 
@@ -534,7 +531,7 @@ function openModal({title,desc='',fields,submitText='Simpan',onSubmit}){
   };
   $('modal').classList.remove('hidden');
   document.body.style.overflow='hidden';
-  setTimeout(()=>{const first=$('modalForm').querySelector('input,select');first&&first.focus()},120);
+  setTimeout(()=>{const first=$('modalForm').querySelector('input,select');first&&first.focus()},100);
 }
 function closeModal(){
   $('modal').classList.add('hidden');
@@ -583,17 +580,16 @@ function renderChart(){
     return {...d,inc,exp};
   });
   const max=Math.max(1,...vals.flatMap(x=>[x.inc,x.exp]));
-  const isDark=document.documentElement.classList.contains('dark');
 
   $('chart').innerHTML=vals.map(x=>`
-    <div class="flex-1 h-full flex flex-col justify-end items-center gap-0 group">
-      <div class="flex items-end gap-[3px] h-[132px] w-full justify-center">
-        <div title="Masuk ${rupiah(x.inc)}" class="w-[9px] sm:w-3 rounded-t-[4px] transition-all duration-500"
+    <div class="flex-1 h-full flex flex-col justify-end items-center gap-1 group">
+      <div class="flex items-end gap-[2px] h-[116px] w-full justify-center">
+        <div title="Masuk ${rupiah(x.inc)}" class="w-[7px] sm:w-2.5 rounded-t-[3px] transition-all duration-500"
              style="height:${Math.max(3,x.inc/max*100)}%;background:linear-gradient(180deg,#34d399,#10b981)"></div>
-        <div title="Keluar ${rupiah(x.exp)}" class="w-[9px] sm:w-3 rounded-t-[4px] transition-all duration-500"
+        <div title="Keluar ${rupiah(x.exp)}" class="w-[7px] sm:w-2.5 rounded-t-[3px] transition-all duration-500"
              style="height:${Math.max(3,x.exp/max*100)}%;background:linear-gradient(180deg,#fb7185,#f43f5e)"></div>
       </div>
-      <span class="text-[9px] mt-2 font-medium ${x.key===today()?'text-indigo-500':'text-slate-400'}">${x.label}</span>
+      <span class="text-[9px] font-medium ${x.key===today()?'text-indigo-500':'text-slate-400'}">${x.label}</span>
     </div>`).join('');
 }
 
@@ -601,14 +597,14 @@ function renderMini(){
   const t=[...data.targets].sort((a,b)=>(b.saved/b.goal)-(a.saved/a.goal))[0];
   $('targetMini').innerHTML=t?`
     <div class="flex justify-between items-baseline">
-      <b class="text-[13.5px] text-slate-700 truncate">${esc(t.name)}</b>
-      <span class="num text-[11px] text-indigo-600 font-semibold">${(t.saved/t.goal*100).toFixed(0)}%</span>
+      <b class="text-[12.5px] text-slate-700 truncate">${esc(t.name)}</b>
+      <span class="num text-[10.5px] text-indigo-600 font-semibold">${(t.saved/t.goal*100).toFixed(0)}%</span>
     </div>
-    <div class="track h-2 bg-slate-100 rounded-full overflow-hidden mt-2.5">
+    <div class="track h-1.5 bg-slate-100 rounded-full overflow-hidden mt-2">
       <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,t.saved/t.goal*100)}%;background:linear-gradient(90deg,#4f46e5,#8b5cf6)"></div>
     </div>
-    <p class="num text-[11px] text-slate-400 t-slate mt-2">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>`
-    :'<p class="text-[13px] text-slate-400">Belum ada target. <button onclick="openTargetForm()" class="text-indigo-600 font-medium">Buat sekarang</button></p>';
+    <p class="num text-[10px] text-slate-400 t-slate mt-1.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>`
+    :'<p class="text-[12px] text-slate-400">Belum ada target. <button onclick="openTargetForm()" class="text-indigo-600 font-medium">Buat sekarang</button></p>';
 
   const m=today().slice(0,7);
   const bs=data.budgets.filter(b=>b.month===m);
@@ -616,15 +612,15 @@ function renderMini(){
     const used=data.transactions.filter(t=>t.type==='pengeluaran'&&t.category===b.category&&t.date?.startsWith(m)).reduce((a,x)=>a+ +x.amount,0);
     const p=used/b.amount*100;
     const col=p>=100?'linear-gradient(90deg,#f43f5e,#e11d48)':p>=80?'linear-gradient(90deg,#f59e0b,#f97316)':'linear-gradient(90deg,#4f46e5,#8b5cf6)';
-    return `<div class="mb-3.5 last:mb-0">
-      <div class="flex justify-between text-[11.5px] mb-1.5">
+    return `<div class="mb-3 last:mb-0">
+      <div class="flex justify-between text-[11px] mb-1">
         <span class="font-medium text-slate-600">${esc(b.category)}</span>
         <span class="num text-slate-400 t-slate">${rupiahShort(used)} / ${rupiahShort(b.amount)}</span>
       </div>
-      <div class="track h-2 bg-slate-100 rounded-full overflow-hidden">
+      <div class="track h-1.5 bg-slate-100 rounded-full overflow-hidden">
         <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,p)}%;background:${col}"></div>
       </div></div>`;
-  }).join(''):'<p class="text-[13px] text-slate-400">Belum ada budget. <button onclick="openBudgetForm()" class="text-indigo-600 font-medium">Atur sekarang</button></p>';
+  }).join(''):'<p class="text-[12px] text-slate-400">Belum ada budget. <button onclick="openBudgetForm()" class="text-indigo-600 font-medium">Atur sekarang</button></p>';
 }
 
 function renderInsight(){
@@ -671,20 +667,20 @@ function renderTx(){
 
   $('txList').innerHTML=arr.map(t=>{
     const i=data.transactions.indexOf(t),inc=t.type==='pemasukan';
-    return `<div class="item animate-up flex items-center justify-between gap-2.5 p-3 rounded-2xl border"
+    return `<div class="item animate-up flex items-center justify-between gap-2 p-2.5 rounded-xl border"
       style="background:#f8fafc;border-color:#eef1f6">
-      <div class="flex gap-3 items-center min-w-0">
-        <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-sm font-bold"
+      <div class="flex gap-2.5 items-center min-w-0">
+        <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center text-xs font-bold"
              style="${inc?'background:#d1fae5;color:#059669':'background:#ffe4e6;color:#e11d48'}">${inc?'↓':'↑'}</div>
         <div class="min-w-0">
-          <b class="text-[13px] truncate block text-slate-700">${esc(t.description)}</b>
-          <span class="text-[10px] text-slate-400 t-slate">${formatDate(t.date)} · ${esc(t.category)}</span>
+          <b class="text-[12px] truncate block text-slate-700">${esc(t.description)}</b>
+          <span class="text-[9.5px] text-slate-400 t-slate">${formatDate(t.date)} · ${esc(t.category)}</span>
         </div>
       </div>
       <div class="flex items-center gap-0.5 shrink-0">
-        <b class="num text-[12px] mr-1 ${inc?'text-emerald-600':'text-rose-600'}">${inc?'+':'−'}${rupiah(t.amount)}</b>
-        <button onclick="editTx(${i})" class="w-8 h-8 rounded-lg hover:bg-slate-200/60 flex items-center justify-center text-xs transition">✏️</button>
-        <button onclick="deleteTx(${i})" class="w-8 h-8 rounded-lg hover:bg-rose-100/60 flex items-center justify-center text-xs transition">🗑️</button>
+        <b class="num text-[11.5px] mr-1 ${inc?'text-emerald-600':'text-rose-600'}">${inc?'+':'−'}${rupiah(t.amount)}</b>
+        <button onclick="editTx(${i})" class="w-7 h-7 rounded-md hover:bg-slate-200/60 flex items-center justify-center text-[11px] transition">✏️</button>
+        <button onclick="deleteTx(${i})" class="w-7 h-7 rounded-md hover:bg-rose-100/60 flex items-center justify-center text-[11px] transition">🗑️</button>
       </div>
     </div>`;
   }).join('');
@@ -695,7 +691,7 @@ function editTx(i){
   $('txDesc').value=t.description;$('txAmount').value=t.amount;
   $('txType').value=t.type;$('txCat').value=t.category;$('txDate').value=t.date;
   $('txEdit').value=i;
-  $('txSubmit').textContent='Update Transaksi';
+  $('txSubmit').textContent='Update';
   $('formTitle').textContent='Edit Transaksi';
   $('txCancel').classList.remove('hidden');
   showPage('transactions');
@@ -738,38 +734,38 @@ function openTargetForm(){
 }
 function renderTargets(){
   if(!data.targets.length){
-    $('targetList').innerHTML=`<div class="card p-10 text-center col-span-full">
-      <div class="text-4xl mb-3">🎯</div>
-      <p class="text-sm text-slate-400 t-slate">Belum ada target tabungan.</p>
-      <button onclick="openTargetForm()" class="mt-4 text-white text-xs font-medium px-4 py-2.5 rounded-xl" style="background:#4f46e5">Buat Target Pertama</button>
+    $('targetList').innerHTML=`<div class="card p-8 text-center col-span-full">
+      <div class="text-3xl mb-2">🎯</div>
+      <p class="text-xs text-slate-400 t-slate">Belum ada target tabungan.</p>
+      <button onclick="openTargetForm()" class="mt-3 text-white text-xs font-medium px-3.5 py-2 rounded-xl" style="background:#4f46e5">Buat Target Pertama</button>
     </div>`;
     return;
   }
   $('targetList').innerHTML=data.targets.map((t,i)=>{
     const p=Math.min(100,t.saved/t.goal*100);
     const done=p>=100;
-    return `<div class="card p-5 animate-up">
-      <div class="flex justify-between items-start gap-3">
-        <div class="flex gap-3 min-w-0">
-          <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-base"
+    return `<div class="card p-4 animate-up">
+      <div class="flex justify-between items-start gap-2">
+        <div class="flex gap-2.5 min-w-0">
+          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center text-sm"
                style="${done?'background:#d1fae5;color:#059669':'background:#eef2ff;color:#4f46e5'}">${done?'✅':'🎯'}</div>
           <div class="min-w-0">
-            <h3 class="font-semibold text-[14.5px] truncate text-slate-700">${esc(t.name)}</h3>
-            <p class="num text-[11px] text-slate-400 t-slate mt-0.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>
+            <h3 class="font-semibold text-[13.5px] truncate text-slate-700">${esc(t.name)}</h3>
+            <p class="num text-[10.5px] text-slate-400 t-slate mt-0.5">${rupiah(t.saved)} <span class="text-slate-300">/</span> ${rupiah(t.goal)}</p>
           </div>
         </div>
-        <button onclick="deleteTarget(${i})" class="w-7 h-7 rounded-lg hover:bg-rose-50 flex items-center justify-center text-xs shrink-0">🗑️</button>
+        <button onclick="deleteTarget(${i})" class="w-6 h-6 rounded-md hover:bg-rose-50 flex items-center justify-center text-xs shrink-0">🗑️</button>
       </div>
 
-      <div class="track h-2.5 bg-slate-100 rounded-full overflow-hidden mt-4">
+      <div class="track h-2 bg-slate-100 rounded-full overflow-hidden mt-3.5">
         <div class="h-full rounded-full transition-all duration-500"
              style="width:${p}%;background:${done?'linear-gradient(90deg,#10b981,#34d399)':'linear-gradient(90deg,#4f46e5,#8b5cf6)'}"></div>
       </div>
 
-      <div class="flex justify-between items-center mt-2.5">
-        <span class="num text-[11px] font-semibold ${done?'text-emerald-600':'text-indigo-600'}">${p.toFixed(0)}%</span>
-        ${done?'<span class="text-[11px] text-emerald-600 font-medium">Tercapai! 🎉</span>'
-              :`<button onclick="addTarget(${i})" class="text-[11px] font-medium text-indigo-600 hover:underline">+ Tambah dana</button>`}
+      <div class="flex justify-between items-center mt-2">
+        <span class="num text-[10.5px] font-semibold ${done?'text-emerald-600':'text-indigo-600'}">${p.toFixed(0)}%</span>
+        ${done?'<span class="text-[10px] text-emerald-600 font-medium">Tercapai! 🎉</span>'
+              :`<button onclick="addTarget(${i})" class="text-[10.5px] font-medium text-indigo-600 hover:underline">+ Tambah dana</button>`}
       </div>
     </div>`;
   }).join('');
@@ -802,7 +798,7 @@ function openBudgetForm(){
       {id:'amount',label:'Batas budget (Rp)',type:'number',min:1,placeholder:'0'},
       {id:'month',label:'Bulan',type:'month',value:today().slice(0,7)}
     ],
-    submitText:'Simpan Budget',
+    submitText:'Simpan',
     onSubmit:v=>{
       const amount=+v.amount;
       if(amount<=0){toast('Nominal tidak valid','err');return false}
@@ -815,10 +811,10 @@ function openBudgetForm(){
 }
 function renderBudgets(){
   if(!data.budgets.length){
-    $('budgetList').innerHTML=`<div class="card p-10 text-center">
-      <div class="text-4xl mb-3">💳</div>
-      <p class="text-sm text-slate-400 t-slate">Belum ada budget bulanan.</p>
-      <button onclick="openBudgetForm()" class="mt-4 text-white text-xs font-medium px-4 py-2.5 rounded-xl" style="background:#4f46e5">Atur Budget</button>
+    $('budgetList').innerHTML=`<div class="card p-8 text-center">
+      <div class="text-3xl mb-2">💳</div>
+      <p class="text-xs text-slate-400 t-slate">Belum ada budget bulanan.</p>
+      <button onclick="openBudgetForm()" class="mt-3 text-white text-xs font-medium px-3.5 py-2 rounded-xl" style="background:#4f46e5">Atur Budget</button>
     </div>`;
     return;
   }
@@ -829,24 +825,24 @@ function renderBudgets(){
     const p=used/b.amount*100, left=b.amount-used;
     const over=p>=100, warn=p>=80;
     const col=over?'linear-gradient(90deg,#f43f5e,#e11d48)':warn?'linear-gradient(90deg,#f59e0b,#f97316)':'linear-gradient(90deg,#4f46e5,#8b5cf6)';
-    return `<div class="card p-5 animate-up">
-      <div class="flex justify-between items-start gap-3">
-        <div class="flex gap-3 min-w-0">
-          <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-base"
+    return `<div class="card p-4 animate-up">
+      <div class="flex justify-between items-start gap-2">
+        <div class="flex gap-2.5 min-w-0">
+          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center text-sm"
                style="${over?'background:#ffe4e6;color:#e11d48':warn?'background:#fef3c7;color:#d97706':'background:#eef2ff;color:#4f46e5'}">${over?'⚠️':'💳'}</div>
           <div class="min-w-0">
-            <b class="text-[14.5px] block truncate text-slate-700">${esc(b.category)}</b>
-            <p class="text-[11px] text-slate-400 t-slate mt-0.5">${b.month}</p>
+            <b class="text-[13.5px] block truncate text-slate-700">${esc(b.category)}</b>
+            <p class="text-[10px] text-slate-400 t-slate mt-0.5">${b.month}</p>
           </div>
         </div>
-        <button onclick="deleteBudget(${i})" class="w-7 h-7 rounded-lg hover:bg-rose-50 flex items-center justify-center text-xs shrink-0">🗑️</button>
+        <button onclick="deleteBudget(${i})" class="w-6 h-6 rounded-md hover:bg-rose-50 flex items-center justify-center text-xs shrink-0">🗑️</button>
       </div>
 
-      <div class="track h-2.5 bg-slate-100 rounded-full overflow-hidden mt-4">
+      <div class="track h-2 bg-slate-100 rounded-full overflow-hidden mt-3">
         <div class="h-full rounded-full transition-all duration-500" style="width:${Math.min(100,p)}%;background:${col}"></div>
       </div>
 
-      <div class="flex justify-between items-center mt-2.5 text-[11px]">
+      <div class="flex justify-between items-center mt-2 text-[10.5px]">
         <span class="num text-slate-500 t-slate">${rupiah(used)} <span class="text-slate-300">/</span> ${rupiah(b.amount)}</span>
         <span class="num font-semibold ${over?'text-rose-600':warn?'text-amber-600':'text-emerald-600'}">
           ${over?`Lewat ${rupiah(-left)}`:`Sisa ${rupiah(left)}`}
@@ -870,7 +866,7 @@ function openBillForm(){
       {id:'amount',label:'Nominal (Rp)',type:'number',min:1,placeholder:'0'},
       {id:'due',label:'Jatuh tempo',type:'date',value:today()}
     ],
-    submitText:'Simpan Tagihan',
+    submitText:'Simpan',
     onSubmit:v=>{
       if(!v.name.trim()||+v.amount<=0){toast('Isi data dengan benar','err');return false}
       data.bills.push({id:uid(),name:v.name.trim(),amount:+v.amount,due:v.due,paid:false});
@@ -880,10 +876,10 @@ function openBillForm(){
 }
 function renderBills(){
   if(!data.bills.length){
-    $('billList').innerHTML=`<div class="card p-10 text-center">
-      <div class="text-4xl mb-3">🔔</div>
-      <p class="text-sm text-slate-400 t-slate">Belum ada tagihan tercatat.</p>
-      <button onclick="openBillForm()" class="mt-4 text-white text-xs font-medium px-4 py-2.5 rounded-xl" style="background:#4f46e5">Tambah Tagihan</button>
+    $('billList').innerHTML=`<div class="card p-8 text-center">
+      <div class="text-3xl mb-2">🔔</div>
+      <p class="text-xs text-slate-400 t-slate">Belum ada tagihan tercatat.</p>
+      <button onclick="openBillForm()" class="mt-3 text-white text-xs font-medium px-3.5 py-2 rounded-xl" style="background:#4f46e5">Tambah Tagihan</button>
     </div>`;
     return;
   }
@@ -895,28 +891,28 @@ function renderBills(){
     let status,color,bg;
     if(b.paid){status='Lunas';color='#059669';bg='#d1fae5'}
     else if(days<0){status=`Lewat ${Math.abs(days)} hari`;color='#e11d48';bg='#ffe4e6'}
-    else if(days===0){status='Jatuh tempo hari ini';color='#e11d48';bg='#ffe4e6'}
+    else if(days===0){status='Hari ini';color='#e11d48';bg='#ffe4e6'}
     else if(days<=3){status=`${days} hari lagi`;color='#d97706';bg='#fef3c7'}
     else {status=`${days} hari lagi`;color='#64748b';bg='#f1f5f9'}
 
-    return `<div class="card p-5 animate-up">
-      <div class="flex items-center justify-between gap-3">
-        <div class="flex gap-3 min-w-0">
-          <div class="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-base"
+    return `<div class="card p-4 animate-up">
+      <div class="flex items-center justify-between gap-2.5">
+        <div class="flex gap-2.5 min-w-0">
+          <div class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center text-sm"
                style="background:${b.paid?'#d1fae5':bg};color:${b.paid?'#059669':color}">${b.paid?'✓':'🔔'}</div>
           <div class="min-w-0">
-            <b class="text-[14px] block truncate text-slate-700 ${b.paid?'line-through opacity-50':''}">${esc(b.name)}</b>
-            <p class="num text-[11px] text-slate-400 t-slate mt-0.5">${rupiah(b.amount)} · ${formatDate(b.due)}</p>
-            <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1.5"
+            <b class="text-[13px] block truncate text-slate-700 ${b.paid?'line-through opacity-50':''}">${esc(b.name)}</b>
+            <p class="num text-[10px] text-slate-400 t-slate mt-0.5">${rupiah(b.amount)} · ${formatDate(b.due)}</p>
+            <span class="inline-block text-[9.5px] font-semibold px-2 py-0.5 rounded-full mt-1.5"
                   style="background:${b.paid?'#d1fae5':bg};color:${b.paid?'#059669':color}">${status}</span>
           </div>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <button onclick="toggleBill(${i})" class="text-[11px] font-medium px-3 py-2 rounded-xl transition active:scale-95"
+          <button onclick="toggleBill(${i})" class="text-[10.5px] font-medium px-2.5 py-1.5 rounded-xl transition active:scale-95"
             style="${b.paid?'background:#f1f5f9;color:#64748b':'background:#d1fae5;color:#059669'}">
-            ${b.paid?'Batalkan':'Lunas'}
+            ${b.paid?'Batal':'Lunas'}
           </button>
-          <button onclick="deleteBill(${i})" class="w-8 h-8 rounded-lg hover:bg-rose-50 flex items-center justify-center text-xs transition">🗑️</button>
+          <button onclick="deleteBill(${i})" class="w-7 h-7 rounded-md hover:bg-rose-50 flex items-center justify-center text-xs transition">🗑️</button>
         </div>
       </div>
     </div>`;
