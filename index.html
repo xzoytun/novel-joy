@@ -35,7 +35,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .dark .insight{background:#172554;border-color:#1e3a8a}
 .dark .modal-box{background:#0f172a;border-color:#1e293b}
 
-/* ============ SEMANTIC TEXT COLORS ============ */
 .t-strong{color:#1e293b}
 .dark .t-strong{color:#e2e8f0}
 
@@ -57,6 +56,12 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 }
 .animate-slide{animation:slideUp .22s ease}
 
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+.animate-fade{animation:fadeIn .2s ease}
+
 .nav-active{color:#4f46e5;font-weight:600}
 .nav-active svg{stroke-width:2.4}
 .dark .nav-active{color:#818cf8}
@@ -76,7 +81,6 @@ button{-webkit-tap-highlight-color:transparent}
 
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
-<!-- ============ HEADER ============ -->
 <header class="sticky top-0 z-40 bg-indigo-600 text-white shadow-lg">
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -117,7 +121,6 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white rounded-[28px] p-5 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
-
         <div class="relative flex justify-between items-start">
             <div>
                 <div class="flex items-center gap-1.5 text-indigo-200">
@@ -136,13 +139,11 @@ button{-webkit-tap-highlight-color:transparent}
                 </svg>
             </div>
         </div>
-
         <div class="grid grid-cols-2 gap-3 mt-5 relative">
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
                 <div class="flex items-center gap-1.5 text-indigo-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                        <polyline points="16 7 22 7 22 13"/>
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
                     </svg>
                     <p class="text-[10px] font-medium">Pemasukan</p>
                 </div>
@@ -151,8 +152,7 @@ button{-webkit-tap-highlight-color:transparent}
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
                 <div class="flex items-center gap-1.5 text-indigo-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
-                        <polyline points="16 17 22 17 22 11"/>
+                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>
                     </svg>
                     <p class="text-[10px] font-medium">Pengeluaran</p>
                 </div>
@@ -160,7 +160,6 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
         </div>
     </div>
-
 
     <div class="grid grid-cols-3 gap-3">
         <button onclick="openQuickTransaction('pemasukan')"
@@ -172,7 +171,6 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pemasukan</p>
         </button>
-
         <button onclick="openQuickTransaction('pengeluaran')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-rose-200 transition group">
             <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center group-hover:bg-rose-100 dark:group-hover:bg-rose-500/25 transition">
@@ -182,7 +180,6 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pengeluaran</p>
         </button>
-
         <button onclick="showPage('target')"
             class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group">
             <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/25 transition">
@@ -194,55 +191,42 @@ button{-webkit-tap-highlight-color:transparent}
         </button>
     </div>
 
-
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Hari Ini</p>
                 <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
             </div>
             <p id="transaksi-hari" class="text-lg font-bold mt-2 t-strong">0</p>
             <p class="text-[10px] t-muted">transaksi</p>
         </div>
-
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Bulan Ini</p>
                 <div class="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                 </div>
             </div>
             <p id="transaksi-bulan" class="text-lg font-bold mt-2 t-strong">0</p>
             <p class="text-[10px] t-muted">transaksi</p>
         </div>
-
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Rata-rata</p>
                 <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                 </div>
             </div>
             <p id="rata-rata" class="text-sm font-bold mt-3 t-strong">Rp 0</p>
             <p class="text-[10px] t-muted">pengeluaran</p>
         </div>
-
         <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Terbesar</p>
                 <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
-                        <polyline points="16 17 22 17 22 11"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
                 </div>
             </div>
             <p id="terbesar" class="text-sm font-bold mt-3 t-strong">Rp 0</p>
@@ -250,15 +234,12 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div>
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                     </div>
                     <h3 class="font-semibold text-sm t-strong">Arus Kas</h3>
                 </div>
@@ -277,7 +258,6 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-
     <div class="insight card bg-indigo-50 border border-indigo-100 rounded-2xl p-4 shadow-sm">
         <div class="flex gap-3">
             <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
@@ -295,7 +275,6 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
     </div>
 
-
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-4">
             <div>
@@ -305,9 +284,7 @@ button{-webkit-tap-highlight-color:transparent}
             <button onclick="showPage('transaksi')"
                 class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
                 Lihat Semua
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
         </div>
         <div id="recent-transactions" class="space-y-2"></div>
@@ -321,14 +298,12 @@ button{-webkit-tap-highlight-color:transparent}
             <p class="text-xs">Belum ada transaksi</p>
         </div>
     </div>
-
 </section>
 
 
 <!-- ================= TRANSAKSI ================= -->
 <section id="transaksiSection" class="hidden space-y-5">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-
         <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm h-fit">
             <div class="flex justify-between items-center mb-5">
                 <div>
@@ -336,21 +311,16 @@ button{-webkit-tap-highlight-color:transparent}
                     <p class="text-[10px] t-muted">Catat pemasukan / pengeluaran</p>
                 </div>
                 <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14"/><path d="M12 5v14"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </div>
             </div>
-
             <form id="form-transaksi" class="space-y-4">
                 <input type="hidden" id="edit-index" value="-1">
-
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Keterangan</label>
                     <input id="keterangan" type="text" required maxlength="100" placeholder="Contoh: Gaji, makan..."
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
-
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Nominal</label>
                     <div class="relative">
@@ -359,20 +329,16 @@ button{-webkit-tap-highlight-color:transparent}
                             class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     </div>
                 </div>
-
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Jenis</label>
-                    <select id="tipe"
-                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    <select id="tipe" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         <option value="pemasukan">Pemasukan</option>
                         <option value="pengeluaran">Pengeluaran</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Kategori</label>
-                    <select id="kategori"
-                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    <select id="kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         <option value="Gaji">Gaji</option>
                         <option value="Makanan">Makanan</option>
                         <option value="Minuman">Minuman</option>
@@ -387,13 +353,11 @@ button{-webkit-tap-highlight-color:transparent}
                         <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Tanggal</label>
                     <input id="tanggal" type="date" required
                         class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
-
                 <div class="flex gap-2">
                     <button id="submit-button" type="submit"
                         class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm shadow-indigo-500/20">
@@ -407,7 +371,6 @@ button{-webkit-tap-highlight-color:transparent}
             </form>
         </div>
 
-
         <div class="lg:col-span-2 card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
             <div class="flex justify-between items-start mb-4">
                 <div>
@@ -416,26 +379,20 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
                 <button onclick="resetData()" class="text-[10px] text-rose-500 hover:underline font-medium">Reset</button>
             </div>
-
             <div class="relative mb-3">
                 <span class="absolute left-3 top-2.5 t-muted">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </span>
                 <input id="search" type="text" placeholder="Cari transaksi..." oninput="renderTransactions()"
                     class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <div class="grid grid-cols-2 gap-2 mb-4">
-                <select id="filter-tipe" onchange="renderTransactions()"
-                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-tipe" onchange="renderTransactions()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
                     <option value="semua">Semua Jenis</option>
                     <option value="pemasukan">Pemasukan</option>
                     <option value="pengeluaran">Pengeluaran</option>
                 </select>
-                <select id="filter-kategori" onchange="renderTransactions()"
-                    class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-kategori" onchange="renderTransactions()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
                     <option value="semua">Semua Kategori</option>
                     <option value="Gaji">Gaji</option>
                     <option value="Makanan">Makanan</option>
@@ -451,9 +408,7 @@ button{-webkit-tap-highlight-color:transparent}
                     <option value="Lainnya">Lainnya</option>
                 </select>
             </div>
-
             <div id="list-transaksi" class="space-y-5"></div>
-
             <div id="pesan-kosong" class="hidden text-center py-10">
                 <div class="flex justify-center mb-3 t-faint">
                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -474,9 +429,7 @@ button{-webkit-tap-highlight-color:transparent}
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 </div>
                 <div>
                     <h3 class="font-semibold t-strong">Target Tabungan</h3>
@@ -485,20 +438,14 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <button onclick="openTargetModal()"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"/><path d="M12 5v14"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Target
             </button>
         </div>
-
         <div id="list-target" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-
         <div id="target-kosong" class="hidden text-center py-10">
             <div class="flex justify-center mb-3 t-faint">
-                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <p class="text-sm font-medium t-muted">Belum ada target</p>
         </div>
@@ -512,10 +459,7 @@ button{-webkit-tap-highlight-color:transparent}
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-                        <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
                 </div>
                 <div>
                     <h3 class="font-semibold t-strong">Budget Bulanan</h3>
@@ -530,10 +474,7 @@ button{-webkit-tap-highlight-color:transparent}
         <div id="list-budget" class="space-y-4"></div>
         <div id="budget-kosong" class="text-center py-10 t-muted">
             <div class="flex justify-center mb-3 t-faint">
-                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
             </div>
             <p class="text-sm font-medium">Belum ada budget</p>
         </div>
@@ -547,9 +488,7 @@ button{-webkit-tap-highlight-color:transparent}
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
                 </div>
                 <div>
                     <h3 class="font-semibold t-strong">Tagihan Rutin</h3>
@@ -558,18 +497,14 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <button onclick="openTagihanModal()"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"/><path d="M12 5v14"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Tagihan
             </button>
         </div>
         <div id="list-tagihan" class="space-y-3"></div>
         <div id="tagihan-kosong" class="hidden text-center py-10">
             <div class="flex justify-center mb-3 t-faint">
-                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
             </div>
             <p class="text-sm font-medium t-muted">Belum ada tagihan</p>
         </div>
@@ -593,9 +528,7 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex gap-4">
             <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <div>
                 <h3 class="font-semibold text-sm t-strong">Data Lokal</h3>
@@ -613,18 +546,14 @@ button{-webkit-tap-highlight-color:transparent}
 
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Backup Data</h3>
             <p class="text-xs t-muted mt-0.5">Simpan seluruh data sebagai file JSON.</p>
             <button onclick="downloadBackup()"
                 class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20 flex items-center gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                 Download Backup
             </button>
         </div>
@@ -632,18 +561,14 @@ button{-webkit-tap-highlight-color:transparent}
 
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Restore Data</h3>
             <p class="text-xs t-muted mt-0.5">Pulihkan data dari backup JSON.</p>
             <button onclick="document.getElementById('import-file').click()"
                 class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                 Pilih File
             </button>
         </div>
@@ -651,18 +576,14 @@ button{-webkit-tap-highlight-color:transparent}
 
     <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Export CSV</h3>
             <p class="text-xs t-muted mt-0.5">Cocok untuk Excel atau Google Sheets.</p>
             <button onclick="exportCSV()"
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-blue-500/20 flex items-center gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                 Download CSV
             </button>
         </div>
@@ -670,9 +591,7 @@ button{-webkit-tap-highlight-color:transparent}
 
     <div class="card bg-white border border-rose-100 dark:border-rose-500/20 rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm text-rose-600 dark:text-rose-400">Hapus Semua Data</h3>
@@ -698,13 +617,10 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <h3 class="font-bold text-base t-strong">Buat Target Tabungan</h3>
         </div>
-
         <form id="form-target" onsubmit="saveTarget(event)" class="space-y-3">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nama Target</label>
@@ -722,38 +638,28 @@ button{-webkit-tap-highlight-color:transparent}
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit"
-                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
-                    Simpan Target
-                </button>
-                <button type="button" onclick="closeTargetModal()"
-                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
-                    Batal
-                </button>
+                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Target</button>
+                <button type="button" onclick="closeTargetModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
             </div>
         </form>
     </div>
 </div>
 
 
-<!-- ================= MODAL TAMBAH SALDO TARGET (BARU) ================= -->
+<!-- ================= MODAL TAMBAH SALDO TARGET ================= -->
 <div id="addSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5v14"/><path d="M5 12h14"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
             </div>
             <div>
                 <h3 class="font-bold text-base t-strong">Tambah Saldo Target</h3>
                 <p id="addSaldoSubtitle" class="text-[11px] t-muted mt-0.5">—</p>
             </div>
         </div>
-
         <form id="form-add-saldo" onsubmit="saveAddSaldo(event)" class="space-y-3">
             <input type="hidden" id="add-saldo-index">
-
             <div class="soft rounded-2xl p-3 mb-2">
                 <div class="flex justify-between items-center text-[11px]">
                     <span class="t-muted">Terkumpul saat ini</span>
@@ -764,7 +670,6 @@ button{-webkit-tap-highlight-color:transparent}
                     <span id="add-saldo-remaining" class="font-semibold text-indigo-600 dark:text-indigo-400">Rp 0</span>
                 </div>
             </div>
-
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal yang Ditambahkan</label>
                 <div class="relative">
@@ -773,7 +678,6 @@ button{-webkit-tap-highlight-color:transparent}
                         class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
             </div>
-
             <label class="flex items-start gap-3 p-3 rounded-xl cursor-pointer soft">
                 <input id="add-saldo-as-transaction" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-indigo-600 shrink-0">
                 <div>
@@ -781,16 +685,9 @@ button{-webkit-tap-highlight-color:transparent}
                     <p class="text-[10px] t-muted mt-0.5">Otomatis menambah pengeluaran kategori "Tabungan"</p>
                 </div>
             </label>
-
             <div class="flex gap-2 pt-2">
-                <button type="submit"
-                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
-                    Tambah Saldo
-                </button>
-                <button type="button" onclick="closeAddSaldoModal()"
-                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
-                    Batal
-                </button>
+                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Tambah Saldo</button>
+                <button type="button" onclick="closeAddSaldoModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
             </div>
         </form>
     </div>
@@ -802,18 +699,14 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
             </div>
             <h3 class="font-bold text-base t-strong">Atur Budget</h3>
         </div>
         <form id="form-budget" onsubmit="saveBudget(event)" class="space-y-3">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Kategori</label>
-                <select id="budget-kategori"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <select id="budget-kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     <option value="Makanan">Makanan</option>
                     <option value="Minuman">Minuman</option>
                     <option value="Transportasi">Transportasi</option>
@@ -830,14 +723,8 @@ button{-webkit-tap-highlight-color:transparent}
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit"
-                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
-                    Simpan Budget
-                </button>
-                <button type="button" onclick="closeBudgetModal()"
-                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
-                    Batal
-                </button>
+                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Budget</button>
+                <button type="button" onclick="closeBudgetModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
             </div>
         </form>
     </div>
@@ -849,9 +736,7 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
             </div>
             <h3 class="font-bold text-base t-strong">Tambah Tagihan</h3>
         </div>
@@ -872,14 +757,8 @@ button{-webkit-tap-highlight-color:transparent}
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit"
-                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
-                    Simpan
-                </button>
-                <button type="button" onclick="closeTagihanModal()"
-                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
-                    Batal
-                </button>
+                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan</button>
+                <button type="button" onclick="closeTagihanModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
             </div>
         </form>
     </div>
@@ -894,15 +773,15 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div id="quickIconWrap" class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center"></div>
+                <div id="quickIconWrap" class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center"></div>
                 <div>
                     <h3 id="quickTitle" class="font-bold text-sm t-strong">Tambah Transaksi</h3>
                     <p class="text-[10px] t-muted mt-0.5">Masukkan transaksi dengan cepat</p>
                 </div>
             </div>
             <button onclick="closeQuickModal()"
-                class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base flex items-center justify-center transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100 flex items-center justify-center transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
                 </svg>
             </button>
@@ -913,7 +792,14 @@ button{-webkit-tap-highlight-color:transparent}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Keterangan</label>
                 <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang"
+                    oninput="updateQuickCategoryHint()"
                     class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <div id="quickCategoryHint" class="hidden mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-100 dark:border-indigo-500/20 animate-fade">
+                    <span id="quickCategoryHintIcon" class="text-indigo-600 dark:text-indigo-400"></span>
+                    <span class="text-[10px] font-medium text-indigo-700 dark:text-indigo-300">
+                        Terdeteksi: <span id="quickCategoryHintText" class="font-semibold"></span>
+                    </span>
+                </div>
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
@@ -932,42 +818,26 @@ button{-webkit-tap-highlight-color:transparent}
 <!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom-nav fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
     <div class="max-w-5xl mx-auto grid grid-cols-5 items-end">
-
         <button id="nav-dashboard" onclick="showPage('dashboard')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span class="text-[9px] mt-0.5">Home</span>
         </button>
-
         <button id="nav-transaksi" onclick="showPage('transaksi')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
-                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg>
             <span class="text-[9px] mt-0.5">Transaksi</span>
         </button>
-
         <button onclick="openQuickTransaction('pengeluaran')" class="flex flex-col items-center justify-end">
             <div class="w-14 h-14 -mt-7 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center border-4 border-white dark:border-slate-950 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"/><path d="M12 5v14"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             </div>
             <span class="text-[9px] text-slate-400 dark:text-slate-500 mt-1">Tambah</span>
         </button>
-
         <button id="nav-target" onclick="showPage('target')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             <span class="text-[9px] mt-0.5">Target</span>
         </button>
-
         <button id="nav-settings" onclick="showPage('settings')" class="nav-btn py-2.5 flex flex-col items-center text-slate-400 dark:text-slate-500 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             <span class="text-[9px] mt-0.5">Lainnya</span>
         </button>
     </div>
@@ -1025,6 +895,98 @@ function categoryIcon(category, size = 18) {
         Pendidikan:'book', Tabungan:'piggyBank', Lainnya:'package'
     };
     return icon(map[category] || 'package', size);
+}
+
+
+/* =====================================================
+   AUTO-DETECT KATEGORI DARI KETERANGAN
+   ===================================================== */
+
+const CATEGORY_KEYWORDS = {
+    'Minuman': [
+        'kopi','coffee','teh','minum','minuman','jus','juice','susu','boba','milkshake','smoothie',
+        'matcha','latte','cappuccino','americano','mocha','espresso','soda','coca','cola','sprite',
+        'fanta','pepsi','air mineral','aqua','es teh','es jeruk','lemon tea','milk tea','thai tea',
+        'starbucks','kfc drink','bubble tea','yakult','pocari','mizone','energen','milo','dancow',
+        'beer','wine','anggur','vodka','whiskey','mocktail','cocktail'
+    ],
+    'Makanan': [
+        'makan','makanan','mie','mi','nasi','ayam','bakso','soto','sate','roti','kue','snack','jajan',
+        'sarapan','burger','pizza','indomie','kentang','seblak','batagor','siomay','pecel','gado',
+        'rendang','sushi','ramen','donat','pancake','bubur','nasi goreng','nasi uduk','martabak',
+        'soto ayam','sate ayam','bakmi','kwetiau','bihun','lontong','ketoprak','pempek','nasi padang',
+        'padang','warteg','warung','resto','restoran','cafe makan','lunch','dinner','breakfast'
+    ],
+    'Transportasi': [
+        'bensin','bbm','pertalite','pertamax','solar','taxi','taksi','ojek','grab','gojek','gocar',
+        'goride','bus','kereta','krl','mrt','lrt','motor','mobil','parkir','tol','travel','tiket',
+        'pesawat','kapal','ferry','angkot','bajaj','becak','tambal ban','service motor','service mobil',
+        'cuci mobil','cuci motor','stnk','pajak kendaraan'
+    ],
+    'Belanja': [
+        'beli','belanja','shop','shopping','mall','toko','baju','kaos','kemeja','celana','jaket',
+        'sepatu','sandal','tas','dompet','topi','kacamata','jam tangan','aksesoris','perhiasan',
+        'skincare','makeup','kosmetik','parfum','sabun','shampoo','odol','sikat gigi','handuk',
+        'supermarket','indomaret','alfamart','minimarket','hypermart','transmart'
+    ],
+    'Tagihan': [
+        'listrik','pln','token listrik','pdam','air pdam','sewa','kontrakan','kos','kosan','rent',
+        'iuran','bpjs','pajak','pbb','asuransi','cicilan','kredit','utang'
+    ],
+    'Internet': [
+        'wifi','wifi','kuota','paket data','indihome','telkom','internet','pulsa','telkomsel',
+        'indosat','xl','tri','smartfren','byu','streaming','vpn','hosting','domain'
+    ],
+    'Hiburan': [
+        'game','gaming','bioskop','film','nonton','netflix','spotify','youtube premium','disney',
+        'vidio','viu','konser','konser musik','karaoke','dufan','ancol','liburan','wisata','tiket nonton',
+        'tiket bioskop','steam','psn','top up','topup','gacha','event','pameran'
+    ],
+    'Kesehatan': [
+        'obat','dokter','klinik','rumah sakit','rs','puskesmas','vitamin','suplemen','masker',
+        'hands sanitizer','vaksin','bpjs kesehatan','periksa','medical','lab','apotek','apotik',
+        'gym','fitness','yoga','olahraga','dental','gigi'
+    ],
+    'Pendidikan': [
+        'buku','kursus','sekolah','kuliah','spp','uang kuliah','seminar','workshop','les','tutor',
+        'privat','belajar','online course','udemy','coursera','tryout','ujian','beasiswa','seragam'
+    ],
+    'Tabungan': [
+        'tabungan','nabung','saving','investasi','reksadana','saham','deposito','emas','crypto',
+        'bitcoin','bibit','tanamduit','emas digital','properti','sbn','obligasi'
+    ],
+    'Gaji': [
+        'gaji','salary','upah','wage','honor','bonus','thr','thr','komisi','fee','proyek','project',
+        'freelance','royalty','dividen','bunga','cashback','refund','pengembalian','hasil jual','jualan'
+    ]
+};
+
+function guessCategoryFromText(text) {
+    const t = String(text || '').toLowerCase().trim();
+    if(!t) return null;
+
+    // Cek tiap kategori berdasarkan daftar keyword
+    for(const [cat, words] of Object.entries(CATEGORY_KEYWORDS)) {
+        for(const w of words) {
+            // Match sebagai kata utuh atau substring
+            if(t === w || t.includes(w)) {
+                return cat;
+            }
+        }
+    }
+    return null;
+}
+
+/* Ambil kategori efektif untuk display:
+   - Jika kategori tersimpan valid (bukan "Lainnya"), pakai itu
+   - Jika tidak, coba deteksi dari keterangan
+   - Fallback ke "Lainnya"
+*/
+function getEffectiveCategory(item) {
+    const stored = String(item.kategori || '').trim();
+    if(stored && stored !== 'Lainnya') return stored;
+    const guessed = guessCategoryFromText(item.keterangan);
+    return guessed || stored || 'Lainnya';
 }
 
 
@@ -1124,13 +1086,11 @@ function loadBalanceVisibility(){
 function updateDashboard(){
     let pemasukan = 0;
     let pengeluaran = 0;
-
     transaksiList.forEach(item => {
         const value = Number(item.nominal) || 0;
         if(item.tipe === 'pemasukan') pemasukan += value;
         else pengeluaran += value;
     });
-
     const saldo = pemasukan - pengeluaran;
     document.getElementById('saldo-total').textContent = displayMoney(saldo);
     document.getElementById('total-pemasukan').textContent = displayMoney(pemasukan);
@@ -1148,7 +1108,6 @@ function updateDashboard(){
     const expenses = transaksiList.filter(x => x.tipe === 'pengeluaran');
     const average = expenses.length ? pengeluaran / expenses.length : 0;
     document.getElementById('rata-rata').textContent = displayMoney(average);
-
     const biggest = expenses.reduce((max,item) => Math.max(max, Number(item.nominal)||0), 0);
     document.getElementById('terbesar').textContent = displayMoney(biggest);
 
@@ -1215,6 +1174,7 @@ function renderRecentTransactions(){
 
     recent.forEach(item => {
         const income = item.tipe === 'pemasukan';
+        const displayCat = getEffectiveCategory(item);
         const row = document.createElement('div');
         row.className = 'soft flex items-center justify-between gap-3 p-3 rounded-2xl';
         row.innerHTML = `
@@ -1223,12 +1183,12 @@ function renderRecentTransactions(){
                     income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
                            : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
                 }">
-                    ${categoryIcon(item.kategori, 16)}
+                    ${categoryIcon(displayCat, 16)}
                 </div>
                 <div class="min-w-0">
                     <p class="text-xs font-semibold truncate t-strong">${escapeHTML(item.keterangan)}</p>
                     <p class="text-[10px] t-muted mt-0.5">
-                        ${escapeHTML(item.tanggal)} • ${escapeHTML(item.kategori)}
+                        ${escapeHTML(item.tanggal)} • ${escapeHTML(displayCat)}
                     </p>
                 </div>
             </div>
@@ -1305,13 +1265,13 @@ function renderTransactions(){
     const filterKategori = document.getElementById('filter-kategori').value;
 
     let hasil = transaksiList
-        .map((item,index)=>({...item,_index:index}))
+        .map((item,index)=>({...item,_index:index, _displayCat: getEffectiveCategory(item)}))
         .filter(item => {
             const keterangan = String(item.keterangan || '').toLowerCase();
-            const kategori = String(item.kategori || '').toLowerCase();
+            const kategori = String(item._displayCat || '').toLowerCase();
             const cocokSearch = !search || keterangan.includes(search) || kategori.includes(search);
             const cocokTipe = filterTipe === 'semua' || item.tipe === filterTipe;
-            const cocokKategori = filterKategori === 'semua' || item.kategori === filterKategori;
+            const cocokKategori = filterKategori === 'semua' || item._displayCat === filterKategori;
             return cocokSearch && cocokTipe && cocokKategori;
         })
         .sort((a,b)=> (b.tanggal || '').localeCompare(a.tanggal || ''));
@@ -1351,12 +1311,12 @@ function renderTransactions(){
                         income ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400'
                                : 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
                     }">
-                        ${categoryIcon(item.kategori, 18)}
+                        ${categoryIcon(item._displayCat, 18)}
                     </div>
                     <div class="min-w-0">
                         <h4 class="text-xs font-semibold truncate t-strong">${escapeHTML(item.keterangan)}</h4>
                         <div class="flex items-center gap-2 mt-1">
-                            <span class="text-[10px] t-muted">${escapeHTML(item.kategori)}</span>
+                            <span class="text-[10px] t-muted">${escapeHTML(item._displayCat)}</span>
                         </div>
                     </div>
                 </div>
@@ -1409,12 +1369,35 @@ function openQuickTransaction(type){
     }
     document.getElementById('quickKeterangan').value = '';
     document.getElementById('quickNominal').value = '';
+    updateQuickCategoryHint();
     document.getElementById('quickModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('quickKeterangan').focus(), 100);
 }
 
 function closeQuickModal(){
     document.getElementById('quickModal').classList.add('hidden');
+}
+
+function updateQuickCategoryHint(){
+    const text = document.getElementById('quickKeterangan').value.trim();
+    const hint = document.getElementById('quickCategoryHint');
+    const hintText = document.getElementById('quickCategoryHintText');
+    const hintIcon = document.getElementById('quickCategoryHintIcon');
+
+    if(!text){
+        hint.classList.add('hidden');
+        return;
+    }
+
+    const guessed = guessCategoryFromText(text);
+    if(!guessed){
+        hint.classList.add('hidden');
+        return;
+    }
+
+    hintText.textContent = guessed;
+    hintIcon.innerHTML = categoryIcon(guessed, 14);
+    hint.classList.remove('hidden');
 }
 
 function saveQuickTransaction(e){
@@ -1426,9 +1409,13 @@ function saveQuickTransaction(e){
         alert('Masukkan keterangan dan nominal.');
         return;
     }
+
+    // Auto-detect kategori dari keterangan
+    const guessed = guessCategoryFromText(keterangan) || 'Lainnya';
+
     transaksiList.unshift({
         keterangan, nominal, tipe:type,
-        kategori: 'Lainnya',
+        kategori: guessed,
         tanggal: localDateKey()
     });
     saveData();
@@ -1623,7 +1610,8 @@ function renderBudget(){
     keys.forEach(cat => {
         const limit = Number(budgetList[cat]) || 0;
         const spent = transaksiList
-            .filter(x => x.kategori === cat && x.tipe === 'pengeluaran' && x.tanggal && x.tanggal.startsWith(month))
+            .filter(x => x.tipe === 'pengeluaran' && x.tanggal && x.tanggal.startsWith(month))
+            .filter(x => getEffectiveCategory(x) === cat)
             .reduce((a,b)=>a+Number(b.nominal||0), 0);
 
         const percent = limit > 0 ? Math.round((spent/limit)*100) : 0;
@@ -1738,7 +1726,6 @@ function renderTagihan(){
     tagihanList.forEach((item,idx)=>{
         const due = getNextDueDate(Number(item.tgl));
         const days = daysUntil(due);
-
         let countdown = '';
         let badge = 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/20';
 
@@ -1920,7 +1907,7 @@ function exportCSV(){
             csvEscape(item.tanggal),
             csvEscape(item.keterangan),
             csvEscape(item.tipe),
-            csvEscape(item.kategori),
+            csvEscape(getEffectiveCategory(item)),
             Number(item.nominal)||0
         ].join(',') + '\n';
     });
