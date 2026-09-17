@@ -15,10 +15,8 @@
 html{scroll-behavior:smooth}
 body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 
-/* ============ DARK MODE BASE ============ */
 .dark body{background:#020617;color:#e2e8f0}
 
-/* Card & Soft – dengan DEFAULT + DARK override */
 .card{background:#ffffff;border-color:#f1f5f9}
 .dark .card{background:#0f172a;border-color:#1e293b}
 
@@ -37,7 +35,7 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .dark .insight{background:#172554;border-color:#1e3a8a}
 .dark .modal-box{background:#0f172a;border-color:#1e293b}
 
-/* ============ TEXT COLOR HELPERS ============ */
+/* ============ SEMANTIC TEXT COLORS ============ */
 .t-strong{color:#1e293b}
 .dark .t-strong{color:#e2e8f0}
 
@@ -50,7 +48,6 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .t-faint{color:#94a3b8}
 .dark .t-faint{color:#64748b}
 
-/* ============ UTILITIES ============ */
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
 
@@ -82,7 +79,6 @@ button{-webkit-tap-highlight-color:transparent}
 <!-- ============ HEADER ============ -->
 <header class="sticky top-0 z-40 bg-indigo-600 text-white shadow-lg">
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
-
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -95,7 +91,6 @@ button{-webkit-tap-highlight-color:transparent}
                 <p id="greeting" class="text-[10px] text-indigo-200 mt-1">Kelola keuangan lebih mudah</p>
             </div>
         </div>
-
         <div class="flex items-center gap-2">
             <button onclick="toggleBalance()" id="balanceToggle" title="Sembunyikan saldo"
                 class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
@@ -103,7 +98,6 @@ button{-webkit-tap-highlight-color:transparent}
                     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
                 </svg>
             </button>
-
             <button onclick="toggleDarkMode()" id="darkButton"
                 class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -132,11 +126,9 @@ button{-webkit-tap-highlight-color:transparent}
                     </svg>
                     <p class="text-[10px] font-semibold uppercase tracking-wider">Total Saldo Bersih</p>
                 </div>
-
                 <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight">Rp 0</h2>
                 <p id="saldo-perubahan" class="text-[11px] text-indigo-100 mt-2">Belum ada transaksi</p>
             </div>
-
             <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
@@ -156,7 +148,6 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
                 <p id="total-pemasukan" class="font-bold text-emerald-300 mt-1.5 text-base">Rp 0</p>
             </div>
-
             <div class="bg-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
                 <div class="flex items-center gap-1.5 text-indigo-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -273,25 +264,16 @@ button{-webkit-tap-highlight-color:transparent}
                 </div>
                 <p class="text-[10px] t-muted mt-1.5">Statistik pemasukan & pengeluaran</p>
             </div>
-
             <select id="chartPeriod" onchange="renderChart()"
                 class="input text-[10px] border border-slate-200 rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-indigo-500">
                 <option value="7">7 Hari</option>
                 <option value="30">30 Hari</option>
             </select>
         </div>
-
         <div id="chart" class="flex items-end gap-2 h-44 overflow-x-auto hide-scrollbar"></div>
-
         <div class="flex justify-center gap-5 mt-3 text-[10px] t-muted">
-            <span class="flex items-center gap-1.5">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
-                Pemasukan
-            </span>
-            <span class="flex items-center gap-1.5">
-                <span class="inline-block w-2 h-2 rounded-full bg-rose-400"></span>
-                Pengeluaran
-            </span>
+            <span class="flex items-center gap-1.5"><span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>Pemasukan</span>
+            <span class="flex items-center gap-1.5"><span class="inline-block w-2 h-2 rounded-full bg-rose-400"></span>Pengeluaran</span>
         </div>
     </div>
 
@@ -328,9 +310,7 @@ button{-webkit-tap-highlight-color:transparent}
                 </svg>
             </button>
         </div>
-
         <div id="recent-transactions" class="space-y-2"></div>
-
         <div id="recent-empty" class="text-center py-8 t-faint hidden">
             <div class="flex justify-center mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -403,6 +383,7 @@ button{-webkit-tap-highlight-color:transparent}
                         <option value="Hiburan">Hiburan</option>
                         <option value="Kesehatan">Kesehatan</option>
                         <option value="Pendidikan">Pendidikan</option>
+                        <option value="Tabungan">Tabungan</option>
                         <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
@@ -453,7 +434,6 @@ button{-webkit-tap-highlight-color:transparent}
                     <option value="pemasukan">Pemasukan</option>
                     <option value="pengeluaran">Pengeluaran</option>
                 </select>
-
                 <select id="filter-kategori" onchange="renderTransactions()"
                     class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
                     <option value="semua">Semua Kategori</option>
@@ -467,6 +447,7 @@ button{-webkit-tap-highlight-color:transparent}
                     <option value="Hiburan">Hiburan</option>
                     <option value="Kesehatan">Kesehatan</option>
                     <option value="Pendidikan">Pendidikan</option>
+                    <option value="Tabungan">Tabungan</option>
                     <option value="Lainnya">Lainnya</option>
                 </select>
             </div>
@@ -546,9 +527,7 @@ button{-webkit-tap-highlight-color:transparent}
                 Atur Budget
             </button>
         </div>
-
         <div id="list-budget" class="space-y-4"></div>
-
         <div id="budget-kosong" class="text-center py-10 t-muted">
             <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -585,9 +564,7 @@ button{-webkit-tap-highlight-color:transparent}
                 Tagihan
             </button>
         </div>
-
         <div id="list-tagihan" class="space-y-3"></div>
-
         <div id="tagihan-kosong" class="hidden text-center py-10">
             <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -602,7 +579,6 @@ button{-webkit-tap-highlight-color:transparent}
 
 <!-- ================= SETTINGS ================= -->
 <section id="settingsSection" class="hidden space-y-4 max-w-2xl mx-auto">
-
     <div class="mb-5">
         <h2 class="text-xl font-bold flex items-center gap-2 t-strong">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600 dark:text-indigo-400">
@@ -712,7 +688,6 @@ button{-webkit-tap-highlight-color:transparent}
         <p class="text-[10px] t-muted font-medium">SakuKita V4</p>
         <p class="text-[10px] t-faint mt-1">Personal Finance • Local Storage</p>
     </div>
-
 </section>
 
 </main>
@@ -761,6 +736,67 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 
+<!-- ================= MODAL TAMBAH SALDO TARGET (BARU) ================= -->
+<div id="addSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+        <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14"/><path d="M5 12h14"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-base t-strong">Tambah Saldo Target</h3>
+                <p id="addSaldoSubtitle" class="text-[11px] t-muted mt-0.5">—</p>
+            </div>
+        </div>
+
+        <form id="form-add-saldo" onsubmit="saveAddSaldo(event)" class="space-y-3">
+            <input type="hidden" id="add-saldo-index">
+
+            <div class="soft rounded-2xl p-3 mb-2">
+                <div class="flex justify-between items-center text-[11px]">
+                    <span class="t-muted">Terkumpul saat ini</span>
+                    <span id="add-saldo-current" class="font-semibold t-strong">Rp 0</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px] mt-1">
+                    <span class="t-muted">Sisa menuju target</span>
+                    <span id="add-saldo-remaining" class="font-semibold text-indigo-600 dark:text-indigo-400">Rp 0</span>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nominal yang Ditambahkan</label>
+                <div class="relative">
+                    <span class="absolute left-3 top-3 text-sm t-muted font-medium">Rp</span>
+                    <input id="add-saldo-amount" type="number" min="1" required placeholder="50000"
+                        class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                </div>
+            </div>
+
+            <label class="flex items-start gap-3 p-3 rounded-xl cursor-pointer soft">
+                <input id="add-saldo-as-transaction" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-indigo-600 shrink-0">
+                <div>
+                    <p class="text-xs font-medium t-strong">Catat sebagai transaksi</p>
+                    <p class="text-[10px] t-muted mt-0.5">Otomatis menambah pengeluaran kategori "Tabungan"</p>
+                </div>
+            </label>
+
+            <div class="flex gap-2 pt-2">
+                <button type="submit"
+                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">
+                    Tambah Saldo
+                </button>
+                <button type="button" onclick="closeAddSaldoModal()"
+                    class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <!-- ================= MODAL BUDGET ================= -->
 <div id="budgetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
@@ -773,7 +809,6 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <h3 class="font-bold text-base t-strong">Atur Budget</h3>
         </div>
-
         <form id="form-budget" onsubmit="saveBudget(event)" class="space-y-3">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Kategori</label>
@@ -786,6 +821,7 @@ button{-webkit-tap-highlight-color:transparent}
                     <option value="Tagihan">Tagihan</option>
                     <option value="Internet">Internet</option>
                     <option value="Hiburan">Hiburan</option>
+                    <option value="Tabungan">Tabungan</option>
                 </select>
             </div>
             <div>
@@ -819,7 +855,6 @@ button{-webkit-tap-highlight-color:transparent}
             </div>
             <h3 class="font-bold text-base t-strong">Tambah Tagihan</h3>
         </div>
-
         <form id="form-tagihan" onsubmit="saveTagihan(event)" class="space-y-3">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nama Tagihan</label>
@@ -875,7 +910,6 @@ button{-webkit-tap-highlight-color:transparent}
 
         <form id="quickForm" onsubmit="saveQuickTransaction(event)" class="space-y-4">
             <input type="hidden" id="quickType">
-
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Keterangan</label>
                 <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang"
@@ -886,7 +920,6 @@ button{-webkit-tap-highlight-color:transparent}
                 <input id="quickNominal" type="number" min="1" required placeholder="50000"
                     class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
-
             <button type="submit"
                 class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-indigo-500/25">
                 Simpan Transaksi
@@ -916,7 +949,7 @@ button{-webkit-tap-highlight-color:transparent}
         </button>
 
         <button onclick="openQuickTransaction('pengeluaran')" class="flex flex-col items-center justify-end">
-            <div class="w-14 h-14 -mt-7 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center border-4 border-slate-50 dark:border-slate-950 transition">
+            <div class="w-14 h-14 -mt-7 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center border-4 border-white dark:border-slate-950 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12h14"/><path d="M12 5v14"/>
                 </svg>
@@ -937,7 +970,6 @@ button{-webkit-tap-highlight-color:transparent}
             </svg>
             <span class="text-[9px] mt-0.5">Lainnya</span>
         </button>
-
     </div>
 </nav>
 
@@ -959,6 +991,7 @@ const ICON_PATHS = {
     home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
     receipt: '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>',
     plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+    minus: '<path d="M5 12h14"/>',
     menu: '<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>',
     briefcase: '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
     utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
@@ -971,6 +1004,7 @@ const ICON_PATHS = {
     heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
     book: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
     package: '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+    piggyBank: '<path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2h0V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/>',
     pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
     trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
     bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
@@ -988,7 +1022,7 @@ function categoryIcon(category, size = 18) {
     const map = {
         Gaji:'briefcase', Makanan:'utensils', Minuman:'coffee', Transportasi:'car', Belanja:'shoppingBag',
         Tagihan:'fileText', Internet:'globe', Hiburan:'gamepad', Kesehatan:'heart',
-        Pendidikan:'book', Lainnya:'package'
+        Pendidikan:'book', Tabungan:'piggyBank', Lainnya:'package'
     };
     return icon(map[category] || 'package', size);
 }
@@ -1098,7 +1132,6 @@ function updateDashboard(){
     });
 
     const saldo = pemasukan - pengeluaran;
-
     document.getElementById('saldo-total').textContent = displayMoney(saldo);
     document.getElementById('total-pemasukan').textContent = displayMoney(pemasukan);
     document.getElementById('total-pengeluaran').textContent = displayMoney(pengeluaran);
@@ -1137,7 +1170,6 @@ function updateDashboard(){
 /* ================= INSIGHT ================= */
 function updateInsight(income, expense){
     const el = document.getElementById('insight-text');
-
     if(!transaksiList.length){
         el.textContent = 'Belum ada data. Mulai catat transaksi pertama kamu untuk mendapatkan insight keuangan.';
         return;
@@ -1212,7 +1244,6 @@ function renderRecentTransactions(){
 /* ================= TRANSACTIONS ================= */
 form.addEventListener('submit', function(e){
     e.preventDefault();
-
     const data = {
         keterangan: keteranganInput.value.trim(),
         nominal: Number(nominalInput.value),
@@ -1220,19 +1251,16 @@ form.addEventListener('submit', function(e){
         kategori: kategoriInput.value,
         tanggal: tanggalInput.value
     };
-
     if(!data.keterangan || !data.nominal || data.nominal < 1 || !data.tanggal){
         alert('Lengkapi data transaksi.');
         return;
     }
-
     const editIndex = Number(document.getElementById('edit-index').value);
     if(editIndex >= 0){
         transaksiList[editIndex] = data;
     }else{
         transaksiList.unshift(data);
     }
-
     saveData();
     updateAll();
     form.reset();
@@ -1243,17 +1271,14 @@ form.addEventListener('submit', function(e){
 function editTransaksi(index){
     const item = transaksiList[index];
     if(!item) return;
-
     keteranganInput.value = item.keterangan;
     nominalInput.value = item.nominal;
     tipeInput.value = item.tipe;
     kategoriInput.value = item.kategori;
     tanggalInput.value = item.tanggal;
-
     document.getElementById('edit-index').value = index;
     document.getElementById('submit-button').textContent = 'Update';
     document.getElementById('cancel-edit').classList.remove('hidden');
-
     showPage('transaksi');
 }
 
@@ -1362,10 +1387,8 @@ function formatDateTitle(date){
     const yesterdayDate = new Date();
     yesterdayDate.setDate(yesterdayDate.getDate()-1);
     const yesterday = localDateKey(yesterdayDate);
-
     if(date === today) return 'Hari Ini';
     if(date === yesterday) return 'Kemarin';
-
     const d = new Date(date + 'T12:00:00');
     return d.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
 }
@@ -1376,7 +1399,6 @@ function openQuickTransaction(type){
     document.getElementById('quickType').value = type;
     document.getElementById('quickTitle').textContent =
         type === 'pemasukan' ? 'Tambah Pemasukan' : 'Tambah Pengeluaran';
-
     const iconWrap = document.getElementById('quickIconWrap');
     if(type === 'pemasukan'){
         iconWrap.className = 'w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center';
@@ -1385,7 +1407,6 @@ function openQuickTransaction(type){
         iconWrap.className = 'w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center';
         iconWrap.innerHTML = icon('trendingDown', 20);
     }
-
     document.getElementById('quickKeterangan').value = '';
     document.getElementById('quickNominal').value = '';
     document.getElementById('quickModal').classList.remove('hidden');
@@ -1401,18 +1422,15 @@ function saveQuickTransaction(e){
     const type = document.getElementById('quickType').value;
     const keterangan = document.getElementById('quickKeterangan').value.trim();
     const nominal = Number(document.getElementById('quickNominal').value);
-
     if(!keterangan || nominal < 1){
         alert('Masukkan keterangan dan nominal.');
         return;
     }
-
     transaksiList.unshift({
         keterangan, nominal, tipe:type,
         kategori: 'Lainnya',
         tanggal: localDateKey()
     });
-
     saveData();
     updateAll();
     closeQuickModal();
@@ -1436,23 +1454,24 @@ function renderTarget(){
         const collected = Number(item.terkumpul) || 0;
         const percent = target > 0 ? Math.min(100,Math.round((collected/target)*100)) : 0;
         const remaining = Math.max(0,target-collected);
+        const isDone = collected >= target;
 
         const card = document.createElement('div');
         card.className = 'soft rounded-2xl p-4 animate-slide';
 
         card.innerHTML = `
             <div class="flex justify-between items-start mb-3">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
                         ${icon('target', 18)}
                     </div>
-                    <div>
-                        <h4 class="font-semibold text-sm t-strong">${escapeHTML(item.nama)}</h4>
+                    <div class="min-w-0">
+                        <h4 class="font-semibold text-sm truncate t-strong">${escapeHTML(item.nama)}</h4>
                         <p class="text-[10px] t-muted mt-0.5">${percent}% tercapai</p>
                     </div>
                 </div>
                 <button onclick="hapusTarget(${idx})"
-                    class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
+                    class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
                     ${icon('trash', 13)}
                 </button>
             </div>
@@ -1469,15 +1488,24 @@ function renderTarget(){
             </div>
 
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
-                <div class="progress bg-indigo-600 h-full rounded-full" style="width:${percent}%"></div>
+                <div class="progress bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full" style="width:${percent}%"></div>
             </div>
 
-            <div class="flex justify-between mt-2">
+            <div class="flex justify-between mt-2 mb-3">
                 <p class="text-[10px] t-muted">
-                    ${remaining > 0 ? `Kurang ${displayMoney(remaining)}` : '🎉 Target tercapai!'}
+                    ${isDone ? '🎉 Target tercapai!' : `Kurang ${displayMoney(remaining)}`}
                 </p>
                 <p class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">${percent}%</p>
             </div>
+
+            <button onclick="openAddSaldoModal(${idx})"
+                ${isDone ? 'disabled' : ''}
+                class="w-full ${isDone
+                    ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
+                ${icon('plus', 14)}
+                ${isDone ? 'Target Selesai' : 'Tambah Saldo'}
+            </button>
         `;
         container.appendChild(card);
     });
@@ -1490,18 +1518,15 @@ function saveTarget(e){
     e.preventDefault();
     const nominal = Number(document.getElementById('target-nominal').value);
     const terkumpul = Number(document.getElementById('target-terkumpul').value);
-
     if(nominal <= 0 || terkumpul < 0){
         alert('Nominal target tidak valid.');
         return;
     }
-
     targetList.push({
         nama: document.getElementById('target-nama').value.trim(),
         nominal,
         terkumpul: Math.min(terkumpul,nominal)
     });
-
     saveData();
     renderTarget();
     closeTargetModal();
@@ -1513,6 +1538,70 @@ function hapusTarget(idx){
     targetList.splice(idx,1);
     saveData();
     renderTarget();
+}
+
+
+/* ================= TAMBAH SALDO TARGET ================= */
+function openAddSaldoModal(idx){
+    const item = targetList[idx];
+    if(!item) return;
+
+    const target = Number(item.nominal) || 0;
+    const collected = Number(item.terkumpul) || 0;
+    const remaining = Math.max(0, target - collected);
+
+    document.getElementById('add-saldo-index').value = idx;
+    document.getElementById('addSaldoSubtitle').textContent = item.nama;
+    document.getElementById('add-saldo-current').textContent = formatRupiah(collected);
+    document.getElementById('add-saldo-remaining').textContent = formatRupiah(remaining);
+    document.getElementById('add-saldo-amount').value = '';
+    document.getElementById('add-saldo-amount').max = remaining;
+    document.getElementById('add-saldo-as-transaction').checked = true;
+
+    document.getElementById('addSaldoModal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('add-saldo-amount').focus(), 100);
+}
+
+function closeAddSaldoModal(){
+    document.getElementById('addSaldoModal').classList.add('hidden');
+}
+
+function saveAddSaldo(e){
+    e.preventDefault();
+    const idx = Number(document.getElementById('add-saldo-index').value);
+    const item = targetList[idx];
+    if(!item) return;
+
+    const amount = Number(document.getElementById('add-saldo-amount').value);
+    const asTransaction = document.getElementById('add-saldo-as-transaction').checked;
+    const target = Number(item.nominal) || 0;
+    const collected = Number(item.terkumpul) || 0;
+    const remaining = target - collected;
+
+    if(amount <= 0){
+        alert('Nominal harus lebih dari 0.');
+        return;
+    }
+    if(amount > remaining){
+        alert(`Nominal melebihi sisa target (${formatRupiah(remaining)}).`);
+        return;
+    }
+
+    item.terkumpul = collected + amount;
+
+    if(asTransaction){
+        transaksiList.unshift({
+            keterangan: `Tabungan: ${item.nama}`,
+            nominal: amount,
+            tipe: 'pengeluaran',
+            kategori: 'Tabungan',
+            tanggal: localDateKey()
+        });
+    }
+
+    saveData();
+    updateAll();
+    closeAddSaldoModal();
 }
 
 
@@ -1598,12 +1687,10 @@ function saveBudget(e){
     e.preventDefault();
     const cat = document.getElementById('budget-kategori').value;
     const limit = Number(document.getElementById('budget-limit').value);
-
     if(limit <= 0){
         alert('Budget harus lebih dari 0.');
         return;
     }
-
     budgetList[cat] = limit;
     saveData();
     renderBudget();
@@ -1619,9 +1706,7 @@ function getNextDueDate(day){
     let month = now.getMonth();
     const maxDay = new Date(year, month+1, 0).getDate();
     const safeDay = Math.min(day,maxDay);
-
     let due = new Date(year, month, safeDay);
-
     if(due < new Date(year, month, now.getDate())){
         month++;
         if(month > 11){ month = 0; year++; }
@@ -1683,7 +1768,6 @@ function renderTagihan(){
                     <span class="inline-block mt-2 text-[10px] px-2 py-1 rounded-full font-medium border ${badge}">${countdown}</span>
                 </div>
             </div>
-
             <button onclick="hapusTagihan(${idx})"
                 class="w-8 h-8 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition shrink-0">
                 ${icon('trash', 14)}
@@ -1701,12 +1785,10 @@ function saveTagihan(e){
     const nama = document.getElementById('tagihan-nama').value.trim();
     const nominal = Number(document.getElementById('tagihan-nominal').value);
     const tgl = Number(document.getElementById('tagihan-tgl').value);
-
     if(!nama || nominal <= 0 || tgl < 1 || tgl > 31){
         alert('Data tagihan tidak valid.');
         return;
     }
-
     tagihanList.push({ nama, nominal, tgl });
     saveData();
     renderTagihan();
@@ -1726,17 +1808,14 @@ function hapusTagihan(idx){
 function renderChart(){
     const chart = document.getElementById('chart');
     chart.innerHTML = '';
-
     const daysCount = Number(document.getElementById('chartPeriod').value) || 7;
     const days = [];
-
     for(let i=daysCount-1;i>=0;i--){
         const date = new Date();
         date.setHours(12,0,0,0);
         date.setDate(date.getDate()-i);
         days.push({ date, key: localDateKey(date) });
     }
-
     let max = 1;
     const values = days.map(day => {
         const income = transaksiList
@@ -1752,7 +1831,6 @@ function renderChart(){
     values.forEach(data => {
         const wrapper = document.createElement('div');
         wrapper.className = 'flex-1 min-w-[38px] md:min-w-[42px] flex flex-col items-center justify-end h-full';
-
         const bars = document.createElement('div');
         bars.className = 'flex items-end justify-center gap-1 h-32 w-full';
 
@@ -1772,7 +1850,6 @@ function renderChart(){
         const label = document.createElement('span');
         label.className = 'text-[9px] t-muted mt-2';
         label.textContent = data.day.date.toLocaleDateString('id-ID',{ day:'numeric', month:'short' });
-
         wrapper.appendChild(bars);
         wrapper.appendChild(label);
         chart.appendChild(wrapper);
@@ -1787,7 +1864,6 @@ function downloadBackup(){
         exportedAt: new Date().toISOString(),
         transaksiList, targetList, budgetList, tagihanList
     };
-
     const blob = new Blob([JSON.stringify(backup, null, 2)], { type:'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1804,7 +1880,6 @@ function downloadBackup(){
 function importData(e){
     const file = e.target.files[0];
     if(!file) return;
-
     const reader = new FileReader();
     reader.onload = function(evt){
         try{
@@ -1813,12 +1888,10 @@ function importData(e){
             if(data.transaksiList && !Array.isArray(data.transaksiList)) throw new Error();
             if(data.targetList && !Array.isArray(data.targetList)) throw new Error();
             if(data.tagihanList && !Array.isArray(data.tagihanList)) throw new Error();
-
             transaksiList = data.transaksiList || data.transactions || [];
             targetList = data.targetList || [];
             budgetList = data.budgetList || {};
             tagihanList = data.tagihanList || [];
-
             saveData();
             updateAll();
             alert('✅ Restore data berhasil!');
@@ -1841,7 +1914,6 @@ function exportCSV(){
         alert('Belum ada transaksi.');
         return;
     }
-
     let csv = 'Tanggal,Keterangan,Jenis,Kategori,Nominal\n';
     transaksiList.forEach(item => {
         csv += [
@@ -1852,7 +1924,6 @@ function exportCSV(){
             Number(item.nominal)||0
         ].join(',') + '\n';
     });
-
     const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1868,12 +1939,10 @@ function exportCSV(){
 /* ================= RESET ================= */
 function resetData(){
     if(!confirm('Yakin ingin menghapus SEMUA data SakuKita? Data tidak dapat dikembalikan kecuali kamu punya backup.')) return;
-
     transaksiList = [];
     targetList = [];
     budgetList = {};
     tagihanList = [];
-
     saveData();
     updateAll();
     alert('Semua data berhasil dihapus.');
@@ -1897,23 +1966,17 @@ function loadDarkMode(){
 /* ================= NAVIGATION ================= */
 function showPage(page){
     const pages = ['dashboard','transaksi','target','budget','tagihan','settings'];
-
     pages.forEach(p => {
         document.getElementById(p+'Section').classList.add('hidden');
     });
-
     document.getElementById(page+'Section').classList.remove('hidden');
-
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
-
     const nav = document.getElementById('nav-'+page);
     if(nav) nav.classList.add('nav-active');
-
     if(page === 'budget') renderBudget();
     if(page === 'tagihan') renderTagihan();
     if(page === 'target') renderTarget();
     if(page === 'transaksi') renderTransactions();
-
     window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1938,7 +2001,7 @@ function updateAll(){
 
 
 /* ================= MODAL CLICK OUTSIDE ================= */
-['targetModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
+['targetModal','addSaldoModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
     const modal = document.getElementById(id);
     modal.addEventListener('click', function(e){
         if(e.target === modal) modal.classList.add('hidden');
@@ -1949,7 +2012,7 @@ function updateAll(){
 /* ================= ESC ================= */
 document.addEventListener('keydown', function(e){
     if(e.key !== 'Escape') return;
-    ['targetModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
+    ['targetModal','addSaldoModal','budgetModal','tagihanModal','quickModal'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
     });
 });
