@@ -10,6 +10,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<!-- ⚠️ WAJIB: Paksa Tailwind pakai class-based dark mode -->
+<style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+</style>
+
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -62,6 +67,18 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .t-on-dark-2{color:rgba(255,255,255,0.85)}
 .t-on-dark-3{color:rgba(255,255,255,0.72)}
 .t-on-dark-4{color:rgba(255,255,255,0.55)}
+
+/* ===== TOMBOL BATAL / SEKUNDER (deterministik, tidak bergantung Tailwind) ===== */
+.btn-cancel{
+    background:#f1f5f9;
+    color:#475569;
+    font-weight:500;
+    transition:all .2s ease;
+}
+.btn-cancel:hover{background:#e2e8f0;color:#1e293b}
+.btn-cancel:active{transform:scale(.97)}
+.dark .btn-cancel{background:#1e293b;color:#cbd5e1}
+.dark .btn-cancel:hover{background:#334155;color:#f1f5f9}
 
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
@@ -137,7 +154,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
 
-    <!-- BALANCE CARD -->
     <div class="balance-hero rounded-[28px] p-5 shadow-xl relative overflow-hidden">
         <div class="absolute -right-10 -top-10 w-36 h-36 bg-white/10 rounded-full"></div>
         <div class="absolute -right-2 top-16 w-20 h-20 bg-white/5 rounded-full"></div>
@@ -153,8 +169,6 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <h2 id="saldo-total" class="text-3xl font-extrabold mt-2 tracking-tight t-on-dark-1">Rp 0</h2>
                 <p id="saldo-perubahan" class="text-[11px] t-on-dark-2 mt-2">Belum ada transaksi</p>
             </div>
-
-            <!-- TOMBOL MATA — dipindah dari header ke sini -->
             <button onclick="toggleBalance()" id="balanceToggle" title="Sembunyikan / tampilkan saldo"
                 class="w-12 h-12 rounded-2xl bg-white/15 hover:bg-white/25 backdrop-blur flex items-center justify-center transition shrink-0 t-on-dark-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -384,7 +398,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                         Simpan
                     </button>
                     <button id="cancel-edit" type="button" onclick="cancelEdit()"
-                        class="hidden px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base rounded-xl text-sm transition">
+                        class="hidden btn-cancel px-4 rounded-xl text-sm">
                         Batal
                     </button>
                 </div>
@@ -713,7 +727,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div class="flex gap-2 pt-2">
                 <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Target</button>
-                <button type="button" onclick="closeTargetModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
+                <button type="button" onclick="closeTargetModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -760,7 +774,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </label>
             <div class="flex gap-2 pt-2">
                 <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Tambah Saldo</button>
-                <button type="button" onclick="closeAddSaldoModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
+                <button type="button" onclick="closeAddSaldoModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -796,7 +810,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div class="flex gap-2 pt-2">
                 <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Budget</button>
-                <button type="button" onclick="closeBudgetModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
+                <button type="button" onclick="closeBudgetModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -829,7 +843,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div class="flex gap-2 pt-2">
                 <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan</button>
-                <button type="button" onclick="closeTagihanModal()" class="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 t-base py-2.5 rounded-xl text-xs font-medium transition">Batal</button>
+                <button type="button" onclick="closeTagihanModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
     </div>
@@ -849,7 +863,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <button onclick="closeQuickModal()"
-                class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100 flex items-center justify-center transition">
+                class="btn-cancel w-9 h-9 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
         </div>
