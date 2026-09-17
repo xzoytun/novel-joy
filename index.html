@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#1e40af">
 <meta name="description" content="SakuKita V4 - Aplikasi keuangan pribadi">
 <title>SakuKita V4</title>
 
@@ -27,6 +27,11 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 
 .soft{background:#f8fafc;border:1px solid #f1f5f9}
 .dark .soft{background:#0b1220;border-color:#1e293b}
+
+/* ===== HEADER — biru-800, selaras dengan card biru-900 ===== */
+.header-bg{
+    background:#1e40af;
+}
 
 /* ===== CARD BIRU TUA SOLID (tanpa gradient, tanpa dekorasi) ===== */
 .gradient-primary{
@@ -123,10 +128,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
-<header class="sticky top-0 z-40 bg-indigo-600 text-white shadow-lg">
+<header class="sticky top-0 z-40 header-bg text-white shadow-lg">
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                     <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
@@ -134,12 +139,12 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <h1 class="text-base font-bold tracking-tight leading-none">SakuKita</h1>
-                <p id="greeting" class="text-[10px] text-indigo-200 mt-1">Kelola keuangan lebih mudah</p>
+                <p id="greeting" class="text-[10px] text-blue-200 mt-1">Kelola keuangan lebih mudah</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
             <button onclick="toggleDarkMode()" id="darkButton"
-                class="w-9 h-9 rounded-xl bg-indigo-500 hover:bg-indigo-400 flex items-center justify-center transition">
+                class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
                 </svg>
@@ -154,7 +159,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
 
-    <!-- BALANCE CARD — BIRU TUA SOLID, TANPA DEKORASI -->
+    <!-- BALANCE CARD — BIRU TUA SOLID -->
     <div class="balance-hero rounded-[28px] p-5 shadow-xl">
         <div class="flex justify-between items-start gap-3">
             <div class="flex-1 min-w-0">
@@ -647,7 +652,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <!-- TENTANG DEVELOPER — BIRU TUA SOLID, TANPA DEKORASI -->
+    <!-- TENTANG DEVELOPER — BIRU TUA SOLID -->
     <div class="gradient-primary rounded-2xl p-5 shadow-lg">
         <div class="flex items-center gap-3 mb-3">
             <div class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center t-on-dark-1">
