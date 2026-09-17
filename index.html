@@ -76,6 +76,25 @@ button{-webkit-tap-highlight-color:transparent}
 
 .icon{stroke-width:2;flex-shrink:0}
 .icon-sm{stroke-width:2.2}
+
+/* Sticky date header di dalam list */
+.date-sticky{
+    position:sticky;
+    top:57px;
+    z-index:20;
+    padding:6px 0;
+    background:#ffffff;
+}
+.dark .date-sticky{background:#0f172a}
+.date-sticky-inner{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:4px 0;
+}
+
+/* Safe bottom area */
+main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 </style>
 </head>
 
@@ -113,7 +132,7 @@ button{-webkit-tap-highlight-color:transparent}
 </header>
 
 
-<main class="max-w-5xl mx-auto px-4 py-5 pb-28">
+<main class="max-w-5xl mx-auto px-4 py-5 pb-36">
 
 <!-- ================= DASHBOARD ================= -->
 <section id="dashboardSection" class="space-y-5">
@@ -383,16 +402,16 @@ button{-webkit-tap-highlight-color:transparent}
                 <span class="absolute left-3 top-2.5 t-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </span>
-                <input id="search" type="text" placeholder="Cari transaksi..." oninput="renderTransactions()"
+                <input id="search" type="text" placeholder="Cari transaksi..." oninput="renderTransactions(true)"
                     class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="grid grid-cols-2 gap-2 mb-4">
-                <select id="filter-tipe" onchange="renderTransactions()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-tipe" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
                     <option value="semua">Semua Jenis</option>
                     <option value="pemasukan">Pemasukan</option>
                     <option value="pengeluaran">Pengeluaran</option>
                 </select>
-                <select id="filter-kategori" onchange="renderTransactions()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-kategori" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
                     <option value="semua">Semua Kategori</option>
                     <option value="Gaji">Gaji</option>
                     <option value="Makanan">Makanan</option>
@@ -846,7 +865,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 <script>
 /* =====================================================
-   SAKUKITA V4 — SVG Icon System
+   SAKUKITA V4
    ===================================================== */
 
 const ICON_PATHS = {
@@ -880,7 +899,8 @@ const ICON_PATHS = {
     bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
     calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>',
     clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
-    chart: '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>'
+    chart: '<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/>',
+    chevronDown: '<polyline points="6 9 12 15 18 9"/>'
 };
 
 function icon(name, size = 18) {
@@ -898,90 +918,32 @@ function categoryIcon(category, size = 18) {
 }
 
 
-/* =====================================================
-   AUTO-DETECT KATEGORI DARI KETERANGAN
-   ===================================================== */
-
+/* ============ AUTO-DETECT KATEGORI ============ */
 const CATEGORY_KEYWORDS = {
-    'Minuman': [
-        'kopi','coffee','teh','minum','minuman','jus','juice','susu','boba','milkshake','smoothie',
-        'matcha','latte','cappuccino','americano','mocha','espresso','soda','coca','cola','sprite',
-        'fanta','pepsi','air mineral','aqua','es teh','es jeruk','lemon tea','milk tea','thai tea',
-        'starbucks','kfc drink','bubble tea','yakult','pocari','mizone','energen','milo','dancow',
-        'beer','wine','anggur','vodka','whiskey','mocktail','cocktail'
-    ],
-    'Makanan': [
-        'makan','makanan','mie','mi','nasi','ayam','bakso','soto','sate','roti','kue','snack','jajan',
-        'sarapan','burger','pizza','indomie','kentang','seblak','batagor','siomay','pecel','gado',
-        'rendang','sushi','ramen','donat','pancake','bubur','nasi goreng','nasi uduk','martabak',
-        'soto ayam','sate ayam','bakmi','kwetiau','bihun','lontong','ketoprak','pempek','nasi padang',
-        'padang','warteg','warung','resto','restoran','cafe makan','lunch','dinner','breakfast'
-    ],
-    'Transportasi': [
-        'bensin','bbm','pertalite','pertamax','solar','taxi','taksi','ojek','grab','gojek','gocar',
-        'goride','bus','kereta','krl','mrt','lrt','motor','mobil','parkir','tol','travel','tiket',
-        'pesawat','kapal','ferry','angkot','bajaj','becak','tambal ban','service motor','service mobil',
-        'cuci mobil','cuci motor','stnk','pajak kendaraan'
-    ],
-    'Belanja': [
-        'beli','belanja','shop','shopping','mall','toko','baju','kaos','kemeja','celana','jaket',
-        'sepatu','sandal','tas','dompet','topi','kacamata','jam tangan','aksesoris','perhiasan',
-        'skincare','makeup','kosmetik','parfum','sabun','shampoo','odol','sikat gigi','handuk',
-        'supermarket','indomaret','alfamart','minimarket','hypermart','transmart'
-    ],
-    'Tagihan': [
-        'listrik','pln','token listrik','pdam','air pdam','sewa','kontrakan','kos','kosan','rent',
-        'iuran','bpjs','pajak','pbb','asuransi','cicilan','kredit','utang'
-    ],
-    'Internet': [
-        'wifi','wifi','kuota','paket data','indihome','telkom','internet','pulsa','telkomsel',
-        'indosat','xl','tri','smartfren','byu','streaming','vpn','hosting','domain'
-    ],
-    'Hiburan': [
-        'game','gaming','bioskop','film','nonton','netflix','spotify','youtube premium','disney',
-        'vidio','viu','konser','konser musik','karaoke','dufan','ancol','liburan','wisata','tiket nonton',
-        'tiket bioskop','steam','psn','top up','topup','gacha','event','pameran'
-    ],
-    'Kesehatan': [
-        'obat','dokter','klinik','rumah sakit','rs','puskesmas','vitamin','suplemen','masker',
-        'hands sanitizer','vaksin','bpjs kesehatan','periksa','medical','lab','apotek','apotik',
-        'gym','fitness','yoga','olahraga','dental','gigi'
-    ],
-    'Pendidikan': [
-        'buku','kursus','sekolah','kuliah','spp','uang kuliah','seminar','workshop','les','tutor',
-        'privat','belajar','online course','udemy','coursera','tryout','ujian','beasiswa','seragam'
-    ],
-    'Tabungan': [
-        'tabungan','nabung','saving','investasi','reksadana','saham','deposito','emas','crypto',
-        'bitcoin','bibit','tanamduit','emas digital','properti','sbn','obligasi'
-    ],
-    'Gaji': [
-        'gaji','salary','upah','wage','honor','bonus','thr','thr','komisi','fee','proyek','project',
-        'freelance','royalty','dividen','bunga','cashback','refund','pengembalian','hasil jual','jualan'
-    ]
+    'Minuman': ['kopi','coffee','teh','minum','minuman','jus','juice','susu','boba','milkshake','smoothie','matcha','latte','cappuccino','americano','mocha','espresso','soda','coca','cola','sprite','fanta','pepsi','air mineral','aqua','es teh','es jeruk','lemon tea','milk tea','thai tea','starbucks','bubble tea','yakult','pocari','mizone','energen','milo','dancow','jasjus','jeruk','susu','teh kotak','teh pucuk','teh gelas','kopi susu','es kopi'],
+    'Makanan': ['makan','makanan','mie','mi','nasi','ayam','bakso','soto','sate','roti','kue','snack','jajan','sarapan','burger','pizza','indomie','kentang','seblak','batagor','siomay','pecel','gado','rendang','sushi','ramen','donat','pancake','bubur','nasi goreng','nasi uduk','martabak','soto ayam','sate ayam','bakmi','kwetiau','bihun','lontong','ketoprak','pempek','nasi padang','padang','warteg','warung','resto','restoran','lunch','dinner','breakfast','nyeblak','daging','padang','sate','burger','ayam geprek','ayam goreng'],
+    'Transportasi': ['bensin','bbm','pertalite','pertamax','solar','taxi','taksi','ojek','grab','gojek','gocar','goride','bus','kereta','krl','mrt','lrt','motor','mobil','parkir','tol','travel','tiket','pesawat','kapal','ferry','angkot','bajaj','becak','tambal ban','service motor','service mobil','cuci mobil','cuci motor','stnk','pajak kendaraan','naik mobil','naik motor','naik ojol','naik grab','naik gojek'],
+    'Belanja': ['beli','belanja','shop','shopping','mall','toko','baju','kaos','kemeja','celana','jaket','sepatu','sandal','tas','dompet','topi','kacamata','jam tangan','aksesoris','perhiasan','skincare','makeup','kosmetik','parfum','sabun','shampoo','odol','sikat gigi','handuk','supermarket','indomaret','alfamart','minimarket','hypermart','transmart'],
+    'Tagihan': ['listrik','pln','token listrik','pdam','air pdam','sewa','kontrakan','kos','kosan','rent','iuran','bpjs','pajak','pbb','asuransi','cicilan','kredit','utang'],
+    'Internet': ['wifi','kuota','paket data','indihome','telkom','internet','pulsa','telkomsel','indosat','xl','tri','smartfren','byu','streaming','vpn','hosting','domain'],
+    'Hiburan': ['game','gaming','bioskop','film','nonton','netflix','spotify','youtube premium','disney','vidio','viu','konser','karaoke','dufan','ancol','liburan','wisata','tiket nonton','tiket bioskop','steam','psn','top up','topup','gacha','event','pameran'],
+    'Kesehatan': ['obat','dokter','klinik','rumah sakit','rs','puskesmas','vitamin','suplemen','masker','vaksin','bpjs kesehatan','periksa','medical','lab','apotek','apotik','gym','fitness','yoga','olahraga','dental','gigi'],
+    'Pendidikan': ['buku','kursus','sekolah','kuliah','spp','uang kuliah','seminar','workshop','les','tutor','privat','belajar','online course','udemy','coursera','tryout','ujian','beasiswa','seragam'],
+    'Tabungan': ['tabungan','nabung','saving','investasi','reksadana','saham','deposito','emas','crypto','bitcoin','bibit','tanamduit','emas digital','properti','sbn','obligasi'],
+    'Gaji': ['gaji','gajian','salary','upah','wage','honor','bonus','thr','komisi','fee','proyek','project','freelance','royalty','dividen','bunga','cashback','refund','pengembalian','hasil jual','jualan']
 };
 
 function guessCategoryFromText(text) {
     const t = String(text || '').toLowerCase().trim();
     if(!t) return null;
-
-    // Cek tiap kategori berdasarkan daftar keyword
     for(const [cat, words] of Object.entries(CATEGORY_KEYWORDS)) {
         for(const w of words) {
-            // Match sebagai kata utuh atau substring
-            if(t === w || t.includes(w)) {
-                return cat;
-            }
+            if(t === w || t.includes(w)) return cat;
         }
     }
     return null;
 }
 
-/* Ambil kategori efektif untuk display:
-   - Jika kategori tersimpan valid (bukan "Lainnya"), pakai itu
-   - Jika tidak, coba deteksi dari keterangan
-   - Fallback ke "Lainnya"
-*/
 function getEffectiveCategory(item) {
     const stored = String(item.kategori || '').trim();
     if(stored && stored !== 'Lainnya') return stored;
@@ -1005,6 +967,10 @@ let targetList = readJSON(STORAGE.target, []);
 let budgetList = readJSON(STORAGE.budget, {});
 let tagihanList = readJSON(STORAGE.tagihan, []);
 let hideBalance = localStorage.getItem(STORAGE.hideBalance) === '1';
+
+// Pagination state
+const TX_PAGE_SIZE = 10;
+let txDisplayLimit = TX_PAGE_SIZE;
 
 const form = document.getElementById('form-transaksi');
 const keteranganInput = document.getElementById('keterangan');
@@ -1148,7 +1114,7 @@ function updateInsight(income, expense){
         }else if(savingRate >= 10){
             el.textContent = `👍 Sekitar ${savingRate}% pemasukan bulan ini masih tersisa. Kamu masih punya ruang untuk meningkatkan tabungan.`;
         }else{
-            el.textContent = `💡 Pengeluaran sudah mendekati pemasukan. Coba sisihkan uang untuk tabungan sebelum membelanjakannya.`;
+            el.textContent = `💡 Pengeluaran sudah mendekati pemasukan. Coba sisihkan uang untuk tabungan sebelum membelanjakan.`;
         }
         return;
     }
@@ -1240,6 +1206,8 @@ function editTransaksi(index){
     document.getElementById('submit-button').textContent = 'Update';
     document.getElementById('cancel-edit').classList.remove('hidden');
     showPage('transaksi');
+    // Scroll ke form
+    window.scrollTo({ top:0, behavior:'smooth' });
 }
 
 function cancelEdit(){
@@ -1256,15 +1224,17 @@ function hapusTransaksi(index){
 }
 
 
-/* ================= GROUP TRANSACTIONS ================= */
-function renderTransactions(){
+/* ================= GROUP TRANSACTIONS + PAGINATION ================= */
+function renderTransactions(resetLimit = false){
+    if(resetLimit) txDisplayLimit = TX_PAGE_SIZE;
+
     const container = document.getElementById('list-transaksi');
     const empty = document.getElementById('pesan-kosong');
     const search = document.getElementById('search').value.toLowerCase().trim();
     const filterTipe = document.getElementById('filter-tipe').value;
     const filterKategori = document.getElementById('filter-kategori').value;
 
-    let hasil = transaksiList
+    let filtered = transaksiList
         .map((item,index)=>({...item,_index:index, _displayCat: getEffectiveCategory(item)}))
         .filter(item => {
             const keterangan = String(item.keterangan || '').toLowerCase();
@@ -1276,17 +1246,26 @@ function renderTransactions(){
         })
         .sort((a,b)=> (b.tanggal || '').localeCompare(a.tanggal || ''));
 
-    container.innerHTML = '';
-    document.getElementById('jumlah-hasil').textContent = `${hasil.length} transaksi`;
+    const total = filtered.length;
+    const shown = filtered.slice(0, txDisplayLimit);
+    const hasMore = total > txDisplayLimit;
 
-    if(!hasil.length){
+    container.innerHTML = '';
+    document.getElementById('jumlah-hasil').textContent =
+        total === 0 ? '0 transaksi'
+        : hasMore
+            ? `Menampilkan ${shown.length} dari ${total} transaksi`
+            : `${total} transaksi`;
+
+    if(!total){
         empty.classList.remove('hidden');
         return;
     }
     empty.classList.add('hidden');
 
+    // Group by date
     const groups = {};
-    hasil.forEach(item => {
+    shown.forEach(item => {
         if(!groups[item.tanggal]) groups[item.tanggal] = [];
         groups[item.tanggal].push(item);
     });
@@ -1295,9 +1274,11 @@ function renderTransactions(){
         const section = document.createElement('div');
         const dateTitle = formatDateTitle(date);
         section.innerHTML = `
-            <div class="flex items-center gap-2 mb-2">
-                <span class="text-[10px] font-semibold t-muted uppercase tracking-wider">${dateTitle}</span>
-                <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1"></div>
+            <div class="date-sticky">
+                <div class="date-sticky-inner">
+                    <span class="text-[10px] font-semibold t-muted uppercase tracking-wider">${dateTitle}</span>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1"></div>
+                </div>
             </div>
         `;
 
@@ -1339,6 +1320,26 @@ function renderTransactions(){
 
         container.appendChild(section);
     });
+
+    // Tombol "Muat Lebih Banyak"
+    if(hasMore){
+        const remaining = total - shown.length;
+        const nextBatch = Math.min(TX_PAGE_SIZE, remaining);
+        const loadMore = document.createElement('button');
+        loadMore.className = 'w-full mt-4 py-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 hover:bg-indigo-100 dark:hover:bg-indigo-500/25 text-indigo-600 dark:text-indigo-400 text-xs font-semibold transition flex items-center justify-center gap-2';
+        loadMore.innerHTML = `
+            ${icon('chevronDown', 15)}
+            <span>Muat ${nextBatch} transaksi lagi</span>
+            <span class="text-[10px] font-normal opacity-70">(sisa ${remaining})</span>
+        `;
+        loadMore.onclick = loadMoreTx;
+        container.appendChild(loadMore);
+    }
+}
+
+function loadMoreTx(){
+    txDisplayLimit += TX_PAGE_SIZE;
+    renderTransactions(false);
 }
 
 function formatDateTitle(date){
@@ -1388,13 +1389,11 @@ function updateQuickCategoryHint(){
         hint.classList.add('hidden');
         return;
     }
-
     const guessed = guessCategoryFromText(text);
     if(!guessed){
         hint.classList.add('hidden');
         return;
     }
-
     hintText.textContent = guessed;
     hintIcon.innerHTML = categoryIcon(guessed, 14);
     hint.classList.remove('hidden');
@@ -1409,10 +1408,7 @@ function saveQuickTransaction(e){
         alert('Masukkan keterangan dan nominal.');
         return;
     }
-
-    // Auto-detect kategori dari keterangan
     const guessed = guessCategoryFromText(keterangan) || 'Lainnya';
-
     transaksiList.unshift({
         keterangan, nominal, tipe:type,
         kategori: guessed,
@@ -1532,7 +1528,6 @@ function hapusTarget(idx){
 function openAddSaldoModal(idx){
     const item = targetList[idx];
     if(!item) return;
-
     const target = Number(item.nominal) || 0;
     const collected = Number(item.terkumpul) || 0;
     const remaining = Math.max(0, target - collected);
@@ -1558,21 +1553,14 @@ function saveAddSaldo(e){
     const idx = Number(document.getElementById('add-saldo-index').value);
     const item = targetList[idx];
     if(!item) return;
-
     const amount = Number(document.getElementById('add-saldo-amount').value);
     const asTransaction = document.getElementById('add-saldo-as-transaction').checked;
     const target = Number(item.nominal) || 0;
     const collected = Number(item.terkumpul) || 0;
     const remaining = target - collected;
 
-    if(amount <= 0){
-        alert('Nominal harus lebih dari 0.');
-        return;
-    }
-    if(amount > remaining){
-        alert(`Nominal melebihi sisa target (${formatRupiah(remaining)}).`);
-        return;
-    }
+    if(amount <= 0){ alert('Nominal harus lebih dari 0.'); return; }
+    if(amount > remaining){ alert(`Nominal melebihi sisa target (${formatRupiah(remaining)}).`); return; }
 
     item.terkumpul = collected + amount;
 
@@ -1585,7 +1573,6 @@ function saveAddSaldo(e){
             tanggal: localDateKey()
         });
     }
-
     saveData();
     updateAll();
     closeAddSaldoModal();
@@ -1626,7 +1613,6 @@ function renderBudget(){
             status = 'Hampir Habis';
             statusClass = 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/20';
         }
-
         const remaining = limit-spent;
 
         const card = document.createElement('div');
@@ -1645,18 +1631,15 @@ function renderBudget(){
                 </div>
                 <span class="text-[10px] px-2 py-1 rounded-full font-medium border ${statusClass}">${status}</span>
             </div>
-
             <div class="flex justify-between mt-4 mb-2">
                 <span class="text-xs font-semibold t-strong">${displayMoney(spent)}</span>
                 <span class="text-[10px] t-muted">/ ${displayMoney(limit)}</span>
             </div>
-
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
                 <div class="progress ${
                     percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-indigo-600'
                 } h-full rounded-full" style="width:${width}%"></div>
             </div>
-
             <div class="flex justify-between mt-2">
                 <p class="text-[10px] t-muted">
                     ${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}
@@ -1675,10 +1658,7 @@ function saveBudget(e){
     e.preventDefault();
     const cat = document.getElementById('budget-kategori').value;
     const limit = Number(document.getElementById('budget-limit').value);
-    if(limit <= 0){
-        alert('Budget harus lebih dari 0.');
-        return;
-    }
+    if(limit <= 0){ alert('Budget harus lebih dari 0.'); return; }
     budgetList[cat] = limit;
     saveData();
     renderBudget();
@@ -1716,7 +1696,6 @@ function renderTagihan(){
     const container = document.getElementById('list-tagihan');
     const empty = document.getElementById('tagihan-kosong');
     container.innerHTML = '';
-
     if(!tagihanList.length){
         empty.classList.remove('hidden');
         return;
@@ -1844,7 +1823,7 @@ function renderChart(){
 }
 
 
-/* ================= BACKUP ================= */
+/* ================= BACKUP / IMPORT / CSV / RESET ================= */
 function downloadBackup(){
     const backup = {
         app:'SakuKita', version:4,
@@ -1862,8 +1841,6 @@ function downloadBackup(){
     URL.revokeObjectURL(url);
 }
 
-
-/* ================= IMPORT ================= */
 function importData(e){
     const file = e.target.files[0];
     if(!file) return;
@@ -1872,9 +1849,6 @@ function importData(e){
         try{
             const data = JSON.parse(evt.target.result);
             if(!data || typeof data !== 'object') throw new Error();
-            if(data.transaksiList && !Array.isArray(data.transaksiList)) throw new Error();
-            if(data.targetList && !Array.isArray(data.targetList)) throw new Error();
-            if(data.tagihanList && !Array.isArray(data.tagihanList)) throw new Error();
             transaksiList = data.transaksiList || data.transactions || [];
             targetList = data.targetList || [];
             budgetList = data.budgetList || {};
@@ -1890,17 +1864,12 @@ function importData(e){
     reader.readAsText(file);
 }
 
-
-/* ================= CSV ================= */
 function csvEscape(value){
     return `"${String(value ?? '').replace(/"/g,'""')}"`;
 }
 
 function exportCSV(){
-    if(!transaksiList.length){
-        alert('Belum ada transaksi.');
-        return;
-    }
+    if(!transaksiList.length){ alert('Belum ada transaksi.'); return; }
     let csv = 'Tanggal,Keterangan,Jenis,Kategori,Nominal\n';
     transaksiList.forEach(item => {
         csv += [
@@ -1922,8 +1891,6 @@ function exportCSV(){
     URL.revokeObjectURL(url);
 }
 
-
-/* ================= RESET ================= */
 function resetData(){
     if(!confirm('Yakin ingin menghapus SEMUA data SakuKita? Data tidak dapat dikembalikan kecuali kamu punya backup.')) return;
     transaksiList = [];
@@ -1963,7 +1930,7 @@ function showPage(page){
     if(page === 'budget') renderBudget();
     if(page === 'tagihan') renderTagihan();
     if(page === 'target') renderTarget();
-    if(page === 'transaksi') renderTransactions();
+    if(page === 'transaksi') renderTransactions(false);
     window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1979,7 +1946,7 @@ function updateAll(){
     updateGreeting();
     loadBalanceVisibility();
     updateDashboard();
-    renderTransactions();
+    renderTransactions(false);
     renderChart();
     renderTarget();
     renderBudget();
