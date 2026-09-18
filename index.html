@@ -901,7 +901,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
 
         <p class="text-xs t-base leading-relaxed">
-            <span class="font-semibold t-strong">SakuKita</span> adalah aplikasi keuangan pribadi yang <span class="font-semibold text-indigo-600 dark:text-indigo-400">100% offline</span> dan berjalan sepenuhnya di perangkat kamu. Aplikasi ini dirancang untuk membantu mencatat keuangan, target tabungan, budget bulanan, hingga aktivitas belajar — tanpa perlu registrasi, login, atau koneksi internet.
+            <span class="font-semibold t-strong">SakuKita</span> adalah aplikasi keuangan pribadi berbasis web yang ringan dan cepat. Saat <span class="font-semibold text-indigo-600 dark:text-indigo-400">pertama kali dibuka</span>, aplikasi membutuhkan koneksi internet untuk memuat tampilan & fiturnya. Setelah terbuka, seluruh data otomatis tersimpan di perangkat kamu dan aplikasi bisa digunakan kembali secara offline — tanpa registrasi, login, atau akun.
         </p>
 
         <div class="mt-4 p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/5 border border-emerald-100 dark:border-emerald-500/20">
@@ -948,7 +948,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
-                        <span class="font-semibold">Aman tanpa internet.</span> Karena semua diproses di perangkat, data tetap bisa dibuka kapan saja meski sedang offline.
+                        <span class="font-semibold">Akses pertama butuh internet.</span> Cukup sekali saat membuka. Setelahnya bisa dibuka offline karena semua sudah tersimpan lokal.
                     </p>
                 </div>
             </div>
@@ -1439,6 +1439,59 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 </div>
 
 
+<!-- ================= MODAL KURANGI SALDO (NEW) ================= -->
+<div id="reduceSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+        <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-base t-strong">Kurangi Saldo Target</h3>
+                <p id="reduceSaldoSubtitle" class="text-[11px] t-muted mt-0.5">—</p>
+            </div>
+        </div>
+        <form id="form-reduce-saldo" onsubmit="saveReduceSaldo(event)" class="space-y-3">
+            <input type="hidden" id="reduce-saldo-index">
+            <div class="soft rounded-2xl p-3 mb-2">
+                <div class="flex justify-between items-center text-[11px]">
+                    <span class="t-muted">Saldo terkumpul</span>
+                    <span id="reduce-saldo-current" class="font-semibold t-strong">Rp 0</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px] mt-1">
+                    <span class="t-muted">Setelah dikurangi</span>
+                    <span id="reduce-saldo-after" class="font-semibold text-amber-600 dark:text-amber-400">Rp 0</span>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium mb-1.5 t-base">Nominal yang Dikurangi</label>
+                <div class="relative">
+                    <span class="absolute left-3 top-3 text-sm t-muted font-medium">Rp</span>
+                    <input id="reduce-saldo-amount" type="number" min="1" required placeholder="50000"
+                        oninput="updateReduceSaldoPreview()"
+                        class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 transition">
+                </div>
+                <button type="button" onclick="setReduceAll()"
+                    class="mt-2 text-[10px] font-semibold text-amber-600 dark:text-amber-400 hover:underline">
+                    Kosongkan semua saldo
+                </button>
+            </div>
+            <label class="flex items-start gap-3 p-3 rounded-xl cursor-pointer soft">
+                <input id="reduce-saldo-as-transaction" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-amber-600 shrink-0">
+                <div>
+                    <p class="text-xs font-medium t-strong">Catat sebagai pemasukan</p>
+                    <p class="text-[10px] t-muted mt-0.5">Otomatis menambah pemasukan kategori "Tabungan" (penarikan)</p>
+                </div>
+            </label>
+            <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-amber-500/20">Kurangi Saldo</button>
+                <button type="button" onclick="closeReduceSaldoModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <!-- ================= MODAL BUDGET ================= -->
 <div id="budgetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
@@ -1594,6 +1647,7 @@ const ICON_PATHS = {
     trendingDown: '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
     target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
     plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+    minus: '<path d="M5 12h14"/>',
     briefcase: '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
     utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
     coffee: '<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/>',
@@ -2052,6 +2106,7 @@ function renderTarget() {
         const percent = target > 0 ? Math.min(100, Math.round((collected / target) * 100)) : 0;
         const remaining = Math.max(0, target - collected);
         const isDone = collected >= target;
+        const isEmpty = collected <= 0;
         const card = document.createElement('div');
         card.className = 'soft rounded-2xl p-4 animate-slide';
         card.innerHTML = `
@@ -2086,9 +2141,16 @@ function renderTarget() {
                 <p class="text-[10px] t-muted">${isDone ? '🎉 Target tercapai!' : `Kurang ${displayMoney(remaining)}`}</p>
                 <p class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">${percent}%</p>
             </div>
-            <button onclick="openAddSaldoModal(${idx})" ${isDone ? 'disabled' : ''} class="w-full ${isDone ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                ${icon('plus', 14)} ${isDone ? 'Target Selesai' : 'Tambah Saldo'}
-            </button>`;
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="openAddSaldoModal(${idx})" ${isDone ? 'disabled' : ''}
+                    class="w-full ${isDone ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
+                    ${icon('plus', 13)} Tambah
+                </button>
+                <button onclick="openReduceSaldoModal(${idx})" ${isEmpty ? 'disabled' : ''}
+                    class="w-full ${isEmpty ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-amber-500 hover:bg-amber-600 text-white shadow-sm shadow-amber-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
+                    ${icon('minus', 13)} Kurangi
+                </button>
+            </div>`;
         container.appendChild(card);
     });
 }
@@ -2139,6 +2201,62 @@ function saveAddSaldo(e) {
         transaksiList.unshift({ keterangan: `Tabungan: ${item.nama}`, nominal: amount, tipe: 'pengeluaran', kategori: 'Tabungan', tanggal: localDateKey() });
     }
     saveData(); updateAll(); closeAddSaldoModal();
+}
+
+/* ============ KURANGI SALDO ============ */
+function openReduceSaldoModal(idx) {
+    const item = targetList[idx]; if (!item) return;
+    const collected = Number(item.terkumpul) || 0;
+    if (collected <= 0) {
+        alert('Saldo target masih kosong, tidak ada yang bisa dikurangi.');
+        return;
+    }
+    document.getElementById('reduce-saldo-index').value = idx;
+    document.getElementById('reduceSaldoSubtitle').textContent = item.nama;
+    document.getElementById('reduce-saldo-current').textContent = formatRupiah(collected);
+    document.getElementById('reduce-saldo-after').textContent = formatRupiah(collected);
+    document.getElementById('reduce-saldo-amount').value = '';
+    document.getElementById('reduce-saldo-amount').max = collected;
+    document.getElementById('reduce-saldo-as-transaction').checked = false;
+    document.getElementById('reduceSaldoModal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('reduce-saldo-amount').focus(), 100);
+}
+function closeReduceSaldoModal() { document.getElementById('reduceSaldoModal').classList.add('hidden'); }
+function updateReduceSaldoPreview() {
+    const idx = Number(document.getElementById('reduce-saldo-index').value);
+    const item = targetList[idx]; if (!item) return;
+    const collected = Number(item.terkumpul) || 0;
+    const amount = Number(document.getElementById('reduce-saldo-amount').value) || 0;
+    const after = Math.max(0, collected - amount);
+    document.getElementById('reduce-saldo-after').textContent = formatRupiah(after);
+}
+function setReduceAll() {
+    const idx = Number(document.getElementById('reduce-saldo-index').value);
+    const item = targetList[idx]; if (!item) return;
+    const collected = Number(item.terkumpul) || 0;
+    document.getElementById('reduce-saldo-amount').value = collected;
+    updateReduceSaldoPreview();
+}
+function saveReduceSaldo(e) {
+    e.preventDefault();
+    const idx = Number(document.getElementById('reduce-saldo-index').value);
+    const item = targetList[idx]; if (!item) return;
+    const amount = Number(document.getElementById('reduce-saldo-amount').value);
+    const asTransaction = document.getElementById('reduce-saldo-as-transaction').checked;
+    const collected = Number(item.terkumpul) || 0;
+    if (amount <= 0) { alert('Nominal harus lebih dari 0.'); return; }
+    if (amount > collected) { alert(`Nominal melebihi saldo terkumpul (${formatRupiah(collected)}).`); return; }
+    item.terkumpul = collected - amount;
+    if (asTransaction) {
+        transaksiList.unshift({
+            keterangan: `Penarikan Tabungan: ${item.nama}`,
+            nominal: amount,
+            tipe: 'pemasukan',
+            kategori: 'Tabungan',
+            tanggal: localDateKey()
+        });
+    }
+    saveData(); updateAll(); closeReduceSaldoModal();
 }
 
 function renderBudget() {
@@ -2431,16 +2549,13 @@ function renderDashboardBelajar() {
     const hari = hitungHariBelajarBulanIni();
     const breakdown = hitungBreakdownKategori();
     const streak = hitungStreak();
-
     const elHari = document.getElementById('dash-belajar-hari');
     const elPel = document.getElementById('dash-belajar-pelajaran');
     const elAgm = document.getElementById('dash-belajar-agama');
     const elStreak = document.getElementById('dash-belajar-streak');
-
     if (elHari) elHari.textContent = hari;
     if (elPel) elPel.textContent = breakdown.pelajaran;
     if (elAgm) elAgm.textContent = breakdown.agama;
-
     if (elStreak) {
         if (streak > 0) {
             elStreak.innerHTML = `
@@ -3020,14 +3135,14 @@ function updateAll() {
     renderDashboardBelajar();
 }
 
-['targetModal', 'addSaldoModal', 'budgetModal', 'tagihanModal', 'quickModal', 'catatanModal', 'hafalanModal'].forEach(id => {
+['targetModal', 'addSaldoModal', 'reduceSaldoModal', 'budgetModal', 'tagihanModal', 'quickModal', 'catatanModal', 'hafalanModal'].forEach(id => {
     const modal = document.getElementById(id);
     if (!modal) return;
     modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.add('hidden'); });
 });
 document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
-    ['targetModal', 'addSaldoModal', 'budgetModal', 'tagihanModal', 'quickModal', 'catatanModal', 'hafalanModal'].forEach(id => {
+    ['targetModal', 'addSaldoModal', 'reduceSaldoModal', 'budgetModal', 'tagihanModal', 'quickModal', 'catatanModal', 'hafalanModal'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
     });
