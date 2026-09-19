@@ -3,56 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1e40af">
+<meta name="theme-color" content="#0b3d3a">
 <meta name="description" content="SakuKita V4 - Aplikasi keuangan pribadi">
 <title>SakuKita V4</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
 </style>
 
 <style>
+:root {
+  --brand-900: #0b3d3a;
+  --brand-700: #14625d;
+  --brand-100: #dcefec;
+  --accent: #f2b632;
+  --accent-dark: #8a5d00;
+  --app-bg: #f5f7f6;
+  --line-color: #e2eae8;
+}
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
+body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;background:var(--app-bg);color:#17302e}
 
-.dark body{background:#020617;color:#e2e8f0}
+.dark body{background:#051918;color:#d7e5e3}
 
-.card{background:#ffffff;border-color:#f1f5f9}
-.dark .card{background:#0f172a;border-color:#1e293b}
+.card{background:#ffffff;border-color:var(--line-color)}
+.dark .card{background:#0b2220;border-color:#1a3b37}
 
-.soft{background:#f8fafc;border:1px solid #f1f5f9}
-.dark .soft{background:#0b1220;border-color:#1e293b}
+.soft{background:#f5f7f6;border:1px solid var(--line-color)}
+.dark .soft{background:#071f1d;border-color:#1a3b37}
 
-.header-bg{background:#1e40af}
-.gradient-primary{background:#1e3a8a;color:#ffffff}
+.header-bg{background:var(--brand-900)}
+.gradient-primary{background:var(--brand-900);color:#ffffff}
 .gradient-primary *{color:inherit}
-.balance-hero{background:#1e3a8a;color:#ffffff}
+.balance-hero{background:var(--brand-900);color:#ffffff}
+
+/* ===== Custom brand utilities (exact Bayarin colors) ===== */
+.bg-brand{background-color:var(--brand-700)}
+.bg-brand:hover,.hover\:bg-brand:hover{background-color:#0e4d49}
+.hover\:bg-brand:hover{background-color:#0e4d49}
+.text-brand{color:var(--brand-700)}
+.bg-brand-soft{background-color:var(--brand-100)}
+.text-brand-dark{color:var(--brand-900)}
+
+/* Accent kunyit */
+.bg-accent{background-color:var(--accent)}
+.bg-accent:hover,.hover\:bg-accent:hover{background-color:#e0a519}
+.text-accent{color:var(--accent-dark)}
 
 .dark .input,
 .dark input,
 .dark select,
-.dark textarea{background:#020617;border-color:#334155;color:#e2e8f0}
+.dark textarea{background:#051918;border-color:#1f4944;color:#d7e5e3}
 
 .dark input::placeholder,
-.dark textarea::placeholder{color:#64748b}
+.dark textarea::placeholder{color:#5f7d79}
 
-.dark .bottom-nav{background:#0f172a;border-color:#1e293b}
-.dark .muted{color:#94a3b8}
-.dark .insight{background:#172554;border-color:#1e3a8a}
-.dark .modal-box{background:#0f172a;border-color:#1e293b}
+.dark .bottom-nav{background:#0b2220;border-color:#1a3b37}
+.dark .muted{color:#8fa8a4}
+.dark .insight{background:#0e2f2c;border-color:#14625d}
+.dark .modal-box{background:#0b2220;border-color:#1a3b37}
 
-.t-strong{color:#1e293b}
-.dark .t-strong{color:#e2e8f0}
-.t-base{color:#334155}
-.dark .t-base{color:#cbd5e1}
-.t-muted{color:#64748b}
-.dark .t-muted{color:#94a3b8}
-.t-faint{color:#94a3b8}
-.dark .t-faint{color:#64748b}
+.t-strong{color:#17302e}
+.dark .t-strong{color:#d7e5e3}
+.t-base{color:#2a4744}
+.dark .t-base{color:#b6cfcb}
+.t-muted{color:#64807d}
+.dark .t-muted{color:#8fa8a4}
+.t-faint{color:#8fa8a4}
+.dark .t-faint{color:#5f7d79}
 
 .t-on-dark-1{color:#ffffff}
 .t-on-dark-2{color:rgba(255,255,255,0.85)}
@@ -60,15 +83,15 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 .t-on-dark-4{color:rgba(255,255,255,0.55)}
 
 .btn-cancel{
-    background:#f1f5f9;
-    color:#475569;
+    background:#eef2f1;
+    color:#4c6764;
     font-weight:500;
     transition:all .2s ease;
 }
-.btn-cancel:hover{background:#e2e8f0;color:#1e293b}
+.btn-cancel:hover{background:#dce5e3;color:#17302e}
 .btn-cancel:active{transform:scale(.97)}
-.dark .btn-cancel{background:#1e293b;color:#cbd5e1}
-.dark .btn-cancel:hover{background:#334155;color:#f1f5f9}
+.dark .btn-cancel{background:#123230;color:#b6cfcb}
+.dark .btn-cancel:hover{background:#1a3b37;color:#e6f2ef}
 
 .hide-scrollbar::-webkit-scrollbar{display:none}
 .hide-scrollbar{scrollbar-width:none}
@@ -79,9 +102,9 @@ body{font-family:Poppins,sans-serif;-webkit-font-smoothing:antialiased}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .animate-fade{animation:fadeIn .25s ease}
 
-.nav-active{color:#4f46e5;font-weight:600}
+.nav-active{color:var(--brand-700);font-weight:600}
 .nav-active svg{stroke-width:2.4}
-.dark .nav-active{color:#818cf8}
+.dark .nav-active{color:#5fbfb3}
 
 .progress{transition:width .4s ease}
 
@@ -93,8 +116,8 @@ button{-webkit-tap-highlight-color:transparent}
 .icon{stroke-width:2;flex-shrink:0}
 .icon-sm{stroke-width:2.2}
 
-.date-sticky{position:sticky;top:57px;z-index:20;padding:6px 0;background:#ffffff}
-.dark .date-sticky{background:#0f172a}
+.date-sticky{position:sticky;top:57px;z-index:20;padding:6px 0;background:#f5f7f6}
+.dark .date-sticky{background:#0b2220}
 .date-sticky-inner{display:flex;align-items:center;gap:8px;padding:4px 0}
 
 main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
@@ -118,14 +141,14 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     white-space:nowrap;
     cursor:pointer;
     border:none;
-    color:#64748b;
+    color:#64807d;
     background:transparent;
 }
-.sub-tab:hover{background:#f1f5f9}
-.dark .sub-tab{color:#94a3b8}
-.dark .sub-tab:hover{background:#1e293b}
-.sub-tab.active{background:#4f46e5;color:#fff;box-shadow:0 4px 12px rgba(79,70,229,.3)}
-.dark .sub-tab.active{background:#4f46e5;color:#fff}
+.sub-tab:hover{background:#eef2f1}
+.dark .sub-tab{color:#8fa8a4}
+.dark .sub-tab:hover{background:#123230}
+.sub-tab.active{background:var(--brand-700);color:#fff;box-shadow:0 4px 12px rgba(20,98,93,.3)}
+.dark .sub-tab.active{background:var(--brand-700);color:#fff}
 
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .cal-cell{
@@ -137,15 +160,15 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     justify-content:center;
     font-size:9px;
     font-weight:600;
-    background:#f1f5f9;
-    color:#94a3b8;
+    background:#eef2f1;
+    color:#8fa8a4;
     transition:all .2s ease;
 }
-.dark .cal-cell{background:#1e293b;color:#64748b}
-.cal-cell.learned{background:#d1fae5;color:#047857}
-.dark .cal-cell.learned{background:rgba(16,185,129,.18);color:#34d399}
-.cal-cell.today{background:#4f46e5;color:#fff;box-shadow:0 0 0 2px rgba(79,70,229,.25)}
-.cal-cell.today.learned{background:#10b981;box-shadow:0 0 0 2px rgba(16,185,129,.3)}
+.dark .cal-cell{background:#123230;color:#5f7d79}
+.cal-cell.learned{background:#dcefec;color:#0e4d49}
+.dark .cal-cell.learned{background:rgba(20,98,93,.28);color:#5fbfb3}
+.cal-cell.today{background:var(--brand-700);color:#fff;box-shadow:0 0 0 2px rgba(20,98,93,.3)}
+.cal-cell.today.learned{background:var(--accent);color:#3d2b00;box-shadow:0 0 0 2px rgba(242,182,50,.35)}
 .cal-cell .dot{width:4px;height:4px;border-radius:50%;margin-top:2px;background:currentColor;opacity:.7}
 .cal-cell.empty .dot{display:none}
 
@@ -154,64 +177,64 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     border-radius:12px;
     display:flex;align-items:center;justify-content:center;
     font-size:20px;
-    background:#f1f5f9;
+    background:#eef2f1;
     cursor:pointer;
     transition:all .2s ease;
     border:2px solid transparent;
 }
-.mood-btn:hover{background:#e2e8f0}
-.dark .mood-btn{background:#1e293b}
-.dark .mood-btn:hover{background:#334155}
-.mood-btn.selected{background:#e0e7ff;border-color:#4f46e5;transform:scale(1.05)}
-.dark .mood-btn.selected{background:rgba(79,70,229,.25);border-color:#818cf8}
+.mood-btn:hover{background:#dce5e3}
+.dark .mood-btn{background:#123230}
+.dark .mood-btn:hover{background:#1a3b37}
+.mood-btn.selected{background:var(--brand-100);border-color:var(--brand-700);transform:scale(1.05)}
+.dark .mood-btn.selected{background:rgba(20,98,93,.3);border-color:#5fbfb3}
 
 .status-btn{
     flex:1;
     padding:10px 6px;
     border-radius:12px;
-    border:2px solid #f1f5f9;
-    background:#f8fafc;
+    border:2px solid #e2eae8;
+    background:#f5f7f6;
     cursor:pointer;
     transition:all .2s ease;
     text-align:center;
 }
-.dark .status-btn{background:#0b1220;border-color:#1e293b}
-.status-btn:hover{border-color:#cbd5e1}
-.dark .status-btn:hover{border-color:#334155}
-.status-btn.selected[data-status="lancar"]{background:#ecfdf5;border-color:#10b981}
-.dark .status-btn.selected[data-status="lancar"]{background:rgba(16,185,129,.15);border-color:#10b981}
-.status-btn.selected[data-status="murajaah"]{background:#fffbeb;border-color:#f59e0b}
-.dark .status-btn.selected[data-status="murajaah"]{background:rgba(245,158,11,.15);border-color:#f59e0b}
-.status-btn.selected[data-status="belum"]{background:#fef2f2;border-color:#ef4444}
-.dark .status-btn.selected[data-status="belum"]{background:rgba(239,68,68,.15);border-color:#ef4444}
+.dark .status-btn{background:#071f1d;border-color:#1a3b37}
+.status-btn:hover{border-color:#b6cfcb}
+.dark .status-btn:hover{border-color:#1f4944}
+.status-btn.selected[data-status="lancar"]{background:#e6f7ee;border-color:#1d8a52}
+.dark .status-btn.selected[data-status="lancar"]{background:rgba(29,138,82,.15);border-color:#1d8a52}
+.status-btn.selected[data-status="murajaah"]{background:#fff7e6;border-color:var(--accent)}
+.dark .status-btn.selected[data-status="murajaah"]{background:rgba(242,182,50,.15);border-color:var(--accent)}
+.status-btn.selected[data-status="belum"]{background:#fdecec;border-color:#dc2626}
+.dark .status-btn.selected[data-status="belum"]{background:rgba(220,38,38,.15);border-color:#dc2626}
 
 .checklist-item{
     display:flex;align-items:center;gap:12px;
     padding:12px 14px;
     border-radius:14px;
-    background:#f8fafc;
-    border:1px solid #f1f5f9;
+    background:#f5f7f6;
+    border:1px solid #e2eae8;
     transition:all .15s ease;
 }
-.dark .checklist-item{background:#0b1220;border-color:#1e293b}
+.dark .checklist-item{background:#071f1d;border-color:#1a3b37}
 .checklist-item.done{opacity:.65}
 .checklist-item.done .checklist-text{text-decoration:line-through}
 
 .check-box{
     width:22px;height:22px;
     border-radius:7px;
-    border:2px solid #cbd5e1;
+    border:2px solid #b6cfcb;
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;
     flex-shrink:0;
     transition:all .15s ease;
 }
-.dark .check-box{border-color:#475569}
-.check-box.checked{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.dark .check-box{border-color:#2f5a55}
+.check-box.checked{background:var(--brand-700);border-color:var(--brand-700);color:#fff}
 </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800 min-h-screen">
+<body class="min-h-screen">
 
 <header class="sticky top-0 z-40 header-bg text-white shadow-lg">
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
@@ -224,7 +247,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <h1 class="text-base font-bold tracking-tight leading-none">SakuKita</h1>
-                <p id="greeting" class="text-[10px] text-blue-200 mt-1">Kelola keuangan lebih mudah</p>
+                <p id="greeting" class="text-[10px] text-teal-100/80 mt-1">Kelola keuangan lebih mudah</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
@@ -288,22 +311,22 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
     <div class="grid grid-cols-3 gap-3">
         <button onclick="openQuickTransaction('pemasukan')"
-            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-emerald-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25 transition">
+            class="card bg-white border rounded-2xl p-3.5 shadow-sm hover:shadow-md transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pemasukan</p>
         </button>
         <button onclick="openQuickTransaction('pengeluaran')"
-            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-rose-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center group-hover:bg-rose-100 dark:group-hover:bg-rose-500/25 transition">
+            class="card bg-white border rounded-2xl p-3.5 shadow-sm hover:shadow-md transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Pengeluaran</p>
         </button>
         <button onclick="showPage('target')"
-            class="card bg-white border border-slate-100 rounded-2xl p-3.5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group">
-            <div class="w-10 h-10 mx-auto rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/25 transition">
+            class="card bg-white border rounded-2xl p-3.5 shadow-sm hover:shadow-md transition group">
+            <div class="w-10 h-10 mx-auto rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <p class="text-xs font-semibold mt-2 t-base">Target</p>
@@ -311,10 +334,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-500/10 -mr-6 -mt-6"></div>
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-brand-soft dark:bg-teal-500/10 -mr-6 -mt-6"></div>
             <div class="relative">
-                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400 flex items-center justify-center">
+                <div class="w-8 h-8 rounded-lg bg-brand-soft text-brand dark:bg-teal-500/20 dark:text-teal-300 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide mt-3">Hari Ini</p>
@@ -322,10 +345,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <p class="text-[10px] t-faint mt-0.5">transaksi</p>
             </div>
         </div>
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-violet-50 dark:bg-violet-500/10 -mr-6 -mt-6"></div>
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-brand-soft dark:bg-teal-500/10 -mr-6 -mt-6"></div>
             <div class="relative">
-                <div class="w-8 h-8 rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-500/20 dark:text-violet-400 flex items-center justify-center">
+                <div class="w-8 h-8 rounded-lg bg-brand-soft text-brand dark:bg-teal-500/20 dark:text-teal-300 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                 </div>
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide mt-3">Bulan Ini</p>
@@ -333,10 +356,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <p class="text-[10px] t-faint mt-0.5">transaksi</p>
             </div>
         </div>
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-amber-50 dark:bg-amber-500/10 -mr-6 -mt-6"></div>
             <div class="relative">
-                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                 </div>
                 <p class="text-[10px] font-medium t-muted uppercase tracking-wide mt-3">Rata-rata</p>
@@ -344,7 +367,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <p class="text-[10px] t-faint mt-0.5">per transaksi</p>
             </div>
         </div>
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 right-0 w-16 h-16 rounded-full bg-rose-50 dark:bg-rose-500/10 -mr-6 -mt-6"></div>
             <div class="relative">
                 <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400 flex items-center justify-center">
@@ -357,10 +380,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-start mb-4">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
+                <div class="w-9 h-9 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
                 </div>
                 <div>
@@ -369,7 +392,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <select id="chartPeriod" onchange="renderChart()"
-                class="input text-[10px] font-medium border border-slate-200 rounded-lg px-2.5 py-1.5 outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+                class="input text-[10px] font-medium border border-slate-200 rounded-lg px-2.5 py-1.5 outline-none focus:ring-2 focus:ring-teal-600 cursor-pointer">
                 <option value="7">7 Hari</option>
                 <option value="30">30 Hari</option>
             </select>
@@ -379,27 +402,27 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <div id="chartLegend" class="mt-4"></div>
     </div>
 
-    <div class="insight card bg-indigo-50 border border-indigo-100 rounded-2xl p-4 shadow-sm">
+    <div class="insight card bg-teal-50 border border-teal-100 rounded-2xl p-4 shadow-sm">
         <div class="flex gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-brand text-white flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
                     <path d="M9 18h6"/><path d="M10 22h4"/>
                 </svg>
             </div>
             <div>
-                <h3 class="font-semibold text-indigo-900 dark:text-indigo-200 text-sm">Insight Keuangan</h3>
-                <p id="insight-text" class="text-[11px] text-indigo-700 dark:text-indigo-300 mt-1 leading-relaxed">
+                <h3 class="font-semibold text-teal-900 dark:text-teal-200 text-sm">Insight Keuangan</h3>
+                <p id="insight-text" class="text-[11px] text-teal-800 dark:text-teal-300 mt-1 leading-relaxed">
                     Menganalisis keuangan kamu...
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-start mb-4">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">
+                <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
                     </svg>
@@ -410,7 +433,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <button onclick="showPage('belajar')"
-                class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
+                class="text-[10px] text-brand dark:text-teal-300 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
                 Buka
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
@@ -418,11 +441,11 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
         <div class="grid grid-cols-3 gap-3">
             <div class="text-center">
-                <p id="dash-belajar-hari" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">0</p>
+                <p id="dash-belajar-hari" class="text-2xl font-bold text-amber-600 dark:text-amber-400">0</p>
                 <p class="text-[10px] t-muted mt-0.5">Hari Belajar</p>
             </div>
             <div class="text-center border-x border-slate-100 dark:border-slate-800">
-                <p id="dash-belajar-pelajaran" class="text-2xl font-bold text-violet-600 dark:text-violet-400">0</p>
+                <p id="dash-belajar-pelajaran" class="text-2xl font-bold text-brand dark:text-teal-300">0</p>
                 <p class="text-[10px] t-muted mt-0.5">Pelajaran</p>
             </div>
             <div class="text-center">
@@ -436,14 +459,14 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-4">
             <div>
                 <h3 class="font-semibold text-sm t-strong">Transaksi Terbaru</h3>
                 <p class="text-[10px] t-muted">Aktivitas keuangan terakhir</p>
             </div>
             <button onclick="showPage('transaksi')"
-                class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
+                class="text-[10px] text-brand dark:text-teal-300 font-semibold flex items-center gap-1 hover:gap-1.5 transition-all">
                 Lihat Semua
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
@@ -465,13 +488,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <!-- ================= TRANSAKSI ================= -->
 <section id="transaksiSection" class="hidden space-y-5">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm h-fit">
+        <div class="card bg-white border rounded-2xl p-5 shadow-sm h-fit">
             <div class="flex justify-between items-center mb-5">
                 <div>
                     <h3 class="font-semibold text-sm t-strong">Tambah Transaksi</h3>
                     <p class="text-[10px] t-muted">Catat pemasukan / pengeluaran</p>
                 </div>
-                <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
+                <div class="w-9 h-9 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </div>
             </div>
@@ -480,26 +503,26 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Keterangan</label>
                     <input id="keterangan" type="text" required maxlength="100" placeholder="Contoh: Gaji, makan..."
-                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                 </div>
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Nominal</label>
                     <div class="relative">
                         <span class="absolute left-3 top-2.5 text-xs t-muted font-medium">Rp</span>
                         <input id="nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
-                            class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                     </div>
                 </div>
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Jenis</label>
-                    <select id="tipe" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    <select id="tipe" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                         <option value="pemasukan">Pemasukan</option>
                         <option value="pengeluaran">Pengeluaran</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Kategori</label>
-                    <select id="kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    <select id="kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                         <option value="Gaji">Gaji</option>
                         <option value="Makanan">Makanan</option>
                         <option value="Minuman">Minuman</option>
@@ -517,11 +540,11 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <div>
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Tanggal</label>
                     <input id="tanggal" type="date" required
-                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                 </div>
                 <div class="flex gap-2">
                     <button id="submit-button" type="submit"
-                        class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm shadow-indigo-500/20">
+                        class="flex-1 bg-brand hover:bg-brand text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm shadow-teal-700/20">
                         Simpan
                     </button>
                     <button id="cancel-edit" type="button" onclick="cancelEdit()"
@@ -532,7 +555,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </form>
         </div>
 
-        <div class="lg:col-span-2 card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="lg:col-span-2 card bg-white border rounded-2xl p-5 shadow-sm">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-sm t-strong">Riwayat Transaksi</h3>
@@ -545,15 +568,15 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </span>
                 <input id="search" type="text" placeholder="Cari transaksi..." oninput="renderTransactions(true)"
-                    class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div class="grid grid-cols-2 gap-2 mb-4">
-                <select id="filter-tipe" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-tipe" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600">
                     <option value="semua">Semua Jenis</option>
                     <option value="pemasukan">Pemasukan</option>
                     <option value="pengeluaran">Pengeluaran</option>
                 </select>
-                <select id="filter-kategori" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="filter-kategori" onchange="renderTransactions(true)" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600">
                     <option value="semua">Semua Kategori</option>
                     <option value="Gaji">Gaji</option>
                     <option value="Makanan">Makanan</option>
@@ -588,7 +611,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <section id="belajarSection" class="hidden space-y-5">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
                 </svg>
@@ -599,13 +622,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
         </div>
         <button id="belajar-add-btn" onclick="openBelajarAddModal()"
-            class="bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-violet-500/20">
+            class="bg-accent hover:bg-accent text-[#2b1d00] text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-amber-500/25">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             <span id="belajar-add-label">Catatan</span>
         </button>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-2 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-2 shadow-sm">
         <div class="flex gap-1 overflow-x-auto hide-scrollbar">
             <button id="tab-catatan" onclick="switchBelajarTab('catatan')" class="sub-tab active flex items-center gap-1.5">📓 <span>Catatan</span></button>
             <button id="tab-hafalan" onclick="switchBelajarTab('hafalan')" class="sub-tab flex items-center gap-1.5">🧠 <span>Hafalan</span></button>
@@ -615,20 +638,20 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div id="belajarTabCatatan" class="space-y-4">
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm">
             <div class="relative mb-3">
                 <span class="absolute left-3 top-2.5 t-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </span>
                 <input id="catatan-search" type="text" placeholder="Cari catatan..." oninput="renderCatatan()"
-                    class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div class="overflow-x-auto hide-scrollbar">
                 <div id="catatan-filter" class="flex gap-1.5 flex-nowrap"></div>
             </div>
         </div>
         <div id="list-catatan" class="space-y-3"></div>
-        <div id="catatan-kosong" class="hidden card bg-white border border-slate-100 rounded-2xl p-10 text-center shadow-sm">
+        <div id="catatan-kosong" class="hidden card bg-white border rounded-2xl p-10 text-center shadow-sm">
             <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
@@ -640,9 +663,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div id="belajarTabHafalan" class="hidden space-y-4">
-        <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-4 shadow-sm">
             <div class="grid grid-cols-2 gap-2">
-                <select id="hafalan-filter-kategori" onchange="renderHafalan()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="hafalan-filter-kategori" onchange="renderHafalan()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600">
                     <option value="semua">Semua Kategori</option>
                     <option value="quran">📖 Al-Qur'an</option>
                     <option value="hadist">🤲 Hadist</option>
@@ -650,7 +673,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <option value="keagamaan">🕌 Keagamaan</option>
                     <option value="lainnya">📝 Lainnya</option>
                 </select>
-                <select id="hafalan-filter-status" onchange="renderHafalan()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+                <select id="hafalan-filter-status" onchange="renderHafalan()" class="input px-3 py-2 text-xs border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600">
                     <option value="semua">Semua Status</option>
                     <option value="lancar">🟢 Lancar</option>
                     <option value="murajaah">🟡 Perlu Murajaah</option>
@@ -659,7 +682,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
         </div>
         <div id="list-hafalan" class="space-y-3"></div>
-        <div id="hafalan-kosong" class="hidden card bg-white border border-slate-100 rounded-2xl p-10 text-center shadow-sm">
+        <div id="hafalan-kosong" class="hidden card bg-white border rounded-2xl p-10 text-center shadow-sm">
             <div class="flex justify-center mb-3 t-faint">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5s-5-2.24-5-5a5 5 0 0 1 5-5z"/>
@@ -673,26 +696,26 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div id="belajarTabChecklist" class="hidden space-y-4">
-        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-5 shadow-sm">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-sm t-strong">Checklist Harian</h3>
                     <p id="checklist-date-label" class="text-[10px] t-muted mt-0.5">—</p>
                 </div>
                 <div class="text-right">
-                    <p id="checklist-progress-text" class="text-xs font-bold text-indigo-600 dark:text-indigo-400">0 / 0</p>
+                    <p id="checklist-progress-text" class="text-xs font-bold text-brand dark:text-teal-300">0 / 0</p>
                     <p class="text-[10px] t-muted">selesai</p>
                 </div>
             </div>
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden mb-4">
-                <div id="checklist-progress-bar" class="progress bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full" style="width:0%"></div>
+                <div id="checklist-progress-bar" class="progress bg-gradient-to-r from-teal-600 to-teal-500 h-full rounded-full" style="width:0%"></div>
             </div>
             <div class="flex gap-2 mb-4">
                 <input id="checklist-input" type="text" placeholder="Tambah kegiatan belajar..."
                     onkeypress="if(event.key==='Enter'){event.preventDefault();addChecklistItem();}"
-                    class="input flex-1 px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input flex-1 px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                 <button onclick="addChecklistItem()"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-xl transition shadow-sm shadow-indigo-500/20">
+                    class="bg-brand hover:bg-brand text-white px-4 rounded-xl transition shadow-sm shadow-teal-700/20">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 </button>
             </div>
@@ -705,9 +728,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
     <div id="belajarTabStatistik" class="hidden space-y-4">
         <div class="grid grid-cols-2 gap-3">
-            <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="card bg-white border rounded-2xl p-4 shadow-sm">
                 <div class="flex items-center gap-2 mb-2">
-                    <div class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400 flex items-center justify-center">
+                    <div class="w-7 h-7 rounded-lg bg-brand-soft text-brand dark:bg-teal-500/20 dark:text-teal-300 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                     </div>
                     <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Bulan Ini</p>
@@ -715,9 +738,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <p id="stat-hari" class="text-2xl font-bold t-strong">0</p>
                 <p class="text-[10px] t-faint mt-0.5">hari belajar</p>
             </div>
-            <div class="card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <div class="card bg-white border rounded-2xl p-4 shadow-sm">
                 <div class="flex items-center gap-2 mb-2">
-                    <div class="w-7 h-7 rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400 flex items-center justify-center">
+                    <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
                     </div>
                     <p class="text-[10px] font-medium t-muted uppercase tracking-wide">Streak</p>
@@ -727,7 +750,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
         </div>
 
-        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-5 shadow-sm">
             <div class="flex items-center justify-between mb-4">
                 <div>
                     <h3 class="font-semibold text-sm t-strong">Breakdown Kategori</h3>
@@ -737,7 +760,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div class="grid grid-cols-2 gap-3">
                 <div class="soft rounded-2xl p-4 text-center">
                     <div class="text-2xl mb-1">📚</div>
-                    <p id="stat-pelajaran" class="text-2xl font-bold text-violet-600 dark:text-violet-400">0</p>
+                    <p id="stat-pelajaran" class="text-2xl font-bold text-brand dark:text-teal-300">0</p>
                     <p class="text-[10px] t-muted mt-0.5">Pelajaran</p>
                 </div>
                 <div class="soft rounded-2xl p-4 text-center">
@@ -748,14 +771,14 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
         </div>
 
-        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-5 shadow-sm">
             <div class="flex items-center justify-between mb-4">
                 <div>
                     <h3 class="font-semibold text-sm t-strong">Kalender Belajar</h3>
                     <p class="text-[10px] t-muted mt-0.5">28 hari terakhir</p>
                 </div>
                 <div class="flex items-center gap-3 text-[9px] t-muted">
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>Belajar</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-teal-500"></span>Belajar</span>
                     <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>Kosong</span>
                 </div>
             </div>
@@ -771,7 +794,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div id="statistik-calendar" class="cal-grid"></div>
         </div>
 
-        <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="card bg-white border rounded-2xl p-5 shadow-sm">
             <h3 class="font-semibold text-sm t-strong mb-3">Kategori Favorit</h3>
             <div id="statistik-favorit" class="space-y-2"></div>
             <div id="statistik-favorit-kosong" class="text-center py-6 t-faint">
@@ -784,10 +807,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= TARGET ================= -->
 <section id="targetSection" class="hidden space-y-5">
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 </div>
                 <div>
@@ -796,7 +819,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <button onclick="openTargetModal()"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
+                class="bg-brand hover:bg-brand text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-teal-700/20">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Target
             </button>
@@ -814,7 +837,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= BUDGET ================= -->
 <section id="budgetSection" class="hidden space-y-5">
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
@@ -826,7 +849,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <button onclick="openBudgetModal()"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20">
+                class="bg-brand hover:bg-brand text-white text-xs font-medium px-3 py-2 rounded-xl transition shadow-sm shadow-teal-700/20">
                 Atur Budget
             </button>
         </div>
@@ -843,10 +866,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= TAGIHAN ================= -->
 <section id="tagihanSection" class="hidden space-y-5">
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
                 </div>
                 <div>
@@ -855,7 +878,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </div>
             <button onclick="openTagihanModal()"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/20">
+                class="bg-brand hover:bg-brand text-white text-xs font-medium px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-sm shadow-teal-700/20">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                 Tagihan
             </button>
@@ -875,7 +898,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 <section id="settingsSection" class="hidden space-y-4 max-w-2xl mx-auto">
     <div class="mb-5">
         <h2 class="text-xl font-bold flex items-center gap-2 t-strong">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600 dark:text-indigo-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand dark:text-teal-300">
                 <circle cx="12" cy="12" r="3"/>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
@@ -884,10 +907,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <p class="text-xs t-muted mt-1">Kelola data dan aplikasi</p>
     </div>
 
-    <!-- ============ TENTANG APLIKASI ============ -->
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex items-center gap-3 mb-4">
-            <div class="w-11 h-11 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center shrink-0">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="M12 16v-4"/>
@@ -901,53 +923,53 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
 
         <p class="text-xs t-base leading-relaxed">
-            <span class="font-semibold t-strong">SakuKita</span> adalah aplikasi keuangan pribadi berbasis web yang ringan dan cepat. Saat <span class="font-semibold text-indigo-600 dark:text-indigo-400">pertama kali dibuka</span>, aplikasi membutuhkan koneksi internet untuk memuat tampilan & fiturnya. Setelah terbuka, seluruh data otomatis tersimpan di perangkat kamu dan aplikasi bisa digunakan kembali secara offline — tanpa registrasi, login, atau akun.
+            <span class="font-semibold t-strong">SakuKita</span> adalah aplikasi keuangan pribadi berbasis web yang ringan dan cepat. Saat <span class="font-semibold text-brand dark:text-teal-300">pertama kali dibuka</span>, aplikasi membutuhkan koneksi internet untuk memuat tampilan & fiturnya. Setelah terbuka, seluruh data otomatis tersimpan di perangkat kamu dan aplikasi bisa digunakan kembali secara offline — tanpa registrasi, login, atau akun.
         </p>
 
-        <div class="mt-4 p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-500/10 dark:to-teal-500/5 border border-emerald-100 dark:border-emerald-500/20">
+        <div class="mt-4 p-4 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-500/10 dark:to-emerald-500/5 border border-teal-100 dark:border-teal-500/20">
             <div class="flex items-center gap-2 mb-3">
-                <div class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center">
+                <div class="w-7 h-7 rounded-lg bg-brand text-white flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         <path d="m9 12 2 2 4-4"/>
                     </svg>
                 </div>
-                <h4 class="font-bold text-sm text-emerald-800 dark:text-emerald-300">Keamanan Data Terjamin</h4>
+                <h4 class="font-bold text-sm text-teal-900 dark:text-teal-300">Keamanan Data Terjamin</h4>
             </div>
 
             <div class="space-y-2.5">
                 <div class="flex items-start gap-2.5">
-                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div class="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 mt-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                    <p class="text-[11px] text-teal-900 dark:text-teal-200 leading-relaxed">
                         <span class="font-semibold">Tersimpan di HP kamu sendiri.</span> Data disimpan menggunakan <em>LocalStorage</em> browser — bukan di server kami.
                     </p>
                 </div>
 
                 <div class="flex items-start gap-2.5">
-                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div class="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 mt-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                    <p class="text-[11px] text-teal-900 dark:text-teal-200 leading-relaxed">
                         <span class="font-semibold">Tidak ada yang bisa melihat.</span> Tidak ada pihak ketiga, iklan, atau pelacak yang mengakses data keuanganmu.
                     </p>
                 </div>
 
                 <div class="flex items-start gap-2.5">
-                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div class="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 mt-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                    <p class="text-[11px] text-teal-900 dark:text-teal-200 leading-relaxed">
                         <span class="font-semibold">Kamu pemilik penuh.</span> Bebas backup, pindah, atau hapus data kapan saja — tanpa minta izin siapa pun.
                     </p>
                 </div>
 
                 <div class="flex items-start gap-2.5">
-                    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div class="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 mt-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <p class="text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed">
+                    <p class="text-[11px] text-teal-900 dark:text-teal-200 leading-relaxed">
                         <span class="font-semibold">Akses pertama butuh internet.</span> Cukup sekali saat membuka. Setelahnya bisa dibuka offline karena semua sudah tersimpan lokal.
                     </p>
                 </div>
@@ -973,7 +995,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
 
         <button onclick="downloadBackup()"
-            class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-3 rounded-xl transition shadow-sm shadow-emerald-500/25 flex items-center justify-center gap-2">
+            class="mt-4 w-full bg-brand hover:bg-brand text-white text-xs font-semibold py-3 rounded-xl transition shadow-sm shadow-teal-700/25 flex items-center justify-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
@@ -983,23 +1005,22 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </button>
     </div>
 
-    <!-- Target tabungan -->
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Target Tabungan</h3>
             <p class="text-xs t-muted mt-0.5">Wujudkan impian finansialmu dengan target yang terukur.</p>
             <button onclick="showPage('target')"
-                class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20 flex items-center gap-1.5">
+                class="mt-3 bg-brand hover:bg-brand text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-teal-700/20 flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 Kelola Target
             </button>
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
         </div>
@@ -1013,23 +1034,23 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Tagihan Rutin</h3>
             <p class="text-xs t-muted mt-0.5">Catat & ingat jadwal tagihan bulanan.</p>
             <button onclick="showPage('tagihan')"
-                class="mt-3 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-amber-500/20">
+                class="mt-3 bg-accent hover:bg-accent text-[#2b1d00] text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm shadow-amber-500/20">
                 Kelola Tagihan
             </button>
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm">
         <div class="flex gap-4">
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <div class="w-11 h-11 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <div>
@@ -1039,29 +1060,29 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </p>
                 <div class="flex flex-wrap gap-2 mt-3">
                     <span class="text-[10px] bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded-full font-medium border border-emerald-100 dark:border-emerald-500/20">Tanpa login</span>
-                    <span class="text-[10px] bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-400 px-2 py-1 rounded-full font-medium border border-indigo-100 dark:border-indigo-500/20">LocalStorage</span>
+                    <span class="text-[10px] bg-teal-50 dark:bg-teal-500/15 text-teal-800 dark:text-teal-400 px-2 py-1 rounded-full font-medium border border-teal-100 dark:border-teal-500/20">LocalStorage</span>
                     <span class="text-[10px] bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-1 rounded-full font-medium border border-slate-200 dark:border-slate-700">Offline</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
-        <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
+        <div class="w-11 h-11 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
         </div>
         <div class="flex-1">
             <h3 class="font-semibold text-sm t-strong">Backup Data</h3>
             <p class="text-xs t-muted mt-0.5">Simpan seluruh data sebagai file JSON.</p>
             <button onclick="downloadBackup()"
-                class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-indigo-500/20 flex items-center gap-1.5">
+                class="mt-3 bg-brand hover:bg-brand text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow-sm shadow-teal-700/20 flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                 Download Backup
             </button>
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
         </div>
@@ -1076,7 +1097,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         </div>
     </div>
 
-    <div class="card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex gap-4">
+    <div class="card bg-white border rounded-2xl p-5 shadow-sm flex gap-4">
         <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
@@ -1156,7 +1177,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
     </div>
 
     <div class="text-center pt-2 pb-2">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 mb-2">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
                 <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
@@ -1174,7 +1195,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
         <p class="text-[10px] t-muted leading-relaxed">
             © <span id="footerYear"></span>
-            <span class="font-semibold text-indigo-600 dark:text-indigo-400">Joy Digital</span>
+            <span class="font-semibold text-brand dark:text-teal-300">Joy Digital</span>
             <span class="t-faint mx-0.5">×</span>
             <span class="font-semibold text-pink-500 dark:text-pink-400">Maira</span>
         </p>
@@ -1194,10 +1215,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL CATATAN ================= -->
 <div id="catatanModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center">📓</div>
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">📓</div>
                 <div>
                     <h3 id="catatan-modal-title" class="font-bold text-sm t-strong">Tambah Catatan</h3>
                     <p class="text-[10px] t-muted mt-0.5">Catatan belajar harian</p>
@@ -1212,12 +1233,12 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Judul Catatan</label>
                 <input id="catatan-judul" type="text" required maxlength="100" placeholder="Contoh: Belajar IPA"
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-violet-500 transition">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
 
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Kategori</label>
-                <select id="catatan-kategori" class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-violet-500 transition">
+                <select id="catatan-kategori" class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                     <optgroup label="📖 Agama">
                         <option value="quran">📖 Al-Qur'an</option>
                         <option value="hadist">🤲 Hadist</option>
@@ -1243,7 +1264,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Isi Catatan</label>
                 <textarea id="catatan-isi" required rows="5" placeholder="Tulis isi catatan di sini..."
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-violet-500 transition resize-none"></textarea>
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition resize-none"></textarea>
             </div>
 
             <div>
@@ -1262,11 +1283,11 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Tanggal</label>
                 <input id="catatan-tanggal" type="date" required
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-violet-500 transition">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
 
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-violet-500/25">
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-teal-700/25">
                     Simpan Catatan
                 </button>
                 <button type="button" onclick="closeCatatanModal()" class="btn-cancel px-4 py-3 rounded-xl text-xs">Batal</button>
@@ -1278,7 +1299,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL HAFALAN ================= -->
 <div id="hafalanModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">🧠</div>
@@ -1295,7 +1316,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <form id="form-hafalan" onsubmit="saveHafalan(event)" class="space-y-4">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Kategori Hafalan</label>
-                <select id="hafalan-kategori-input" class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                <select id="hafalan-kategori-input" class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                     <option value="quran">📖 Al-Qur'an</option>
                     <option value="hadist">🤲 Hadist</option>
                     <option value="kitab">📚 Kitab</option>
@@ -1307,13 +1328,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Judul (Surah / Topik)</label>
                 <input id="hafalan-judul" type="text" required maxlength="100" placeholder="Contoh: Al-Mulk"
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
 
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Detail (Ayat / Referensi)</label>
                 <input id="hafalan-detail" type="text" maxlength="60" placeholder="Contoh: Ayat 1 - 10"
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
 
             <div>
@@ -1337,13 +1358,13 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Catatan (opsional)</label>
                 <textarea id="hafalan-catatan-input" rows="3" maxlength="200" placeholder="Contoh: Perlu murajaah ayat 7-10"
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 transition resize-none"></textarea>
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition resize-none"></textarea>
             </div>
 
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Tanggal</label>
                 <input id="hafalan-tanggal" type="date" required
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 transition">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
 
             <div class="flex gap-2 pt-2">
@@ -1359,9 +1380,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL TARGET ================= -->
 <div id="targetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <h3 class="font-bold text-base t-strong">Buat Target Tabungan</h3>
@@ -1370,20 +1391,20 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nama Target</label>
                 <input id="target-nama" type="text" required maxlength="60" placeholder="Contoh: Beli Laptop"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal Target</label>
                 <input id="target-nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="5.000.000"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Sudah Terkumpul</label>
                 <input id="target-terkumpul" type="text" inputmode="numeric" autocomplete="off" value="0" required
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Target</button>
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-teal-700/20">Simpan Target</button>
                 <button type="button" onclick="closeTargetModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
@@ -1393,7 +1414,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL TAMBAH SALDO ================= -->
 <div id="addSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
@@ -1412,7 +1433,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
                 <div class="flex justify-between items-center text-[11px] mt-1">
                     <span class="t-muted">Sisa menuju target</span>
-                    <span id="add-saldo-remaining" class="font-semibold text-indigo-600 dark:text-indigo-400">Rp 0</span>
+                    <span id="add-saldo-remaining" class="font-semibold text-brand dark:text-teal-300">Rp 0</span>
                 </div>
             </div>
             <div>
@@ -1420,18 +1441,18 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <div class="relative">
                     <span class="absolute left-3 top-3 text-sm t-muted font-medium">Rp</span>
                     <input id="add-saldo-amount" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
-                        class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                 </div>
             </div>
             <label class="flex items-start gap-3 p-3 rounded-xl cursor-pointer soft">
-                <input id="add-saldo-as-transaction" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-indigo-600 shrink-0">
+                <input id="add-saldo-as-transaction" type="checkbox" class="mt-0.5 w-4 h-4 rounded accent-teal-700 shrink-0">
                 <div>
                     <p class="text-xs font-medium t-strong">Catat sebagai transaksi</p>
                     <p class="text-[10px] t-muted mt-0.5">Otomatis menambah pengeluaran kategori "Tabungan"</p>
                 </div>
             </label>
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Tambah Saldo</button>
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-teal-700/20">Tambah Saldo</button>
                 <button type="button" onclick="closeAddSaldoModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
@@ -1441,9 +1462,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL KURANGI SALDO ================= -->
 <div id="reduceSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
             </div>
             <div>
@@ -1484,7 +1505,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 </div>
             </label>
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-amber-500/20">Kurangi Saldo</button>
+                <button type="submit" class="flex-1 bg-accent hover:bg-accent text-[#2b1d00] py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-amber-500/20">Kurangi Saldo</button>
                 <button type="button" onclick="closeReduceSaldoModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
@@ -1494,7 +1515,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL BUDGET ================= -->
 <div id="budgetModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
@@ -1504,7 +1525,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
         <form id="form-budget" onsubmit="saveBudget(event)" class="space-y-3">
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Kategori</label>
-                <select id="budget-kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <select id="budget-kategori" class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
                     <option value="Makanan">Makanan</option>
                     <option value="Minuman">Minuman</option>
                     <option value="Transportasi">Transportasi</option>
@@ -1518,10 +1539,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Batas Bulanan</label>
                 <input id="budget-limit" type="text" inputmode="numeric" autocomplete="off" required placeholder="1.000.000"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan Budget</button>
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-teal-700/20">Simpan Budget</button>
                 <button type="button" onclick="closeBudgetModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
@@ -1531,9 +1552,9 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= MODAL TAGIHAN ================= -->
 <div id="tagihanModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
             </div>
             <h3 class="font-bold text-base t-strong">Tambah Tagihan</h3>
@@ -1542,20 +1563,20 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nama Tagihan</label>
                 <input id="tagihan-nama" type="text" required maxlength="60" placeholder="Contoh: Wi-Fi"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
                 <input id="tagihan-nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="150.000"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Jatuh Tempo (tanggal)</label>
                 <input id="tagihan-tgl" type="number" min="1" max="31" required placeholder="25"
-                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <div class="flex gap-2 pt-2">
-                <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-indigo-500/20">Simpan</button>
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm shadow-teal-700/20">Simpan</button>
                 <button type="button" onclick="closeTagihanModal()" class="btn-cancel px-4 py-2.5 rounded-xl text-xs">Batal</button>
             </div>
         </form>
@@ -1566,7 +1587,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 
 <!-- ================= QUICK ADD ================= -->
 <div id="quickModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
-    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
+    <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border mb-16 sm:mb-0">
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center gap-3">
                 <div id="quickIconWrap" class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 flex items-center justify-center"></div>
@@ -1584,10 +1605,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Keterangan</label>
                 <input id="quickKeterangan" type="text" required placeholder="Contoh: Makan siang" oninput="updateQuickCategoryHint()"
-                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                <div id="quickCategoryHint" class="hidden mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-100 dark:border-indigo-500/20 animate-fade">
-                    <span id="quickCategoryHintIcon" class="text-indigo-600 dark:text-indigo-400"></span>
-                    <span class="text-[10px] font-medium text-indigo-700 dark:text-indigo-300">
+                    class="input w-full px-3 py-3 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
+                <div id="quickCategoryHint" class="hidden mt-2 flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-teal-50 dark:bg-teal-500/15 border border-teal-100 dark:border-teal-500/20 animate-fade">
+                    <span id="quickCategoryHintIcon" class="text-brand dark:text-teal-300"></span>
+                    <span class="text-[10px] font-medium text-teal-800 dark:text-teal-300">
                         Terdeteksi: <span id="quickCategoryHintText" class="font-semibold"></span>
                     </span>
                 </div>
@@ -1595,10 +1616,10 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
                 <input id="quickNominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
-                    class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-teal-600 transition">
             </div>
             <button type="submit"
-                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-indigo-500/25">
+                class="w-full bg-brand hover:bg-brand text-white py-3 rounded-xl text-sm font-semibold transition shadow-sm shadow-teal-700/25">
                 Simpan Transaksi
             </button>
         </form>
@@ -1617,7 +1638,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             <span class="text-[9px] mt-0.5">Transaksi</span>
         </button>
         <button onclick="openQuickTransaction('pengeluaran')" class="flex flex-col items-center justify-end">
-            <div class="w-14 h-14 -mt-7 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center border-4 border-white dark:border-slate-950 transition">
+            <div class="w-14 h-14 -mt-7 rounded-full bg-brand hover:bg-brand text-white shadow-xl shadow-teal-700/40 flex items-center justify-center border-4 border-white dark:border-slate-950 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             </div>
             <span class="text-[9px] text-slate-400 dark:text-slate-500 mt-1">Tambah</span>
@@ -1816,7 +1837,6 @@ function attachNumberFormatter(el) {
         const digitsBefore = this.value.slice(0, prevPos).replace(/\D/g, '').length;
         const formatted = formatNumberInput(this.value);
         this.value = formatted;
-        // hitung ulang posisi kursor berdasarkan jumlah digit sebelum kursor
         let newPos = 0, count = 0;
         while (newPos < formatted.length && count < digitsBefore) {
             if (/\d/.test(formatted[newPos])) count++;
@@ -2054,7 +2074,7 @@ function renderTransactions(resetLimit = false) {
                     <span class="text-xs font-semibold ${income ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
                         ${income ? '+' : '-'}${displayMoney(item.nominal)}
                     </span>
-                    <button onclick="editTransaksi(${item._index})" class="w-7 h-7 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 t-muted hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center justify-center transition">
+                    <button onclick="editTransaksi(${item._index})" class="w-7 h-7 rounded-lg hover:bg-teal-100 dark:hover:bg-teal-500/20 t-muted hover:text-brand dark:hover:text-teal-300 flex items-center justify-center transition">
                         ${icon('pencil', 13)}
                     </button>
                     <button onclick="hapusTransaksi(${item._index})" class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
@@ -2070,7 +2090,7 @@ function renderTransactions(resetLimit = false) {
         const remaining = total - shown.length;
         const nextBatch = Math.min(TX_PAGE_SIZE, remaining);
         const loadMore = document.createElement('button');
-        loadMore.className = 'w-full mt-4 py-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 hover:bg-indigo-100 dark:hover:bg-indigo-500/25 text-indigo-600 dark:text-indigo-400 text-xs font-semibold transition flex items-center justify-center gap-2';
+        loadMore.className = 'w-full mt-4 py-3.5 rounded-2xl bg-teal-50 dark:bg-teal-500/15 hover:bg-teal-100 dark:hover:bg-teal-500/25 text-brand dark:text-teal-300 text-xs font-semibold transition flex items-center justify-center gap-2';
         loadMore.innerHTML = `${icon('chevronDown', 15)}<span>Muat ${nextBatch} transaksi lagi</span><span class="text-[10px] font-normal opacity-70">(sisa ${remaining})</span>`;
         loadMore.onclick = loadMoreTx;
         container.appendChild(loadMore);
@@ -2148,7 +2168,7 @@ function renderTarget() {
         card.innerHTML = `
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center gap-2.5 min-w-0">
-                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                    <div class="w-9 h-9 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center shrink-0">
                         ${icon('target', 18)}
                     </div>
                     <div class="min-w-0">
@@ -2163,7 +2183,7 @@ function renderTarget() {
             <div class="flex justify-between items-end mb-2">
                 <div>
                     <p class="text-[10px] t-muted">Terkumpul</p>
-                    <p class="font-bold text-sm text-indigo-600 dark:text-indigo-400">${displayMoney(collected)}</p>
+                    <p class="font-bold text-sm text-brand dark:text-teal-300">${displayMoney(collected)}</p>
                 </div>
                 <div class="text-right">
                     <p class="text-[10px] t-muted">Target</p>
@@ -2171,19 +2191,19 @@ function renderTarget() {
                 </div>
             </div>
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
-                <div class="progress bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full" style="width:${percent}%"></div>
+                <div class="progress bg-gradient-to-r from-teal-700 to-teal-500 h-full rounded-full" style="width:${percent}%"></div>
             </div>
             <div class="flex justify-between mt-2 mb-3">
                 <p class="text-[10px] t-muted">${isDone ? '🎉 Target tercapai!' : `Kurang ${displayMoney(remaining)}`}</p>
-                <p class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">${percent}%</p>
+                <p class="text-[10px] font-semibold text-brand dark:text-teal-300">${percent}%</p>
             </div>
             <div class="grid grid-cols-2 gap-2">
                 <button onclick="openAddSaldoModal(${idx})" ${isDone ? 'disabled' : ''}
-                    class="w-full ${isDone ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
+                    class="w-full ${isDone ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-brand hover:bg-brand text-white shadow-sm shadow-teal-700/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
                     ${icon('plus', 13)} Tambah
                 </button>
                 <button onclick="openReduceSaldoModal(${idx})" ${isEmpty ? 'disabled' : ''}
-                    class="w-full ${isEmpty ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-amber-500 hover:bg-amber-600 text-white shadow-sm shadow-amber-500/20'} py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
+                    class="w-full ${isEmpty ? 'bg-slate-100 dark:bg-slate-800 t-muted cursor-not-allowed' : 'bg-accent hover:bg-accent text-[#2b1d00] shadow-sm shadow-amber-500/20'} py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
                     ${icon('minus', 13)} Kurangi
                 </button>
             </div>`;
@@ -2316,7 +2336,7 @@ function renderBudget() {
         card.innerHTML = `
             <div class="flex justify-between items-start">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400 flex items-center justify-center">${categoryIcon(cat, 18)}</div>
+                    <div class="w-10 h-10 rounded-xl bg-brand-soft text-brand dark:bg-teal-500/15 dark:text-teal-300 flex items-center justify-center">${categoryIcon(cat, 18)}</div>
                     <div>
                         <h4 class="font-semibold text-sm t-strong">${escapeHTML(cat)}</h4>
                         <p class="text-[10px] t-muted">Bulan ini</p>
@@ -2329,7 +2349,7 @@ function renderBudget() {
                 <span class="text-[10px] t-muted">/ ${displayMoney(limit)}</span>
             </div>
             <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                <div class="progress ${percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-indigo-600'} h-full rounded-full" style="width:${width}%"></div>
+                <div class="progress ${percent >= 100 ? 'bg-rose-500' : percent >= 80 ? 'bg-amber-500' : 'bg-brand'} h-full rounded-full" style="width:${width}%"></div>
             </div>
             <div class="flex justify-between mt-2">
                 <p class="text-[10px] t-muted">${remaining >= 0 ? `Sisa ${displayMoney(remaining)}` : `Lebih ${displayMoney(Math.abs(remaining))}`}</p>
@@ -2385,7 +2405,7 @@ function renderTagihan() {
         card.className = 'soft rounded-2xl p-4 flex justify-between items-center gap-3 animate-slide';
         card.innerHTML = `
             <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0">
                     ${icon('bell', 18)}
                 </div>
                 <div class="min-w-0">
@@ -2593,10 +2613,10 @@ function renderDashboardBelajar() {
     if (elStreak) {
         if (streak > 0) {
             elStreak.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500">
                     <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                 </svg>
-                <span class="text-xs font-semibold text-orange-600 dark:text-orange-400">${streak} hari berturut-turut</span>`;
+                <span class="text-xs font-semibold text-amber-600 dark:text-amber-400">${streak} hari berturut-turut</span>`;
         } else {
             elStreak.innerHTML = `<span class="text-[11px] t-muted">Belum ada aktivitas</span>`;
         }
@@ -2638,7 +2658,7 @@ function renderCatatanFilterChips() {
     container.innerHTML = chips.map(chip => {
         const active = filterCatatanKategori === chip.value;
         return `<button onclick="setFilterCatatan('${chip.value}')" 
-            class="text-[10px] font-semibold px-3 py-1.5 rounded-full whitespace-nowrap transition ${active ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/20' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}">
+            class="text-[10px] font-semibold px-3 py-1.5 rounded-full whitespace-nowrap transition ${active ? 'bg-amber-500 text-white shadow-sm shadow-amber-500/25' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}">
             ${chip.emoji ? chip.emoji + ' ' : ''}${chip.label}
         </button>`;
     }).join('');
@@ -2688,7 +2708,7 @@ function renderCatatan() {
         groups[date].forEach(item => {
             const info = getKategoriInfo(item.kategori);
             const card = document.createElement('div');
-            card.className = 'card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm mb-3 animate-slide cursor-pointer hover:shadow-md transition';
+            card.className = 'card bg-white border rounded-2xl p-4 shadow-sm mb-3 animate-slide cursor-pointer hover:shadow-md transition';
             card.onclick = (e) => {
                 if (e.target.closest('button')) return;
                 editCatatan(item.id);
@@ -2696,7 +2716,7 @@ function renderCatatan() {
             card.innerHTML = `
                 <div class="flex justify-between items-start gap-3 mb-2">
                     <div class="flex items-center gap-2.5 min-w-0 flex-1">
-                        <div class="w-9 h-9 rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400 flex items-center justify-center shrink-0 text-base">
+                        <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400 flex items-center justify-center shrink-0 text-base">
                             ${info.emoji}
                         </div>
                         <div class="min-w-0 flex-1">
@@ -2708,7 +2728,7 @@ function renderCatatan() {
                         </div>
                     </div>
                     <div class="flex gap-1 shrink-0">
-                        <button onclick="event.stopPropagation();editCatatan('${item.id}')" class="w-7 h-7 rounded-lg hover:bg-violet-100 dark:hover:bg-violet-500/20 t-muted hover:text-violet-600 dark:hover:text-violet-400 flex items-center justify-center transition">
+                        <button onclick="event.stopPropagation();editCatatan('${item.id}')" class="w-7 h-7 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-500/20 t-muted hover:text-amber-700 dark:hover:text-amber-400 flex items-center justify-center transition">
                             ${icon('pencil', 13)}
                         </button>
                         <button onclick="event.stopPropagation();hapusCatatan('${item.id}')" class="w-7 h-7 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 t-muted hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition">
@@ -2818,7 +2838,7 @@ function renderHafalan() {
         const status = getStatusHafalanInfo(item.status);
         const katInfo = getKategoriInfo(item.kategori === 'lainnya' ? 'umum' : item.kategori);
         const card = document.createElement('div');
-        card.className = 'card bg-white border border-slate-100 rounded-2xl p-4 shadow-sm animate-slide';
+        card.className = 'card bg-white border rounded-2xl p-4 shadow-sm animate-slide';
         card.innerHTML = `
             <div class="flex justify-between items-start gap-3 mb-3">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -3069,7 +3089,7 @@ function renderKategoriFavorit() {
                     <span class="text-[11px] font-semibold t-strong">${count} catatan</span>
                 </div>
                 <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                    <div class="progress bg-gradient-to-r from-violet-500 to-indigo-500 h-full rounded-full" style="width:${width}%"></div>
+                    <div class="progress bg-gradient-to-r from-amber-500 to-teal-600 h-full rounded-full" style="width:${width}%"></div>
                 </div>
             </div>`;
     }).join('');
