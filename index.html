@@ -486,7 +486,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                     <label class="block text-[11px] font-medium mb-1.5 t-base">Nominal</label>
                     <div class="relative">
                         <span class="absolute left-3 top-2.5 text-xs t-muted font-medium">Rp</span>
-                        <input id="nominal" type="number" min="1" required placeholder="50000"
+                        <input id="nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
                             class="input w-full pl-9 pr-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                     </div>
                 </div>
@@ -1374,12 +1374,12 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal Target</label>
-                <input id="target-nominal" type="number" min="1" required placeholder="5000000"
+                <input id="target-nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="5.000.000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Sudah Terkumpul</label>
-                <input id="target-terkumpul" type="number" min="0" value="0" required
+                <input id="target-terkumpul" type="text" inputmode="numeric" autocomplete="off" value="0" required
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="flex gap-2 pt-2">
@@ -1419,7 +1419,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal yang Ditambahkan</label>
                 <div class="relative">
                     <span class="absolute left-3 top-3 text-sm t-muted font-medium">Rp</span>
-                    <input id="add-saldo-amount" type="number" min="1" required placeholder="50000"
+                    <input id="add-saldo-amount" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
                         class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
                 </div>
             </div>
@@ -1439,7 +1439,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
 </div>
 
 
-<!-- ================= MODAL KURANGI SALDO (NEW) ================= -->
+<!-- ================= MODAL KURANGI SALDO ================= -->
 <div id="reduceSaldoModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="modal-box bg-white rounded-3xl p-6 w-full max-w-md shadow-xl animate-slide border border-slate-100 mb-16 sm:mb-0">
         <div class="flex items-center gap-3 mb-5">
@@ -1467,7 +1467,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal yang Dikurangi</label>
                 <div class="relative">
                     <span class="absolute left-3 top-3 text-sm t-muted font-medium">Rp</span>
-                    <input id="reduce-saldo-amount" type="number" min="1" required placeholder="50000"
+                    <input id="reduce-saldo-amount" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
                         oninput="updateReduceSaldoPreview()"
                         class="input w-full pl-10 pr-3 py-3 text-base font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 transition">
                 </div>
@@ -1517,7 +1517,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Batas Bulanan</label>
-                <input id="budget-limit" type="number" min="1" required placeholder="1000000"
+                <input id="budget-limit" type="text" inputmode="numeric" autocomplete="off" required placeholder="1.000.000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div class="flex gap-2 pt-2">
@@ -1546,7 +1546,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
-                <input id="tagihan-nominal" type="number" min="1" required placeholder="150000"
+                <input id="tagihan-nominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="150.000"
                     class="input w-full px-3 py-2.5 text-sm border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <div>
@@ -1594,7 +1594,7 @@ main{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px)) !important}
             </div>
             <div>
                 <label class="block text-xs font-medium mb-1.5 t-base">Nominal</label>
-                <input id="quickNominal" type="number" min="1" required placeholder="50000"
+                <input id="quickNominal" type="text" inputmode="numeric" autocomplete="off" required placeholder="50.000"
                     class="input w-full px-3 py-3 text-lg font-semibold border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
             </div>
             <button type="submit"
@@ -1797,6 +1797,41 @@ function localDateKey(date = new Date()) {
     return `${y}-${m}-${d}`;
 }
 function localMonthKey(date = new Date()) { return localDateKey(date).substring(0, 7); }
+
+/* ===== Formatter angka ribuan (otomatis titik) ===== */
+function formatNumberInput(value) {
+    const digits = String(value ?? '').replace(/\D/g, '');
+    if (!digits) return '';
+    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function parseFormattedNumber(value) {
+    const digits = String(value ?? '').replace(/\./g, '').replace(/\D/g, '');
+    return Number(digits) || 0;
+}
+function attachNumberFormatter(el) {
+    if (!el || el.dataset.numFmt === '1') return;
+    el.dataset.numFmt = '1';
+    el.addEventListener('input', function () {
+        const prevPos = this.selectionStart ?? this.value.length;
+        const digitsBefore = this.value.slice(0, prevPos).replace(/\D/g, '').length;
+        const formatted = formatNumberInput(this.value);
+        this.value = formatted;
+        // hitung ulang posisi kursor berdasarkan jumlah digit sebelum kursor
+        let newPos = 0, count = 0;
+        while (newPos < formatted.length && count < digitsBefore) {
+            if (/\d/.test(formatted[newPos])) count++;
+            newPos++;
+        }
+        try { this.setSelectionRange(newPos, newPos); } catch (e) {}
+    });
+}
+function initNumberInputs() {
+    ['nominal', 'target-nominal', 'target-terkumpul',
+     'add-saldo-amount', 'reduce-saldo-amount',
+     'budget-limit', 'tagihan-nominal', 'quickNominal']
+        .forEach(id => attachNumberFormatter(document.getElementById(id)));
+}
+
 function escapeHTML(value) {
     return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
@@ -1921,7 +1956,7 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     const data = {
         keterangan: keteranganInput.value.trim(),
-        nominal: Number(nominalInput.value),
+        nominal: parseFormattedNumber(nominalInput.value),
         tipe: tipeInput.value,
         kategori: kategoriInput.value,
         tanggal: tanggalInput.value
@@ -1934,7 +1969,8 @@ form.addEventListener('submit', function (e) {
 
 function editTransaksi(index) {
     const item = transaksiList[index]; if (!item) return;
-    keteranganInput.value = item.keterangan; nominalInput.value = item.nominal;
+    keteranganInput.value = item.keterangan;
+    nominalInput.value = formatNumberInput(item.nominal);
     tipeInput.value = item.tipe; kategoriInput.value = item.kategori; tanggalInput.value = item.tanggal;
     document.getElementById('edit-index').value = index;
     document.getElementById('submit-button').textContent = 'Update';
@@ -2087,7 +2123,7 @@ function saveQuickTransaction(e) {
     e.preventDefault();
     const type = document.getElementById('quickType').value;
     const keterangan = document.getElementById('quickKeterangan').value.trim();
-    const nominal = Number(document.getElementById('quickNominal').value);
+    const nominal = parseFormattedNumber(document.getElementById('quickNominal').value);
     if (!keterangan || nominal < 1) { alert('Masukkan keterangan dan nominal.'); return; }
     const guessed = guessCategoryFromText(keterangan) || 'Lainnya';
     transaksiList.unshift({ keterangan, nominal, tipe: type, kategori: guessed, tanggal: localDateKey() });
@@ -2158,8 +2194,8 @@ function openTargetModal() { document.getElementById('targetModal').classList.re
 function closeTargetModal() { document.getElementById('targetModal').classList.add('hidden'); }
 function saveTarget(e) {
     e.preventDefault();
-    const nominal = Number(document.getElementById('target-nominal').value);
-    const terkumpul = Number(document.getElementById('target-terkumpul').value);
+    const nominal = parseFormattedNumber(document.getElementById('target-nominal').value);
+    const terkumpul = parseFormattedNumber(document.getElementById('target-terkumpul').value);
     if (nominal <= 0 || terkumpul < 0) { alert('Nominal target tidak valid.'); return; }
     targetList.push({ nama: document.getElementById('target-nama').value.trim(), nominal, terkumpul: Math.min(terkumpul, nominal) });
     saveData(); renderTarget(); closeTargetModal(); document.getElementById('form-target').reset();
@@ -2179,7 +2215,6 @@ function openAddSaldoModal(idx) {
     document.getElementById('add-saldo-current').textContent = formatRupiah(collected);
     document.getElementById('add-saldo-remaining').textContent = formatRupiah(remaining);
     document.getElementById('add-saldo-amount').value = '';
-    document.getElementById('add-saldo-amount').max = remaining;
     document.getElementById('add-saldo-as-transaction').checked = true;
     document.getElementById('addSaldoModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('add-saldo-amount').focus(), 100);
@@ -2189,7 +2224,7 @@ function saveAddSaldo(e) {
     e.preventDefault();
     const idx = Number(document.getElementById('add-saldo-index').value);
     const item = targetList[idx]; if (!item) return;
-    const amount = Number(document.getElementById('add-saldo-amount').value);
+    const amount = parseFormattedNumber(document.getElementById('add-saldo-amount').value);
     const asTransaction = document.getElementById('add-saldo-as-transaction').checked;
     const target = Number(item.nominal) || 0;
     const collected = Number(item.terkumpul) || 0;
@@ -2216,7 +2251,6 @@ function openReduceSaldoModal(idx) {
     document.getElementById('reduce-saldo-current').textContent = formatRupiah(collected);
     document.getElementById('reduce-saldo-after').textContent = formatRupiah(collected);
     document.getElementById('reduce-saldo-amount').value = '';
-    document.getElementById('reduce-saldo-amount').max = collected;
     document.getElementById('reduce-saldo-as-transaction').checked = false;
     document.getElementById('reduceSaldoModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('reduce-saldo-amount').focus(), 100);
@@ -2226,7 +2260,7 @@ function updateReduceSaldoPreview() {
     const idx = Number(document.getElementById('reduce-saldo-index').value);
     const item = targetList[idx]; if (!item) return;
     const collected = Number(item.terkumpul) || 0;
-    const amount = Number(document.getElementById('reduce-saldo-amount').value) || 0;
+    const amount = parseFormattedNumber(document.getElementById('reduce-saldo-amount').value);
     const after = Math.max(0, collected - amount);
     document.getElementById('reduce-saldo-after').textContent = formatRupiah(after);
 }
@@ -2234,14 +2268,14 @@ function setReduceAll() {
     const idx = Number(document.getElementById('reduce-saldo-index').value);
     const item = targetList[idx]; if (!item) return;
     const collected = Number(item.terkumpul) || 0;
-    document.getElementById('reduce-saldo-amount').value = collected;
+    document.getElementById('reduce-saldo-amount').value = formatNumberInput(collected);
     updateReduceSaldoPreview();
 }
 function saveReduceSaldo(e) {
     e.preventDefault();
     const idx = Number(document.getElementById('reduce-saldo-index').value);
     const item = targetList[idx]; if (!item) return;
-    const amount = Number(document.getElementById('reduce-saldo-amount').value);
+    const amount = parseFormattedNumber(document.getElementById('reduce-saldo-amount').value);
     const asTransaction = document.getElementById('reduce-saldo-as-transaction').checked;
     const collected = Number(item.terkumpul) || 0;
     if (amount <= 0) { alert('Nominal harus lebih dari 0.'); return; }
@@ -2309,7 +2343,7 @@ function closeBudgetModal() { document.getElementById('budgetModal').classList.a
 function saveBudget(e) {
     e.preventDefault();
     const cat = document.getElementById('budget-kategori').value;
-    const limit = Number(document.getElementById('budget-limit').value);
+    const limit = parseFormattedNumber(document.getElementById('budget-limit').value);
     if (limit <= 0) { alert('Budget harus lebih dari 0.'); return; }
     budgetList[cat] = limit; saveData(); renderBudget(); closeBudgetModal(); document.getElementById('form-budget').reset();
 }
@@ -2371,7 +2405,7 @@ function closeTagihanModal() { document.getElementById('tagihanModal').classList
 function saveTagihan(e) {
     e.preventDefault();
     const nama = document.getElementById('tagihan-nama').value.trim();
-    const nominal = Number(document.getElementById('tagihan-nominal').value);
+    const nominal = parseFormattedNumber(document.getElementById('tagihan-nominal').value);
     const tgl = Number(document.getElementById('tagihan-tgl').value);
     if (!nama || nominal <= 0 || tgl < 1 || tgl > 31) { alert('Data tagihan tidak valid.'); return; }
     tagihanList.push({ nama, nominal, tgl }); saveData(); renderTagihan(); closeTagihanModal(); document.getElementById('form-tagihan').reset();
@@ -3154,9 +3188,10 @@ window.addEventListener('resize', () => {
 
 loadDarkMode();
 setDefaultDate();
+initNumberInputs();
 updateAll();
 showPage('dashboard');
 </script>
 
 </body>
-                                                                                                                           </html>
+</html>
