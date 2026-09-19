@@ -287,6 +287,15 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   .hidden { display: none !important; }
+
+  /* ===== TRANSISI ANTAR TAB ===== */
+  .app > main { animation: viewEnter .28s cubic-bezier(.22,.9,.35,1) both; }
+  @keyframes viewEnter {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .nav button:active svg { transform: scale(.88); }
+
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -1449,15 +1458,45 @@
     renderSchedule();
   }
 
-  function showView(name) {
+  // ===== NAVIGASI TAB (dengan transisi + back button) =====
+  const VIEWS = ['Home','History','Schedule','Report'];
+  const viewScroll = { Home:0, History:0, Schedule:0, Report:0 };
+
+  function applyView(name, push) {
+    if (!VIEWS.includes(name) || name === currentView) return;
+    viewScroll[currentView] = window.scrollY;      // simpan posisi scroll tab lama
     currentView = name;
-    ['Home','History','Schedule','Report'].forEach(v => $('view'+v).classList.toggle('hidden', v !== name));
-    document.querySelectorAll('.nav button[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === name));
-    window.scrollTo(0, 0);
+    VIEWS.forEach(v => $('view'+v).classList.toggle('hidden', v !== name));
+    document.querySelectorAll('.nav button[data-view]')
+      .forEach(b => b.classList.toggle('active', b.dataset.view === name));
+    window.scrollTo(0, viewScroll[name] || 0);     // balikin posisi scroll tab baru
+    if (push) history.pushState({ view: name }, '', '#' + name.toLowerCase());
   }
-  document.querySelectorAll('.nav button[data-view]').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
+
+  function showView(name) {
+    if (name === currentView) {                     // klik tab yang sama = balik ke atas
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    applyView(name, true);
+  }
+
+  document.querySelectorAll('.nav button[data-view]')
+    .forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
   $('seeAll').addEventListener('click', () => showView('History'));
   $('goSchedule').addEventListener('click', () => showView('Schedule'));
+
+  // Tombol back HP/Android: pindah tab dulu, bukan langsung keluar app
+  window.addEventListener('popstate', (e) => {
+    const openSheet = document.querySelector('.overlay.open');
+    if (openSheet) {                                // kalau ada sheet kebuka, back = tutup sheet
+      openSheet.classList.remove('open');
+      history.pushState({ view: currentView }, '', '#' + currentView.toLowerCase());
+      return;
+    }
+    applyView((e.state && e.state.view) || 'Home', false);
+  });
+
   document.querySelectorAll('#schedSeg button').forEach(b => b.addEventListener('click', () => { scheduleSeg = b.dataset.seg; renderSchedule(); }));
 
   const openOv = (id) => $(id).classList.add('open');
@@ -2108,6 +2147,16 @@
   // ---------- Init ----------
   load();
   applyTheme();
+
+  // Baca hash di URL (#home / #history / #schedule / #report) biar bisa di-bookmark
+  const initHash = (location.hash || '').replace('#','').toLowerCase();
+  const initView = VIEWS.find(v => v.toLowerCase() === initHash) || 'Home';
+  currentView = initView;
+  VIEWS.forEach(v => $('view'+v).classList.toggle('hidden', v !== initView));
+  document.querySelectorAll('.nav button[data-view]')
+    .forEach(b => b.classList.toggle('active', b.dataset.view === initView));
+  history.replaceState({ view: initView }, '', '#' + initView.toLowerCase());
+
   viewMonth = thisMonth();
   scheduleDate = todayStr();
   const nTx = runRecurring();
