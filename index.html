@@ -200,8 +200,8 @@
   .nav .spacer { flex: 1.1; }
 .fab {
   position: fixed;
-  /* Posisi di tengah navbar */
-  bottom: calc(30px + env(safe-area-inset-bottom));
+  /* KUNCI UTAMANYA DI SINI: Ubah angkanya jadi 15px atau 10px */
+  bottom: calc(15px + env(safe-area-inset-bottom)); 
   left: 50%;
   transform: translateX(-50%);
   
@@ -224,14 +224,12 @@
   font-size: 32px;
   font-weight: 500;
   
-  /* Bikin teks + pas di tengah */
   display: flex;
   align-items: center;
   justify-content: center;
   
-  /* HAPUS BORDER DAN BAYANGAN ANEH */
   border: none; 
-  box-shadow: 0 4px 12px rgba(20, 33, 61, 0.3); /* Bayangan hitam halus biasa */
+  box-shadow: 0 4px 12px rgba(20, 33, 61, 0.3);
   
   z-index: 30;
   transition: transform .12s, box-shadow .12s;
