@@ -19,6 +19,7 @@
     --gold-deep: #C99700;
     --in: #1F8A70;
     --out: #C8452D;
+    --transfer: #2563EB;
     --radius: 20px;
     --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
     --font-body: 'DM Sans', system-ui, sans-serif;
@@ -33,6 +34,7 @@
     --gold-deep: #F2B705;
     --in: #4CC9A6;
     --out: #FF7A5E;
+    --transfer: #60A5FA;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
@@ -50,6 +52,10 @@
   .icon-btn { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--card); border: 1px solid var(--line); font-size: 18px; }
   .icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
+  /* Month Selector */
+  .month-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px 0; font-family: var(--font-display); font-weight: 700; font-size: 15px; }
+  .month-bar button { width: 32px; height: 32px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; font-size: 14px; }
+
   /* Balance hero */
   .hero { margin: 10px 20px 0; padding: 26px 22px 22px; border-radius: 28px; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
   :root[data-theme="dark"] .hero { background: #1D2C4F; }
@@ -57,10 +63,10 @@
   .hero::before { content: ""; position: absolute; right: 30px; top: 30px; width: 56px; height: 56px; border-radius: 50%; background: var(--ink); z-index: 1; }
   :root[data-theme="dark"] .hero::before { background: #1D2C4F; }
   .hero small { color: #B9C2DA; font-size: 13px; }
-  .hero .balance { font-family: var(--font-display); font-weight: 800; font-size: 40px; letter-spacing: -0.03em; margin: 4px 0 18px; position: relative; z-index: 2; }
+  .hero .balance { font-family: var(--font-display); font-weight: 800; font-size: 36px; letter-spacing: -0.03em; margin: 4px 0 16px; position: relative; z-index: 2; }
   .hero .split { display: flex; gap: 10px; position: relative; z-index: 2; }
   .hero .pill { flex: 1; background: rgba(255,255,255,.09); border-radius: 14px; padding: 10px 12px; }
-  .hero .pill b { display: block; font-family: var(--font-display); font-size: 16px; margin-top: 2px; }
+  .hero .pill b { display: block; font-family: var(--font-display); font-size: 15px; margin-top: 2px; }
   .hero .pill.in b { color: #6FE0BE; }
   .hero .pill.out b { color: #FF9C86; }
 
@@ -86,6 +92,12 @@
   .bar > i.over { background: var(--out); }
   .budget p { font-size: 13px; color: var(--ink-soft); margin-top: 10px; }
 
+  /* Category budget items */
+  .cat-budgets { display: grid; gap: 10px; margin-top: 12px; }
+  .cat-b-item { background: var(--paper); padding: 10px 12px; border-radius: 12px; font-size: 13px; }
+  .cat-b-item .top-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 600; }
+  .cat-b-item .bar { height: 6px; }
+
   /* Category breakdown */
   .cats { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 12px; }
   .cat .head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
@@ -105,6 +117,7 @@
   .tx .amt { font-family: var(--font-display); font-weight: 700; font-size: 15px; white-space: nowrap; }
   .tx .amt.in { color: var(--in); }
   .tx .amt.out { color: var(--out); }
+  .tx .amt.transfer { color: var(--transfer); }
 
   .empty { text-align: center; padding: 34px 20px; background: var(--card); border: 1px dashed var(--line); border-radius: var(--radius); color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
   .empty b { display: block; color: var(--ink); font-family: var(--font-display); font-size: 17px; margin-bottom: 4px; }
@@ -127,10 +140,11 @@
   .sheet .grab { width: 44px; height: 5px; background: var(--line); border-radius: 9px; margin: 0 auto 16px; }
   .sheet h3 { font-family: var(--font-display); font-size: 20px; margin-bottom: 14px; }
 
-  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); border-radius: 14px; padding: 4px; margin-bottom: 16px; }
-  .seg button { padding: 10px; border-radius: 11px; font-weight: 600; font-size: 14px; color: var(--ink-soft); }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--paper); border-radius: 14px; padding: 4px; margin-bottom: 16px; gap: 4px; }
+  .seg button { padding: 10px 4px; border-radius: 11px; font-weight: 600; font-size: 13px; color: var(--ink-soft); text-align: center; }
   .seg button.on.out { background: var(--out); color: #fff; }
   .seg button.on.in { background: var(--in); color: #fff; }
+  .seg button.on.transfer { background: var(--transfer); color: #fff; }
 
   .amount-input { display: flex; align-items: baseline; gap: 8px; border-bottom: 2px solid var(--line); padding-bottom: 8px; margin-bottom: 18px; }
   .amount-input span { font-family: var(--font-display); font-size: 22px; color: var(--ink-soft); font-weight: 700; }
@@ -173,6 +187,12 @@
 
   <!-- ===== BERANDA ===== -->
   <main id="viewHome">
+    <div class="month-bar">
+      <button id="prevMonth" aria-label="Bulan sebelumnya">◀</button>
+      <span id="monthLabelDisplay">Bulan Ini</span>
+      <button id="nextMonth" aria-label="Bulan berikutnya">▶</button>
+    </div>
+
     <section class="hero">
       <small id="heroMonth">Saldo total</small>
       <div class="balance" id="totalBalance">Rp 0</div>
@@ -199,6 +219,7 @@
   <main id="viewHistory" class="hidden">
     <section class="section">
       <h2>Semua transaksi</h2>
+      <input class="field" id="searchTxInput" placeholder="Cari catatan, kategori, atau nominal..." style="margin-bottom: 12px;">
       <div class="chips" id="filterChips"></div>
       <div id="historyList"></div>
     </section>
@@ -252,12 +273,24 @@
     <div class="seg" id="typeSeg">
       <button data-type="out" class="on out">Pengeluaran</button>
       <button data-type="in">Pemasukan</button>
+      <button data-type="transfer">Transfer</button>
     </div>
     <div class="amount-input"><span>Rp</span><input id="amountInput" inputmode="numeric" placeholder="0" autocomplete="off"></div>
-    <span class="label">Kategori</span>
-    <div class="chips" id="catChips"></div>
-    <span class="label">Dompet</span>
-    <div class="chips" id="walletChips"></div>
+    
+    <div id="normalTxFields">
+      <span class="label">Kategori</span>
+      <div class="chips" id="catChips"></div>
+      <span class="label">Dompet</span>
+      <div class="chips" id="walletChips"></div>
+    </div>
+
+    <div id="transferTxFields" class="hidden">
+      <span class="label">Dari Dompet</span>
+      <div class="chips" id="walletFromChips"></div>
+      <span class="label">Ke Dompet</span>
+      <div class="chips" id="walletToChips"></div>
+    </div>
+
     <span class="label">Catatan (opsional)</span>
     <input class="field" id="noteInput" placeholder="Contoh: makan siang di warteg" maxlength="60">
     <span class="label">Tanggal</span>
@@ -274,6 +307,10 @@
     <h3 id="budgetTitle">Atur budget bulanan</h3>
     <div class="amount-input"><span>Rp</span><input id="budgetInput" inputmode="numeric" placeholder="0" autocomplete="off"></div>
     <p class="hint">Batas total pengeluaran per bulan. Isi 0 kalau mau matiin budget.</p>
+    
+    <span class="label">Budget Per Kategori (Opsional)</span>
+    <div id="categoryBudgetContainer" style="display:grid; gap:10px; margin-bottom: 16px;"></div>
+
     <button class="btn" id="saveBudget">Simpan budget</button>
   </div>
 </div>
@@ -297,7 +334,7 @@
 (() => {
   'use strict';
 
-  const KEY = 'sakukita:v1';
+  const KEY = 'sakukita:v2';
   const CATS = {
     out: [
       ['Makan', '🍜'], ['Transport', '🛵'], ['Belanja', '🛍'], ['Tagihan', '💡'],
@@ -308,6 +345,7 @@
     ]
   };
   const EMOJI = Object.fromEntries([...CATS.out, ...CATS.in]);
+  EMOJI['Transfer'] = '🔄';
 
   const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
   const ICON_SUN = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
@@ -323,6 +361,7 @@
     return {
       theme: 'light',
       budget: 0,
+      catBudgets: {}, // { "Makan": 1500000, ... }
       wallets: [
         { id: 'w_tunai', name: 'Tunai', start: 0 },
         { id: 'w_bank', name: 'Bank', start: 0 }
@@ -336,6 +375,7 @@
     try {
       const raw = localStorage.getItem(KEY);
       db = raw ? Object.assign(defaults(), JSON.parse(raw)) : defaults();
+      if(!db.catBudgets) db.catBudgets = {};
     } catch (e) {
       db = defaults();
     }
@@ -348,13 +388,20 @@
     }
   }
 
+  // ---------- State View Month ----------
+  let currentViewMonth = todayStr().slice(0, 7); // "YYYY-MM"
+
   // ---------- Helpers ----------
   const $ = (id) => document.getElementById(id);
   const rp = (n) => (n < 0 ? '-' : '') + 'Rp ' + Math.abs(Math.round(n)).toLocaleString('id-ID');
   const digits = (s) => Number(String(s).replace(/\D/g, '')) || 0;
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const monthKey = (dateStr) => dateStr.slice(0, 7);
-  const thisMonth = () => todayStr().slice(0, 7);
+
+  function formatMonthLabel(ym) {
+    const [y, m] = ym.split('-').map(Number);
+    return new Date(y, m - 1, 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+  }
 
   function niceDate(s) {
     const t = todayStr();
@@ -376,17 +423,33 @@
   }
 
   function walletBalance(w) {
-    return db.tx.filter((t) => t.wallet === w.id).reduce((s, t) => s + (t.type === 'in' ? t.amount : -t.amount), w.start);
+    let bal = w.start;
+    db.tx.forEach((t) => {
+      if (t.type === 'in' && t.wallet === w.id) bal += t.amount;
+      if (t.type === 'out' && t.wallet === w.id) bal -= t.amount;
+      if (t.type === 'transfer') {
+        if (t.wallet === w.id) bal -= t.amount;
+        if (t.walletTo === w.id) bal += t.amount;
+      }
+    });
+    return bal;
   }
   const walletName = (id) => (db.wallets.find((w) => w.id === id) || { name: 'Dompet dihapus' }).name;
 
   // ---------- Render ----------
   function txRow(t) {
     const emoji = EMOJI[t.cat] || '📦';
-    const sign = t.type === 'in' ? '+' : '-';
+    let sign = '';
+    let subText = `${esc(t.cat)} • ${esc(walletName(t.wallet))}`;
+    if (t.type === 'in') sign = '+';
+    else if (t.type === 'out') sign = '-';
+    else if (t.type === 'transfer') {
+      sign = '';
+      subText = `Transfer dari ${esc(walletName(t.wallet))} ke ${esc(walletName(t.walletTo))}`;
+    }
     return `<button class="tx" data-id="${t.id}">
       <div class="emoji">${emoji}</div>
-      <div class="meta"><b>${esc(t.note || t.cat)}</b><small>${esc(t.cat)} • ${esc(walletName(t.wallet))}</small></div>
+      <div class="meta"><b>${esc(t.note || t.cat)}</b><small>${subText}</small></div>
       <div class="amt ${t.type}">${sign}${rp(t.amount)}</div>
     </button>`;
   }
@@ -403,25 +466,26 @@
   const emptyBox = `<div class="empty"><b>Belum ada transaksi</b>Tekan tombol + di bawah buat catat pengeluaran atau pemasukan pertamamu.</div>`;
 
   function renderHome() {
+    $('monthLabelDisplay').textContent = formatMonthLabel(currentViewMonth);
     const total = db.wallets.reduce((s, w) => s + walletBalance(w), 0);
-    const m = thisMonth();
+    const m = currentViewMonth;
     const mtx = db.tx.filter((t) => monthKey(t.date) === m);
     const mIn = mtx.filter((t) => t.type === 'in').reduce((s, t) => s + t.amount, 0);
     const mOut = mtx.filter((t) => t.type === 'out').reduce((s, t) => s + t.amount, 0);
 
-    $('heroMonth').textContent = 'Saldo total • ' + new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    $('heroMonth').textContent = 'Saldo total • ' + formatMonthLabel(m);
     $('totalBalance').textContent = rp(total);
-    $('monthIn').textContent = rp(mIn);
-    $('monthOut').textContent = rp(mOut);
+    $('monthIn').textContent = rp(mIn);$('monthOut').textContent = rp(mOut);
 
     $('walletList').innerHTML = db.wallets.map((w) =>
       `<div class="wallet"><small>${esc(w.name)}</small><b>${rp(walletBalance(w))}</b></div>`
     ).join('');
 
-    // Budget
+    // Budget & Categories
     const bc = $('budgetCard');
+    let budgetHtml = '';
     if (!db.budget) {
-      bc.innerHTML = `<div class="row"><span>Belum ada budget</span></div><p style="margin-top:0">Atur batas pengeluaran bulanan biar jajan nggak kebablasan.</p>`;
+      budgetHtml = `<div class="row"><span>Belum ada budget</span></div><p style="margin-top:0">Atur batas pengeluaran bulanan biar jajan nggak kebablasan.</p>`;
     } else {
       const pct = Math.round((mOut / db.budget) * 100);
       const cls = pct >= 100 ? 'over' : pct >= 80 ? 'warn' : '';
@@ -431,24 +495,54 @@
         : pct >= 80
           ? `Hati-hati, ${pct}% budget udah kepake. Sisa ${rp(left)}.`
           : `Aman. Sisa ${rp(left)} buat bulan ini.`;
-      bc.innerHTML = `<div class="row"><b>${rp(mOut)}</b><span>dari ${rp(db.budget)}</span></div>
+      budgetHtml = `<div class="row"><b>${rp(mOut)}</b><span>dari ${rp(db.budget)}</span></div>
         <div class="bar"><i class="${cls}" style="width:${Math.min(pct, 100)}%"></i></div><p>${msg}</p>`;
     }
 
-    const recent = [...db.tx].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).slice(0, 5);
-    $('recentList').innerHTML = recent.length ? recent.map(txRow).join('') : emptyBox;
+    // Category Budgets breakdown
+    const catSpend = {};
+    mtx.filter(t => t.type === 'out').forEach(t => catSpend[t.cat] = (catSpend[t.cat] || 0) + t.amount);
+    
+    const activeCatBudgets = Object.entries(db.catBudgets || {}).filter(([c, lim]) => lim > 0);
+    if(activeCatBudgets.length > 0) {
+      budgetHtml += `<div class="cat-budgets">`;
+      activeCatBudgets.forEach(([cat, limit]) => {
+        const spent = catSpend[cat] || 0;
+        const cpct = Math.round((spent / limit) * 100);
+        const ccls = cpct >= 100 ? 'over' : cpct >= 80 ? 'warn' : '';
+        budgetHtml += `<div class="cat-b-item">
+          <div class="top-row"><span>${EMOJI[cat] || '📦'} ${cat}</span><span>${rp(spent)} / ${rp(limit)}</span></div>
+          <div class="bar"><i class="${ccls}" style="width:${Math.min(cpct, 100)}%"></i></div>
+        </div>`;
+      });
+      budgetHtml += `</div>`;
+    }
+    bc.innerHTML = budgetHtml;
+
+    const recent = [...mtx].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).slice(0, 5);
+    $('seeAll').style.display = mtx.length > 5 ? 'inline' : 'none';$('recentList').innerHTML = recent.length ? recent.map(txRow).join('') : emptyBox;
   }
 
   let filter = 'all';
   function renderHistory() {
-    const opts = [['all', 'Semua'], ['out', 'Pengeluaran'], ['in', 'Pemasukan']];
+    const opts = [['all', 'Semua'], ['out', 'Keluar'], ['in', 'Masuk'], ['transfer', 'Transfer']];
     $('filterChips').innerHTML = opts.map(([k, l]) => `<button class="chip ${filter === k ? 'on' : ''}" data-f="${k}">${l}</button>`).join('');
-    const list = db.tx.filter((t) => filter === 'all' || t.type === filter);
+    
+    const query = $('searchTxInput').value.toLowerCase().trim();
+    let list = db.tx.filter((t) => {
+      if (filter !== 'all' && t.type !== filter) return false;
+      if (!query) return true;
+      const matchNote = (t.note || '').toLowerCase().includes(query);
+      const matchCat = (t.cat || '').toLowerCase().includes(query);
+      const matchAmt = String(t.amount).includes(query);
+      return matchNote || matchCat || matchAmt;
+    });
+
     $('historyList').innerHTML = list.length ? groupedList(list) : emptyBox;
   }
 
   function renderReport() {
-    const m = thisMonth();
+    const m = currentViewMonth;
     const outs = db.tx.filter((t) => t.type === 'out' && monthKey(t.date) === m);
     const total = outs.reduce((s, t) => s + t.amount, 0);
     const by = {};
@@ -464,7 +558,7 @@
 
   function renderAll() { renderHome(); renderHistory(); renderReport(); }
 
-  // ---------- Navigation ----------
+  // ---------- Navigation & Month Switcher ----------
   function showView(name) {
     ['Home', 'History', 'Report'].forEach((v) => $('view' + v).classList.toggle('hidden', v !== name));
     document.querySelectorAll('.nav button[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
@@ -473,6 +567,23 @@
   document.querySelectorAll('.nav button[data-view]').forEach((b) => b.addEventListener('click', () => showView(b.dataset.view)));
   $('seeAll').addEventListener('click', () => showView('History'));
 
+  $('prevMonth').addEventListener('click', () => {
+    let [y, m] = currentViewMonth.split('-').map(Number);
+    m -= 1;
+    if (m < 1) { m = 12; y -= 1; }
+    currentViewMonth = `${y}-${String(m).padStart(2, '0')}`;
+    renderHome();
+    renderReport();
+  });
+  $('nextMonth').addEventListener('click', () => {
+    let [y, m] = currentViewMonth.split('-').map(Number);
+    m += 1;
+    if (m > 12) { m = 1; y += 1; }
+    currentViewMonth = `${y}-${String(m).padStart(2, '0')}`;
+    renderHome();
+    renderReport();
+  });
+
   // ---------- Overlays ----------
   function openOv(id) { $(id).classList.add('open'); }
   function closeOv(id) { $(id).classList.remove('open'); }
@@ -480,11 +591,20 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach((o) => o.classList.remove('open')); });
 
   // ---------- Transaction sheet ----------
-  let form = { id: null, type: 'out', cat: 'Makan', wallet: null };
+  let form = { id: null, type: 'out', cat: 'Makan', wallet: null, walletTo: null };
 
   function renderFormChips() {
-    $('catChips').innerHTML = CATS[form.type].map(([n, e]) => `<button class="chip ${form.cat === n ? 'on' : ''}" data-cat="${n}">${e} ${n}</button>`).join('');
-    $('walletChips').innerHTML = db.wallets.map((w) => `<button class="chip ${form.wallet === w.id ? 'on' : ''}" data-w="${w.id}">${esc(w.name)}</button>`).join('');
+    const isTransfer = form.type === 'transfer';
+    $('normalTxFields').classList.toggle('hidden', isTransfer);$('transferTxFields').classList.toggle('hidden', !isTransfer);
+
+    if (!isTransfer) {
+      $('catChips').innerHTML = CATS[form.type].map(([n, e]) => `<button class="chip ${form.cat === n ? 'on' : ''}" data-cat="${n}">${e} ${n}</button>`).join('');
+      $('walletChips').innerHTML = db.wallets.map((w) => `<button class="chip ${form.wallet === w.id ? 'on' : ''}" data-w="${w.id}">${esc(w.name)}</button>`).join('');
+    } else {
+      $('walletFromChips').innerHTML = db.wallets.map((w) => `<button class="chip ${form.wallet === w.id ? 'on' : ''}" data-wf="${w.id}">${esc(w.name)}</button>`).join('');
+      $('walletToChips').innerHTML = db.wallets.map((w) => `<button class="chip ${form.walletTo === w.id ? 'on' : ''}" data-wt="${w.id}">${esc(w.name)}</button>`).join('');
+    }
+
     document.querySelectorAll('#typeSeg button').forEach((b) => {
       const on = b.dataset.type === form.type;
       b.className = on ? 'on ' + form.type : '';
@@ -492,36 +612,41 @@
   }
 
   function openTx(tx) {
-    if (!db.wallets.length) { toast('Tambah dompet dulu lewat menu Dompet.'); return; }
+    if (db.wallets.length < (form.type === 'transfer' ? 2 : 1)) { 
+      toast(form.type === 'transfer' ? 'Butuh minimal 2 dompet untuk transfer.' : 'Tambah dompet dulu.'); 
+      return; 
+    }
     if (tx) {
-      form = { id: tx.id, type: tx.type, cat: tx.cat, wallet: tx.wallet };
-      $('txTitle').textContent = 'Ubah transaksi';
-      $('amountInput').value = tx.amount.toLocaleString('id-ID');
-      $('noteInput').value = tx.note || '';
-      $('dateInput').value = tx.date;
+      form = { id: tx.id, type: tx.type, cat: tx.cat || 'Transfer', wallet: tx.wallet, walletTo: tx.walletTo || null };
+      $('txTitle').textContent = 'Ubah transaksi';$('amountInput').value = tx.amount.toLocaleString('id-ID');
+      $('noteInput').value = tx.note \vert{}\vert{} '';$('dateInput').value = tx.date;
       $('deleteTx').classList.remove('hidden');
     } else {
-      form = { id: null, type: 'out', cat: 'Makan', wallet: db.wallets[0].id };
+      form = { id: null, type: 'out', cat: 'Makan', wallet: db.wallets[0].id, walletTo: db.wallets[1] ? db.wallets[1].id : db.wallets[0].id };
       $('txTitle').textContent = 'Catat transaksi';
-      $('amountInput').value = '';
-      $('noteInput').value = '';
-      $('dateInput').value = todayStr();
-      $('deleteTx').classList.add('hidden');
+      $('amountInput').value = '';$('noteInput').value = '';
+      $('dateInput').value = todayStr();$('deleteTx').classList.add('hidden');
     }
     renderFormChips();
     openOv('txOverlay');
     setTimeout(() => $('amountInput').focus(), 120);
   }
 
-  $('fab').addEventListener('click', () => openTx());
-  $('typeSeg').addEventListener('click', (e) => {
+  $('fab').addEventListener('click', () => openTx());$('typeSeg').addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;
     form.type = b.dataset.type;
-    form.cat = CATS[form.type][0][0];
+    if (form.type === 'transfer') {
+      form.cat = 'Transfer';
+      if(db.wallets.length >= 2 && form.wallet === form.walletTo) {
+        form.walletTo = db.wallets.find(w => w.id !== form.wallet)?.id || db.wallets[0].id;
+      }
+    } else {
+      form.cat = CATS[form.type][0][0];
+    }
     renderFormChips();
   });
-  $('catChips').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (b) { form.cat = b.dataset.cat; renderFormChips(); } });
-  $('walletChips').addEventListener('click', (e) => { const b = e.target.closest('[data-w]'); if (b) { form.wallet = b.dataset.w; renderFormChips(); } });
+  $('catChips').addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (b) { form.cat = b.dataset.cat; renderFormChips(); } });$('walletChips').addEventListener('click', (e) => { const b = e.target.closest('[data-w]'); if (b) { form.wallet = b.dataset.w; renderFormChips(); } });
+  $('walletFromChips').addEventListener('click', (e) => { const b = e.target.closest('[data-wf]'); if (b) { form.wallet = b.dataset.wf; renderFormChips(); } });$('walletToChips').addEventListener('click', (e) => { const b = e.target.closest('[data-wt]'); if (b) { form.walletTo = b.dataset.wt; renderFormChips(); } });
 
   function bindMoneyInput(el) {
     el.addEventListener('input', () => {
@@ -534,16 +659,29 @@
   $('saveTx').addEventListener('click', () => {
     const amount = digits($('amountInput').value);
     if (!amount) { toast('Isi nominalnya dulu ya.'); $('amountInput').focus(); return; }
-    if (!form.wallet) { toast('Pilih dompet dulu.'); return; }
+    if (form.type === 'transfer' && form.wallet === form.walletTo) { toast('Dompet asal dan tujuan tidak boleh sama.'); return; }
+    
     const date = $('dateInput').value || todayStr();
     const note = $('noteInput').value.trim();
+    
+    const payload = {
+      id: form.id || uid(),
+      type: form.type,
+      cat: form.type === 'transfer' ? 'Transfer' : form.cat,
+      wallet: form.wallet,
+      walletTo: form.type === 'transfer' ? form.walletTo : undefined,
+      amount,
+      note,
+      date
+    };
+
     if (form.id) {
       const t = db.tx.find((x) => x.id === form.id);
-      Object.assign(t, { type: form.type, cat: form.cat, wallet: form.wallet, amount, note, date });
+      Object.assign(t, payload);
       toast('Transaksi diperbarui');
     } else {
-      db.tx.push({ id: uid(), type: form.type, cat: form.cat, wallet: form.wallet, amount, note, date });
-      toast(form.type === 'in' ? 'Pemasukan tersimpan' : 'Pengeluaran tersimpan');
+      db.tx.push(payload);
+      toast(form.type === 'in' ? 'Pemasukan tersimpan' : form.type === 'out' ? 'Pengeluaran tersimpan' : 'Transfer tersimpan');
     }
     save(); renderAll(); closeOv('txOverlay');
   });
@@ -561,16 +699,38 @@
     if (f) { filter = f.dataset.f; renderHistory(); }
   });
 
-  // ---------- Budget ----------
-  $('editBudget').addEventListener('click', () => {
-    $('budgetInput').value = db.budget ? db.budget.toLocaleString('id-ID') : '';
+  $('searchTxInput').addEventListener('input', () => renderHistory());
+
+  // ---------- Budget & Category Budgets ----------
+  function renderCategoryBudgetInputs() {
+    const cbc = $('categoryBudgetContainer');
+    cbc.innerHTML = CATS.out.map(([cat, emoji]) => {
+      const val = db.catBudgets[cat] ? db.catBudgets[cat].toLocaleString('id-ID') : '';
+      return `<div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:14px; width:110px;">${emoji} ${cat}</span>
+        <div class="amount-input" style="flex:1; margin-bottom:0; padding-bottom:4px;">
+          <span>Rp</span><input class="cat-b-input" data-cat="${cat}" inputmode="numeric" value="${val}" placeholder="0" autocomplete="off">
+        </div>
+      </div>`;
+    }).join('');
+    cbc.querySelectorAll('.cat-b-input').forEach(el => bindMoneyInput(el));
+  }
+
+  $('editBudget').addEventListener('click', () => {$('budgetInput').value = db.budget ? db.budget.toLocaleString('id-ID') : '';
+    renderCategoryBudgetInputs();
     openOv('budgetOverlay');
     setTimeout(() => $('budgetInput').focus(), 120);
   });
+
   $('saveBudget').addEventListener('click', () => {
     db.budget = digits($('budgetInput').value);
+    db.catBudgets = {};
+    document.querySelectorAll('.cat-b-input').forEach(inp => {
+      const limit = digits(inp.value);
+      if(limit > 0) db.catBudgets[inp.dataset.cat] = limit;
+    });
     save(); renderHome(); closeOv('budgetOverlay');
-    toast(db.budget ? 'Budget disimpan' : 'Budget dimatikan');
+    toast('Budget disimpan');
   });
 
   // ---------- Wallets ----------
@@ -581,22 +741,21 @@
         <button class="chip" data-delw="${w.id}" style="color:var(--out)">Hapus</button></div>`
     ).join('') || '<p class="hint">Belum ada dompet.</p>';
   }
-  $('walletNavBtn').addEventListener('click', () => { renderWalletManage(); openOv('walletOverlay'); });
-  $('walletManage').addEventListener('click', (e) => {
+  $('walletNavBtn').addEventListener('click', () => { renderWalletManage(); openOv('walletOverlay'); });$('walletManage').addEventListener('click', (e) => {
     const b = e.target.closest('[data-delw]'); if (!b) return;
     const id = b.dataset.delw;
-    const used = db.tx.some((t) => t.wallet === id);
+    const used = db.tx.some((t) => t.wallet === id || t.walletTo === id);
     const msg = used ? 'Dompet ini punya transaksi. Kalau dihapus, transaksinya ikut terhapus. Lanjut?' : 'Hapus dompet ini?';
     if (!confirm(msg)) return;
     db.wallets = db.wallets.filter((w) => w.id !== id);
-    db.tx = db.tx.filter((t) => t.wallet !== id);
+    db.tx = db.tx.filter((t) => t.wallet !== id && t.walletTo !== id);
     save(); renderWalletManage(); renderAll(); toast('Dompet dihapus');
   });
   $('addWallet').addEventListener('click', () => {
     const name = $('newWalletName').value.trim();
     if (!name) { toast('Isi nama dompetnya dulu.'); return; }
     db.wallets.push({ id: 'w_' + uid(), name, start: digits($('newWalletBal').value) });
-    $('newWalletName').value = ''; $('newWalletBal').value = '';
+    $('newWalletName').value = '';$('newWalletBal').value = '';
     save(); renderWalletManage(); renderAll(); toast('Dompet ditambahkan');
   });
 
@@ -618,8 +777,7 @@
     URL.revokeObjectURL(a.href);
     toast('Backup diunduh');
   });
-  $('importBtn').addEventListener('click', () => $('importFile').click());
-  $('importFile').addEventListener('change', (e) => {
+  $('importBtn').addEventListener('click', () => $('importFile').click());$('importFile').addEventListener('change', (e) => {
     const file = e.target.files[0]; if (!file) return;
     const r = new FileReader();
     r.onload = () => {
