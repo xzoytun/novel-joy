@@ -48,10 +48,7 @@
   .hero::before { content: ""; position: absolute; right: 30px; top: 30px; width: 56px; height: 56px; border-radius: 50%; background: var(--ink); z-index: 1; }
   :root[data-theme="dark"] .hero::before { background: #1D2C4F; }
   .hero small { color: #B9C2DA; font-size: 13px; }
-  .hero .balance { font-family: var(--font-display); font-weight: 800; font-size: 40px; letter-spacing: -0.03em; margin: 4px 0 18px; position: relative; z-index: 2; display: flex; align-items: center; gap: 12px; }
-  .hero .balance span { flex: 1; min-width: 0; }
-  .hero .balance .eye-btn { font-size: 16px; background: rgba(255,255,255,.12); width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; color: #fff; transition: transform .12s; }
-  .hero .balance .eye-btn:active { transform: scale(.92); }
+  .hero .balance { font-family: var(--font-display); font-weight: 800; font-size: 40px; letter-spacing: -0.03em; margin: 4px 0 18px; position: relative; z-index: 2; }
   .hero .split { display: flex; gap: 10px; position: relative; z-index: 2; }
   .hero .pill { flex: 1; background: rgba(255,255,255,.09); border-radius: 14px; padding: 10px 12px; }
   .hero .pill b { display: block; font-family: var(--font-display); font-size: 16px; margin-top: 2px; }
@@ -284,7 +281,6 @@
   .pin-input.error { animation: shake .35s; border-color: var(--out); }
   @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-7px); } 40%,80% { transform: translateX(7px); } }
   .pin-err { color: var(--out); font-size: 12.5px; min-height: 18px; margin-bottom: 6px; font-weight: 600; }
-  .pin-ok { color: var(--in); font-size: 12.5px; min-height: 18px; margin-bottom: 6px; font-weight: 600; }
 
   .toast { position: fixed; left: 50%; bottom: 110px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 14px; font-size: 14px; font-weight: 500; opacity: 0; pointer-events: none; transition: .25s; z-index: 60; max-width: 90%; text-align: center; }
   :root[data-theme="dark"] .toast { background: var(--gold); color: #14213D; }
@@ -333,10 +329,7 @@
 
     <section class="hero">
       <small>Saldo total</small>
-      <div class="balance">
-        <span id="totalBalance">Rp 0</span>
-        <button class="eye-btn" id="hideBalBtn" aria-label="Sembunyikan saldo">👁</button>
-      </div>
+      <div class="balance" id="totalBalance">Rp 0</div>
       <div class="split">
         <div class="pill in"><small>Masuk</small><b id="monthIn">Rp 0</b></div>
         <div class="pill out"><small>Keluar</small><b id="monthOut">Rp 0</b></div>
@@ -728,7 +721,6 @@
     <div class="grab"></div>
     <h3 id="pinTitle">Kunci aplikasi</h3>
 
-    <!-- STATE: not set -->
     <div id="pinSetupBlock">
       <p class="hint" style="margin-top:0">Buat PIN 4–6 digit. Setiap kali app dibuka, PIN ini diminta dulu. Ini pengaman tampilan, bukan enkripsi — data tetap bisa dibaca lewat DevTools kalau seseorang menguasai perangkatmu.</p>
       <span class="label">PIN baru</span>
@@ -739,7 +731,6 @@
       <button class="btn" id="pinSave">Aktifkan PIN</button>
     </div>
 
-    <!-- STATE: already set -->
     <div id="pinManageBlock" class="hidden">
       <p class="hint" style="margin-top:0">PIN aktif di perangkat ini. Kamu bisa ganti atau mematikannya.</p>
       <button class="btn plain" id="pinChange">Ganti PIN</button>
@@ -903,7 +894,6 @@
   const rEndMin = (r) => { const s = t2m(r.start), e = t2m(r.end); return e <= s ? e + 1440 : e; };
   const rDuration = (r) => rEndMin(r) - rStartMin(r);
 
-  // Simple PIN hash — NOT cryptographic. Honest deterrent only.
   function hashPin(pin) {
     let h = 5381;
     const s = 'sakukita-pin-salt-v1|' + String(pin);
@@ -936,7 +926,6 @@
       routines: [], routineLog: {}, routineExpense: {},
       notified: {},
       pinHash: null,
-      hideBalance: false,
       lastBackup: null
     };
   }
@@ -1079,20 +1068,19 @@
   }
 
   // ---------- Render: transactions ----------
-  const rpBal = (n) => db.hideBalance ? 'Rp ••••••' : rp(n);
   function txRow(t) {
     if (t.type === 'transfer') {
       return `<button class="tx" data-id="${t.id}">
         <div class="emoji">🔄</div>
         <div class="meta"><b>${esc(t.note || 'Transfer')}</b><small>${esc(walletName(t.wallet))} → ${esc(walletName(t.toWallet))}${t.rec ? ' • 🔁' : ''}</small></div>
-        <div class="amt">${db.hideBalance ? '•••' : rp(t.amount)}</div></button>`;
+        <div class="amt">${rp(t.amount)}</div></button>`;
     }
     const emoji = EMOJI[t.cat] || '📦';
     const sign = t.type === 'in' ? '+' : '-';
     return `<button class="tx" data-id="${t.id}">
       <div class="emoji">${emoji}</div>
       <div class="meta"><b>${esc(t.note || t.cat)}</b><small>${esc(t.cat)} • ${esc(walletName(t.wallet))}${t.rec ? ' • 🔁' : ''}</small></div>
-      <div class="amt ${t.type}">${db.hideBalance ? '•••' : sign + rp(t.amount)}</div></button>`;
+      <div class="amt ${t.type}">${sign}${rp(t.amount)}</div></button>`;
   }
   function groupedList(list) {
     const sorted = [...list].sort((a,b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
@@ -1140,13 +1128,12 @@
     const mIn = mtx.filter(t => t.type === 'in').reduce((s,t) => s + t.amount, 0);
     const mOut = mtx.filter(t => t.type === 'out').reduce((s,t) => s + t.amount, 0);
 
-    $('totalBalance').textContent = rpBal(total);
-    $('monthIn').textContent = db.hideBalance ? '•••' : rp(mIn);
-    $('monthOut').textContent = db.hideBalance ? '•••' : rp(mOut);
-    $('hideBalBtn').textContent = db.hideBalance ? '🙈' : '👁';
+    $('totalBalance').textContent = rp(total);
+    $('monthIn').textContent = rp(mIn);
+    $('monthOut').textContent = rp(mOut);
 
     $('walletList').innerHTML = db.wallets.map(w =>
-      `<div class="wallet"><small>${esc(w.name)}</small><b>${db.hideBalance ? '•••' : rp(walletBalance(w))}</b></div>`
+      `<div class="wallet"><small>${esc(w.name)}</small><b>${rp(walletBalance(w))}</b></div>`
     ).join('');
 
     renderBackupReminder();
@@ -1180,7 +1167,7 @@
     if (next) html += `<div class="nextline">⏭ Berikutnya: <b>${esc(next.title)}</b> jam ${next.start}</div>`;
     html += `<div class="divline"></div>`;
     html += `<div class="home-row"><span>Tugas hari ini</span><b>${doneTasks} / ${tasks.length}</b></div>`;
-    if (totalCost > 0) html += `<div class="home-row"><span>Estimasi uang keluar</span><b>${db.hideBalance ? '•••' : rp(totalCost)}</b></div>`;
+    if (totalCost > 0) html += `<div class="home-row"><span>Estimasi uang keluar</span><b>${rp(totalCost)}</b></div>`;
     c.innerHTML = html;
 
     const bc = $('budgetCard');
@@ -1934,13 +1921,6 @@
   $('aboutBtn').addEventListener('click', openAbout);
   $('aboutBtn2').addEventListener('click', openAbout);
 
-  // ---------- Hide balance ----------
-  $('hideBalBtn').addEventListener('click', () => {
-    db.hideBalance = !db.hideBalance;
-    save(); renderAll();
-    toast(db.hideBalance ? 'Saldo disembunyikan' : 'Saldo ditampilkan');
-  });
-
   // ---------- PIN ----------
   function renderPinSheet() {
     if (db.pinHash) {
@@ -1969,7 +1949,6 @@
   });
 
   $('pinChange').addEventListener('click', () => {
-    // require current PIN first, then open setup
     $('pinVerify').value = '';
     $('pinVerifyErr').textContent = '';
     pendingPinAction = 'change';
@@ -2007,7 +1986,6 @@
     pendingPinAction = null;
   });
 
-  // PIN lock screen
   function showPinLock() {
     $('pinLock').classList.add('open');
     $('pinLockInput').value = '';
